@@ -13,7 +13,7 @@ public class Constants {
         return User.builder().id(10000).build();
     }
 
-    public static UserResource userResource() {
+    private static UserResource userResource() {
         return new UserResource(user());
     }
 
