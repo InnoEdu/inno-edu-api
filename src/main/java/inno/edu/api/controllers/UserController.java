@@ -32,7 +32,7 @@ public class UserController {
 
     @GetMapping
     @ResponseStatus(OK)
-    public Resources<UserResource> users() {
+    public Resources<UserResource> all() {
         List<UserResource> users = stream(userRepository.findAll())
                 .map(UserResource::new)
                 .collect(toList());
