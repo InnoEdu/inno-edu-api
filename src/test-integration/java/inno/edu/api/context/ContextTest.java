@@ -1,6 +1,6 @@
 package inno.edu.api.context;
 
-import inno.edu.api.IntegrationTest;
+import inno.edu.api.ApiTest;
 import inno.edu.api.controllers.UserController;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
-public class ContextTest extends IntegrationTest {
+public class ContextTest extends ApiTest {
     @Autowired
     private UserController userController;
 

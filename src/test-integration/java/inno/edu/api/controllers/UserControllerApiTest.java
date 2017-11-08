@@ -1,9 +1,11 @@
-package inno.edu.api.features;
+package inno.edu.api.controllers;
 
-import inno.edu.api.IntegrationTest;
+import inno.edu.api.ApiTest;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
+import static inno.edu.api.common.Builders.user;
+import static inno.edu.api.common.Builders.userPayload;
 import static java.lang.String.format;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -12,30 +14,30 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class UserManagement extends IntegrationTest {
+public class UserControllerApiTest extends ApiTest {
     @Test
     public void shouldListUsers() throws Exception {
         this.mockMvc.perform(get("/api/users")).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.userResourceList[0].id", is("841b43e1-08be-4401-968f-6ee45370a973")))
-                .andExpect(jsonPath("$._embedded.userResourceList[0].firstName", is("Dave")))
-                .andExpect(jsonPath("$._embedded.userResourceList[0].lastName", is("Syer")));
+                .andExpect(jsonPath("$._embedded.userResourceList[0].id", is(user().getId().toString())))
+                .andExpect(jsonPath("$._embedded.userResourceList[0].firstName", is(user().getFirstName())))
+                .andExpect(jsonPath("$._embedded.userResourceList[0].lastName", is(user().getLastName())));
     }
 
     @Test
     public void shouldGetUserById() throws Exception {
-        this.mockMvc.perform(get("/api/users/841b43e1-08be-4401-968f-6ee45370a973")).andDo(print())
+        this.mockMvc.perform(get("/api/users/" + user().getId().toString())).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is("841b43e1-08be-4401-968f-6ee45370a973")))
-                .andExpect(jsonPath("$.firstName", is("Dave")))
-                .andExpect(jsonPath("$.lastName", is("Syer")));
+                .andExpect(jsonPath("$.id", is(is(user().getId().toString()))))
+                .andExpect(jsonPath("$.firstName", is(user().getFirstName())))
+                .andExpect(jsonPath("$.lastName", is(user().getLastName())));
     }
 
     @Test
     public void shouldCreateNewUser() throws Exception {
         this.mockMvc.perform(
                 post("/api/users")
-                        .content(format("{\"firstName\": \"%s\", \"lastName\": \"%s\"}", "Gustavo", "Domenico"))
+                        .content(format(userPayload(), user().getFirstName(), user().getLastName()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated());

@@ -15,7 +15,7 @@ public class SwaggerConfiguration {
     public Docket awesomeApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(basePackage("inno.edu.api.controllers"))
+                .apis(basePackage("inno.edu.controllers.controllers"))
                 .build();
 
     }
