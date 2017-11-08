@@ -7,10 +7,11 @@ import org.springframework.hateoas.Resources;
 import java.util.List;
 
 import static java.util.Collections.singletonList;
+import static java.util.UUID.fromString;
 
 public class Builders {
     public static User user() {
-        return User.builder().id(10000).build();
+        return User.builder().id(fromString("841b43e1-08be-4401-968f-6ee45370a973")).build();
     }
 
     private static UserResource userResource() {

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static com.google.common.collect.Streams.stream;
 import static java.lang.String.valueOf;
@@ -47,7 +48,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     @ResponseStatus(OK)
-    public UserResource get(@PathVariable long id) {
+    public UserResource get(@PathVariable UUID id) {
         Optional<User> user = ofNullable(userRepository.findOne(id));
         return new UserResource(user.orElseThrow(() -> new UserNotFoundException(valueOf(id))));
     }

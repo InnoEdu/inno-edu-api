@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -15,7 +16,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 public class User {
     @Id
-    private long id;
+    private UUID id;
 
     private String firstName;
     private String lastName;
