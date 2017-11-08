@@ -8,7 +8,7 @@ import java.util.List;
 
 import static java.util.Collections.singletonList;
 
-public class Constants {
+public class Builders {
     public static User user() {
         return User.builder().id(10000).build();
     }
