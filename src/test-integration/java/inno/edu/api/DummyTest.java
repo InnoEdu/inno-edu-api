@@ -8,7 +8,7 @@ import static org.junit.Assert.assertThat;
 public class DummyTest {
 
     @Test
-    public void getMessage_ShouldReturnMessage() {
+    public void dummyTest() {
         assertThat("Hello World!", is("Hello World!"));
     }
 }

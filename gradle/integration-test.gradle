@@ -1,27 +1,27 @@
 sourceSets {
-    integrationTest {
+    testIntegration {
         java {
             compileClasspath += main.output + test.output
             runtimeClasspath += main.output + test.output
-            srcDir file('src/integration-test/java')
+            srcDir file('src/test-integration/java')
         }
-        resources.srcDir file('src/integration-test/resources')
+        resources.srcDir file('src/test-integration/resources')
     }
 }
 
 configurations {
-    integrationTestCompile.extendsFrom testCompile
-    integrationTestRuntime.extendsFrom testRuntime
+    testIntegrationCompile.extendsFrom testCompile
+    testIntegrationRuntime.extendsFrom testRuntime
 }
 
-task integrationTest(type: Test) {
-    testClassesDirs = sourceSets.integrationTest.output.classesDirs
-    classpath = sourceSets.integrationTest.runtimeClasspath
+task testIntegration(type: Test) {
+    testClassesDirs = sourceSets.testIntegration.output.classesDirs
+    classpath = sourceSets.testIntegration.runtimeClasspath
     outputs.upToDateWhen { false }
 }
 
-check.dependsOn integrationTest
-integrationTest.mustRunAfter test
+check.dependsOn testIntegration
+testIntegration.mustRunAfter test
 
 tasks.withType(Test) {
     reports.html.destination = file("${reporting.baseDir}/${name}")
