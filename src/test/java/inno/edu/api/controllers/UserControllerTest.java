@@ -2,6 +2,7 @@ package inno.edu.api.controllers;
 
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.UserResource;
+import inno.edu.api.domain.user.exceptions.UserNotFoundException;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +20,7 @@ import static inno.edu.api.common.Constants.users;
 import static inno.edu.api.common.Constants.usersResource;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
@@ -46,6 +48,13 @@ public class UserControllerTest {
         UserResource userResource = userController.get(user().getId());
 
         assertThat(userResource.getUser(), is(user()));
+    }
+
+    @Test(expected = UserNotFoundException.class)
+    public void shouldRaiseExceptionIfUserNotFound() {
+        when(userRepository.findOne(any())).thenReturn(null);
+
+        userController.get(user().getId());
     }
 
     @Test
