@@ -23,4 +23,5 @@ repositories {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+apply from: 'gradle/integration-test.gradle'
 apply from: 'gradle/dependencies.gradle'
