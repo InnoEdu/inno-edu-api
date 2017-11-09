@@ -12,7 +12,7 @@ import static springfox.documentation.builders.RequestHandlerSelectors.basePacka
 @EnableSwagger2
 public class SwaggerConfiguration {
     @Bean
-    public Docket awesomeApi() {
+    public Docket swagger() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(basePackage("inno.edu.api.controllers"))
