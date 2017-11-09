@@ -6,6 +6,7 @@ import inno.edu.api.domain.user.models.User;
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 
@@ -25,6 +26,10 @@ public class UserResource extends ResourceSupport {
 
     public ResponseEntity<?> createEntity() {
         return ResponseEntity.created(URI.create(getLink("self").getHref())).build();
+    }
 
+    public ResponseEntity<?> updateEntity() {
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
+        return ResponseEntity.created(uri).body(user);
     }
 }

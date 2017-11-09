@@ -72,7 +72,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void shouldSaveNewUser() {
+    public void shouldCreateNewUser() {
         ArgumentCaptor<User> argumentCaptor = forClass(User.class);
         when(userRepository.save(argumentCaptor.capture())).thenReturn(user());
 
@@ -80,4 +80,17 @@ public class UserControllerTest {
 
         verify(userRepository).save(argumentCaptor.capture());
     }
+
+    @Test
+    public void shouldUpdateNewUser() {
+        ArgumentCaptor<User> argumentCaptor = forClass(User.class);
+
+        when(userRepository.findOne(user().getId())).thenReturn(user());
+        when(userRepository.save(argumentCaptor.capture())).thenReturn(user());
+
+        userController.put(user().getId(), user());
+
+        verify(userRepository).save(argumentCaptor.capture());
+    }
+
 }

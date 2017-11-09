@@ -11,7 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-@Sql(scripts = "classpath:db/SetUpDatabase.sql")
+@Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = "classpath:db/SetUpDatabase.sql")
 public abstract class ApiTest {
 
     @Autowired

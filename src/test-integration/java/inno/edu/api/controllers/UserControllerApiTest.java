@@ -4,12 +4,14 @@ import inno.edu.api.ApiTest;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
+import static inno.edu.api.common.Builders.otherUser;
 import static inno.edu.api.common.Builders.user;
 import static inno.edu.api.common.Builders.userPayload;
 import static java.lang.String.format;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -42,4 +44,18 @@ public class UserControllerApiTest extends ApiTest {
                 .andDo(print())
                 .andExpect(status().isCreated());
     }
+
+    @Test
+    public void shouldUpdateUser() throws Exception {
+        this.mockMvc.perform(
+                put("/api/users/" + user().getId())
+                        .content(format(userPayload(), otherUser().getFirstName(), otherUser().getLastName()))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id", is(is(user().getId().toString()))))
+                .andExpect(jsonPath("$.firstName", is(otherUser().getFirstName())))
+                .andExpect(jsonPath("$.lastName", is(otherUser().getLastName())));
+    }
+
 }

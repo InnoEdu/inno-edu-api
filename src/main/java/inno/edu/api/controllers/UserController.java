@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +21,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static com.google.common.collect.Streams.stream;
-import static java.lang.String.valueOf;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
 
@@ -49,7 +49,7 @@ public class UserController {
     @GetMapping("/{id}")
     public UserResource get(@PathVariable UUID id) {
         Optional<User> user = ofNullable(userRepository.findOne(id));
-        return new UserResource(user.orElseThrow(() -> new UserNotFoundException(valueOf(id))));
+        return new UserResource(user.orElseThrow(() -> new UserNotFoundException(id)));
     }
 
     @PostMapping
@@ -60,4 +60,16 @@ public class UserController {
         return userResource.createEntity();
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> put(@PathVariable UUID id, @RequestBody User user) {
+        User currentUser = ofNullable(userRepository.findOne(id))
+                .orElseThrow(() -> new UserNotFoundException(id));
+
+        currentUser.setId(id);
+        currentUser.setFirstName(user.getFirstName());
+        currentUser.setLastName(user.getLastName());
+
+        UserResource userResource = new UserResource(userRepository.save(currentUser));
+        return userResource.updateEntity();
+    }
 }
