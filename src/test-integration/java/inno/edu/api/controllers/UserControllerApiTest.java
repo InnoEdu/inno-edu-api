@@ -4,10 +4,10 @@ import inno.edu.api.ApiTest;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
-import static inno.edu.api.common.ModelFactories.otherUser;
-import static inno.edu.api.common.ModelFactories.updatedUser;
-import static inno.edu.api.common.ModelFactories.user;
-import static inno.edu.api.common.ModelFactories.userPayload;
+import static inno.edu.api.factories.UserFactory.otherUser;
+import static inno.edu.api.factories.UserFactory.updatedUser;
+import static inno.edu.api.factories.UserFactory.user;
+import static inno.edu.api.factories.UserFactory.userPayload;
 import static java.lang.String.format;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;

@@ -9,8 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static inno.edu.api.common.ModelFactories.updatedUser;
-import static inno.edu.api.common.ModelFactories.user;
+import static inno.edu.api.factories.UserFactory.updatedUser;
+import static inno.edu.api.factories.UserFactory.user;
 import static java.util.UUID.randomUUID;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
