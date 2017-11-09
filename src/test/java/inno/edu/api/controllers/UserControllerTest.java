@@ -19,9 +19,9 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import static inno.edu.api.common.Builders.user;
-import static inno.edu.api.common.Builders.users;
-import static inno.edu.api.common.Builders.usersResource;
+import static inno.edu.api.common.ModelFactories.user;
+import static inno.edu.api.common.ModelFactories.users;
+import static inno.edu.api.common.ModelFactories.usersResource;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentCaptor.forClass;

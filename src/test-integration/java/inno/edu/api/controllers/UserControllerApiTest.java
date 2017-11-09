@@ -4,10 +4,12 @@ import inno.edu.api.ApiTest;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
-import static inno.edu.api.common.Builders.otherUser;
-import static inno.edu.api.common.Builders.user;
-import static inno.edu.api.common.Builders.userPayload;
+import static inno.edu.api.common.ModelFactories.otherUser;
+import static inno.edu.api.common.ModelFactories.updatedUser;
+import static inno.edu.api.common.ModelFactories.user;
+import static inno.edu.api.common.ModelFactories.userPayload;
 import static java.lang.String.format;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -22,9 +24,9 @@ public class UserControllerApiTest extends ApiTest {
     public void shouldListUsers() throws Exception {
         this.mockMvc.perform(get("/api/users")).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.userResourceList[0].id", is(user().getId().toString())))
-                .andExpect(jsonPath("$._embedded.userResourceList[0].firstName", is(user().getFirstName())))
-                .andExpect(jsonPath("$._embedded.userResourceList[0].lastName", is(user().getLastName())));
+                .andExpect(jsonPath("$._embedded.userResourceList[*].id", containsInAnyOrder(user().getId().toString(), otherUser().getId().toString())))
+                .andExpect(jsonPath("$._embedded.userResourceList[*].firstName", containsInAnyOrder(user().getFirstName(), otherUser().getFirstName())))
+                .andExpect(jsonPath("$._embedded.userResourceList[*].lastName", containsInAnyOrder(user().getLastName(), otherUser().getLastName())));
     }
 
     @Test
@@ -50,13 +52,13 @@ public class UserControllerApiTest extends ApiTest {
     public void shouldUpdateUser() throws Exception {
         this.mockMvc.perform(
                 put("/api/users/" + user().getId())
-                        .content(format(userPayload(), otherUser().getFirstName(), otherUser().getLastName()))
+                        .content(format(userPayload(), updatedUser().getFirstName(), updatedUser().getLastName()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", is(is(user().getId().toString()))))
-                .andExpect(jsonPath("$.firstName", is(otherUser().getFirstName())))
-                .andExpect(jsonPath("$.lastName", is(otherUser().getLastName())));
+                .andExpect(jsonPath("$.firstName", is(updatedUser().getFirstName())))
+                .andExpect(jsonPath("$.lastName", is(updatedUser().getLastName())));
     }
 
     @Test
