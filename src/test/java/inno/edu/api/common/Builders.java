@@ -14,6 +14,10 @@ public class Builders {
         return User.builder().id(fromString("841b43e1-08be-4401-968f-6ee45370a973")).build();
     }
 
+    public static User updatedUser() {
+        return User.builder().id(fromString("841b43e1-08be-4401-968f-6ee45370a973")).firstName("UpdatedUser").build();
+    }
+
     private static UserResource userResource() {
         return new UserResource(user());
     }

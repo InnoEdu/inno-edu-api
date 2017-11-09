@@ -2,6 +2,8 @@ package inno.edu.api.controllers;
 
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.UserResource;
+import inno.edu.api.domain.user.commands.CreateUserCommand;
+import inno.edu.api.domain.user.commands.UpdateUserCommand;
 import inno.edu.api.domain.user.exceptions.UserNotFoundException;
 import inno.edu.api.domain.user.models.User;
 import inno.edu.api.domain.user.repositories.UserRepository;
@@ -36,6 +38,12 @@ public class UserControllerTest {
 
     @Mock
     private UserRepository userRepository;
+
+    @Mock
+    private CreateUserCommand createUserCommand;
+
+    @Mock
+    private UpdateUserCommand updateUserCommand;
 
     @InjectMocks
     private UserController userController;
@@ -74,23 +82,20 @@ public class UserControllerTest {
     @Test
     public void shouldCreateNewUser() {
         ArgumentCaptor<User> argumentCaptor = forClass(User.class);
-        when(userRepository.save(argumentCaptor.capture())).thenReturn(user());
+        when(createUserCommand.run(argumentCaptor.capture())).thenReturn(user());
 
         userController.post(user());
 
-        verify(userRepository).save(argumentCaptor.capture());
+        verify(createUserCommand).run(argumentCaptor.capture());
     }
 
     @Test
     public void shouldUpdateUser() {
-        ArgumentCaptor<User> argumentCaptor = forClass(User.class);
-
-        when(userRepository.findOne(user().getId())).thenReturn(user());
-        when(userRepository.save(argumentCaptor.capture())).thenReturn(user());
+        when(updateUserCommand.run(user().getId(), user())).thenReturn(user());
 
         userController.put(user().getId(), user());
 
-        verify(userRepository).save(argumentCaptor.capture());
+        verify(updateUserCommand).run(user().getId(), user());
     }
 
     @Test
