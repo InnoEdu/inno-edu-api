@@ -63,13 +63,13 @@ public class UserController {
     @PostMapping
     public ResponseEntity<?> post(@RequestBody User user) {
         UserResource userResource = new UserResource(createUserCommand.run(user));
-        return userResource.createEntity();
+        return userResource.toCreated();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> put(@PathVariable UUID id, @RequestBody User user) {
         UserResource userResource = new UserResource(updateUserCommand.run(id, user));
-        return userResource.updateEntity();
+        return userResource.toUpdated();
     }
 
     @DeleteMapping("/{id}")

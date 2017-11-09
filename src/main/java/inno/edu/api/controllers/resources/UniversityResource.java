@@ -2,7 +2,7 @@ package inno.edu.api.controllers.resources;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import inno.edu.api.controllers.UserController;
-import inno.edu.api.domain.user.models.User;
+import inno.edu.api.domain.university.models.University;
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.http.ResponseEntity;
@@ -14,14 +14,13 @@ import static org.springframework.hateoas.core.DummyInvocationUtils.methodOn;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @Getter
-public class UserResource extends ResourceSupport {
-
+public class UniversityResource extends ResourceSupport {
     @JsonUnwrapped
-    private final User user;
+    private final University university;
 
-    public UserResource(User user) {
-        this.user = user;
-        add(linkTo(methodOn(UserController.class).get(user.getId())).withSelfRel());
+    public UniversityResource(University university) {
+        this.university = university;
+        add(linkTo(methodOn(UserController.class).get(university.getId())).withSelfRel());
     }
 
     public ResponseEntity<?> toCreated() {
@@ -30,6 +29,6 @@ public class UserResource extends ResourceSupport {
 
     public ResponseEntity<?> toUpdated() {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
-        return ResponseEntity.created(uri).body(user);
+        return ResponseEntity.created(uri).body(university);
     }
 }
