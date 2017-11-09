@@ -9,6 +9,7 @@ import static inno.edu.api.common.Builders.user;
 import static inno.edu.api.common.Builders.userPayload;
 import static java.lang.String.format;
 import static org.hamcrest.core.Is.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -58,4 +59,11 @@ public class UserControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.lastName", is(otherUser().getLastName())));
     }
 
+    @Test
+    public void shouldDeleteUser() throws Exception {
+        this.mockMvc.perform(
+                delete("/api/users/" + user().getId()))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+    }
 }

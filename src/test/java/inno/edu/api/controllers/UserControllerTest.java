@@ -82,7 +82,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void shouldUpdateNewUser() {
+    public void shouldUpdateUser() {
         ArgumentCaptor<User> argumentCaptor = forClass(User.class);
 
         when(userRepository.findOne(user().getId())).thenReturn(user());
@@ -91,6 +91,15 @@ public class UserControllerTest {
         userController.put(user().getId(), user());
 
         verify(userRepository).save(argumentCaptor.capture());
+    }
+
+    @Test
+    public void shouldUDeleteUser() {
+        when(userRepository.exists(user().getId())).thenReturn(true);
+
+        userController.delete(user().getId());
+
+        verify(userRepository).delete(user().getId());
     }
 
 }
