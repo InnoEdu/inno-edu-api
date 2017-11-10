@@ -1,8 +1,8 @@
 package inno.edu.api.controllers.resources;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import inno.edu.api.controllers.UniversityController;
-import inno.edu.api.domain.university.models.University;
+import inno.edu.api.controllers.AvailabilityController;
+import inno.edu.api.domain.availability.models.Availability;
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +14,13 @@ import static org.springframework.hateoas.core.DummyInvocationUtils.methodOn;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @Getter
-public class UniversityResource extends ResourceSupport {
+public class AvailabilityResource extends ResourceSupport {
     @JsonUnwrapped
-    private final University university;
+    private final Availability availability;
 
-    public UniversityResource(University university) {
-        this.university = university;
-        add(linkTo(methodOn(UniversityController.class).get(university.getId())).withSelfRel());
+    public AvailabilityResource(Availability availability) {
+        this.availability = availability;
+        add(linkTo(methodOn(AvailabilityController.class).get(availability.getId())).withSelfRel());
     }
 
     public ResponseEntity<?> toCreated() {
@@ -29,6 +29,6 @@ public class UniversityResource extends ResourceSupport {
 
     public ResponseEntity<?> toUpdated() {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
-        return ResponseEntity.created(uri).body(university);
+        return ResponseEntity.created(uri).body(availability);
     }
 }

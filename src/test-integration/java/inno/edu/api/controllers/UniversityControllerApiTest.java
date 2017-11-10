@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class UniversityControllerApiTest extends ApiTest {
     @Test
-    public void shouldListUniversitys() throws Exception {
+    public void shouldListUniversities() throws Exception {
         this.mockMvc.perform(get("/api/universities")).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.universityResourceList[*].id", containsInAnyOrder(university().getId().toString(), otherUniversity().getId().toString())))

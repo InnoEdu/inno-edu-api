@@ -16,7 +16,6 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.hateoas.Resources;
 import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static inno.edu.api.factories.UniversityFactory.universities;
@@ -30,6 +29,7 @@ import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.web.context.request.RequestContextHolder.setRequestAttributes;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UniversityControllerTest {
@@ -50,7 +50,7 @@ public class UniversityControllerTest {
 
     @Before
     public void setup() {
-        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(new MockHttpServletRequest()));
+        setRequestAttributes(new ServletRequestAttributes(new MockHttpServletRequest()));
     }
 
     @Test
