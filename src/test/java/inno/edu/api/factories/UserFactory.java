@@ -7,6 +7,7 @@ import org.springframework.hateoas.Resources;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static java.lang.String.format;
 import static java.util.UUID.fromString;
 
 public class UserFactory {
@@ -49,7 +50,7 @@ public class UserFactory {
         return new Resources<>(newArrayList(feiResource(), alanResource()));
     }
 
-    public static String userPayload() {
-        return "{\"firstName\": \"%s\", \"lastName\": \"%s\"}";
+    public static String userPayload(User user) {
+        return format("{\"firstName\": \"%s\", \"lastName\": \"%s\"}", user.getFirstName(), user.getLastName());
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.hateoas.Resources;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static java.lang.String.format;
 import static java.util.UUID.fromString;
 
 public class UniversityFactory {
@@ -47,7 +48,7 @@ public class UniversityFactory {
         return new Resources<>(newArrayList(stanfordResource(), berkeleyResource()));
     }
 
-    public static String universityPayload() {
-        return "{\"name\": \"%s\" }";
+    public static String universityPayload(University university) {
+        return format("{\"name\": \"%s\" }", university.getName());
     }
 }

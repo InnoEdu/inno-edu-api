@@ -40,5 +40,4 @@ public class UpdateAvailabilityCommandTest {
 
         updateAvailabilityCommand.run(randomUUID(), availability());
     }
-
 }

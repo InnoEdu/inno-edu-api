@@ -103,7 +103,6 @@ public class AvailabilityControllerTest {
         assertThat(allResources, is(feiAvailabilityResources()));
     }
 
-
     @Test
     public void shouldCreateNewAvailability() {
         ArgumentCaptor<Availability> argumentCaptor = forClass(Availability.class);
