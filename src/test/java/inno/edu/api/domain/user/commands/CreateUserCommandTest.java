@@ -9,7 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static inno.edu.api.factories.UserFactory.user;
+import static inno.edu.api.factories.UserFactory.fei;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
@@ -31,7 +31,7 @@ public class CreateUserCommandTest {
         when(userRepository.save(argumentCaptor.capture()))
                 .thenAnswer((invocation -> invocation.getArguments()[0]));
 
-        User user = createUserCommand.run(user());
+        User user = createUserCommand.run(fei());
 
         assertThat(user, is(argumentCaptor.getValue()));
     }
@@ -40,10 +40,10 @@ public class CreateUserCommandTest {
     public void shouldGenerateNewIdForUser() {
         ArgumentCaptor<User> argumentCaptor = forClass(User.class);
 
-        when(userRepository.save(argumentCaptor.capture())).thenReturn(user());
+        when(userRepository.save(argumentCaptor.capture())).thenReturn(fei());
 
-        createUserCommand.run(user());
+        createUserCommand.run(fei());
 
-        assertThat(argumentCaptor.getValue().getId(), not(user().getId()));
+        assertThat(argumentCaptor.getValue().getId(), not(fei().getId()));
     }
 }

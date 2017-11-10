@@ -9,7 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static inno.edu.api.factories.UniversityFactory.university;
+import static inno.edu.api.factories.UniversityFactory.stanford;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
@@ -31,7 +31,7 @@ public class CreateUniversityCommandTest {
         when(universityRepository.save(argumentCaptor.capture()))
                 .thenAnswer((invocation -> invocation.getArguments()[0]));
 
-        University university = createUniversityCommand.run(university());
+        University university = createUniversityCommand.run(stanford());
 
         assertThat(university, is(argumentCaptor.getValue()));
     }
@@ -40,10 +40,10 @@ public class CreateUniversityCommandTest {
     public void shouldGenerateNewIdForUniversity() {
         ArgumentCaptor<University> argumentCaptor = forClass(University.class);
 
-        when(universityRepository.save(argumentCaptor.capture())).thenReturn(university());
+        when(universityRepository.save(argumentCaptor.capture())).thenReturn(stanford());
 
-        createUniversityCommand.run(university());
+        createUniversityCommand.run(stanford());
 
-        assertThat(argumentCaptor.getValue().getId(), not(university().getId()));
+        assertThat(argumentCaptor.getValue().getId(), not(stanford().getId()));
     }
 }

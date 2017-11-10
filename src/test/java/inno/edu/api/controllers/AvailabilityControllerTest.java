@@ -17,7 +17,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import static inno.edu.api.factories.AvailabilityFactory.allAvailability;
 import static inno.edu.api.factories.AvailabilityFactory.availability;
 import static inno.edu.api.factories.AvailabilityFactory.availabilityResources;
-import static inno.edu.api.factories.UserFactory.user;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
@@ -43,7 +42,7 @@ public class AvailabilityControllerTest {
     }
 
     @Test
-    public void shouldGetUserUsingId() {
+    public void shouldGetAvailabilityUsingId() {
         when(availabilityRepository.findOne(eq(availability().getId()))).thenReturn(availability());
 
         AvailabilityResource availabilityResource = availabilityController.get(availability().getId());
@@ -55,11 +54,11 @@ public class AvailabilityControllerTest {
     public void shouldRaiseExceptionIfAvailabilityNotFound() {
         when(availabilityRepository.findOne(any())).thenReturn(null);
 
-        availabilityController.get(user().getId());
+        availabilityController.get(availability().getId());
     }
 
     @Test
-    public void shouldListAllUsers() {
+    public void shouldListAllAvailability() {
         when(availabilityRepository.findAll()).thenReturn(allAvailability());
         when(resourceBuilder.fromResources(anyListOf(AvailabilityResource.class))).thenReturn(availabilityResources());
 

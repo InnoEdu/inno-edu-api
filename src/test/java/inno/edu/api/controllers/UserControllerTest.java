@@ -18,7 +18,7 @@ import org.springframework.hateoas.Resources;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import static inno.edu.api.factories.UserFactory.user;
+import static inno.edu.api.factories.UserFactory.fei;
 import static inno.edu.api.factories.UserFactory.users;
 import static inno.edu.api.factories.UserFactory.usersResource;
 import static org.hamcrest.core.Is.is;
@@ -55,18 +55,18 @@ public class UserControllerTest {
 
     @Test
     public void shouldGetUserUsingId() {
-        when(userRepository.findOne(eq(user().getId()))).thenReturn(user());
+        when(userRepository.findOne(eq(fei().getId()))).thenReturn(fei());
 
-        UserResource userResource = userController.get(user().getId());
+        UserResource userResource = userController.get(fei().getId());
 
-        assertThat(userResource.getUser(), is(user()));
+        assertThat(userResource.getUser(), is(fei()));
     }
 
     @Test(expected = UserNotFoundException.class)
     public void shouldRaiseExceptionIfUserNotFound() {
         when(userRepository.findOne(any())).thenReturn(null);
 
-        userController.get(user().getId());
+        userController.get(fei().getId());
     }
 
     @Test
@@ -82,29 +82,29 @@ public class UserControllerTest {
     @Test
     public void shouldCreateNewUser() {
         ArgumentCaptor<User> argumentCaptor = forClass(User.class);
-        when(createUserCommand.run(argumentCaptor.capture())).thenReturn(user());
+        when(createUserCommand.run(argumentCaptor.capture())).thenReturn(fei());
 
-        userController.post(user());
+        userController.post(fei());
 
         verify(createUserCommand).run(argumentCaptor.capture());
     }
 
     @Test
     public void shouldUpdateUser() {
-        when(updateUserCommand.run(user().getId(), user())).thenReturn(user());
+        when(updateUserCommand.run(fei().getId(), fei())).thenReturn(fei());
 
-        userController.put(user().getId(), user());
+        userController.put(fei().getId(), fei());
 
-        verify(updateUserCommand).run(user().getId(), user());
+        verify(updateUserCommand).run(fei().getId(), fei());
     }
 
     @Test
     public void shouldUDeleteUser() {
-        when(userRepository.exists(user().getId())).thenReturn(true);
+        when(userRepository.exists(fei().getId())).thenReturn(true);
 
-        userController.delete(user().getId());
+        userController.delete(fei().getId());
 
-        verify(userRepository).delete(user().getId());
+        verify(userRepository).delete(fei().getId());
     }
 
 }

@@ -4,9 +4,9 @@ import inno.edu.api.ApiTest;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
-import static inno.edu.api.factories.UserFactory.otherUser;
-import static inno.edu.api.factories.UserFactory.updatedUser;
-import static inno.edu.api.factories.UserFactory.user;
+import static inno.edu.api.factories.UserFactory.alan;
+import static inno.edu.api.factories.UserFactory.fei;
+import static inno.edu.api.factories.UserFactory.updatedFei;
 import static inno.edu.api.factories.UserFactory.userPayload;
 import static java.lang.String.format;
 import static org.hamcrest.Matchers.containsInAnyOrder;
@@ -24,25 +24,25 @@ public class UserControllerApiTest extends ApiTest {
     public void shouldListUsers() throws Exception {
         this.mockMvc.perform(get("/api/users")).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.userResourceList[*].id", containsInAnyOrder(user().getId().toString(), otherUser().getId().toString())))
-                .andExpect(jsonPath("$._embedded.userResourceList[*].firstName", containsInAnyOrder(user().getFirstName(), otherUser().getFirstName())))
-                .andExpect(jsonPath("$._embedded.userResourceList[*].lastName", containsInAnyOrder(user().getLastName(), otherUser().getLastName())));
+                .andExpect(jsonPath("$._embedded.userResourceList[*].id", containsInAnyOrder(fei().getId().toString(), alan().getId().toString())))
+                .andExpect(jsonPath("$._embedded.userResourceList[*].firstName", containsInAnyOrder(fei().getFirstName(), alan().getFirstName())))
+                .andExpect(jsonPath("$._embedded.userResourceList[*].lastName", containsInAnyOrder(fei().getLastName(), alan().getLastName())));
     }
 
     @Test
     public void shouldGetUserById() throws Exception {
-        this.mockMvc.perform(get("/api/users/" + user().getId().toString())).andDo(print())
+        this.mockMvc.perform(get("/api/users/" + fei().getId().toString())).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(is(user().getId().toString()))))
-                .andExpect(jsonPath("$.firstName", is(user().getFirstName())))
-                .andExpect(jsonPath("$.lastName", is(user().getLastName())));
+                .andExpect(jsonPath("$.id", is(is(fei().getId().toString()))))
+                .andExpect(jsonPath("$.firstName", is(fei().getFirstName())))
+                .andExpect(jsonPath("$.lastName", is(fei().getLastName())));
     }
 
     @Test
     public void shouldCreateNewUser() throws Exception {
         this.mockMvc.perform(
                 post("/api/users")
-                        .content(format(userPayload(), user().getFirstName(), user().getLastName()))
+                        .content(format(userPayload(), fei().getFirstName(), fei().getLastName()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated());
@@ -51,20 +51,20 @@ public class UserControllerApiTest extends ApiTest {
     @Test
     public void shouldUpdateUser() throws Exception {
         this.mockMvc.perform(
-                put("/api/users/" + user().getId())
-                        .content(format(userPayload(), updatedUser().getFirstName(), updatedUser().getLastName()))
+                put("/api/users/" + fei().getId())
+                        .content(format(userPayload(), updatedFei().getFirstName(), updatedFei().getLastName()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", is(is(user().getId().toString()))))
-                .andExpect(jsonPath("$.firstName", is(updatedUser().getFirstName())))
-                .andExpect(jsonPath("$.lastName", is(updatedUser().getLastName())));
+                .andExpect(jsonPath("$.id", is(is(fei().getId().toString()))))
+                .andExpect(jsonPath("$.firstName", is(updatedFei().getFirstName())))
+                .andExpect(jsonPath("$.lastName", is(updatedFei().getLastName())));
     }
 
     @Test
     public void shouldDeleteUser() throws Exception {
         this.mockMvc.perform(
-                delete("/api/users/" + user().getId()))
+                delete("/api/users/" + fei().getId()))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }

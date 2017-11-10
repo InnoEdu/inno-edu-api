@@ -9,8 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static inno.edu.api.factories.UserFactory.updatedUser;
-import static inno.edu.api.factories.UserFactory.user;
+import static inno.edu.api.factories.UserFactory.alan;
+import static inno.edu.api.factories.UserFactory.fei;
 import static java.util.UUID.randomUUID;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -26,18 +26,18 @@ public class UpdateUserCommandTest {
 
     @Test
     public void shouldReturnUpdatedUser() {
-        when(userRepository.findOne(user().getId())).thenReturn(user());
-        when(userRepository.save(user())).thenReturn(updatedUser());
+        when(userRepository.findOne(fei().getId())).thenReturn(fei());
+        when(userRepository.save(fei())).thenReturn(alan());
 
-        User user = updateUserCommand.run(user().getId(), user());
+        User user = updateUserCommand.run(fei().getId(), fei());
 
-        assertThat(user, is(updatedUser()));
+        assertThat(user, is(alan()));
     }
 
     @Test(expected = UserNotFoundException.class)
     public void shouldRaiseExceptionIfUserDoesNotExists() {
-        when(userRepository.findOne(user().getId())).thenThrow(new UserNotFoundException(user().getId()));
+        when(userRepository.findOne(fei().getId())).thenThrow(new UserNotFoundException(fei().getId()));
 
-        updateUserCommand.run(randomUUID(), user());
+        updateUserCommand.run(randomUUID(), fei());
     }
 }

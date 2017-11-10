@@ -9,8 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static inno.edu.api.factories.UniversityFactory.university;
-import static inno.edu.api.factories.UniversityFactory.updatedUniversity;
+import static inno.edu.api.factories.UniversityFactory.stanford;
+import static inno.edu.api.factories.UniversityFactory.updatedStanford;
 import static java.util.UUID.randomUUID;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -26,18 +26,18 @@ public class UpdateUniversityCommandTest {
 
     @Test
     public void shouldReturnUpdatedUniversity() {
-        when(universityRepository.findOne(university().getId())).thenReturn(university());
-        when(universityRepository.save(university())).thenReturn(updatedUniversity());
+        when(universityRepository.findOne(stanford().getId())).thenReturn(stanford());
+        when(universityRepository.save(stanford())).thenReturn(updatedStanford());
 
-        University university = updateUniversityCommand.run(university().getId(), university());
+        University university = updateUniversityCommand.run(stanford().getId(), stanford());
 
-        assertThat(university, is(updatedUniversity()));
+        assertThat(university, is(updatedStanford()));
     }
 
     @Test(expected = UniversityNotFoundException.class)
     public void shouldRaiseExceptionIfUniversityDoesNotExists() {
-        when(universityRepository.findOne(university().getId())).thenThrow(new UniversityNotFoundException(university().getId()));
+        when(universityRepository.findOne(stanford().getId())).thenThrow(new UniversityNotFoundException(stanford().getId()));
 
-        updateUniversityCommand.run(randomUUID(), university());
+        updateUniversityCommand.run(randomUUID(), stanford());
     }
 }

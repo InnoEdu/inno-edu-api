@@ -4,10 +4,10 @@ import inno.edu.api.ApiTest;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
-import static inno.edu.api.factories.UniversityFactory.otherUniversity;
-import static inno.edu.api.factories.UniversityFactory.university;
+import static inno.edu.api.factories.UniversityFactory.berkeley;
+import static inno.edu.api.factories.UniversityFactory.stanford;
 import static inno.edu.api.factories.UniversityFactory.universityPayload;
-import static inno.edu.api.factories.UniversityFactory.updatedUniversity;
+import static inno.edu.api.factories.UniversityFactory.updatedStanford;
 import static java.lang.String.format;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
@@ -24,23 +24,23 @@ public class UniversityControllerApiTest extends ApiTest {
     public void shouldListUniversities() throws Exception {
         this.mockMvc.perform(get("/api/universities")).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.universityResourceList[*].id", containsInAnyOrder(university().getId().toString(), otherUniversity().getId().toString())))
-                .andExpect(jsonPath("$._embedded.universityResourceList[*].name", containsInAnyOrder(university().getName(), otherUniversity().getName())));
+                .andExpect(jsonPath("$._embedded.universityResourceList[*].id", containsInAnyOrder(stanford().getId().toString(), berkeley().getId().toString())))
+                .andExpect(jsonPath("$._embedded.universityResourceList[*].name", containsInAnyOrder(stanford().getName(), berkeley().getName())));
     }
 
     @Test
     public void shouldGetUniversityById() throws Exception {
-        this.mockMvc.perform(get("/api/universities/" + university().getId().toString())).andDo(print())
+        this.mockMvc.perform(get("/api/universities/" + stanford().getId().toString())).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(is(university().getId().toString()))))
-                .andExpect(jsonPath("$.name", is(university().getName())));
+                .andExpect(jsonPath("$.id", is(is(stanford().getId().toString()))))
+                .andExpect(jsonPath("$.name", is(stanford().getName())));
     }
 
     @Test
     public void shouldCreateNewUniversity() throws Exception {
         this.mockMvc.perform(
                 post("/api/universities")
-                        .content(format(universityPayload(), university().getName()))
+                        .content(format(universityPayload(), stanford().getName()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated());
@@ -49,19 +49,19 @@ public class UniversityControllerApiTest extends ApiTest {
     @Test
     public void shouldUpdateUniversity() throws Exception {
         this.mockMvc.perform(
-                put("/api/universities/" + university().getId())
-                        .content(format(universityPayload(), updatedUniversity().getName()))
+                put("/api/universities/" + stanford().getId())
+                        .content(format(universityPayload(), updatedStanford().getName()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", is(is(university().getId().toString()))))
-                .andExpect(jsonPath("$.name", is(updatedUniversity().getName())));
+                .andExpect(jsonPath("$.id", is(is(stanford().getId().toString()))))
+                .andExpect(jsonPath("$.name", is(updatedStanford().getName())));
     }
 
     @Test
     public void shouldDeleteUniversity() throws Exception {
         this.mockMvc.perform(
-                delete("/api/universities/" + university().getId()))
+                delete("/api/universities/" + stanford().getId()))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }

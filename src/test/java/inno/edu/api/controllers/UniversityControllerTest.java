@@ -20,7 +20,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static inno.edu.api.factories.UniversityFactory.universities;
 import static inno.edu.api.factories.UniversityFactory.universitiesResource;
-import static inno.edu.api.factories.UniversityFactory.university;
+import static inno.edu.api.factories.UniversityFactory.stanford;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentCaptor.forClass;
@@ -55,18 +55,18 @@ public class UniversityControllerTest {
 
     @Test
     public void shouldGetUniversityUsingId() {
-        when(universityRepository.findOne(eq(university().getId()))).thenReturn(university());
+        when(universityRepository.findOne(eq(stanford().getId()))).thenReturn(stanford());
 
-        UniversityResource universityResource = universityController.get(university().getId());
+        UniversityResource universityResource = universityController.get(stanford().getId());
 
-        assertThat(universityResource.getUniversity(), is(university()));
+        assertThat(universityResource.getUniversity(), is(stanford()));
     }
 
     @Test(expected = UniversityNotFoundException.class)
     public void shouldRaiseExceptionIfUniversityNotFound() {
         when(universityRepository.findOne(any())).thenReturn(null);
 
-        universityController.get(university().getId());
+        universityController.get(stanford().getId());
     }
 
     @Test
@@ -82,29 +82,29 @@ public class UniversityControllerTest {
     @Test
     public void shouldCreateNewUniversity() {
         ArgumentCaptor<University> argumentCaptor = forClass(University.class);
-        when(createUniversityCommand.run(argumentCaptor.capture())).thenReturn(university());
+        when(createUniversityCommand.run(argumentCaptor.capture())).thenReturn(stanford());
 
-        universityController.post(university());
+        universityController.post(stanford());
 
         verify(createUniversityCommand).run(argumentCaptor.capture());
     }
 
     @Test
     public void shouldUpdateUniversity() {
-        when(updateUniversityCommand.run(university().getId(), university())).thenReturn(university());
+        when(updateUniversityCommand.run(stanford().getId(), stanford())).thenReturn(stanford());
 
-        universityController.put(university().getId(), university());
+        universityController.put(stanford().getId(), stanford());
 
-        verify(updateUniversityCommand).run(university().getId(), university());
+        verify(updateUniversityCommand).run(stanford().getId(), stanford());
     }
 
     @Test
     public void shouldUDeleteUniversity() {
-        when(universityRepository.exists(university().getId())).thenReturn(true);
+        when(universityRepository.exists(stanford().getId())).thenReturn(true);
 
-        universityController.delete(university().getId());
+        universityController.delete(stanford().getId());
 
-        verify(universityRepository).delete(university().getId());
+        verify(universityRepository).delete(stanford().getId());
     }
 
 }
