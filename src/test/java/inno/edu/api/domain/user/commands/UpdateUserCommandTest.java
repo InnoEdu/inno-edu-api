@@ -35,7 +35,7 @@ public class UpdateUserCommandTest {
     }
 
     @Test(expected = UserNotFoundException.class)
-    public void shouldRaiseExceptionIfUserDoesNotExists() {
+    public void shouldRaiseExceptionIfUserDoesNotExist() {
         when(userRepository.findOne(fei().getId())).thenThrow(new UserNotFoundException(fei().getId()));
 
         updateUserCommand.run(randomUUID(), fei());

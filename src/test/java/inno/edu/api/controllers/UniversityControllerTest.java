@@ -106,5 +106,4 @@ public class UniversityControllerTest {
 
         verify(universityRepository).delete(stanford().getId());
     }
-
 }

@@ -35,7 +35,7 @@ public class UpdateUniversityCommandTest {
     }
 
     @Test(expected = UniversityNotFoundException.class)
-    public void shouldRaiseExceptionIfUniversityDoesNotExists() {
+    public void shouldRaiseExceptionIfUniversityDoesNotExist() {
         when(universityRepository.findOne(stanford().getId())).thenThrow(new UniversityNotFoundException(stanford().getId()));
 
         updateUniversityCommand.run(randomUUID(), stanford());
