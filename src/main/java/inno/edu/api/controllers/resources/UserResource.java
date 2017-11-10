@@ -1,6 +1,7 @@
 package inno.edu.api.controllers.resources;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import inno.edu.api.controllers.AvailabilityController;
 import inno.edu.api.controllers.UserController;
 import inno.edu.api.domain.user.models.User;
 import lombok.Getter;
@@ -22,6 +23,7 @@ public class UserResource extends ResourceSupport {
     public UserResource(User user) {
         this.user = user;
         add(linkTo(methodOn(UserController.class).get(user.getId())).withSelfRel());
+        add(linkTo(methodOn(AvailabilityController.class).allByUser(user.getId())).withRel("availability"));
     }
 
     public ResponseEntity<?> toCreated() {

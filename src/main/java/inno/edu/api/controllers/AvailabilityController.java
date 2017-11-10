@@ -51,6 +51,24 @@ public class AvailabilityController {
         return resourceBuilder.fromResources(availability);
     }
 
+    @GetMapping("/user/{userId}")
+    public Resources<AvailabilityResource> allByUser(@PathVariable UUID userId) {
+        List<AvailabilityResource> availability = availabilityRepository.findAvailabilityByUserId(userId).stream()
+                .map(AvailabilityResource::new)
+                .collect(toList());
+
+        return resourceBuilder.fromResources(availability);
+    }
+
+    @GetMapping("/university/{universityId}")
+    public Resources<AvailabilityResource> allByUniversity(@PathVariable UUID universityId) {
+        List<AvailabilityResource> availability = availabilityRepository.findAvailabilityByUniversityId(universityId).stream()
+                .map(AvailabilityResource::new)
+                .collect(toList());
+
+        return resourceBuilder.fromResources(availability);
+    }
+
     @GetMapping("/{id}")
     public AvailabilityResource get(@PathVariable UUID id) {
         Optional<Availability> availability = ofNullable(availabilityRepository.findOne(id));

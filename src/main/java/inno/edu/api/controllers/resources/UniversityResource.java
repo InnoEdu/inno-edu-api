@@ -1,6 +1,7 @@
 package inno.edu.api.controllers.resources;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import inno.edu.api.controllers.AvailabilityController;
 import inno.edu.api.controllers.UniversityController;
 import inno.edu.api.domain.university.models.University;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class UniversityResource extends ResourceSupport {
     public UniversityResource(University university) {
         this.university = university;
         add(linkTo(methodOn(UniversityController.class).get(university.getId())).withSelfRel());
+        add(linkTo(methodOn(AvailabilityController.class).allByUniversity(university.getId())).withRel("availability"));
     }
 
     public ResponseEntity<?> toCreated() {

@@ -9,6 +9,9 @@ import static inno.edu.api.factories.AvailabilityFactory.availabilityPostPayload
 import static inno.edu.api.factories.AvailabilityFactory.availabilityPutPayload;
 import static inno.edu.api.factories.AvailabilityFactory.otherAvailability;
 import static inno.edu.api.factories.AvailabilityFactory.updatedAvailability;
+import static inno.edu.api.factories.UniversityFactory.berkeley;
+import static inno.edu.api.factories.UserFactory.fei;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -29,6 +32,28 @@ public class AvailabilityControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$._embedded.availabilityResourceList[*].universityId", containsInAnyOrder(availability().getUniversityId().toString(), otherAvailability().getUniversityId().toString())))
                 .andExpect(jsonPath("$._embedded.availabilityResourceList[*].fromDateTime", containsInAnyOrder(availability().getFromDateTime().toString(), otherAvailability().getFromDateTime().toString())))
                 .andExpect(jsonPath("$._embedded.availabilityResourceList[*].toDateTime", containsInAnyOrder(availability().getToDateTime().toString(), otherAvailability().getToDateTime().toString())));
+    }
+
+    @Test
+    public void shouldListAvailabilityByUser() throws Exception {
+        this.mockMvc.perform(get("/api/availability/user/" + fei().getId().toString())).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$._embedded.availabilityResourceList[*].id", contains(availability().getId().toString())))
+                .andExpect(jsonPath("$._embedded.availabilityResourceList[*].userId", contains(availability().getUserId().toString())))
+                .andExpect(jsonPath("$._embedded.availabilityResourceList[*].universityId", contains(availability().getUniversityId().toString())))
+                .andExpect(jsonPath("$._embedded.availabilityResourceList[*].fromDateTime", contains(availability().getFromDateTime().toString())))
+                .andExpect(jsonPath("$._embedded.availabilityResourceList[*].toDateTime", contains(availability().getToDateTime().toString())));
+    }
+
+    @Test
+    public void shouldListAvailabilityByUniversity() throws Exception {
+        this.mockMvc.perform(get("/api/availability/university/" + berkeley().getId().toString())).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$._embedded.availabilityResourceList[*].id", contains(otherAvailability().getId().toString())))
+                .andExpect(jsonPath("$._embedded.availabilityResourceList[*].userId", contains(otherAvailability().getUserId().toString())))
+                .andExpect(jsonPath("$._embedded.availabilityResourceList[*].universityId", contains(otherAvailability().getUniversityId().toString())))
+                .andExpect(jsonPath("$._embedded.availabilityResourceList[*].fromDateTime", contains(otherAvailability().getFromDateTime().toString())))
+                .andExpect(jsonPath("$._embedded.availabilityResourceList[*].toDateTime", contains(otherAvailability().getToDateTime().toString())));
     }
 
     @Test

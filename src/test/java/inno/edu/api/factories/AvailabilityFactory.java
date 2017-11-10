@@ -7,6 +7,7 @@ import org.springframework.hateoas.Resources;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static inno.edu.api.factories.UniversityFactory.berkeley;
 import static inno.edu.api.factories.UniversityFactory.stanford;
 import static inno.edu.api.factories.UserFactory.alan;
@@ -51,8 +52,18 @@ public class AvailabilityFactory {
     }
 
     public static List<Availability> allAvailability() {
+        return newArrayList(availability(), otherAvailability());
+    }
+
+    public static List<Availability> feiAvailability() {
         return singletonList(availability());
     }
+
+    public static Resources<AvailabilityResource>  feiAvailabilityResources() {
+
+        return new Resources<>(singletonList(new AvailabilityResource(availability())));
+    }
+
 
     public static Resources<AvailabilityResource> availabilityResources() {
         return new Resources<>(singletonList(availabilityResource()));

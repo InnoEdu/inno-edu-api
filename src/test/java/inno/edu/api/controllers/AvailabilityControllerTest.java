@@ -21,6 +21,10 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import static inno.edu.api.factories.AvailabilityFactory.allAvailability;
 import static inno.edu.api.factories.AvailabilityFactory.availability;
 import static inno.edu.api.factories.AvailabilityFactory.availabilityResources;
+import static inno.edu.api.factories.AvailabilityFactory.feiAvailability;
+import static inno.edu.api.factories.AvailabilityFactory.feiAvailabilityResources;
+import static inno.edu.api.factories.UniversityFactory.stanford;
+import static inno.edu.api.factories.UserFactory.fei;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentCaptor.forClass;
@@ -78,6 +82,27 @@ public class AvailabilityControllerTest {
 
         assertThat(allResources, is(availabilityResources()));
     }
+
+    @Test
+    public void shouldListAllAvailabilityByUser() {
+        when(availabilityRepository.findAvailabilityByUserId(fei().getId())).thenReturn(feiAvailability());
+        when(resourceBuilder.fromResources(anyListOf(AvailabilityResource.class))).thenReturn(feiAvailabilityResources());
+
+        Resources<AvailabilityResource> allResources = availabilityController.allByUser(fei().getId());
+
+        assertThat(allResources, is(feiAvailabilityResources()));
+    }
+
+    @Test
+    public void shouldListAllAvailabilityByUniversity() {
+        when(availabilityRepository.findAvailabilityByUniversityId(stanford().getId())).thenReturn(feiAvailability());
+        when(resourceBuilder.fromResources(anyListOf(AvailabilityResource.class))).thenReturn(feiAvailabilityResources());
+
+        Resources<AvailabilityResource> allResources = availabilityController.allByUniversity(stanford().getId());
+
+        assertThat(allResources, is(feiAvailabilityResources()));
+    }
+
 
     @Test
     public void shouldCreateNewAvailability() {
