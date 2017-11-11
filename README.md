@@ -8,6 +8,12 @@
 
 ./gradlew bootRun
 
+## Deploy
+
+* Install [Heroku cli](https://devcenter.heroku.com/articles/heroku-cli#download-and-install). 
+* Login `heroku login`.
+* Deploy: `git push heroku master`.
+
 ## Swagger
 
 http://localhost:8080/swagger-ui.html
