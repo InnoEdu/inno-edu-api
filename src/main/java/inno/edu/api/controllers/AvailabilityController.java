@@ -22,9 +22,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.google.common.collect.Streams.stream;
 import static java.util.Optional.ofNullable;
-import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping(value = "/api/availability", produces = "application/hal+json")
@@ -32,8 +30,8 @@ public class AvailabilityController {
     private final AvailabilityRepository availabilityRepository;
 
     private final ResourceBuilder resourceBuilder;
-    private CreateAvailabilityCommand createAvailabilityCommand;
-    private UpdateAvailabilityCommand updateAvailabilityCommand;
+    private final CreateAvailabilityCommand createAvailabilityCommand;
+    private final UpdateAvailabilityCommand updateAvailabilityCommand;
 
     public AvailabilityController(AvailabilityRepository availabilityRepository, ResourceBuilder resourceBuilder, CreateAvailabilityCommand createAvailabilityCommand, UpdateAvailabilityCommand updateAvailabilityCommand) {
         this.availabilityRepository = availabilityRepository;
@@ -44,29 +42,20 @@ public class AvailabilityController {
 
     @GetMapping
     public Resources<AvailabilityResource> all() {
-        List<AvailabilityResource> availability = stream(availabilityRepository.findAll())
-                .map(AvailabilityResource::new)
-                .collect(toList());
-
-        return resourceBuilder.fromResources(availability);
+        Iterable<Availability> availability = availabilityRepository.findAll();
+        return resourceBuilder.from(availability, AvailabilityResource::new);
     }
 
     @GetMapping("/user/{userId}")
     public Resources<AvailabilityResource> allByUser(@PathVariable UUID userId) {
-        List<AvailabilityResource> availability = availabilityRepository.findAvailabilityByUserId(userId).stream()
-                .map(AvailabilityResource::new)
-                .collect(toList());
-
-        return resourceBuilder.fromResources(availability);
+        List<Availability> availability = availabilityRepository.findAvailabilityByUserId(userId);
+        return resourceBuilder.from(availability, AvailabilityResource::new);
     }
 
     @GetMapping("/university/{universityId}")
     public Resources<AvailabilityResource> allByUniversity(@PathVariable UUID universityId) {
-        List<AvailabilityResource> availability = availabilityRepository.findAvailabilityByUniversityId(universityId).stream()
-                .map(AvailabilityResource::new)
-                .collect(toList());
-
-        return resourceBuilder.fromResources(availability);
+        List<Availability> availability = availabilityRepository.findAvailabilityByUniversityId(universityId);
+        return resourceBuilder.from(availability, AvailabilityResource::new);
     }
 
     @GetMapping("/{id}")

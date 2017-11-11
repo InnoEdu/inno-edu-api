@@ -1,8 +1,6 @@
 package inno.edu.api.factories;
 
-import inno.edu.api.controllers.resources.UserResource;
 import inno.edu.api.domain.user.models.User;
-import org.springframework.hateoas.Resources;
 
 import java.util.List;
 
@@ -34,20 +32,8 @@ public class UserFactory {
                 .build();
     }
 
-    private static UserResource feiResource() {
-        return new UserResource(fei());
-    }
-
-    private static UserResource alanResource() {
-        return new UserResource(alan());
-    }
-
     public static List<User> users() {
         return newArrayList(fei(), alan());
-    }
-
-    public static Resources<UserResource> usersResource() {
-        return new Resources<>(newArrayList(feiResource(), alanResource()));
     }
 
     public static String userPayload(User user) {

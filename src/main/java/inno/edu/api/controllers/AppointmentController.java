@@ -6,6 +6,8 @@ import inno.edu.api.domain.appointment.commands.CreateAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentCommand;
 import inno.edu.api.domain.appointment.exceptions.AppointmentNotFoundException;
 import inno.edu.api.domain.appointment.models.Appointment;
+import inno.edu.api.domain.appointment.models.AppointmentStatus;
+import inno.edu.api.domain.appointment.queries.GetAppointmentsByUniversityIdQuery;
 import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
@@ -16,65 +18,72 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.google.common.collect.Streams.stream;
 import static java.util.Optional.ofNullable;
-import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping(value = "/api/appointments", produces = "application/hal+json")
 public class AppointmentController {
-    private final AppointmentRepository availabilityRepository;
-
     private final ResourceBuilder resourceBuilder;
-    private CreateAppointmentCommand createAppointmentCommand;
-    private UpdateAppointmentCommand updateAppointmentCommand;
 
-    public AppointmentController(AppointmentRepository availabilityRepository, ResourceBuilder resourceBuilder, CreateAppointmentCommand createAppointmentCommand, UpdateAppointmentCommand updateAppointmentCommand) {
-        this.availabilityRepository = availabilityRepository;
+    private final AppointmentRepository appointmentRepository;
+
+    private final CreateAppointmentCommand createAppointmentCommand;
+    private final UpdateAppointmentCommand updateAppointmentCommand;
+
+    private final GetAppointmentsByUniversityIdQuery getAppointmentsByUniversityIdQuery;
+
+    public AppointmentController(AppointmentRepository appointmentRepository, ResourceBuilder resourceBuilder, CreateAppointmentCommand createAppointmentCommand, UpdateAppointmentCommand updateAppointmentCommand, GetAppointmentsByUniversityIdQuery getAppointmentsByUniversityIdQuery) {
+        this.appointmentRepository = appointmentRepository;
         this.resourceBuilder = resourceBuilder;
         this.createAppointmentCommand = createAppointmentCommand;
         this.updateAppointmentCommand = updateAppointmentCommand;
+        this.getAppointmentsByUniversityIdQuery = getAppointmentsByUniversityIdQuery;
     }
 
     @GetMapping
     public Resources<AppointmentResource> all() {
-        List<AppointmentResource> availability = stream(availabilityRepository.findAll())
-                .map(AppointmentResource::new)
-                .collect(toList());
+        Iterable<Appointment> appointments = appointmentRepository.findAll();
+        return resourceBuilder.from(appointments, AppointmentResource::new);
+    }
 
-        return resourceBuilder.fromResources(availability);
+    @GetMapping("/university/{universityId}")
+    public Resources<AppointmentResource> allByUniversity(@PathVariable UUID universityId,
+                                                          @RequestParam(required = false) AppointmentStatus status) {
+        List<Appointment> appointments = getAppointmentsByUniversityIdQuery.run(universityId, status);
+        return resourceBuilder.from(appointments, AppointmentResource::new);
     }
 
     @GetMapping("/{id}")
     public AppointmentResource get(@PathVariable UUID id) {
-        Optional<Appointment> availability = ofNullable(availabilityRepository.findOne(id));
-        return new AppointmentResource(availability.orElseThrow(() -> new AppointmentNotFoundException(id)));
+        Optional<Appointment> appointment = ofNullable(appointmentRepository.findOne(id));
+        return new AppointmentResource(appointment.orElseThrow(() -> new AppointmentNotFoundException(id)));
     }
 
     @PostMapping
-    public ResponseEntity<?> post(@RequestBody Appointment availability) {
-        AppointmentResource availabilityResource = new AppointmentResource(createAppointmentCommand.run(availability));
-        return availabilityResource.toCreated();
+    public ResponseEntity<?> post(@RequestBody Appointment appointment) {
+        AppointmentResource appointmentResource = new AppointmentResource(createAppointmentCommand.run(appointment));
+        return appointmentResource.toCreated();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> put(@PathVariable UUID id, @RequestBody Appointment availability) {
-        AppointmentResource availabilityResource = new AppointmentResource(updateAppointmentCommand.run(id, availability));
-        return availabilityResource.toUpdated();
+    public ResponseEntity<?> put(@PathVariable UUID id, @RequestBody Appointment appointment) {
+        AppointmentResource appointmentResource = new AppointmentResource(updateAppointmentCommand.run(id, appointment));
+        return appointmentResource.toUpdated();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
-        if (!availabilityRepository.exists(id)) {
+        if (!appointmentRepository.exists(id)) {
             throw new AppointmentNotFoundException(id);
         }
-        availabilityRepository.delete(id);
+        appointmentRepository.delete(id);
 
         return ResponseEntity.noContent().build();
     }

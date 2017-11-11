@@ -19,13 +19,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.google.common.collect.Streams.stream;
 import static java.util.Optional.ofNullable;
-import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping(value = "/api/universities", produces = "application/hal+json")
@@ -47,11 +44,8 @@ public class UniversityController {
 
     @GetMapping
     public Resources<UniversityResource> all() {
-        List<UniversityResource> universities = stream(universityRepository.findAll())
-                .map(UniversityResource::new)
-                .collect(toList());
-
-        return resourceBuilder.fromResources(universities);
+        Iterable<University> universities = universityRepository.findAll();
+        return resourceBuilder.from(universities, UniversityResource::new);
     }
 
     @GetMapping("/{id}")

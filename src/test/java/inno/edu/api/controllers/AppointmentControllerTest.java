@@ -6,6 +6,7 @@ import inno.edu.api.domain.appointment.commands.CreateAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentCommand;
 import inno.edu.api.domain.appointment.exceptions.AppointmentNotFoundException;
 import inno.edu.api.domain.appointment.models.Appointment;
+import inno.edu.api.domain.appointment.queries.GetAppointmentsByUniversityIdQuery;
 import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,18 +15,18 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.hateoas.Resources;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import static inno.edu.api.factories.AppointmentFactory.allAppointments;
+import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.factories.AppointmentFactory.appointment;
-import static inno.edu.api.factories.AppointmentFactory.appointmentResources;
+import static inno.edu.api.factories.AppointmentFactory.appointments;
+import static inno.edu.api.factories.AppointmentFactory.proposedAppointments;
+import static inno.edu.api.factories.UniversityFactory.stanford;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -44,6 +45,9 @@ public class AppointmentControllerTest {
 
     @Mock
     private UpdateAppointmentCommand updateAppointmentCommand;
+
+    @Mock
+    private GetAppointmentsByUniversityIdQuery getAppointmentsByUniversityIdQuery;
 
     @InjectMocks
     private AppointmentController appointmentController;
@@ -70,13 +74,30 @@ public class AppointmentControllerTest {
     }
 
     @Test
-    public void shouldListAllAppointment() {
-        when(appointmentRepository.findAll()).thenReturn(allAppointments());
-        when(resourceBuilder.fromResources(anyListOf(AppointmentResource.class))).thenReturn(appointmentResources());
+    public void shouldListAllAppointments() {
+        when(appointmentRepository.findAll()).thenReturn(appointments());
 
-        Resources<AppointmentResource> allResources = appointmentController.all();
+        appointmentController.all();
 
-        assertThat(allResources, is(appointmentResources()));
+        verify(resourceBuilder).from(eq(appointments()), any());
+    }
+
+    @Test
+    public void shouldListAllAppointmentsByUniversity() {
+        when(getAppointmentsByUniversityIdQuery.run(stanford().getId(), null)).thenReturn(appointments());
+
+        appointmentController.allByUniversity(stanford().getId(), null);
+
+        verify(resourceBuilder).from(eq(appointments()), any());
+    }
+
+    @Test
+    public void shouldListAllAppointmentsByUniversityAndStatus() {
+        when(getAppointmentsByUniversityIdQuery.run(stanford().getId(), PROPOSED)).thenReturn(proposedAppointments());
+
+        appointmentController.allByUniversity(stanford().getId(), PROPOSED);
+
+        verify(resourceBuilder).from(eq(proposedAppointments()), any());
     }
 
     @Test

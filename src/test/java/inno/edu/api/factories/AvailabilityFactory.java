@@ -1,8 +1,6 @@
 package inno.edu.api.factories;
 
-import inno.edu.api.controllers.resources.AvailabilityResource;
 import inno.edu.api.domain.availability.models.Availability;
-import org.springframework.hateoas.Resources;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -47,26 +45,12 @@ public class AvailabilityFactory {
                 .build();
     }
 
-    private static AvailabilityResource availabilityResource() {
-        return new AvailabilityResource(availability());
-    }
-
     public static List<Availability> allAvailability() {
         return newArrayList(availability(), otherAvailability());
     }
 
     public static List<Availability> feiAvailability() {
         return singletonList(availability());
-    }
-
-    public static Resources<AvailabilityResource>  feiAvailabilityResources() {
-
-        return new Resources<>(singletonList(new AvailabilityResource(availability())));
-    }
-
-
-    public static Resources<AvailabilityResource> availabilityResources() {
-        return new Resources<>(singletonList(availabilityResource()));
     }
 
     public static String availabilityPostPayload(Availability availability) {

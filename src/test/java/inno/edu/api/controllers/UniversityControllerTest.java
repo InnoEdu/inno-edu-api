@@ -14,18 +14,15 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.hateoas.Resources;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import static inno.edu.api.factories.UniversityFactory.universities;
-import static inno.edu.api.factories.UniversityFactory.universitiesResource;
 import static inno.edu.api.factories.UniversityFactory.stanford;
+import static inno.edu.api.factories.UniversityFactory.universities;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -72,11 +69,10 @@ public class UniversityControllerTest {
     @Test
     public void shouldListAllUniversities() {
         when(universityRepository.findAll()).thenReturn(universities());
-        when(resourceBuilder.fromResources(anyListOf(UniversityResource.class))).thenReturn(universitiesResource());
 
-        Resources<UniversityResource> allResources = universityController.all();
+        universityController.all();
 
-        assertThat(allResources, is(universitiesResource()));
+        verify(resourceBuilder).from(eq(universities()), any());
     }
 
     @Test

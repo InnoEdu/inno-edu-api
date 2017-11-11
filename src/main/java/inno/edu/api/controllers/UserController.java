@@ -19,13 +19,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.google.common.collect.Streams.stream;
 import static java.util.Optional.ofNullable;
-import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping(value = "/api/users", produces = "application/hal+json")
@@ -47,11 +44,8 @@ public class UserController {
 
     @GetMapping
     public Resources<UserResource> all() {
-        List<UserResource> users = stream(userRepository.findAll())
-                .map(UserResource::new)
-                .collect(toList());
-
-        return resourceBuilder.fromResources(users);
+        Iterable<User> users = userRepository.findAll();
+        return resourceBuilder.from(users, UserResource::new);
     }
 
     @GetMapping("/{id}")

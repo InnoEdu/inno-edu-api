@@ -1,8 +1,6 @@
 package inno.edu.api.factories;
 
-import inno.edu.api.controllers.resources.UniversityResource;
 import inno.edu.api.domain.university.models.University;
-import org.springframework.hateoas.Resources;
 
 import java.util.List;
 
@@ -32,20 +30,8 @@ public class UniversityFactory {
                 .build();
     }
 
-    private static UniversityResource stanfordResource() {
-        return new UniversityResource(stanford());
-    }
-
-    private static UniversityResource berkeleyResource() {
-        return new UniversityResource(stanford());
-    }
-
     public static List<University> universities() {
         return newArrayList(stanford(), berkeley());
-    }
-
-    public static Resources<UniversityResource> universitiesResource() {
-        return new Resources<>(newArrayList(stanfordResource(), berkeleyResource()));
     }
 
     public static String universityPayload(University university) {

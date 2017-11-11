@@ -16,6 +16,9 @@ dependencies {
     compile "com.h2database:h2"
     compile "org.flywaydb:flyway-core:4.2.0"
 
+    compile "com.querydsl:querydsl-apt:4.1.4"
+    compile "com.querydsl:querydsl-jpa:4.1.4"
+
     compile "com.google.guava:guava:23.3-jre"
 
     compileOnly "org.projectlombok:lombok:1.16.16"

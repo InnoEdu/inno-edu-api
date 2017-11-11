@@ -29,7 +29,8 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].menteeId", containsInAnyOrder(appointment().getMenteeId().toString(), otherAppointment().getMenteeId().toString())))
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].universityId", containsInAnyOrder(appointment().getUniversityId().toString(), otherAppointment().getUniversityId().toString())))
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].fromDateTime", containsInAnyOrder(appointment().getFromDateTime().toString(), otherAppointment().getFromDateTime().toString())))
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].toDateTime", containsInAnyOrder(appointment().getToDateTime().toString(), otherAppointment().getToDateTime().toString())));
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].toDateTime", containsInAnyOrder(appointment().getToDateTime().toString(), otherAppointment().getToDateTime().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].status", containsInAnyOrder(appointment().getStatus().toString(), otherAppointment().getStatus().toString())));
     }
 
     @Test
@@ -41,7 +42,8 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.menteeId", is(appointment().getMenteeId().toString())))
                 .andExpect(jsonPath("$.universityId", is(appointment().getUniversityId().toString())))
                 .andExpect(jsonPath("$.fromDateTime", is(appointment().getFromDateTime().toString())))
-                .andExpect(jsonPath("$.toDateTime", is(appointment().getToDateTime().toString())));
+                .andExpect(jsonPath("$.toDateTime", is(appointment().getToDateTime().toString())))
+                .andExpect(jsonPath("$.status", is(appointment().getStatus().toString())));
     }
 
     @Test
@@ -64,7 +66,8 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", is(is(appointment().getId().toString()))))
                 .andExpect(jsonPath("$.toDateTime", is(updatedAppointment().getToDateTime().toString())))
-                .andExpect(jsonPath("$.fromDateTime", is(updatedAppointment().getFromDateTime().toString())));
+                .andExpect(jsonPath("$.fromDateTime", is(updatedAppointment().getFromDateTime().toString())))
+                .andExpect(jsonPath("$.status", is(updatedAppointment().getStatus().toString())));
     }
 
     @Test

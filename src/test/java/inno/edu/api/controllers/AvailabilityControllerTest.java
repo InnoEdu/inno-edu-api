@@ -14,22 +14,18 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.hateoas.Resources;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static inno.edu.api.factories.AvailabilityFactory.allAvailability;
 import static inno.edu.api.factories.AvailabilityFactory.availability;
-import static inno.edu.api.factories.AvailabilityFactory.availabilityResources;
 import static inno.edu.api.factories.AvailabilityFactory.feiAvailability;
-import static inno.edu.api.factories.AvailabilityFactory.feiAvailabilityResources;
 import static inno.edu.api.factories.UniversityFactory.stanford;
 import static inno.edu.api.factories.UserFactory.fei;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -76,31 +72,28 @@ public class AvailabilityControllerTest {
     @Test
     public void shouldListAllAvailability() {
         when(availabilityRepository.findAll()).thenReturn(allAvailability());
-        when(resourceBuilder.fromResources(anyListOf(AvailabilityResource.class))).thenReturn(availabilityResources());
 
-        Resources<AvailabilityResource> allResources = availabilityController.all();
+        availabilityController.all();
 
-        assertThat(allResources, is(availabilityResources()));
+        verify(resourceBuilder).from(eq(allAvailability()), any());
     }
 
     @Test
     public void shouldListAllAvailabilityByUser() {
         when(availabilityRepository.findAvailabilityByUserId(fei().getId())).thenReturn(feiAvailability());
-        when(resourceBuilder.fromResources(anyListOf(AvailabilityResource.class))).thenReturn(feiAvailabilityResources());
 
-        Resources<AvailabilityResource> allResources = availabilityController.allByUser(fei().getId());
+        availabilityController.allByUser(fei().getId());
 
-        assertThat(allResources, is(feiAvailabilityResources()));
+        verify(resourceBuilder).from(eq(feiAvailability()), any());
     }
 
     @Test
     public void shouldListAllAvailabilityByUniversity() {
         when(availabilityRepository.findAvailabilityByUniversityId(stanford().getId())).thenReturn(feiAvailability());
-        when(resourceBuilder.fromResources(anyListOf(AvailabilityResource.class))).thenReturn(feiAvailabilityResources());
 
-        Resources<AvailabilityResource> allResources = availabilityController.allByUniversity(stanford().getId());
+        availabilityController.allByUniversity(stanford().getId());
 
-        assertThat(allResources, is(feiAvailabilityResources()));
+        verify(resourceBuilder).from(eq(feiAvailability()), any());
     }
 
     @Test

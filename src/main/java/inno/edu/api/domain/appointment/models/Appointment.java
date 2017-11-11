@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -25,4 +26,8 @@ public class Appointment {
 
     private LocalDateTime fromDateTime;
     private LocalDateTime toDateTime;
+
+    @Enumerated
+    private AppointmentStatus status;
+
 }
