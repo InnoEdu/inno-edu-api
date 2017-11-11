@@ -7,6 +7,8 @@ import inno.edu.api.domain.appointment.commands.UpdateAppointmentCommand;
 import inno.edu.api.domain.appointment.exceptions.AppointmentNotFoundException;
 import inno.edu.api.domain.appointment.models.Appointment;
 import inno.edu.api.domain.appointment.models.AppointmentStatus;
+import inno.edu.api.domain.appointment.queries.GetAppointmentsByMenteeIdQuery;
+import inno.edu.api.domain.appointment.queries.GetAppointmentsByMentorIdQuery;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByUniversityIdQuery;
 import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
 import org.springframework.hateoas.Resources;
@@ -38,13 +40,17 @@ public class AppointmentController {
     private final UpdateAppointmentCommand updateAppointmentCommand;
 
     private final GetAppointmentsByUniversityIdQuery getAppointmentsByUniversityIdQuery;
+    private final GetAppointmentsByMentorIdQuery getAppointmentsByMentorIdQuery;
+    private final GetAppointmentsByMenteeIdQuery getAppointmentsByMenteeIdQuery;
 
-    public AppointmentController(AppointmentRepository appointmentRepository, ResourceBuilder resourceBuilder, CreateAppointmentCommand createAppointmentCommand, UpdateAppointmentCommand updateAppointmentCommand, GetAppointmentsByUniversityIdQuery getAppointmentsByUniversityIdQuery) {
+    public AppointmentController(AppointmentRepository appointmentRepository, ResourceBuilder resourceBuilder, CreateAppointmentCommand createAppointmentCommand, UpdateAppointmentCommand updateAppointmentCommand, GetAppointmentsByUniversityIdQuery getAppointmentsByUniversityIdQuery, GetAppointmentsByMentorIdQuery getAppointmentsByMentorIdQuery, GetAppointmentsByMenteeIdQuery getAppointmentsByMenteeIdQuery) {
         this.appointmentRepository = appointmentRepository;
         this.resourceBuilder = resourceBuilder;
         this.createAppointmentCommand = createAppointmentCommand;
         this.updateAppointmentCommand = updateAppointmentCommand;
         this.getAppointmentsByUniversityIdQuery = getAppointmentsByUniversityIdQuery;
+        this.getAppointmentsByMentorIdQuery = getAppointmentsByMentorIdQuery;
+        this.getAppointmentsByMenteeIdQuery = getAppointmentsByMenteeIdQuery;
     }
 
     @GetMapping
@@ -57,6 +63,20 @@ public class AppointmentController {
     public Resources<AppointmentResource> allByUniversity(@PathVariable UUID universityId,
                                                           @RequestParam(required = false) AppointmentStatus status) {
         List<Appointment> appointments = getAppointmentsByUniversityIdQuery.run(universityId, status);
+        return resourceBuilder.from(appointments, AppointmentResource::new);
+    }
+
+    @GetMapping("/mentor/{mentorId}")
+    public Resources<AppointmentResource> allByMentor(@PathVariable UUID mentorId,
+                                                          @RequestParam(required = false) AppointmentStatus status) {
+        List<Appointment> appointments = getAppointmentsByMentorIdQuery.run(mentorId, status);
+        return resourceBuilder.from(appointments, AppointmentResource::new);
+    }
+
+    @GetMapping("/mentee/{menteeId}")
+    public Resources<AppointmentResource> allByMentee(@PathVariable UUID menteeId,
+                                                          @RequestParam(required = false) AppointmentStatus status) {
+        List<Appointment> appointments = getAppointmentsByMenteeIdQuery.run(menteeId, status);
         return resourceBuilder.from(appointments, AppointmentResource::new);
     }
 

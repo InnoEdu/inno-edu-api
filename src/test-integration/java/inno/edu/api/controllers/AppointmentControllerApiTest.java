@@ -11,6 +11,8 @@ import static inno.edu.api.factories.AppointmentFactory.appointmentPutPayload;
 import static inno.edu.api.factories.AppointmentFactory.otherAppointment;
 import static inno.edu.api.factories.AppointmentFactory.updatedAppointment;
 import static inno.edu.api.factories.UniversityFactory.stanford;
+import static inno.edu.api.factories.UserFactory.alan;
+import static inno.edu.api.factories.UserFactory.fei;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
@@ -39,6 +41,36 @@ public class AppointmentControllerApiTest extends ApiTest {
     @Test
     public void shouldListAppointmentsByUniversityAndStatus() throws Exception {
         this.mockMvc.perform(get("/api/appointments/university/" + stanford().getId())
+                .param("status", PROPOSED.toString()))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].id", contains(appointment().getId().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].mentorId", contains(appointment().getMentorId().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].menteeId", contains(appointment().getMenteeId().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].universityId", contains(appointment().getUniversityId().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].fromDateTime", contains(appointment().getFromDateTime().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].toDateTime", contains(appointment().getToDateTime().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].status", contains(appointment().getStatus().toString())));
+    }
+
+    @Test
+    public void shouldListAppointmentsByMentorAndStatus() throws Exception {
+        this.mockMvc.perform(get("/api/appointments/mentor/" + fei().getId())
+                .param("status", PROPOSED.toString()))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].id", contains(appointment().getId().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].mentorId", contains(appointment().getMentorId().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].menteeId", contains(appointment().getMenteeId().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].universityId", contains(appointment().getUniversityId().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].fromDateTime", contains(appointment().getFromDateTime().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].toDateTime", contains(appointment().getToDateTime().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].status", contains(appointment().getStatus().toString())));
+    }
+
+    @Test
+    public void shouldListAppointmentsByMenteeAndStatus() throws Exception {
+        this.mockMvc.perform(get("/api/appointments/mentee/" + alan().getId())
                 .param("status", PROPOSED.toString()))
                 .andDo(print())
                 .andExpect(status().isOk())

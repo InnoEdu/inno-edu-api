@@ -6,6 +6,8 @@ import inno.edu.api.domain.appointment.commands.CreateAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentCommand;
 import inno.edu.api.domain.appointment.exceptions.AppointmentNotFoundException;
 import inno.edu.api.domain.appointment.models.Appointment;
+import inno.edu.api.domain.appointment.queries.GetAppointmentsByMenteeIdQuery;
+import inno.edu.api.domain.appointment.queries.GetAppointmentsByMentorIdQuery;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByUniversityIdQuery;
 import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
 import org.junit.Before;
@@ -23,6 +25,8 @@ import static inno.edu.api.factories.AppointmentFactory.appointment;
 import static inno.edu.api.factories.AppointmentFactory.appointments;
 import static inno.edu.api.factories.AppointmentFactory.proposedAppointments;
 import static inno.edu.api.factories.UniversityFactory.stanford;
+import static inno.edu.api.factories.UserFactory.alan;
+import static inno.edu.api.factories.UserFactory.fei;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentCaptor.forClass;
@@ -48,6 +52,12 @@ public class AppointmentControllerTest {
 
     @Mock
     private GetAppointmentsByUniversityIdQuery getAppointmentsByUniversityIdQuery;
+
+    @Mock
+    private GetAppointmentsByMentorIdQuery getAppointmentsByMentorIdQuery;
+
+    @Mock
+    private GetAppointmentsByMenteeIdQuery getAppointmentsByMenteeIdQuery;
 
     @InjectMocks
     private AppointmentController appointmentController;
@@ -96,6 +106,42 @@ public class AppointmentControllerTest {
         when(getAppointmentsByUniversityIdQuery.run(stanford().getId(), PROPOSED)).thenReturn(proposedAppointments());
 
         appointmentController.allByUniversity(stanford().getId(), PROPOSED);
+
+        verify(resourceBuilder).from(eq(proposedAppointments()), any());
+    }
+
+    @Test
+    public void shouldListAllAppointmentsByMentor() {
+        when(getAppointmentsByMentorIdQuery.run(fei().getId(), null)).thenReturn(appointments());
+
+        appointmentController.allByMentor(fei().getId(), null);
+
+        verify(resourceBuilder).from(eq(appointments()), any());
+    }
+
+    @Test
+    public void shouldListAllAppointmentsByMentorAndStatus() {
+        when(getAppointmentsByMentorIdQuery.run(fei().getId(), PROPOSED)).thenReturn(proposedAppointments());
+
+        appointmentController.allByMentor(fei().getId(), PROPOSED);
+
+        verify(resourceBuilder).from(eq(proposedAppointments()), any());
+    }
+
+    @Test
+    public void shouldListAllAppointmentsByMentee() {
+        when(getAppointmentsByMenteeIdQuery.run(alan().getId(), null)).thenReturn(appointments());
+
+        appointmentController.allByMentee(alan().getId(), null);
+
+        verify(resourceBuilder).from(eq(appointments()), any());
+    }
+
+    @Test
+    public void shouldListAllAppointmentsByMenteeAndStatus() {
+        when(getAppointmentsByMenteeIdQuery.run(alan().getId(), PROPOSED)).thenReturn(proposedAppointments());
+
+        appointmentController.allByMentee(alan().getId(), PROPOSED);
 
         verify(resourceBuilder).from(eq(proposedAppointments()), any());
     }

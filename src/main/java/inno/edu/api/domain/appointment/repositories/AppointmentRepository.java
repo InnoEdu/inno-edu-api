@@ -10,4 +10,11 @@ import java.util.UUID;
 public interface AppointmentRepository extends CrudRepository<Appointment, UUID> {
     List<Appointment> findAppointmentByUniversityId(UUID universityId);
     List<Appointment> findAppointmentByUniversityIdAndStatus(UUID universityId, AppointmentStatus status);
+
+    List<Appointment> findAppointmentByMentorId(UUID universityId);
+    List<Appointment> findAppointmentByMentorIdAndStatus(UUID universityId, AppointmentStatus status);
+
+    List<Appointment> findAppointmentByMenteeId(UUID universityId);
+    List<Appointment> findAppointmentByMenteeIdAndStatus(UUID universityId, AppointmentStatus status);
+
 }
