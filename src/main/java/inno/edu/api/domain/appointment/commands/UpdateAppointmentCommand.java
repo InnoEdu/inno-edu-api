@@ -17,13 +17,14 @@ public class UpdateAppointmentCommand {
         this.appointmentRepository = appointmentRepository;
     }
 
-    public Appointment run(UUID id, Appointment availability) {
+    public Appointment run(UUID id, Appointment appointment) {
         Appointment currentAppointment = ofNullable(appointmentRepository.findOne(id))
                 .orElseThrow(() -> new AppointmentNotFoundException(id));
 
         currentAppointment.setId(id);
-        currentAppointment.setFromDateTime(availability.getFromDateTime());
-        currentAppointment.setToDateTime(availability.getToDateTime());
+        currentAppointment.setFromDateTime(appointment.getFromDateTime());
+        currentAppointment.setToDateTime(appointment.getToDateTime());
+        currentAppointment.setStatus(appointment.getStatus());
 
         return appointmentRepository.save(currentAppointment);
     }

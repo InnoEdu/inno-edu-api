@@ -46,7 +46,7 @@ public class AppointmentFactory {
                 .universityId(stanford().getId())
                 .fromDateTime(LocalDateTime.of(2019, 11, 9, 12, 0, 1))
                 .toDateTime(LocalDateTime.of(2019, 11, 10, 12, 0, 1))
-                .status(AppointmentStatus.PROPOSED)
+                .status(AppointmentStatus.REJECTED)
                 .build();
     }
 
