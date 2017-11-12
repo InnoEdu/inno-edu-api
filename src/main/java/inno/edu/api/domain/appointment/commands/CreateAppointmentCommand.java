@@ -36,7 +36,7 @@ public class CreateAppointmentCommand {
 
         appointment.setId(randomUUID());
         appointment.setStatus(PROPOSED);
-        
+
         return appointmentRepository.save(appointment);
     }
 }
