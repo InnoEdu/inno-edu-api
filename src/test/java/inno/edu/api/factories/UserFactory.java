@@ -8,7 +8,6 @@ import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static inno.edu.api.factories.UniversityFactory.stanford;
-import static java.lang.String.format;
 import static java.util.Collections.singletonList;
 import static java.util.UUID.fromString;
 
@@ -71,7 +70,7 @@ public class UserFactory {
                 .firstName("UpdatedFei")
                 .lastName("UpdatedXiu")
                 .userName("Updatedfeixiu")
-                .isMentor(false)
+                .isMentor(true)
                 .build();
     }
 
@@ -83,7 +82,7 @@ public class UserFactory {
     }
 
     public static MentorProfile updatedFeiProfile() {
-        return MentorProfile.builder().id(fromString("ba7c6505-19fd-47c3-87a6-c6af6e5322b7"))
+        return MentorProfile.builder().id(fromString("0e9e40c0-b44b-4387-92a9-9d75d10e3d42"))
                 .mentorId(fei().getId())
                 .universityId(stanford().getId())
                 .email("Updatedfeixiu@inno.edu")
@@ -102,17 +101,4 @@ public class UserFactory {
     public static List<User> users() {
         return newArrayList(fei(), alan());
     }
-
-    public static String userPayload(User user) {
-        return format("{\"firstName\": \"%s\", \"lastName\": \"%s\", \"userName\": \"%s\", \"isMentor\": \"%s\"}", user.getFirstName(), user.getLastName(), user.getUserName(), user.getIsMentor());
-    }
-
-    public static String menteeProfilePayload(MenteeProfile profile) {
-        return format("{  \"menteeId\": \"%s\", \"email\": \"%s\" }", profile.getMenteeId(), profile.getEmail());
-    }
-
-    public static String mentorProfilePayload(MentorProfile profile) {
-        return format("{  \"mentorId\": \"%s\", \"universityId\": \"%s\", \"email\": \"%s\", \"isActive\": \"%s\" }", profile.getMentorId(), profile.getUniversityId(), profile.getEmail(), profile.getIsActive());
-    }
-
 }

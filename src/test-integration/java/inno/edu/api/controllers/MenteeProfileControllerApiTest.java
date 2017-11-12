@@ -6,8 +6,9 @@ import org.springframework.http.MediaType;
 
 import static inno.edu.api.factories.UserFactory.alanProfile;
 import static inno.edu.api.factories.UserFactory.gustavoProfile;
-import static inno.edu.api.factories.UserFactory.menteeProfilePayload;
 import static inno.edu.api.factories.UserFactory.updatedAlanProfile;
+import static inno.edu.api.support.Payloads.postMenteeProfilePayload;
+import static inno.edu.api.support.Payloads.putMenteeProfilePayload;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -41,7 +42,7 @@ public class MenteeProfileControllerApiTest extends ApiTest {
     public void shouldCreateNewProfile() throws Exception {
         this.mockMvc.perform(
                 post("/api/mentee-profiles")
-                        .content(menteeProfilePayload(gustavoProfile()))
+                        .content(postMenteeProfilePayload(gustavoProfile()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated());
@@ -51,7 +52,7 @@ public class MenteeProfileControllerApiTest extends ApiTest {
     public void shouldMenteeShouldNotHaveMultipleProfiles() throws Exception {
         this.mockMvc.perform(
                 post("/api/mentee-profiles")
-                        .content(menteeProfilePayload(alanProfile()))
+                        .content(postMenteeProfilePayload(alanProfile()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isBadRequest());
@@ -61,11 +62,11 @@ public class MenteeProfileControllerApiTest extends ApiTest {
     public void shouldUpdateProfile() throws Exception {
         this.mockMvc.perform(
                 put("/api/mentee-profiles/" + alanProfile().getId())
-                        .content(menteeProfilePayload(updatedAlanProfile()))
+                        .content(putMenteeProfilePayload(updatedAlanProfile()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", is(alanProfile().getId().toString())))
+                .andExpect(jsonPath("$.id", is(updatedAlanProfile().getId().toString())))
                 .andExpect(jsonPath("$.menteeId", is(updatedAlanProfile().getMenteeId().toString())))
                 .andExpect(jsonPath("$.email", is(updatedAlanProfile().getEmail())));
     }

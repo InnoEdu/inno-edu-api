@@ -10,7 +10,7 @@ import static inno.edu.api.factories.UserFactory.fei;
 import static inno.edu.api.factories.UserFactory.feiProfile;
 import static inno.edu.api.factories.UserFactory.gustavo;
 import static inno.edu.api.factories.UserFactory.updatedFei;
-import static inno.edu.api.factories.UserFactory.userPayload;
+import static inno.edu.api.support.Payloads.postUserPayload;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -68,7 +68,7 @@ public class UserControllerApiTest extends ApiTest {
     public void shouldCreateNewUser() throws Exception {
         this.mockMvc.perform(
                 post("/api/users")
-                        .content(userPayload(gustavo()))
+                        .content(postUserPayload(gustavo()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated());
@@ -78,7 +78,7 @@ public class UserControllerApiTest extends ApiTest {
     public void shouldNotCreateNewUserIfUserNameAlreadyExists() throws Exception {
         this.mockMvc.perform(
                 post("/api/users")
-                        .content(userPayload(fei()))
+                        .content(postUserPayload(fei()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isBadRequest());
@@ -88,7 +88,7 @@ public class UserControllerApiTest extends ApiTest {
     public void shouldUpdateUser() throws Exception {
         this.mockMvc.perform(
                 put("/api/users/" + fei().getId())
-                        .content(userPayload(updatedFei()))
+                        .content(postUserPayload(updatedFei()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())

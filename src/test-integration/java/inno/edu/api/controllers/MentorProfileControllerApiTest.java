@@ -5,8 +5,9 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 
 import static inno.edu.api.factories.UserFactory.feiProfile;
-import static inno.edu.api.factories.UserFactory.mentorProfilePayload;
 import static inno.edu.api.factories.UserFactory.updatedFeiProfile;
+import static inno.edu.api.support.Payloads.postMentorProfilePayload;
+import static inno.edu.api.support.Payloads.putMentorProfilePayload;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -44,7 +45,7 @@ public class MentorProfileControllerApiTest extends ApiTest {
     public void shouldCreateNewProfile() throws Exception {
         this.mockMvc.perform(
                 post("/api/mentor-profiles")
-                        .content(mentorProfilePayload(feiProfile()))
+                        .content(postMentorProfilePayload(feiProfile()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated());
@@ -54,11 +55,11 @@ public class MentorProfileControllerApiTest extends ApiTest {
     public void shouldUpdateProfile() throws Exception {
         this.mockMvc.perform(
                 put("/api/mentor-profiles/" + feiProfile().getId())
-                        .content(mentorProfilePayload(updatedFeiProfile()))
+                        .content(putMentorProfilePayload(updatedFeiProfile()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", is(feiProfile().getId().toString())))
+                .andExpect(jsonPath("$.id", is(updatedFeiProfile().getId().toString())))
                 .andExpect(jsonPath("$.mentorId", is(updatedFeiProfile().getMentorId().toString())))
                 .andExpect(jsonPath("$.email", is(updatedFeiProfile().getEmail())));
     }
