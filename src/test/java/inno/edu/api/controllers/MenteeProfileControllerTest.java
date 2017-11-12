@@ -17,7 +17,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import static inno.edu.api.factories.UserFactory.alan;
 import static inno.edu.api.factories.UserFactory.alanProfile;
 import static inno.edu.api.factories.UserFactory.menteeProfiles;
 import static org.hamcrest.core.Is.is;
@@ -68,15 +67,6 @@ public class MenteeProfileControllerTest {
     }
 
     @Test
-    public void shouldGetProfileByMenteeId() {
-        when(menteeProfileRepository.findOneMenteeProfileByMenteeId(eq(alan().getId()))).thenReturn(alanProfile());
-
-        MenteeProfileResource profileResource = menteeProfileController.getByMentee(alan().getId());
-
-        assertThat(profileResource.getMenteeProfile(), is(alanProfile()));
-    }
-
-    @Test
     public void shouldListProfiles() {
         when(menteeProfileRepository.findAll()).thenReturn(menteeProfiles());
 
@@ -96,7 +86,7 @@ public class MenteeProfileControllerTest {
     }
 
     @Test
-    public void shouldUpdateProfile() {
+    public void shouldUpdateUser() {
         when(updateMenteeProfileCommand.run(alanProfile().getId(), alanProfile())).thenReturn(alanProfile());
 
         menteeProfileController.put(alanProfile().getId(), alanProfile());
@@ -105,7 +95,7 @@ public class MenteeProfileControllerTest {
     }
 
     @Test
-    public void shouldUDeleteProfile() {
+    public void shouldUDeleteUser() {
         when(menteeProfileRepository.exists(alanProfile().getId())).thenReturn(true);
 
         menteeProfileController.delete(alanProfile().getId());

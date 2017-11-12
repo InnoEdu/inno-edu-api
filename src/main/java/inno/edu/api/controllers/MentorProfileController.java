@@ -55,12 +55,6 @@ public class MentorProfileController {
         return new MentorProfileResource(profile.orElseThrow(() -> new ProfileNotFoundException(id)));
     }
 
-    @GetMapping("/mentor/{mentorId}")
-    public MentorProfileResource getByMentor(@PathVariable UUID mentorId) {
-        Optional<MentorProfile> profile = ofNullable(mentorProfileRepository.findOneMentorProfileByMentorIdAndIsActive(mentorId, true));
-        return new MentorProfileResource(profile.orElseThrow(() -> new ProfileNotFoundException(mentorId)));
-    }
-
     @PostMapping
     public ResponseEntity<?> post(@RequestBody MentorProfile profile) {
         MentorProfileResource userResource = new MentorProfileResource(createMentorProfileCommand.run(profile));

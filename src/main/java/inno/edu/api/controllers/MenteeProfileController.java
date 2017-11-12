@@ -55,12 +55,6 @@ public class MenteeProfileController {
         return new MenteeProfileResource(profile.orElseThrow(() -> new ProfileNotFoundException(id)));
     }
 
-    @GetMapping("/mentee/{menteeId}")
-    public MenteeProfileResource getByMentee(@PathVariable UUID menteeId) {
-        Optional<MenteeProfile> profile = ofNullable(menteeProfileRepository.findOneMenteeProfileByMenteeId(menteeId));
-        return new MenteeProfileResource(profile.orElseThrow(() -> new ProfileNotFoundException(menteeId)));
-    }
-
     @PostMapping
     public ResponseEntity<?> post(@RequestBody MenteeProfile profile) {
         MenteeProfileResource userResource = new MenteeProfileResource(createMenteeProfileCommand.run(profile));

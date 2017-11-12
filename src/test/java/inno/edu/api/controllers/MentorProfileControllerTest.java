@@ -17,7 +17,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import static inno.edu.api.factories.UserFactory.fei;
 import static inno.edu.api.factories.UserFactory.feiProfile;
 import static inno.edu.api.factories.UserFactory.mentorProfiles;
 import static org.hamcrest.core.Is.is;
@@ -65,15 +64,6 @@ public class MentorProfileControllerTest {
         when(mentorProfileRepository.findOne(any())).thenReturn(null);
 
         mentorProfileController.get(feiProfile().getId());
-    }
-
-    @Test
-    public void shouldGetProfileByMentorId() {
-        when(mentorProfileRepository.findOneMentorProfileByMentorIdAndIsActive(fei().getId(), true)).thenReturn(feiProfile());
-
-        MentorProfileResource profileResource = mentorProfileController.getByMentor(fei().getId());
-
-        assertThat(profileResource.getMentorProfile(), is(feiProfile()));
     }
 
     @Test
