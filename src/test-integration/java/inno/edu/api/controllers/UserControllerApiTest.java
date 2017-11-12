@@ -26,6 +26,7 @@ public class UserControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$._embedded.userResourceList[*].id", containsInAnyOrder(fei().getId().toString(), alan().getId().toString())))
                 .andExpect(jsonPath("$._embedded.userResourceList[*].firstName", containsInAnyOrder(fei().getFirstName(), alan().getFirstName())))
                 .andExpect(jsonPath("$._embedded.userResourceList[*].lastName", containsInAnyOrder(fei().getLastName(), alan().getLastName())))
+                .andExpect(jsonPath("$._embedded.userResourceList[*].userName", containsInAnyOrder(fei().getUserName(), alan().getUserName())))
                 .andExpect(jsonPath("$._embedded.userResourceList[*].isMentor", containsInAnyOrder(fei().getIsMentor(), alan().getIsMentor())));
     }
 
@@ -36,6 +37,7 @@ public class UserControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.id", is(is(fei().getId().toString()))))
                 .andExpect(jsonPath("$.firstName", is(fei().getFirstName())))
                 .andExpect(jsonPath("$.lastName", is(fei().getLastName())))
+                .andExpect(jsonPath("$.userName", is(fei().getUserName())))
                 .andExpect(jsonPath("$.isMentor", is(fei().getIsMentor())));
     }
 
@@ -60,6 +62,7 @@ public class UserControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.id", is(is(fei().getId().toString()))))
                 .andExpect(jsonPath("$.firstName", is(updatedFei().getFirstName())))
                 .andExpect(jsonPath("$.lastName", is(updatedFei().getLastName())))
+                .andExpect(jsonPath("$.userName", is(updatedFei().getUserName())))
                 .andExpect(jsonPath("$.isMentor", is(updatedFei().getIsMentor())));
     }
 
