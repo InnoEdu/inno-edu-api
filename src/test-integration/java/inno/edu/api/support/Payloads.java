@@ -1,5 +1,6 @@
 package inno.edu.api.support;
 
+import inno.edu.api.domain.university.models.University;
 import inno.edu.api.domain.user.models.MenteeProfile;
 import inno.edu.api.domain.user.models.MentorProfile;
 import inno.edu.api.domain.user.models.User;
@@ -45,4 +46,13 @@ public class Payloads {
     public static String putMenteeProfilePayload(MenteeProfile profile) {
         return format(loadPayload("payloads/user/put-mentee-profile.json"), profile.getEmail());
     }
+
+    public static String postUniversityPayload(University university) {
+        return format(loadPayload("payloads/university/post-university.json"), university.getName());
+    }
+
+    public static String putUniversityPayload(University university) {
+        return format(loadPayload("payloads/university/put-university.json"), university.getName());
+    }
+
 }

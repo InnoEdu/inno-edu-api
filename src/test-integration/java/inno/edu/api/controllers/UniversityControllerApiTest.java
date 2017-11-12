@@ -6,9 +6,10 @@ import org.springframework.http.MediaType;
 
 import static inno.edu.api.factories.UniversityFactory.berkeley;
 import static inno.edu.api.factories.UniversityFactory.stanford;
-import static inno.edu.api.factories.UniversityFactory.universityPayload;
 import static inno.edu.api.factories.UniversityFactory.updatedStanford;
 import static inno.edu.api.factories.UserFactory.feiProfile;
+import static inno.edu.api.support.Payloads.postUniversityPayload;
+import static inno.edu.api.support.Payloads.putUniversityPayload;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -51,7 +52,7 @@ public class UniversityControllerApiTest extends ApiTest {
     public void shouldCreateNewUniversity() throws Exception {
         this.mockMvc.perform(
                 post("/api/universities")
-                        .content(universityPayload(stanford()))
+                        .content(postUniversityPayload(stanford()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated());
@@ -61,7 +62,7 @@ public class UniversityControllerApiTest extends ApiTest {
     public void shouldUpdateUniversity() throws Exception {
         this.mockMvc.perform(
                 put("/api/universities/" + stanford().getId())
-                        .content(universityPayload(updatedStanford()))
+                        .content(putUniversityPayload(updatedStanford()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())

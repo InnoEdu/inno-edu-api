@@ -5,7 +5,6 @@ import inno.edu.api.domain.university.models.University;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static java.lang.String.format;
 import static java.util.UUID.fromString;
 
 public class UniversityFactory {
@@ -32,9 +31,5 @@ public class UniversityFactory {
 
     public static List<University> universities() {
         return newArrayList(stanford(), berkeley());
-    }
-
-    public static String universityPayload(University university) {
-        return format("{\"name\": \"%s\" }", university.getName());
     }
 }
