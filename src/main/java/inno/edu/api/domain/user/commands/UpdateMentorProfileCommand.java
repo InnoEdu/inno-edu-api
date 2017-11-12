@@ -23,7 +23,7 @@ public class UpdateMentorProfileCommand {
 
         currentMentorProfile.setId(id);
         currentMentorProfile.setEmail(profile.getEmail());
-        currentMentorProfile.setIsActive(profile.getIsActive());
+        currentMentorProfile.setStatus(profile.getStatus());
 
         return profileRepository.save(currentMentorProfile);
     }

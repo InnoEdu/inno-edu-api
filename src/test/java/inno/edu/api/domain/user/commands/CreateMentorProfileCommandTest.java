@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static inno.edu.api.domain.user.models.ProfileStatus.CREATED;
 import static inno.edu.api.support.UserFactory.feiProfile;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -48,14 +49,14 @@ public class CreateMentorProfileCommandTest {
     }
 
     @Test
-    public void shouldSetMentorProfileToInactive() {
+    public void shouldSetMentorProfileToCreated() {
         ArgumentCaptor<MentorProfile> argumentCaptor = forClass(MentorProfile.class);
 
         when(mentorProfileRepository.save(argumentCaptor.capture())).thenReturn(feiProfile());
 
         createMentorProfileCommand.run(feiProfile());
 
-        assertThat(argumentCaptor.getValue().getIsActive(), is(false));
+        assertThat(argumentCaptor.getValue().getStatus(), is(CREATED));
     }
 
 }

@@ -7,6 +7,8 @@ import inno.edu.api.infrastructure.annotations.Query;
 import java.util.List;
 import java.util.UUID;
 
+import static inno.edu.api.domain.user.models.ProfileStatus.ACTIVE;
+
 @Query
 public class GetMentorProfilesByUniversityIdQuery {
     private final MentorProfileRepository mentorProfileRepository;
@@ -16,6 +18,6 @@ public class GetMentorProfilesByUniversityIdQuery {
     }
 
     public List<MentorProfile> run(UUID universityId) {
-        return mentorProfileRepository.findByUniversityIdAndIsActiveIsTrue(universityId);
+        return mentorProfileRepository.findByUniversityIdAndStatus(universityId, ACTIVE);
     }
 }

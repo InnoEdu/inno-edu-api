@@ -21,5 +21,5 @@ public class MentorProfile {
     private UUID mentorId;
     private UUID universityId;
     private String email;
-    private Boolean isActive;
+    private ProfileStatus status;
 }

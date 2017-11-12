@@ -7,6 +7,7 @@ import inno.edu.api.domain.user.models.User;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static inno.edu.api.domain.user.models.ProfileStatus.ACTIVE;
 import static inno.edu.api.support.UniversityFactory.stanford;
 import static java.util.Collections.singletonList;
 import static java.util.UUID.fromString;
@@ -60,7 +61,7 @@ public class UserFactory {
                 .mentorId(fei().getId())
                 .universityId(stanford().getId())
                 .email("feixiu@inno.edu")
-                .isActive(true)
+                .status(ACTIVE)
                 .build();
     }
 
@@ -86,7 +87,7 @@ public class UserFactory {
                 .mentorId(fei().getId())
                 .universityId(stanford().getId())
                 .email("Updatedfeixiu@inno.edu")
-                .isActive(true)
+                .status(ACTIVE)
                 .build();
     }
 

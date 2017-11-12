@@ -37,7 +37,7 @@ public class UniversityControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].mentorId", containsInAnyOrder(feiProfile().getMentorId().toString())))
                 .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].universityId", containsInAnyOrder(feiProfile().getUniversityId().toString())))
                 .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].email", containsInAnyOrder(feiProfile().getEmail())))
-                .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].isActive", containsInAnyOrder(feiProfile().getIsActive())));
+                .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].status", containsInAnyOrder(feiProfile().getStatus().toString())));
     }
 
     @Test

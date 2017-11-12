@@ -7,6 +7,7 @@ import inno.edu.api.infrastructure.annotations.Query;
 
 import java.util.UUID;
 
+import static inno.edu.api.domain.user.models.ProfileStatus.ACTIVE;
 import static java.util.Optional.ofNullable;
 
 @Query
@@ -18,7 +19,7 @@ public class GetMentorActiveProfileByUserIdQuery {
     }
 
     public MentorProfile run(UUID userId) {
-        return ofNullable(mentorProfileRepository.findOneByMentorIdAndIsActiveIsTrue(userId))
+        return ofNullable(mentorProfileRepository.findOneByMentorIdAndStatus(userId, ACTIVE))
                 .orElseThrow(() -> new UserProfileNotFoundException(userId));
     }
 }

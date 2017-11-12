@@ -38,7 +38,7 @@ public class Payloads {
     }
 
     public static String putMentorProfilePayload(MentorProfile profile) {
-        return format(loadPayload("payloads/user/put-mentor-profile.json"), profile.getEmail(), profile.getIsActive());
+        return format(loadPayload("payloads/user/put-mentor-profile.json"), profile.getEmail(), profile.getStatus());
     }
 
     public static String postMenteeProfilePayload(MenteeProfile profile) {

@@ -53,7 +53,7 @@ public class UserControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.mentorId", is(feiProfile().getMentorId().toString())))
                 .andExpect(jsonPath("$.universityId", is(feiProfile().getUniversityId().toString())))
                 .andExpect(jsonPath("$.email", is(feiProfile().getEmail())))
-                .andExpect(jsonPath("$.isActive", is(feiProfile().getIsActive())));
+                .andExpect(jsonPath("$.status", is(feiProfile().getStatus().toString())));
     }
 
     @Test

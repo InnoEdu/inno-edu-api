@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static inno.edu.api.domain.user.models.ProfileStatus.ACTIVE;
 import static inno.edu.api.support.UserFactory.fei;
 import static inno.edu.api.support.UserFactory.feiProfile;
 import static org.hamcrest.CoreMatchers.is;
@@ -25,7 +26,7 @@ public class GetMentorActiveProfileByUserIdQueryTest {
 
     @Test
     public void shouldGetMentorProfile() {
-        when(mentorProfileRepository.findOneByMentorIdAndIsActiveIsTrue(fei().getId())).thenReturn(feiProfile());
+        when(mentorProfileRepository.findOneByMentorIdAndStatus(fei().getId(), ACTIVE)).thenReturn(feiProfile());
 
         MentorProfile mentorProfile = getMentorActiveProfileByUserIdQuery.run(fei().getId());
 
@@ -34,7 +35,7 @@ public class GetMentorActiveProfileByUserIdQueryTest {
 
     @Test(expected = UserProfileNotFoundException.class)
     public void shouldRaiseExceptionIsProfileNotFound() {
-        when(mentorProfileRepository.findOneByMentorIdAndIsActiveIsTrue(fei().getId())).thenReturn(null);
+        when(mentorProfileRepository.findOneByMentorIdAndStatus(fei().getId(), ACTIVE)).thenReturn(null);
 
         getMentorActiveProfileByUserIdQuery.run(fei().getId());
     }
