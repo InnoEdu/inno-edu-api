@@ -34,7 +34,7 @@ public class UserControllerApiTest extends ApiTest {
     public void shouldGetUserById() throws Exception {
         this.mockMvc.perform(get("/api/users/" + fei().getId().toString())).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(is(fei().getId().toString()))))
+                .andExpect(jsonPath("$.id", is(fei().getId().toString())))
                 .andExpect(jsonPath("$.firstName", is(fei().getFirstName())))
                 .andExpect(jsonPath("$.lastName", is(fei().getLastName())))
                 .andExpect(jsonPath("$.userName", is(fei().getUserName())))
@@ -59,7 +59,7 @@ public class UserControllerApiTest extends ApiTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", is(is(fei().getId().toString()))))
+                .andExpect(jsonPath("$.id", is(fei().getId().toString())))
                 .andExpect(jsonPath("$.firstName", is(updatedFei().getFirstName())))
                 .andExpect(jsonPath("$.lastName", is(updatedFei().getLastName())))
                 .andExpect(jsonPath("$.userName", is(updatedFei().getUserName())))

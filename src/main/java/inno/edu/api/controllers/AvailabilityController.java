@@ -23,6 +23,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static java.util.Optional.ofNullable;
+import static org.springframework.http.ResponseEntity.noContent;
 
 @RestController
 @RequestMapping(value = "/api/availability", produces = "application/hal+json")
@@ -83,6 +84,6 @@ public class AvailabilityController {
         }
         availabilityRepository.delete(id);
 
-        return ResponseEntity.noContent().build();
+        return noContent().build();
     }
 }

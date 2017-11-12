@@ -47,6 +47,13 @@ public class UserFactory {
                 .build();
     }
 
+    public static MenteeProfile updatedAlanProfile() {
+        return MenteeProfile.builder().id(fromString("c5f473b4-3311-40b1-8fb3-f70357894754"))
+                .menteeId(alan().getId())
+                .email("Updatedalanly@inno.edu")
+                .build();
+    }
+
     public static List<MenteeProfile> menteeProfiles() {
         return singletonList(alanProfile());
     }
@@ -58,4 +65,9 @@ public class UserFactory {
     public static String userPayload(User user) {
         return format("{\"firstName\": \"%s\", \"lastName\": \"%s\", \"userName\": \"%s\", \"isMentor\": \"%s\"}", user.getFirstName(), user.getLastName(), user.getUserName(), user.getIsMentor());
     }
+
+    public static String menteeProfilePayload(MenteeProfile profile) {
+        return format("{ \"email\": \"%s\" }", profile.getEmail());
+    }
+
 }

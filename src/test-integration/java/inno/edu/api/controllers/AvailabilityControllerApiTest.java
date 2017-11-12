@@ -85,7 +85,7 @@ public class AvailabilityControllerApiTest extends ApiTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", is(is(availability().getId().toString()))))
+                .andExpect(jsonPath("$.id", is(availability().getId().toString())))
                 .andExpect(jsonPath("$.toDateTime", is(updatedAvailability().getToDateTime().toString())))
                 .andExpect(jsonPath("$.fromDateTime", is(updatedAvailability().getFromDateTime().toString())));
     }

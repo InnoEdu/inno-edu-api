@@ -2,11 +2,11 @@ package inno.edu.api.domain.user.commands;
 
 import inno.edu.api.domain.user.models.User;
 import inno.edu.api.domain.user.repositories.UserRepository;
-import org.springframework.stereotype.Component;
+import inno.edu.api.infrastructure.annotations.Command;
 
 import static java.util.UUID.randomUUID;
 
-@Component
+@Command
 public class CreateUserCommand {
     private final UserRepository userRepository;
 

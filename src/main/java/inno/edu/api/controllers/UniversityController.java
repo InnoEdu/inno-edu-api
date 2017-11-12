@@ -23,6 +23,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static java.util.Optional.ofNullable;
+import static org.springframework.http.ResponseEntity.noContent;
 
 @RestController
 @RequestMapping(value = "/api/universities", produces = "application/hal+json")
@@ -73,6 +74,6 @@ public class UniversityController {
         }
         universityRepository.delete(id);
 
-        return ResponseEntity.noContent().build();
+        return noContent().build();
     }
 }

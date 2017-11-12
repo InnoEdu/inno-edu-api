@@ -31,7 +31,7 @@ public class UniversityControllerApiTest extends ApiTest {
     public void shouldGetUniversityById() throws Exception {
         this.mockMvc.perform(get("/api/universities/" + stanford().getId().toString())).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(is(stanford().getId().toString()))))
+                .andExpect(jsonPath("$.id", is(stanford().getId().toString())))
                 .andExpect(jsonPath("$.name", is(stanford().getName())));
     }
 
@@ -53,7 +53,7 @@ public class UniversityControllerApiTest extends ApiTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", is(is(stanford().getId().toString()))))
+                .andExpect(jsonPath("$.id", is(stanford().getId().toString())))
                 .andExpect(jsonPath("$.name", is(updatedStanford().getName())));
     }
 

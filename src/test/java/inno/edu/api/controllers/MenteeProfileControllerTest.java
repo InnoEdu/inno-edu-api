@@ -2,11 +2,15 @@ package inno.edu.api.controllers;
 
 import inno.edu.api.controllers.resources.MenteeProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
+import inno.edu.api.domain.user.commands.CreateMenteeProfileCommand;
+import inno.edu.api.domain.user.commands.UpdateMenteeProfileCommand;
 import inno.edu.api.domain.user.exceptions.ProfileNotFoundException;
+import inno.edu.api.domain.user.models.MenteeProfile;
 import inno.edu.api.domain.user.repositories.MenteeProfileRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -18,6 +22,7 @@ import static inno.edu.api.factories.UserFactory.alanProfile;
 import static inno.edu.api.factories.UserFactory.menteeProfiles;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
@@ -31,6 +36,12 @@ public class MenteeProfileControllerTest {
 
     @Mock
     private MenteeProfileRepository menteeProfileRepository;
+
+    @Mock
+    private CreateMenteeProfileCommand createMenteeProfileCommand;
+
+    @Mock
+    private UpdateMenteeProfileCommand updateMenteeProfileCommand;
 
     @InjectMocks
     private MenteeProfileController menteeProfileController;
@@ -72,5 +83,33 @@ public class MenteeProfileControllerTest {
         menteeProfileController.all();
 
         verify(resourceBuilder).from(eq(menteeProfiles()), any());
+    }
+
+    @Test
+    public void shouldCreateNewProfiles() {
+        ArgumentCaptor<MenteeProfile> argumentCaptor = forClass(MenteeProfile.class);
+        when(createMenteeProfileCommand.run(argumentCaptor.capture())).thenReturn(alanProfile());
+
+        menteeProfileController.post(alanProfile());
+
+        verify(createMenteeProfileCommand).run(argumentCaptor.capture());
+    }
+
+    @Test
+    public void shouldUpdateProfile() {
+        when(updateMenteeProfileCommand.run(alanProfile().getId(), alanProfile())).thenReturn(alanProfile());
+
+        menteeProfileController.put(alanProfile().getId(), alanProfile());
+
+        verify(updateMenteeProfileCommand).run(alanProfile().getId(), alanProfile());
+    }
+
+    @Test
+    public void shouldUDeleteProfile() {
+        when(menteeProfileRepository.exists(alanProfile().getId())).thenReturn(true);
+
+        menteeProfileController.delete(alanProfile().getId());
+
+        verify(menteeProfileRepository).delete(alanProfile().getId());
     }
 }

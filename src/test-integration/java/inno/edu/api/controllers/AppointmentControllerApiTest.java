@@ -114,7 +114,7 @@ public class AppointmentControllerApiTest extends ApiTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", is(is(appointment().getId().toString()))))
+                .andExpect(jsonPath("$.id", is(appointment().getId().toString())))
                 .andExpect(jsonPath("$.toDateTime", is(updatedAppointment().getToDateTime().toString())))
                 .andExpect(jsonPath("$.fromDateTime", is(updatedAppointment().getFromDateTime().toString())))
                 .andExpect(jsonPath("$.status", is(updatedAppointment().getStatus().toString())));

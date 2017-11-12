@@ -102,5 +102,4 @@ public class UserControllerTest {
 
         verify(userRepository).delete(fei().getId());
     }
-
 }
