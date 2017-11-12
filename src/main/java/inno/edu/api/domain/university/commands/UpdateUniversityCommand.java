@@ -3,13 +3,13 @@ package inno.edu.api.domain.university.commands;
 import inno.edu.api.domain.university.exceptions.UniversityNotFoundException;
 import inno.edu.api.domain.university.models.University;
 import inno.edu.api.domain.university.repositories.UniversityRepository;
-import org.springframework.stereotype.Component;
+import inno.edu.api.infrastructure.annotations.Command;
 
 import java.util.UUID;
 
 import static java.util.Optional.ofNullable;
 
-@Component
+@Command
 public class UpdateUniversityCommand {
     private final UniversityRepository universityRepository;
 

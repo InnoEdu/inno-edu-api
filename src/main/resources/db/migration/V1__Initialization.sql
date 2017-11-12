@@ -1,7 +1,8 @@
 CREATE TABLE User (
   id         UUID PRIMARY KEY,
   first_name VARCHAR(255) NOT NULL,
-  last_name  VARCHAR(255) NOT NULL
+  last_name  VARCHAR(255) NOT NULL,
+  is_mentor BOOLEAN NOT NULL
 );
 
 CREATE TABLE University (
@@ -51,8 +52,8 @@ CREATE TABLE Appointment (
 
 DELETE FROM User;
 
-INSERT INTO User (id, first_name, last_name) VALUES ('ba7c6505-19fd-47c3-87a6-c6af6e5322b7', 'Fei', 'Xiu');
-INSERT INTO User (id, first_name, last_name) VALUES ('8d6153fc-83e5-4b3a-90ac-d081ff789cef', 'Alan', 'LastName');
+INSERT INTO User (id, first_name, last_name, is_mentor) VALUES ('ba7c6505-19fd-47c3-87a6-c6af6e5322b7', 'Fei', 'Xiu', 1);
+INSERT INTO User (id, first_name, last_name, is_mentor) VALUES ('8d6153fc-83e5-4b3a-90ac-d081ff789cef', 'Alan', 'LastName', 0);
 
 DELETE FROM University;
 

@@ -2,11 +2,11 @@ package inno.edu.api.domain.university.commands;
 
 import inno.edu.api.domain.university.models.University;
 import inno.edu.api.domain.university.repositories.UniversityRepository;
-import org.springframework.stereotype.Component;
+import inno.edu.api.infrastructure.annotations.Command;
 
 import static java.util.UUID.randomUUID;
 
-@Component
+@Command
 public class CreateUniversityCommand {
     private final UniversityRepository universityRepository;
 

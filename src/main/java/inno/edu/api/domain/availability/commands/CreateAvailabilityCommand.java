@@ -6,11 +6,11 @@ import inno.edu.api.domain.university.exceptions.UniversityNotFoundException;
 import inno.edu.api.domain.university.repositories.UniversityRepository;
 import inno.edu.api.domain.user.exceptions.UserNotFoundException;
 import inno.edu.api.domain.user.repositories.UserRepository;
-import org.springframework.stereotype.Component;
+import inno.edu.api.infrastructure.annotations.Command;
 
 import static java.util.UUID.randomUUID;
 
-@Component
+@Command
 public class CreateAvailabilityCommand {
     private final AvailabilityRepository availabilityRepository;
     private final UserRepository userRepository;

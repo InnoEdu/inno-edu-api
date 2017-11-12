@@ -3,13 +3,13 @@ package inno.edu.api.domain.availability.commands;
 import inno.edu.api.domain.availability.exceptions.AvailabilityNotFoundException;
 import inno.edu.api.domain.availability.models.Availability;
 import inno.edu.api.domain.availability.repositories.AvailabilityRepository;
-import org.springframework.stereotype.Component;
+import inno.edu.api.infrastructure.annotations.Command;
 
 import java.util.UUID;
 
 import static java.util.Optional.ofNullable;
 
-@Component
+@Command
 public class UpdateAvailabilityCommand {
     private final AvailabilityRepository availabilityRepository;
 
