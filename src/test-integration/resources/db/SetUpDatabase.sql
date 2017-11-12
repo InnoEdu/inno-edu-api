@@ -1,7 +1,15 @@
 DELETE FROM User;
 
-INSERT INTO User (id, first_name, last_name, user_name, is_mentor) VALUES ('ba7c6505-19fd-47c3-87a6-c6af6e5322b7', 'Fei', 'Xiu', 'feixiu', 1);
-INSERT INTO User (id, first_name, last_name, user_name, is_mentor) VALUES ('8d6153fc-83e5-4b3a-90ac-d081ff789cef', 'Alan', 'Ly', 'alanly',0);
+INSERT INTO User (id, first_name, last_name, user_name, is_mentor)
+VALUES ('ba7c6505-19fd-47c3-87a6-c6af6e5322b7', 'Fei', 'Xiu', 'feixiu', 1);
+
+INSERT INTO User (id, first_name, last_name, user_name, is_mentor)
+VALUES ('8d6153fc-83e5-4b3a-90ac-d081ff789cef', 'Alan', 'Ly', 'alanly', 0);
+
+DELETE FROM Mentee_Profile;
+
+INSERT INTO Mentee_Profile (id, mentee_id, email)
+VALUES ('c5f473b4-3311-40b1-8fb3-f70357894754', '8d6153fc-83e5-4b3a-90ac-d081ff789cef', 'alanly@inno.edu');
 
 DELETE FROM University;
 

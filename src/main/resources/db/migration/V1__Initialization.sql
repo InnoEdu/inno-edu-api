@@ -2,8 +2,18 @@ CREATE TABLE User (
   id         UUID PRIMARY KEY,
   first_name VARCHAR(255) NOT NULL,
   last_name  VARCHAR(255) NOT NULL,
-  user_name  VARCHAR(30) NOT NULL,
-  is_mentor BOOLEAN NOT NULL
+  user_name  VARCHAR(30)  NOT NULL,
+  is_mentor  BOOLEAN      NOT NULL
+);
+
+CREATE TABLE Mentee_Profile (
+  id      UUID PRIMARY KEY,
+  mentee_id UUID,
+  email   VARCHAR(255) NOT NULL,
+
+  FOREIGN KEY (mentee_id)
+  REFERENCES User (id)
+  ON DELETE CASCADE,
 );
 
 CREATE TABLE University (
