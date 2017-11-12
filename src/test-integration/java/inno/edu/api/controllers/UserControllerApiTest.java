@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 
 import static inno.edu.api.factories.UserFactory.alan;
 import static inno.edu.api.factories.UserFactory.fei;
+import static inno.edu.api.factories.UserFactory.gustavo;
 import static inno.edu.api.factories.UserFactory.updatedFei;
 import static inno.edu.api.factories.UserFactory.userPayload;
 import static org.hamcrest.Matchers.containsInAnyOrder;
@@ -45,10 +46,20 @@ public class UserControllerApiTest extends ApiTest {
     public void shouldCreateNewUser() throws Exception {
         this.mockMvc.perform(
                 post("/api/users")
-                        .content(userPayload(fei()))
+                        .content(userPayload(gustavo()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void shouldNotCreateNewUserIfUserNameAlreadyExists() throws Exception {
+        this.mockMvc.perform(
+                post("/api/users")
+                        .content(userPayload(fei()))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
     }
 
     @Test

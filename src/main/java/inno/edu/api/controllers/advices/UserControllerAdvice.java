@@ -1,5 +1,6 @@
 package inno.edu.api.controllers.advices;
 
+import inno.edu.api.domain.user.exceptions.UserNameAlreadyExistsException;
 import inno.edu.api.domain.user.exceptions.UserNotFoundException;
 import org.springframework.hateoas.VndErrors;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,13 @@ public class UserControllerAdvice {
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     VndErrors userNotFoundExceptionHandler(UserNotFoundException ex) {
+        return new VndErrors("error", ex.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(UserNameAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    VndErrors userNameAlreadyExistsExceptionHandler(UserNameAlreadyExistsException ex) {
         return new VndErrors("error", ex.getMessage());
     }
 

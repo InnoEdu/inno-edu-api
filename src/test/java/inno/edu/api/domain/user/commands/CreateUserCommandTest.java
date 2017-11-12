@@ -1,5 +1,6 @@
 package inno.edu.api.domain.user.commands;
 
+import inno.edu.api.domain.user.exceptions.UserNameAlreadyExistsException;
 import inno.edu.api.domain.user.models.User;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import org.junit.Test;
@@ -45,5 +46,12 @@ public class CreateUserCommandTest {
         createUserCommand.run(fei());
 
         assertThat(argumentCaptor.getValue().getId(), not(fei().getId()));
+    }
+
+    @Test(expected = UserNameAlreadyExistsException.class)
+    public void shouldNotAllowMultipleUsersWithSameUserName() {
+        when(userRepository.existsUserByUserName(fei().getUserName())).thenReturn(true);
+
+        createUserCommand.run(fei());
     }
 }

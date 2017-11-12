@@ -1,5 +1,6 @@
 package inno.edu.api.domain.user.commands;
 
+import inno.edu.api.domain.user.exceptions.MenteeProfileAlreadyCreatedException;
 import inno.edu.api.domain.user.models.MenteeProfile;
 import inno.edu.api.domain.user.repositories.MenteeProfileRepository;
 import org.junit.Test;
@@ -45,5 +46,12 @@ public class CreateMenteeProfileCommandTest {
         createMenteeProfileCommand.run(alanProfile());
 
         assertThat(argumentCaptor.getValue().getId(), not(alanProfile().getId()));
+    }
+
+    @Test(expected = MenteeProfileAlreadyCreatedException.class)
+    public void shouldNotAllowMultipleMenteeProfiles() {
+        when(menteeProfileRepository.existsMenteeProfileByMenteeId(alanProfile().getMenteeId())).thenReturn(true);
+
+        createMenteeProfileCommand.run(alanProfile());
     }
 }

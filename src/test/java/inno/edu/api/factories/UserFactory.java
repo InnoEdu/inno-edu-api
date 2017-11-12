@@ -11,6 +11,16 @@ import static java.util.Collections.singletonList;
 import static java.util.UUID.fromString;
 
 public class UserFactory {
+    public static User gustavo() {
+        return User.builder()
+                .id(fromString("b654e244-c423-4395-ba34-a6ce1afb69ff"))
+                .firstName("Gustavo")
+                .lastName("Domenico")
+                .userName("gustavodomenico")
+                .isMentor(true)
+                .build();
+    }
+
     public static User fei() {
         return User.builder()
                 .id(fromString("ba7c6505-19fd-47c3-87a6-c6af6e5322b7"))
