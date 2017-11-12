@@ -19,11 +19,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import static inno.edu.api.factories.UserFactory.alan;
-import static inno.edu.api.factories.UserFactory.alanProfile;
-import static inno.edu.api.factories.UserFactory.fei;
-import static inno.edu.api.factories.UserFactory.feiProfile;
-import static inno.edu.api.factories.UserFactory.users;
+import static inno.edu.api.support.UserFactory.alan;
+import static inno.edu.api.support.UserFactory.alanProfile;
+import static inno.edu.api.support.UserFactory.fei;
+import static inno.edu.api.support.UserFactory.feiProfile;
+import static inno.edu.api.support.UserFactory.users;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentCaptor.forClass;

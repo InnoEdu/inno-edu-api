@@ -4,8 +4,8 @@ import inno.edu.api.ApiTest;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
-import static inno.edu.api.factories.UserFactory.feiProfile;
-import static inno.edu.api.factories.UserFactory.updatedFeiProfile;
+import static inno.edu.api.support.UserFactory.feiProfile;
+import static inno.edu.api.support.UserFactory.updatedFeiProfile;
 import static inno.edu.api.support.Payloads.postMentorProfilePayload;
 import static inno.edu.api.support.Payloads.putMentorProfilePayload;
 import static org.hamcrest.Matchers.containsInAnyOrder;

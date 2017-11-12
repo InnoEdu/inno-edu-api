@@ -17,8 +17,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import static inno.edu.api.factories.UserFactory.feiProfile;
-import static inno.edu.api.factories.UserFactory.mentorProfiles;
+import static inno.edu.api.support.UserFactory.feiProfile;
+import static inno.edu.api.support.UserFactory.mentorProfiles;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentCaptor.forClass;

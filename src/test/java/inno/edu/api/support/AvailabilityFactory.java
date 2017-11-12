@@ -1,4 +1,4 @@
-package inno.edu.api.factories;
+package inno.edu.api.support;
 
 import inno.edu.api.domain.availability.models.Availability;
 
@@ -6,10 +6,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static inno.edu.api.factories.UniversityFactory.berkeley;
-import static inno.edu.api.factories.UniversityFactory.stanford;
-import static inno.edu.api.factories.UserFactory.alan;
-import static inno.edu.api.factories.UserFactory.fei;
+import static inno.edu.api.support.UniversityFactory.berkeley;
+import static inno.edu.api.support.UniversityFactory.stanford;
+import static inno.edu.api.support.UserFactory.alan;
+import static inno.edu.api.support.UserFactory.fei;
 import static java.util.Collections.singletonList;
 import static java.util.UUID.fromString;
 

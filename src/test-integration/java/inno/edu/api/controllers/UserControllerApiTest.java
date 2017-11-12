@@ -4,12 +4,12 @@ import inno.edu.api.ApiTest;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
-import static inno.edu.api.factories.UserFactory.alan;
-import static inno.edu.api.factories.UserFactory.alanProfile;
-import static inno.edu.api.factories.UserFactory.fei;
-import static inno.edu.api.factories.UserFactory.feiProfile;
-import static inno.edu.api.factories.UserFactory.gustavo;
-import static inno.edu.api.factories.UserFactory.updatedFei;
+import static inno.edu.api.support.UserFactory.alan;
+import static inno.edu.api.support.UserFactory.alanProfile;
+import static inno.edu.api.support.UserFactory.fei;
+import static inno.edu.api.support.UserFactory.feiProfile;
+import static inno.edu.api.support.UserFactory.gustavo;
+import static inno.edu.api.support.UserFactory.updatedFei;
 import static inno.edu.api.support.Payloads.postUserPayload;
 import static inno.edu.api.support.Payloads.putUserPayload;
 import static org.hamcrest.Matchers.containsInAnyOrder;

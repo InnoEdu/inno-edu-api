@@ -4,9 +4,9 @@ import inno.edu.api.ApiTest;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
-import static inno.edu.api.factories.UserFactory.alanProfile;
-import static inno.edu.api.factories.UserFactory.gustavoProfile;
-import static inno.edu.api.factories.UserFactory.updatedAlanProfile;
+import static inno.edu.api.support.UserFactory.alanProfile;
+import static inno.edu.api.support.UserFactory.gustavoProfile;
+import static inno.edu.api.support.UserFactory.updatedAlanProfile;
 import static inno.edu.api.support.Payloads.postMenteeProfilePayload;
 import static inno.edu.api.support.Payloads.putMenteeProfilePayload;
 import static org.hamcrest.Matchers.containsInAnyOrder;

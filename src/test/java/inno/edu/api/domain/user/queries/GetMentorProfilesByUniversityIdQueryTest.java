@@ -10,8 +10,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.List;
 
-import static inno.edu.api.factories.UniversityFactory.stanford;
-import static inno.edu.api.factories.UserFactory.mentorProfiles;
+import static inno.edu.api.support.UniversityFactory.stanford;
+import static inno.edu.api.support.UserFactory.mentorProfiles;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;

@@ -21,12 +21,12 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
-import static inno.edu.api.factories.AppointmentFactory.appointment;
-import static inno.edu.api.factories.AppointmentFactory.appointments;
-import static inno.edu.api.factories.AppointmentFactory.proposedAppointments;
-import static inno.edu.api.factories.UniversityFactory.stanford;
-import static inno.edu.api.factories.UserFactory.alan;
-import static inno.edu.api.factories.UserFactory.fei;
+import static inno.edu.api.support.AppointmentFactory.appointment;
+import static inno.edu.api.support.AppointmentFactory.appointments;
+import static inno.edu.api.support.AppointmentFactory.proposedAppointments;
+import static inno.edu.api.support.UniversityFactory.stanford;
+import static inno.edu.api.support.UserFactory.alan;
+import static inno.edu.api.support.UserFactory.fei;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentCaptor.forClass;

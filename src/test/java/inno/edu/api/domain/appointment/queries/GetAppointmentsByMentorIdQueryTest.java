@@ -12,8 +12,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.List;
 
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
-import static inno.edu.api.factories.AppointmentFactory.appointments;
-import static inno.edu.api.factories.UserFactory.fei;
+import static inno.edu.api.support.AppointmentFactory.appointments;
+import static inno.edu.api.support.UserFactory.fei;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;

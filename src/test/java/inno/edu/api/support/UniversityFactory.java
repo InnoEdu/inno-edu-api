@@ -1,4 +1,4 @@
-package inno.edu.api.factories;
+package inno.edu.api.support;
 
 import inno.edu.api.domain.university.models.University;
 

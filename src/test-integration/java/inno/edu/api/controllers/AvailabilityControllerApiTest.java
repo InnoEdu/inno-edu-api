@@ -4,11 +4,11 @@ import inno.edu.api.ApiTest;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
-import static inno.edu.api.factories.AvailabilityFactory.availability;
-import static inno.edu.api.factories.AvailabilityFactory.otherAvailability;
-import static inno.edu.api.factories.AvailabilityFactory.updatedAvailability;
-import static inno.edu.api.factories.UniversityFactory.berkeley;
-import static inno.edu.api.factories.UserFactory.fei;
+import static inno.edu.api.support.AvailabilityFactory.availability;
+import static inno.edu.api.support.AvailabilityFactory.otherAvailability;
+import static inno.edu.api.support.AvailabilityFactory.updatedAvailability;
+import static inno.edu.api.support.UniversityFactory.berkeley;
+import static inno.edu.api.support.UserFactory.fei;
 import static inno.edu.api.support.Payloads.postAvailabilityPayload;
 import static inno.edu.api.support.Payloads.putAvailabilityPayload;
 import static org.hamcrest.Matchers.contains;

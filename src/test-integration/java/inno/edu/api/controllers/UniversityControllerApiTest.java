@@ -4,10 +4,10 @@ import inno.edu.api.ApiTest;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
-import static inno.edu.api.factories.UniversityFactory.berkeley;
-import static inno.edu.api.factories.UniversityFactory.stanford;
-import static inno.edu.api.factories.UniversityFactory.updatedStanford;
-import static inno.edu.api.factories.UserFactory.feiProfile;
+import static inno.edu.api.support.UniversityFactory.berkeley;
+import static inno.edu.api.support.UniversityFactory.stanford;
+import static inno.edu.api.support.UniversityFactory.updatedStanford;
+import static inno.edu.api.support.UserFactory.feiProfile;
 import static inno.edu.api.support.Payloads.postUniversityPayload;
 import static inno.edu.api.support.Payloads.putUniversityPayload;
 import static org.hamcrest.Matchers.containsInAnyOrder;

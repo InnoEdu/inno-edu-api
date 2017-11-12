@@ -1,4 +1,4 @@
-package inno.edu.api.factories;
+package inno.edu.api.support;
 
 import inno.edu.api.domain.user.models.MenteeProfile;
 import inno.edu.api.domain.user.models.MentorProfile;
@@ -7,7 +7,7 @@ import inno.edu.api.domain.user.models.User;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static inno.edu.api.factories.UniversityFactory.stanford;
+import static inno.edu.api.support.UniversityFactory.stanford;
 import static java.util.Collections.singletonList;
 import static java.util.UUID.fromString;
 

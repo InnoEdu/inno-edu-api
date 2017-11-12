@@ -17,11 +17,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import static inno.edu.api.factories.AvailabilityFactory.allAvailability;
-import static inno.edu.api.factories.AvailabilityFactory.availability;
-import static inno.edu.api.factories.AvailabilityFactory.feiAvailability;
-import static inno.edu.api.factories.UniversityFactory.stanford;
-import static inno.edu.api.factories.UserFactory.fei;
+import static inno.edu.api.support.AvailabilityFactory.allAvailability;
+import static inno.edu.api.support.AvailabilityFactory.availability;
+import static inno.edu.api.support.AvailabilityFactory.feiAvailability;
+import static inno.edu.api.support.UniversityFactory.stanford;
+import static inno.edu.api.support.UserFactory.fei;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentCaptor.forClass;
