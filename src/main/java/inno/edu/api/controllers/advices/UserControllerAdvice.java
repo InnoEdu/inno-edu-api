@@ -2,6 +2,7 @@ package inno.edu.api.controllers.advices;
 
 import inno.edu.api.domain.user.exceptions.UserNameAlreadyExistsException;
 import inno.edu.api.domain.user.exceptions.UserNotFoundException;
+import inno.edu.api.domain.user.exceptions.UserProfileNotFoundException;
 import org.springframework.hateoas.VndErrors;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -26,4 +27,10 @@ public class UserControllerAdvice {
         return new VndErrors("error", ex.getMessage());
     }
 
+    @ResponseBody
+    @ExceptionHandler(UserProfileNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    VndErrors userProfileNotFoundExceptionHandler(UserProfileNotFoundException ex) {
+        return new VndErrors("error", ex.getMessage());
+    }
 }

@@ -82,6 +82,7 @@ public class UniversityControllerTest {
 
     @Test
     public void shouldListMentorsByUniversity() {
+        when(universityRepository.exists(stanford().getId())).thenReturn(true);
         when(getMentorProfilesByUniversityIdQuery.run(stanford().getId())).thenReturn(mentorProfiles());
 
         universityController.allMentorsProfile(stanford().getId());

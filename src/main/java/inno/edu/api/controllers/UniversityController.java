@@ -63,6 +63,9 @@ public class UniversityController {
 
     @GetMapping("/{id}/mentors")
     public Resources<MentorProfileResource> allMentorsProfile(@PathVariable UUID id) {
+        if (!universityRepository.exists(id)) {
+            throw new UniversityNotFoundException(id);
+        }
         return resourceBuilder.from(getMentorProfilesByUniversityIdQuery.run(id), MentorProfileResource::new);
     }
 
