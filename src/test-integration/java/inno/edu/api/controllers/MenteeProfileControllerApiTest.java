@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 
 import static inno.edu.api.factories.UserFactory.alanProfile;
+import static inno.edu.api.factories.UserFactory.gustavoProfile;
 import static inno.edu.api.factories.UserFactory.menteeProfilePayload;
 import static inno.edu.api.factories.UserFactory.updatedAlanProfile;
 import static org.hamcrest.Matchers.containsInAnyOrder;
@@ -49,10 +50,20 @@ public class MenteeProfileControllerApiTest extends ApiTest {
     public void shouldCreateNewProfile() throws Exception {
         this.mockMvc.perform(
                 post("/api/mentee-profiles")
-                        .content(menteeProfilePayload(alanProfile()))
+                        .content(menteeProfilePayload(gustavoProfile()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void shouldMenteeShouldNotHaveMultipleProfiles() throws Exception {
+        this.mockMvc.perform(
+                post("/api/mentee-profiles")
+                        .content(menteeProfilePayload(alanProfile()))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
     }
 
     @Test

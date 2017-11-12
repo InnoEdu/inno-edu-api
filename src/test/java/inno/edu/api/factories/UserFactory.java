@@ -30,6 +30,13 @@ public class UserFactory {
                 .build();
     }
 
+    public static MenteeProfile gustavoProfile() {
+        return MenteeProfile.builder().id(fromString("4fbee407-5ab3-4d4b-9ef0-39840e939d5e"))
+                .menteeId(fei().getId())
+                .email("gustavo@inno.edu")
+                .build();
+    }
+
     public static MenteeProfile alanProfile() {
         return MenteeProfile.builder().id(fromString("c5f473b4-3311-40b1-8fb3-f70357894754"))
                 .menteeId(alan().getId())
@@ -67,7 +74,7 @@ public class UserFactory {
     }
 
     public static String menteeProfilePayload(MenteeProfile profile) {
-        return format("{ \"email\": \"%s\" }", profile.getEmail());
+        return format("{  \"menteeId\": \"%s\", \"email\": \"%s\" }", profile.getMenteeId(), profile.getEmail());
     }
 
 }
