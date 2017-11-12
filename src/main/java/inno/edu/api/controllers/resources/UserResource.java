@@ -8,13 +8,14 @@ import inno.edu.api.domain.user.models.User;
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
 import static org.springframework.hateoas.core.DummyInvocationUtils.methodOn;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.http.ResponseEntity.created;
+import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 @Getter
 public class UserResource extends ResourceSupport {
@@ -25,17 +26,20 @@ public class UserResource extends ResourceSupport {
     public UserResource(User user) {
         this.user = user;
         add(linkTo(methodOn(UserController.class).get(user.getId())).withSelfRel());
-        add(linkTo(methodOn(AvailabilityController.class).allByUser(user.getId())).withRel("availability"));
-        add(linkTo(methodOn(AppointmentController.class).allByMentor(user.getId(), PROPOSED)).withRel("mentor-proposed-appointments"));
-        add(linkTo(methodOn(AppointmentController.class).allByMentee(user.getId(), PROPOSED)).withRel("mentee-proposed-appointments"));
+        add(linkTo(methodOn(AvailabilityController.class).allByMentor(user.getId())).withRel("availability"));
+
+        if (user.getIsMentor()) {
+            add(linkTo(methodOn(AppointmentController.class).allByMentor(user.getId(), PROPOSED)).withRel("proposed-appointments"));
+        } else {
+            add(linkTo(methodOn(AppointmentController.class).allByMentee(user.getId(), PROPOSED)).withRel("proposed-appointments"));
+        }
     }
 
     public ResponseEntity<?> toCreated() {
-        return ResponseEntity.created(URI.create(getLink("self").getHref())).build();
+        return created(URI.create(getLink("self").getHref())).build();
     }
 
     public ResponseEntity<?> toUpdated() {
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
-        return ResponseEntity.created(uri).body(user);
+        return created(fromCurrentRequest().build().toUri()).body(user);
     }
 }

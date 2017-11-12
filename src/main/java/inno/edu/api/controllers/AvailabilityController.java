@@ -46,9 +46,9 @@ public class AvailabilityController {
         return resourceBuilder.from(availability, AvailabilityResource::new);
     }
 
-    @GetMapping("/user/{userId}")
-    public Resources<AvailabilityResource> allByUser(@PathVariable UUID userId) {
-        List<Availability> availability = availabilityRepository.findAvailabilityByUserId(userId);
+    @GetMapping("/mentor/{mentorId}")
+    public Resources<AvailabilityResource> allByMentor(@PathVariable UUID mentorId) {
+        List<Availability> availability = availabilityRepository.findAvailabilityByMentorId(mentorId);
         return resourceBuilder.from(availability, AvailabilityResource::new);
     }
 

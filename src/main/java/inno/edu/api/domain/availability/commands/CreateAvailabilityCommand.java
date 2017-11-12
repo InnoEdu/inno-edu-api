@@ -23,11 +23,11 @@ public class CreateAvailabilityCommand {
     }
 
     public Availability run(Availability availability) {
-        if (!userRepository.exists(availability.getUserId())) {
-            throw new UserNotFoundException(availability.getUserId());
+        if (!userRepository.exists(availability.getMentorId())) {
+            throw new UserNotFoundException(availability.getMentorId());
         }
         if (!universityRepository.exists(availability.getUniversityId())) {
-            throw new UniversityNotFoundException(availability.getUserId());
+            throw new UniversityNotFoundException(availability.getUniversityId());
         }
 
         availability.setId(randomUUID());

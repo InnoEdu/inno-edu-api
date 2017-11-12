@@ -81,7 +81,7 @@ public class CreateAppointmentCommandTest {
 
     @Test(expected = UniversityNotFoundException.class)
     public void shouldRaiseExceptionIfUniversityDoesNotExist() {
-        when(universityRepository.exists(any())).thenReturn(false);
+        when(universityRepository.exists(appointment().getUniversityId())).thenReturn(false);
 
         createAppointmentCommand.run(appointment());
     }

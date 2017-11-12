@@ -67,14 +67,14 @@ public class CreateAvailabilityCommandTest {
 
     @Test(expected = UserNotFoundException.class)
     public void shouldRaiseExceptionIfUserDoesNotExist() {
-        when(userRepository.exists(any())).thenReturn(false);
+        when(userRepository.exists(availability().getMentorId())).thenReturn(false);
 
         createAvailabilityCommand.run(availability());
     }
 
     @Test(expected = UniversityNotFoundException.class)
     public void shouldRaiseExceptionIfUniversityDoesNotExist() {
-        when(universityRepository.exists(any())).thenReturn(false);
+        when(universityRepository.exists(availability().getUniversityId())).thenReturn(false);
 
         createAvailabilityCommand.run(availability());
     }

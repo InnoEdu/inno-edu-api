@@ -19,7 +19,7 @@ public class Availability {
     @Id
     private UUID id;
 
-    private UUID userId;
+    private UUID mentorId;
     private UUID universityId;
 
     private LocalDateTime fromDateTime;

@@ -79,10 +79,10 @@ public class AvailabilityControllerTest {
     }
 
     @Test
-    public void shouldListAllAvailabilityByUser() {
-        when(availabilityRepository.findAvailabilityByUserId(fei().getId())).thenReturn(feiAvailability());
+    public void shouldListAllAvailabilityByMentor() {
+        when(availabilityRepository.findAvailabilityByMentorId(fei().getId())).thenReturn(feiAvailability());
 
-        availabilityController.allByUser(fei().getId());
+        availabilityController.allByMentor(fei().getId());
 
         verify(resourceBuilder).from(eq(feiAvailability()), any());
     }

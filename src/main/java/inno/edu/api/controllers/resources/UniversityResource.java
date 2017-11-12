@@ -8,13 +8,14 @@ import inno.edu.api.domain.university.models.University;
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
 import static org.springframework.hateoas.core.DummyInvocationUtils.methodOn;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.http.ResponseEntity.created;
+import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 @Getter
 public class UniversityResource extends ResourceSupport {
@@ -30,11 +31,10 @@ public class UniversityResource extends ResourceSupport {
     }
 
     public ResponseEntity<?> toCreated() {
-        return ResponseEntity.created(URI.create(getLink("self").getHref())).build();
+        return created(URI.create(getLink("self").getHref())).build();
     }
 
     public ResponseEntity<?> toUpdated() {
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
-        return ResponseEntity.created(uri).body(university);
+        return created(fromCurrentRequest().build().toUri()).body(university);
     }
 }

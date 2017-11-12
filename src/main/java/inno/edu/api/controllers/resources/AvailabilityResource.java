@@ -8,12 +8,13 @@ import inno.edu.api.domain.availability.models.Availability;
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 
 import static org.springframework.hateoas.core.DummyInvocationUtils.methodOn;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.http.ResponseEntity.created;
+import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 @Getter
 public class AvailabilityResource extends ResourceSupport {
@@ -24,16 +25,15 @@ public class AvailabilityResource extends ResourceSupport {
         this.availability = availability;
 
         add(linkTo(methodOn(AvailabilityController.class).get(availability.getId())).withSelfRel());
-        add(linkTo(methodOn(UserController.class).get(availability.getUserId())).withRel("user"));
+        add(linkTo(methodOn(UserController.class).get(availability.getMentorId())).withRel("mentor"));
         add(linkTo(methodOn(UniversityController.class).get(availability.getUniversityId())).withRel("university"));
     }
 
     public ResponseEntity<?> toCreated() {
-        return ResponseEntity.created(URI.create(getLink("self").getHref())).build();
+        return created(URI.create(getLink("self").getHref())).build();
     }
 
     public ResponseEntity<?> toUpdated() {
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
-        return ResponseEntity.created(uri).body(availability);
+        return created(fromCurrentRequest().build().toUri()).body(availability);
     }
 }
