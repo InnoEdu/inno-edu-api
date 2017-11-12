@@ -10,7 +10,6 @@ import static com.google.common.collect.Lists.newArrayList;
 import static inno.edu.api.factories.UniversityFactory.stanford;
 import static inno.edu.api.factories.UserFactory.alan;
 import static inno.edu.api.factories.UserFactory.fei;
-import static java.lang.String.format;
 import static java.util.UUID.fromString;
 
 public class AppointmentFactory {
@@ -57,20 +56,4 @@ public class AppointmentFactory {
     public static List<Appointment> proposedAppointments() {
         return newArrayList(appointment());
     }
-
-    public static String appointmentPostPayload(Appointment appointment) {
-        return format("{" + "\"mentorId\": \"%s\", " +
-                "\"menteeId\": \"%s\", " +
-                "\"universityId\": \"%s\", " +
-                "\"fromDateTime\": \"%s\", " +
-                "\"toDateTime\": \"%s\", " +
-                "\"status\": \"%s\"}", appointment.getMentorId(), appointment.getMenteeId(), appointment.getUniversityId(), appointment.getFromDateTime(), appointment.getToDateTime(), appointment.getStatus());
-    }
-
-    public static String appointmentPutPayload(Appointment appointment) {
-        return format("{\"fromDateTime\": \"%s\", " +
-                "\"toDateTime\": \"%s\", " +
-                "\"status\": \"%s\"}", appointment.getFromDateTime(), appointment.getToDateTime(), appointment.getStatus());
-    }
-
 }

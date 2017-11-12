@@ -6,13 +6,13 @@ import org.springframework.http.MediaType;
 
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.factories.AppointmentFactory.appointment;
-import static inno.edu.api.factories.AppointmentFactory.appointmentPostPayload;
-import static inno.edu.api.factories.AppointmentFactory.appointmentPutPayload;
 import static inno.edu.api.factories.AppointmentFactory.otherAppointment;
 import static inno.edu.api.factories.AppointmentFactory.updatedAppointment;
 import static inno.edu.api.factories.UniversityFactory.stanford;
 import static inno.edu.api.factories.UserFactory.alan;
 import static inno.edu.api.factories.UserFactory.fei;
+import static inno.edu.api.support.Payloads.postAppointmentPayload;
+import static inno.edu.api.support.Payloads.putAppointmentPayload;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
@@ -100,7 +100,7 @@ public class AppointmentControllerApiTest extends ApiTest {
     public void shouldCreateNewAppointment() throws Exception {
         this.mockMvc.perform(
                 post("/api/appointments")
-                        .content(appointmentPostPayload(appointment()))
+                        .content(postAppointmentPayload(appointment()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated());
@@ -110,7 +110,7 @@ public class AppointmentControllerApiTest extends ApiTest {
     public void shouldUpdateAppointment() throws Exception {
         this.mockMvc.perform(
                 put("/api/appointments/" + appointment().getId())
-                        .content(appointmentPutPayload(updatedAppointment()))
+                        .content(putAppointmentPayload(updatedAppointment()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())

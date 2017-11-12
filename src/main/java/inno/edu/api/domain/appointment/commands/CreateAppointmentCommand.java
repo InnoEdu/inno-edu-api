@@ -8,6 +8,7 @@ import inno.edu.api.domain.user.exceptions.UserNotFoundException;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import inno.edu.api.infrastructure.annotations.Command;
 
+import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
 import static java.util.UUID.randomUUID;
 
 @Command
@@ -34,6 +35,8 @@ public class CreateAppointmentCommand {
         }
 
         appointment.setId(randomUUID());
+        appointment.setStatus(PROPOSED);
+        
         return appointmentRepository.save(appointment);
     }
 }
