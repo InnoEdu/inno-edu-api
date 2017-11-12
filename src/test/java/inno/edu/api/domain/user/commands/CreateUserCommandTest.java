@@ -50,7 +50,7 @@ public class CreateUserCommandTest {
 
     @Test(expected = UserNameAlreadyExistsException.class)
     public void shouldNotAllowMultipleUsersWithSameUserName() {
-        when(userRepository.existsUserByUserName(fei().getUserName())).thenReturn(true);
+        when(userRepository.existsByUserName(fei().getUserName())).thenReturn(true);
 
         createUserCommand.run(fei());
     }

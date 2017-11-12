@@ -68,7 +68,7 @@ public class UserController {
 
     @GetMapping("/{id}/profile")
     public ResourceSupport getProfile(@PathVariable UUID id) {
-        if (userRepository.existsUserByIdAndIsMentorIsTrue(id)) {
+        if (userRepository.existsByIdAndIsMentorIsTrue(id)) {
             return new MentorProfileResource(getMentorActiveProfileByUserIdQuery.run(id));
         }
         return new MenteeProfileResource(getMenteeProfileByUserIdQuery.run(id));

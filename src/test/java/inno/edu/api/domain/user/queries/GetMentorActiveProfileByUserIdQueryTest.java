@@ -25,7 +25,7 @@ public class GetMentorActiveProfileByUserIdQueryTest {
 
     @Test
     public void shouldGetMentorProfile() {
-        when(mentorProfileRepository.findOneMentorProfileByMentorIdAndIsActiveIsTrue(fei().getId())).thenReturn(feiProfile());
+        when(mentorProfileRepository.findOneByMentorIdAndIsActiveIsTrue(fei().getId())).thenReturn(feiProfile());
 
         MentorProfile mentorProfile = getMentorActiveProfileByUserIdQuery.run(fei().getId());
 
@@ -34,7 +34,7 @@ public class GetMentorActiveProfileByUserIdQueryTest {
 
     @Test(expected = UserProfileNotFoundException.class)
     public void shouldRaiseExceptionIsProfileNotFound() {
-        when(mentorProfileRepository.findOneMentorProfileByMentorIdAndIsActiveIsTrue(fei().getId())).thenReturn(null);
+        when(mentorProfileRepository.findOneByMentorIdAndIsActiveIsTrue(fei().getId())).thenReturn(null);
 
         getMentorActiveProfileByUserIdQuery.run(fei().getId());
     }

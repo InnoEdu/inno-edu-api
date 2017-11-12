@@ -18,7 +18,7 @@ public class GetMentorActiveProfileByUserIdQuery {
     }
 
     public MentorProfile run(UUID userId) {
-        return ofNullable(mentorProfileRepository.findOneMentorProfileByMentorIdAndIsActiveIsTrue(userId))
+        return ofNullable(mentorProfileRepository.findOneByMentorIdAndIsActiveIsTrue(userId))
                 .orElseThrow(() -> new UserProfileNotFoundException(userId));
     }
 }

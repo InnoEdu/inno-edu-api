@@ -20,8 +20,8 @@ public class GetAppointmentsByMentorIdQuery {
 
     public List<Appointment> run(UUID mentorId, AppointmentStatus status) {
         if (nonNull(status)) {
-            return appointmentRepository.findAppointmentByMentorIdAndStatus(mentorId, status);
+            return appointmentRepository.findByMentorIdAndStatus(mentorId, status);
         }
-        return appointmentRepository.findAppointmentByMentorId(mentorId);
+        return appointmentRepository.findByMentorId(mentorId);
     }
 }

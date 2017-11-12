@@ -16,7 +16,7 @@ public class CreateMenteeProfileCommand {
     }
 
     public MenteeProfile run(MenteeProfile profile) {
-        if (profileRepository.existsMenteeProfileByMenteeId(profile.getMenteeId())) {
+        if (profileRepository.existsByMenteeId(profile.getMenteeId())) {
             throw new MenteeProfileAlreadyCreatedException(profile.getMenteeId());
         }
 

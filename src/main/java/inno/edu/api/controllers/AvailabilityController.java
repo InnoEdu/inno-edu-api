@@ -49,13 +49,13 @@ public class AvailabilityController {
 
     @GetMapping("/mentor/{mentorId}")
     public Resources<AvailabilityResource> allByMentor(@PathVariable UUID mentorId) {
-        List<Availability> availability = availabilityRepository.findAvailabilityByMentorId(mentorId);
+        List<Availability> availability = availabilityRepository.findByMentorId(mentorId);
         return resourceBuilder.from(availability, AvailabilityResource::new);
     }
 
     @GetMapping("/university/{universityId}")
     public Resources<AvailabilityResource> allByUniversity(@PathVariable UUID universityId) {
-        List<Availability> availability = availabilityRepository.findAvailabilityByUniversityId(universityId);
+        List<Availability> availability = availabilityRepository.findByUniversityId(universityId);
         return resourceBuilder.from(availability, AvailabilityResource::new);
     }
 

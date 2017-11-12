@@ -7,6 +7,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface AvailabilityRepository extends CrudRepository<Availability, UUID> {
-    List<Availability> findAvailabilityByMentorId(UUID userId);
-    List<Availability> findAvailabilityByUniversityId(UUID universityId);
+    List<Availability> findByMentorId(UUID userId);
+    List<Availability> findByUniversityId(UUID universityId);
 }

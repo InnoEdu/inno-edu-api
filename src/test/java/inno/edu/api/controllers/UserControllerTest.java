@@ -72,7 +72,7 @@ public class UserControllerTest {
 
     @Test
     public void shouldGetMentorProfileByUserId() {
-        when(userRepository.existsUserByIdAndIsMentorIsTrue(fei().getId())).thenReturn(true);
+        when(userRepository.existsByIdAndIsMentorIsTrue(fei().getId())).thenReturn(true);
         when(getMentorActiveProfileByUserIdQuery.run(fei().getId())).thenReturn(feiProfile());
 
         userController.getProfile(fei().getId());
@@ -82,7 +82,7 @@ public class UserControllerTest {
 
     @Test
     public void shouldGetMenteeProfileByUserId() {
-        when(userRepository.existsUserByIdAndIsMentorIsTrue(eq(alan().getId()))).thenReturn(false);
+        when(userRepository.existsByIdAndIsMentorIsTrue(eq(alan().getId()))).thenReturn(false);
         when(getMenteeProfileByUserIdQuery.run(alan().getId())).thenReturn(alanProfile());
 
         userController.getProfile(alan().getId());

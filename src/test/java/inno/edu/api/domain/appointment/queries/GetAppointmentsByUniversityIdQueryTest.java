@@ -29,15 +29,15 @@ public class GetAppointmentsByUniversityIdQueryTest {
 
     @Before
     public void setUp() {
-        when(appointmentRepository.findAppointmentByUniversityId(stanford().getId())).thenReturn(appointments());
-        when(appointmentRepository.findAppointmentByUniversityIdAndStatus(stanford().getId(), PROPOSED)).thenReturn(appointments());
+        when(appointmentRepository.findByUniversityId(stanford().getId())).thenReturn(appointments());
+        when(appointmentRepository.findByUniversityIdAndStatus(stanford().getId(), PROPOSED)).thenReturn(appointments());
     }
 
     @Test
     public void shouldCallRepositoryForUniversityId() {
         List<Appointment> expected = getAppointmentsByUniversityIdQuery.run(stanford().getId(), null);
 
-        verify(appointmentRepository).findAppointmentByUniversityId(stanford().getId());
+        verify(appointmentRepository).findByUniversityId(stanford().getId());
 
         assertThat(expected, is(appointments()));
     }
@@ -46,7 +46,7 @@ public class GetAppointmentsByUniversityIdQueryTest {
     public void shouldCallRepositoryForUniversityIdAndStatus() {
         List<Appointment> expected = getAppointmentsByUniversityIdQuery.run(stanford().getId(), PROPOSED);
 
-        verify(appointmentRepository).findAppointmentByUniversityIdAndStatus(stanford().getId(), PROPOSED);
+        verify(appointmentRepository).findByUniversityIdAndStatus(stanford().getId(), PROPOSED);
 
         assertThat(expected, is(appointments()));
     }

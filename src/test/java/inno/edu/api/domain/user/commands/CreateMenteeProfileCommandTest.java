@@ -50,7 +50,7 @@ public class CreateMenteeProfileCommandTest {
 
     @Test(expected = MenteeProfileAlreadyCreatedException.class)
     public void shouldNotAllowMultipleMenteeProfiles() {
-        when(menteeProfileRepository.existsMenteeProfileByMenteeId(alanProfile().getMenteeId())).thenReturn(true);
+        when(menteeProfileRepository.existsByMenteeId(alanProfile().getMenteeId())).thenReturn(true);
 
         createMenteeProfileCommand.run(alanProfile());
     }

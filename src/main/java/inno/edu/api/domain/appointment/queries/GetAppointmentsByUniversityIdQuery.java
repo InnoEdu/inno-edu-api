@@ -20,8 +20,8 @@ public class GetAppointmentsByUniversityIdQuery {
 
     public List<Appointment> run(UUID universityId, AppointmentStatus status) {
         if (nonNull(status)) {
-            return appointmentRepository.findAppointmentByUniversityIdAndStatus(universityId, status);
+            return appointmentRepository.findByUniversityIdAndStatus(universityId, status);
         }
-        return appointmentRepository.findAppointmentByUniversityId(universityId);
+        return appointmentRepository.findByUniversityId(universityId);
     }
 }

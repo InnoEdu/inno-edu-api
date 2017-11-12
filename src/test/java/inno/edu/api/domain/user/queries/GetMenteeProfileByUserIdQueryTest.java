@@ -25,7 +25,7 @@ public class GetMenteeProfileByUserIdQueryTest {
 
     @Test
     public void shouldGetMenteeProfile() {
-        when(menteeProfileRepository.findOneMenteeProfileByMenteeId(alan().getId())).thenReturn(alanProfile());
+        when(menteeProfileRepository.findOneByMenteeId(alan().getId())).thenReturn(alanProfile());
 
         MenteeProfile mentorProfile = getMenteeProfileByUserIdQuery.run(alan().getId());
 
@@ -34,7 +34,7 @@ public class GetMenteeProfileByUserIdQueryTest {
 
     @Test(expected = UserProfileNotFoundException.class)
     public void shouldRaiseExceptionIsProfileNotFound() {
-        when(menteeProfileRepository.findOneMenteeProfileByMenteeId(alan().getId())).thenReturn(null);
+        when(menteeProfileRepository.findOneByMenteeId(alan().getId())).thenReturn(null);
 
         getMenteeProfileByUserIdQuery.run(alan().getId());
     }

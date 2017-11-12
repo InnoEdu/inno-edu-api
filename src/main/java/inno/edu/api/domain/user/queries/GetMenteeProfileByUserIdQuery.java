@@ -18,7 +18,7 @@ public class GetMenteeProfileByUserIdQuery {
     }
 
     public MenteeProfile run(UUID userId) {
-        return ofNullable(menteeProfileRepository.findOneMenteeProfileByMenteeId(userId))
+        return ofNullable(menteeProfileRepository.findOneByMenteeId(userId))
                 .orElseThrow(() -> new UserProfileNotFoundException(userId));
     }
 }

@@ -16,7 +16,7 @@ public class CreateUserCommand {
     }
 
     public User run(User user) {
-        if (userRepository.existsUserByUserName(user.getUserName())) {
+        if (userRepository.existsByUserName(user.getUserName())) {
             throw new UserNameAlreadyExistsException(user.getUserName());
         }
 

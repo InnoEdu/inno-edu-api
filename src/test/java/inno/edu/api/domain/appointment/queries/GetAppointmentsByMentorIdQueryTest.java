@@ -29,15 +29,15 @@ public class GetAppointmentsByMentorIdQueryTest {
 
     @Before
     public void setUp() {
-        when(appointmentRepository.findAppointmentByMentorId(fei().getId())).thenReturn(appointments());
-        when(appointmentRepository.findAppointmentByMentorIdAndStatus(fei().getId(), PROPOSED)).thenReturn(appointments());
+        when(appointmentRepository.findByMentorId(fei().getId())).thenReturn(appointments());
+        when(appointmentRepository.findByMentorIdAndStatus(fei().getId(), PROPOSED)).thenReturn(appointments());
     }
 
     @Test
     public void shouldCallRepositoryForMentorId() {
         List<Appointment> expected = getAppointmentsByMentorIdQuery.run(fei().getId(), null);
 
-        verify(appointmentRepository).findAppointmentByMentorId(fei().getId());
+        verify(appointmentRepository).findByMentorId(fei().getId());
 
         assertThat(expected, is(appointments()));
     }
@@ -46,7 +46,7 @@ public class GetAppointmentsByMentorIdQueryTest {
     public void shouldCallRepositoryForMentorIdAndStatus() {
         List<Appointment> expected = getAppointmentsByMentorIdQuery.run(fei().getId(), PROPOSED);
 
-        verify(appointmentRepository).findAppointmentByMentorIdAndStatus(fei().getId(), PROPOSED);
+        verify(appointmentRepository).findByMentorIdAndStatus(fei().getId(), PROPOSED);
 
         assertThat(expected, is(appointments()));
     }

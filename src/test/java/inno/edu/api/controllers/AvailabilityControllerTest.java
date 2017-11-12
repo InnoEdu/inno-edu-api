@@ -80,7 +80,7 @@ public class AvailabilityControllerTest {
 
     @Test
     public void shouldListAllAvailabilityByMentor() {
-        when(availabilityRepository.findAvailabilityByMentorId(fei().getId())).thenReturn(feiAvailability());
+        when(availabilityRepository.findByMentorId(fei().getId())).thenReturn(feiAvailability());
 
         availabilityController.allByMentor(fei().getId());
 
@@ -89,7 +89,7 @@ public class AvailabilityControllerTest {
 
     @Test
     public void shouldListAllAvailabilityByUniversity() {
-        when(availabilityRepository.findAvailabilityByUniversityId(stanford().getId())).thenReturn(feiAvailability());
+        when(availabilityRepository.findByUniversityId(stanford().getId())).thenReturn(feiAvailability());
 
         availabilityController.allByUniversity(stanford().getId());
 
