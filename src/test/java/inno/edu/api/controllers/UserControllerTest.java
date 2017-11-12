@@ -51,7 +51,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void shouldGetUserUsingId() {
+    public void shouldGetUserById() {
         when(userRepository.findOne(eq(fei().getId()))).thenReturn(fei());
 
         UserResource userResource = userController.get(fei().getId());
@@ -67,7 +67,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void shouldListAllUsers() {
+    public void shouldListUsers() {
         when(userRepository.findAll()).thenReturn(users());
 
         userController.all();

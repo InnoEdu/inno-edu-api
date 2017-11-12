@@ -51,7 +51,7 @@ public class UniversityControllerTest {
     }
 
     @Test
-    public void shouldGetUniversityUsingId() {
+    public void shouldGetUniversityById() {
         when(universityRepository.findOne(eq(stanford().getId()))).thenReturn(stanford());
 
         UniversityResource universityResource = universityController.get(stanford().getId());
@@ -67,7 +67,7 @@ public class UniversityControllerTest {
     }
 
     @Test
-    public void shouldListAllUniversities() {
+    public void shouldListUniversities() {
         when(universityRepository.findAll()).thenReturn(universities());
 
         universityController.all();

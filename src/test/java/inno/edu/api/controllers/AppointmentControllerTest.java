@@ -68,7 +68,7 @@ public class AppointmentControllerTest {
     }
 
     @Test
-    public void shouldGetAppointmentUsingId() {
+    public void shouldGetAppointmentById() {
         when(appointmentRepository.findOne(eq(appointment().getId()))).thenReturn(appointment());
 
         AppointmentResource appointmentResource = appointmentController.get(appointment().getId());
@@ -84,7 +84,7 @@ public class AppointmentControllerTest {
     }
 
     @Test
-    public void shouldListAllAppointments() {
+    public void shouldListAppointments() {
         when(appointmentRepository.findAll()).thenReturn(appointments());
 
         appointmentController.all();
@@ -93,7 +93,7 @@ public class AppointmentControllerTest {
     }
 
     @Test
-    public void shouldListAllAppointmentsByUniversity() {
+    public void shouldListAppointmentsByUniversity() {
         when(getAppointmentsByUniversityIdQuery.run(stanford().getId(), null)).thenReturn(appointments());
 
         appointmentController.allByUniversity(stanford().getId(), null);
@@ -102,7 +102,7 @@ public class AppointmentControllerTest {
     }
 
     @Test
-    public void shouldListAllAppointmentsByUniversityAndStatus() {
+    public void shouldListAppointmentsByUniversityAndStatus() {
         when(getAppointmentsByUniversityIdQuery.run(stanford().getId(), PROPOSED)).thenReturn(proposedAppointments());
 
         appointmentController.allByUniversity(stanford().getId(), PROPOSED);
@@ -111,7 +111,7 @@ public class AppointmentControllerTest {
     }
 
     @Test
-    public void shouldListAllAppointmentsByMentor() {
+    public void shouldListAppointmentsByMentor() {
         when(getAppointmentsByMentorIdQuery.run(fei().getId(), null)).thenReturn(appointments());
 
         appointmentController.allByMentor(fei().getId(), null);
@@ -120,7 +120,7 @@ public class AppointmentControllerTest {
     }
 
     @Test
-    public void shouldListAllAppointmentsByMentorAndStatus() {
+    public void shouldListAppointmentsByMentorAndStatus() {
         when(getAppointmentsByMentorIdQuery.run(fei().getId(), PROPOSED)).thenReturn(proposedAppointments());
 
         appointmentController.allByMentor(fei().getId(), PROPOSED);
@@ -129,7 +129,7 @@ public class AppointmentControllerTest {
     }
 
     @Test
-    public void shouldListAllAppointmentsByMentee() {
+    public void shouldListAppointmentsByMentee() {
         when(getAppointmentsByMenteeIdQuery.run(alan().getId(), null)).thenReturn(appointments());
 
         appointmentController.allByMentee(alan().getId(), null);
@@ -138,7 +138,7 @@ public class AppointmentControllerTest {
     }
 
     @Test
-    public void shouldListAllAppointmentsByMenteeAndStatus() {
+    public void shouldListAppointmentsByMenteeAndStatus() {
         when(getAppointmentsByMenteeIdQuery.run(alan().getId(), PROPOSED)).thenReturn(proposedAppointments());
 
         appointmentController.allByMentee(alan().getId(), PROPOSED);

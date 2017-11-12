@@ -3,6 +3,7 @@ package inno.edu.api.controllers.resources;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import inno.edu.api.controllers.AppointmentController;
 import inno.edu.api.controllers.AvailabilityController;
+import inno.edu.api.controllers.MenteeProfileController;
 import inno.edu.api.controllers.UserController;
 import inno.edu.api.domain.user.models.User;
 import lombok.Getter;
@@ -26,11 +27,12 @@ public class UserResource extends ResourceSupport {
     public UserResource(User user) {
         this.user = user;
         add(linkTo(methodOn(UserController.class).get(user.getId())).withSelfRel());
-        add(linkTo(methodOn(AvailabilityController.class).allByMentor(user.getId())).withRel("availability"));
 
         if (user.getIsMentor()) {
+            add(linkTo(methodOn(AvailabilityController.class).allByMentor(user.getId())).withRel("availability"));
             add(linkTo(methodOn(AppointmentController.class).allByMentor(user.getId(), PROPOSED)).withRel("proposed-appointments"));
         } else {
+            add(linkTo(methodOn(MenteeProfileController.class).getByMentee(user.getId())).withRel("profile"));
             add(linkTo(methodOn(AppointmentController.class).allByMentee(user.getId(), PROPOSED)).withRel("proposed-appointments"));
         }
     }

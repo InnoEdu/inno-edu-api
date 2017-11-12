@@ -29,4 +29,14 @@ public class MenteeProfileControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.menteeId", is(is(alanProfile().getMenteeId().toString()))))
                 .andExpect(jsonPath("$.email", is(alanProfile().getEmail())));
     }
+
+    @Test
+    public void shouldGetProfileByMenteeId() throws Exception {
+        this.mockMvc.perform(get("/api/mentee-profiles/mentee/" + alanProfile().getMenteeId().toString())).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(is(alanProfile().getId().toString()))))
+                .andExpect(jsonPath("$.menteeId", is(is(alanProfile().getMenteeId().toString()))))
+                .andExpect(jsonPath("$.email", is(alanProfile().getEmail())));
+    }
+
 }

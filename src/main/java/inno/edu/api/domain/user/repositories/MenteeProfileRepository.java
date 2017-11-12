@@ -6,4 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.UUID;
 
 public interface MenteeProfileRepository extends CrudRepository<MenteeProfile, UUID> {
+    MenteeProfile findOneMenteeProfileByMenteeId(UUID menteeId);
 }
