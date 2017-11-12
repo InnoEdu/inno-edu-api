@@ -26,6 +26,7 @@ public class UserResource extends ResourceSupport {
     public UserResource(User user) {
         this.user = user;
         add(linkTo(methodOn(UserController.class).get(user.getId())).withSelfRel());
+        add(linkTo(methodOn(UserController.class).getProfile(user.getId())).withRel("profile"));
 
         if (user.getIsMentor()) {
             add(linkTo(methodOn(AvailabilityController.class).allByMentor(user.getId())).withRel("availability"));

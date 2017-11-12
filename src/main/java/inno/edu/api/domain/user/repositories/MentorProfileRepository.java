@@ -6,7 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.UUID;
 
 public interface MentorProfileRepository extends CrudRepository<MentorProfile, UUID> {
-    MentorProfile findOneMentorProfileByMentorIdAndIsActive(UUID mentorId, boolean isActive);
-    boolean existsMentorProfileByMentorId(UUID mentorId);
-
+    MentorProfile findOneMentorProfileByMentorIdAndIsActiveIsTrue(UUID mentorId);
 }

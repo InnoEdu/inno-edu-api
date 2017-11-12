@@ -5,7 +5,9 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 
 import static inno.edu.api.factories.UserFactory.alan;
+import static inno.edu.api.factories.UserFactory.alanProfile;
 import static inno.edu.api.factories.UserFactory.fei;
+import static inno.edu.api.factories.UserFactory.feiProfile;
 import static inno.edu.api.factories.UserFactory.gustavo;
 import static inno.edu.api.factories.UserFactory.updatedFei;
 import static inno.edu.api.factories.UserFactory.userPayload;
@@ -40,6 +42,26 @@ public class UserControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.lastName", is(fei().getLastName())))
                 .andExpect(jsonPath("$.userName", is(fei().getUserName())))
                 .andExpect(jsonPath("$.isMentor", is(fei().getIsMentor())));
+    }
+
+    @Test
+    public void shouldGetMentorProfileByUserId() throws Exception {
+        this.mockMvc.perform(get("/api/users/" + fei().getId().toString() + "/profile")).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(feiProfile().getId().toString())))
+                .andExpect(jsonPath("$.mentorId", is(feiProfile().getMentorId().toString())))
+                .andExpect(jsonPath("$.universityId", is(feiProfile().getUniversityId().toString())))
+                .andExpect(jsonPath("$.email", is(feiProfile().getEmail())))
+                .andExpect(jsonPath("$.isActive", is(feiProfile().getIsActive())));
+    }
+
+    @Test
+    public void shouldGetMenteeProfileByUserId() throws Exception {
+        this.mockMvc.perform(get("/api/users/" + alan().getId().toString() + "/profile")).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(alanProfile().getId().toString())))
+                .andExpect(jsonPath("$.menteeId", is(alanProfile().getMenteeId().toString())))
+                .andExpect(jsonPath("$.email", is(alanProfile().getEmail())));
     }
 
     @Test

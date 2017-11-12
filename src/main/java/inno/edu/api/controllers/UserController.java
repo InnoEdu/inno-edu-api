@@ -1,13 +1,18 @@
 package inno.edu.api.controllers;
 
+import inno.edu.api.controllers.resources.MenteeProfileResource;
+import inno.edu.api.controllers.resources.MentorProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.UserResource;
 import inno.edu.api.domain.user.commands.CreateUserCommand;
 import inno.edu.api.domain.user.commands.UpdateUserCommand;
 import inno.edu.api.domain.user.exceptions.UserNotFoundException;
 import inno.edu.api.domain.user.models.User;
+import inno.edu.api.domain.user.queries.GetMenteeProfileByUserIdQuery;
+import inno.edu.api.domain.user.queries.GetMentorActiveProfileByUserIdQuery;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,14 +35,20 @@ import static org.springframework.http.ResponseEntity.noContent;
 public class UserController {
 
     private final UserRepository userRepository;
+
+    private final GetMentorActiveProfileByUserIdQuery getMentorActiveProfileByUserIdQuery;
+    private final GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery;
+
     private final CreateUserCommand createUserCommand;
     private final UpdateUserCommand updateUserCommand;
 
     private final ResourceBuilder resourceBuilder;
 
     @Autowired
-    public UserController(UserRepository userRepository, CreateUserCommand createUserCommand, UpdateUserCommand updateUserCommand, ResourceBuilder resourceBuilder) {
+    public UserController(UserRepository userRepository, GetMentorActiveProfileByUserIdQuery getMentorActiveProfileByUserIdQuery, GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery, CreateUserCommand createUserCommand, UpdateUserCommand updateUserCommand, ResourceBuilder resourceBuilder) {
         this.userRepository = userRepository;
+        this.getMentorActiveProfileByUserIdQuery = getMentorActiveProfileByUserIdQuery;
+        this.getMenteeProfileByUserIdQuery = getMenteeProfileByUserIdQuery;
         this.createUserCommand = createUserCommand;
         this.updateUserCommand = updateUserCommand;
         this.resourceBuilder = resourceBuilder;
@@ -53,6 +64,14 @@ public class UserController {
     public UserResource get(@PathVariable UUID id) {
         Optional<User> user = ofNullable(userRepository.findOne(id));
         return new UserResource(user.orElseThrow(() -> new UserNotFoundException(id)));
+    }
+
+    @GetMapping("/{id}/profile")
+    public ResourceSupport getProfile(@PathVariable UUID id) {
+        if (userRepository.existsUserByIdAndIsMentorIsTrue(id)) {
+            return new MentorProfileResource(getMentorActiveProfileByUserIdQuery.run(id));
+        }
+        return new MenteeProfileResource(getMenteeProfileByUserIdQuery.run(id));
     }
 
     @PostMapping

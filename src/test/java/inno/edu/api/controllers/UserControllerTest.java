@@ -6,6 +6,8 @@ import inno.edu.api.domain.user.commands.CreateUserCommand;
 import inno.edu.api.domain.user.commands.UpdateUserCommand;
 import inno.edu.api.domain.user.exceptions.UserNotFoundException;
 import inno.edu.api.domain.user.models.User;
+import inno.edu.api.domain.user.queries.GetMenteeProfileByUserIdQuery;
+import inno.edu.api.domain.user.queries.GetMentorActiveProfileByUserIdQuery;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +19,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import static inno.edu.api.factories.UserFactory.alan;
+import static inno.edu.api.factories.UserFactory.alanProfile;
 import static inno.edu.api.factories.UserFactory.fei;
+import static inno.edu.api.factories.UserFactory.feiProfile;
 import static inno.edu.api.factories.UserFactory.users;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -35,6 +40,12 @@ public class UserControllerTest {
 
     @Mock
     private UserRepository userRepository;
+
+    @Mock
+    private GetMentorActiveProfileByUserIdQuery getMentorActiveProfileByUserIdQuery;
+
+    @Mock
+    private GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery;
 
     @Mock
     private CreateUserCommand createUserCommand;
@@ -57,6 +68,26 @@ public class UserControllerTest {
         UserResource userResource = userController.get(fei().getId());
 
         assertThat(userResource.getUser(), is(fei()));
+    }
+
+    @Test
+    public void shouldGetMentorProfileByUserId() {
+        when(userRepository.existsUserByIdAndIsMentorIsTrue(fei().getId())).thenReturn(true);
+        when(getMentorActiveProfileByUserIdQuery.run(fei().getId())).thenReturn(feiProfile());
+
+        userController.getProfile(fei().getId());
+
+        verify(getMentorActiveProfileByUserIdQuery).run(fei().getId());
+    }
+
+    @Test
+    public void shouldGetMenteeProfileByUserId() {
+        when(userRepository.existsUserByIdAndIsMentorIsTrue(eq(alan().getId()))).thenReturn(false);
+        when(getMenteeProfileByUserIdQuery.run(alan().getId())).thenReturn(alanProfile());
+
+        userController.getProfile(alan().getId());
+
+        verify(getMenteeProfileByUserIdQuery).run(alan().getId());
     }
 
     @Test(expected = UserNotFoundException.class)
