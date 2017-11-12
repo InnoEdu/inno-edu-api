@@ -38,5 +38,4 @@ public class GetMentorActiveProfileByUserIdQueryTest {
 
         getMentorActiveProfileByUserIdQuery.run(fei().getId());
     }
-
 }

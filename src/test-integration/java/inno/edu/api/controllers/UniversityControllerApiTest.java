@@ -8,6 +8,7 @@ import static inno.edu.api.factories.UniversityFactory.berkeley;
 import static inno.edu.api.factories.UniversityFactory.stanford;
 import static inno.edu.api.factories.UniversityFactory.universityPayload;
 import static inno.edu.api.factories.UniversityFactory.updatedStanford;
+import static inno.edu.api.factories.UserFactory.feiProfile;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -25,6 +26,17 @@ public class UniversityControllerApiTest extends ApiTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.universityResourceList[*].id", containsInAnyOrder(stanford().getId().toString(), berkeley().getId().toString())))
                 .andExpect(jsonPath("$._embedded.universityResourceList[*].name", containsInAnyOrder(stanford().getName(), berkeley().getName())));
+    }
+
+    @Test
+    public void shouldListUniversityMentorsProfile() throws Exception {
+        this.mockMvc.perform(get("/api/universities/" + stanford().getId() + "/mentors")).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].id", containsInAnyOrder(feiProfile().getId().toString())))
+                .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].mentorId", containsInAnyOrder(feiProfile().getMentorId().toString())))
+                .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].universityId", containsInAnyOrder(feiProfile().getUniversityId().toString())))
+                .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].email", containsInAnyOrder(feiProfile().getEmail())))
+                .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].isActive", containsInAnyOrder(feiProfile().getIsActive())));
     }
 
     @Test

@@ -1,5 +1,6 @@
 package inno.edu.api.controllers;
 
+import inno.edu.api.controllers.resources.MentorProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.UniversityResource;
 import inno.edu.api.domain.university.commands.CreateUniversityCommand;
@@ -7,6 +8,7 @@ import inno.edu.api.domain.university.commands.UpdateUniversityCommand;
 import inno.edu.api.domain.university.exceptions.UniversityNotFoundException;
 import inno.edu.api.domain.university.models.University;
 import inno.edu.api.domain.university.repositories.UniversityRepository;
+import inno.edu.api.domain.user.queries.GetMentorProfilesByUniversityIdQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
@@ -30,16 +32,20 @@ import static org.springframework.http.ResponseEntity.noContent;
 public class UniversityController {
 
     private final UniversityRepository universityRepository;
+
     private final CreateUniversityCommand createUniversityCommand;
     private final UpdateUniversityCommand updateUniversityCommand;
+
+    private final GetMentorProfilesByUniversityIdQuery getMentorProfilesByUniversityIdQuery;
 
     private final ResourceBuilder resourceBuilder;
 
     @Autowired
-    public UniversityController(UniversityRepository universityRepository, CreateUniversityCommand createUniversityCommand, UpdateUniversityCommand updateUniversityCommand, ResourceBuilder resourceBuilder) {
+    public UniversityController(UniversityRepository universityRepository, CreateUniversityCommand createUniversityCommand, UpdateUniversityCommand updateUniversityCommand, GetMentorProfilesByUniversityIdQuery getMentorProfilesByUniversityIdQuery, ResourceBuilder resourceBuilder) {
         this.universityRepository = universityRepository;
         this.createUniversityCommand = createUniversityCommand;
         this.updateUniversityCommand = updateUniversityCommand;
+        this.getMentorProfilesByUniversityIdQuery = getMentorProfilesByUniversityIdQuery;
         this.resourceBuilder = resourceBuilder;
     }
 
@@ -53,6 +59,11 @@ public class UniversityController {
     public UniversityResource get(@PathVariable UUID id) {
         Optional<University> university = ofNullable(universityRepository.findOne(id));
         return new UniversityResource(university.orElseThrow(() -> new UniversityNotFoundException(id)));
+    }
+
+    @GetMapping("/{id}/mentors")
+    public Resources<MentorProfileResource> allMentorsProfile(@PathVariable UUID id) {
+        return resourceBuilder.from(getMentorProfilesByUniversityIdQuery.run(id), MentorProfileResource::new);
     }
 
     @PostMapping

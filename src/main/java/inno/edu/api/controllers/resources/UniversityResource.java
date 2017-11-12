@@ -26,6 +26,7 @@ public class UniversityResource extends ResourceSupport {
         this.university = university;
 
         add(linkTo(methodOn(UniversityController.class).get(university.getId())).withSelfRel());
+        add(linkTo(methodOn(UniversityController.class).allMentorsProfile(university.getId())).withRel("mentors-profile"));
         add(linkTo(methodOn(AvailabilityController.class).allByUniversity(university.getId())).withRel("availability"));
         add(linkTo(methodOn(AppointmentController.class).allByUniversity(university.getId(), PROPOSED)).withRel("proposed-appointments"));
     }

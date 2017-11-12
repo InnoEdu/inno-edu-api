@@ -7,6 +7,7 @@ import inno.edu.api.domain.university.commands.UpdateUniversityCommand;
 import inno.edu.api.domain.university.exceptions.UniversityNotFoundException;
 import inno.edu.api.domain.university.models.University;
 import inno.edu.api.domain.university.repositories.UniversityRepository;
+import inno.edu.api.domain.user.queries.GetMentorProfilesByUniversityIdQuery;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +20,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static inno.edu.api.factories.UniversityFactory.stanford;
 import static inno.edu.api.factories.UniversityFactory.universities;
+import static inno.edu.api.factories.UserFactory.mentorProfiles;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentCaptor.forClass;
@@ -41,6 +43,9 @@ public class UniversityControllerTest {
 
     @Mock
     private UpdateUniversityCommand updateUniversityCommand;
+
+    @Mock
+    private GetMentorProfilesByUniversityIdQuery getMentorProfilesByUniversityIdQuery;
 
     @InjectMocks
     private UniversityController universityController;
@@ -73,6 +78,15 @@ public class UniversityControllerTest {
         universityController.all();
 
         verify(resourceBuilder).from(eq(universities()), any());
+    }
+
+    @Test
+    public void shouldListMentorsByUniversity() {
+        when(getMentorProfilesByUniversityIdQuery.run(stanford().getId())).thenReturn(mentorProfiles());
+
+        universityController.allMentorsProfile(stanford().getId());
+
+        verify(resourceBuilder).from(eq(mentorProfiles()), any());
     }
 
     @Test
