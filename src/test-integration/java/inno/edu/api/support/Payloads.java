@@ -1,5 +1,6 @@
 package inno.edu.api.support;
 
+import inno.edu.api.domain.availability.models.Availability;
 import inno.edu.api.domain.university.models.University;
 import inno.edu.api.domain.user.models.MenteeProfile;
 import inno.edu.api.domain.user.models.MentorProfile;
@@ -53,6 +54,14 @@ public class Payloads {
 
     public static String putUniversityPayload(University university) {
         return format(loadPayload("payloads/university/put-university.json"), university.getName());
+    }
+
+    public static String postAvailabilityPayload(Availability availability) {
+        return format(loadPayload("payloads/availability/post-availability.json"), availability.getMentorId(), availability.getUniversityId(), availability.getFromDateTime(), availability.getToDateTime());
+    }
+
+    public static String putAvailabilityPayload(Availability availability) {
+        return format(loadPayload("payloads/availability/put-availability.json"), availability.getFromDateTime(), availability.getToDateTime());
     }
 
 }

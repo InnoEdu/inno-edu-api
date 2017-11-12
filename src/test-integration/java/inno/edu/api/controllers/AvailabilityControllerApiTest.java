@@ -5,12 +5,12 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 
 import static inno.edu.api.factories.AvailabilityFactory.availability;
-import static inno.edu.api.factories.AvailabilityFactory.availabilityPostPayload;
-import static inno.edu.api.factories.AvailabilityFactory.availabilityPutPayload;
 import static inno.edu.api.factories.AvailabilityFactory.otherAvailability;
 import static inno.edu.api.factories.AvailabilityFactory.updatedAvailability;
 import static inno.edu.api.factories.UniversityFactory.berkeley;
 import static inno.edu.api.factories.UserFactory.fei;
+import static inno.edu.api.support.Payloads.postAvailabilityPayload;
+import static inno.edu.api.support.Payloads.putAvailabilityPayload;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
@@ -71,7 +71,7 @@ public class AvailabilityControllerApiTest extends ApiTest {
     public void shouldCreateNewAvailability() throws Exception {
         this.mockMvc.perform(
                 post("/api/availability")
-                        .content(availabilityPostPayload(availability()))
+                        .content(postAvailabilityPayload(availability()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated());
@@ -81,7 +81,7 @@ public class AvailabilityControllerApiTest extends ApiTest {
     public void shouldUpdateAvailability() throws Exception {
         this.mockMvc.perform(
                 put("/api/availability/" + availability().getId())
-                        .content(availabilityPutPayload(updatedAvailability()))
+                        .content(putAvailabilityPayload(updatedAvailability()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())

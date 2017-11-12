@@ -10,7 +10,6 @@ import static inno.edu.api.factories.UniversityFactory.berkeley;
 import static inno.edu.api.factories.UniversityFactory.stanford;
 import static inno.edu.api.factories.UserFactory.alan;
 import static inno.edu.api.factories.UserFactory.fei;
-import static java.lang.String.format;
 import static java.util.Collections.singletonList;
 import static java.util.UUID.fromString;
 
@@ -52,16 +51,4 @@ public class AvailabilityFactory {
     public static List<Availability> feiAvailability() {
         return singletonList(availability());
     }
-
-    public static String availabilityPostPayload(Availability availability) {
-        return format("{" + "\"mentorId\": \"%s\", " +
-                "\"universityId\": \"%s\", " +
-                "\"fromDateTime\": \"%s\", " +
-                "\"toDateTime\": \"%s\"}", availability.getMentorId(), availability.getUniversityId(), availability.getFromDateTime().toString(), availability.getToDateTime().toString());
-    }
-
-    public static String availabilityPutPayload(Availability availability) {
-        return format("{\"fromDateTime\": \"%s\", \"toDateTime\": \"%s\"}", availability.getFromDateTime().toString(), availability.getToDateTime().toString());
-    }
-
 }
