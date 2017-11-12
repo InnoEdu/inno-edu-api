@@ -7,9 +7,9 @@ CREATE TABLE User (
 );
 
 CREATE TABLE Mentee_Profile (
-  id      UUID PRIMARY KEY,
-  mentee_id UUID NOT NULL,
-  email   VARCHAR(255) NOT NULL,
+  id        UUID PRIMARY KEY,
+  mentee_id UUID         NOT NULL,
+  email     VARCHAR(255) NOT NULL,
 
   FOREIGN KEY (mentee_id)
   REFERENCES User (id)
@@ -20,6 +20,23 @@ CREATE TABLE University (
   id   UUID PRIMARY KEY,
   name VARCHAR(255) NOT NULL
 );
+
+CREATE TABLE Mentor_Profile (
+  id            UUID PRIMARY KEY,
+  mentor_id     UUID         NOT NULL,
+  university_id UUID         NOT NULL,
+  email         VARCHAR(255) NOT NULL,
+  is_active     BOOLEAN      NOT NULL,
+
+  FOREIGN KEY (mentor_id)
+  REFERENCES User (id)
+  ON DELETE CASCADE,
+
+  FOREIGN KEY (university_id)
+  REFERENCES University (id)
+  ON DELETE CASCADE,
+);
+
 
 CREATE TABLE Availability (
   id             UUID PRIMARY KEY,
@@ -59,6 +76,7 @@ CREATE TABLE Appointment (
   ON DELETE CASCADE
 );
 
+
 DELETE FROM User;
 
 INSERT INTO User (id, first_name, last_name, user_name, is_mentor)
@@ -76,6 +94,11 @@ DELETE FROM University;
 
 INSERT INTO University (id, name) VALUES ('0a58153c-c15f-4e5b-802c-bbf5d6c1c55c', 'Stanford');
 INSERT INTO University (id, name) VALUES ('a10afaca-2016-44b8-940b-5b88323901b9', 'Berkeley');
+
+DELETE FROM Mentor_Profile;
+
+INSERT INTO Mentor_Profile (id, mentor_id, university_id, email, is_active)
+VALUES ('0e9e40c0-b44b-4387-92a9-9d75d10e3d42', 'ba7c6505-19fd-47c3-87a6-c6af6e5322b7', '0a58153c-c15f-4e5b-802c-bbf5d6c1c55c', 'feixiu@inno.edu', 1);
 
 DELETE FROM Availability;
 

@@ -16,6 +16,11 @@ DELETE FROM University;
 INSERT INTO University (id, name) VALUES ('0a58153c-c15f-4e5b-802c-bbf5d6c1c55c', 'Stanford');
 INSERT INTO University (id, name) VALUES ('a10afaca-2016-44b8-940b-5b88323901b9', 'Berkeley');
 
+DELETE FROM Mentor_Profile;
+
+INSERT INTO Mentor_Profile (id, mentor_id, university_id, email, is_active)
+VALUES ('0e9e40c0-b44b-4387-92a9-9d75d10e3d42', 'ba7c6505-19fd-47c3-87a6-c6af6e5322b7', '0a58153c-c15f-4e5b-802c-bbf5d6c1c55c', 'feixiu@inno.edu', 1);
+
 DELETE FROM Availability;
 
 INSERT INTO Availability (id, mentor_id, university_id, from_date_time, to_date_time)
