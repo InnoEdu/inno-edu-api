@@ -1,6 +1,5 @@
 {
-  "mentorId": "%s",
-  "universityId": "%s",
+  "mentorProfileId": "%s",
   "fromDateTime": "%s",
   "toDateTime": "%s"
 }

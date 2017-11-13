@@ -58,7 +58,7 @@ public class Payloads {
     }
 
     public static String postAvailabilityPayload(Availability availability) {
-        return format(loadPayload("payloads/availability/post-availability.json"), availability.getMentorId(), availability.getUniversityId(), availability.getFromDateTime(), availability.getToDateTime());
+        return format(loadPayload("payloads/availability/post-availability.json"), availability.getMentorProfileId(), availability.getFromDateTime(), availability.getToDateTime());
     }
 
     public static String putAvailabilityPayload(Availability availability) {

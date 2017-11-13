@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -44,18 +43,6 @@ public class AvailabilityController {
     @GetMapping
     public Resources<AvailabilityResource> all() {
         Iterable<Availability> availability = availabilityRepository.findAll();
-        return resourceBuilder.from(availability, AvailabilityResource::new);
-    }
-
-    @GetMapping("/mentor/{mentorId}")
-    public Resources<AvailabilityResource> allByMentor(@PathVariable UUID mentorId) {
-        List<Availability> availability = availabilityRepository.findByMentorId(mentorId);
-        return resourceBuilder.from(availability, AvailabilityResource::new);
-    }
-
-    @GetMapping("/university/{universityId}")
-    public Resources<AvailabilityResource> allByUniversity(@PathVariable UUID universityId) {
-        List<Availability> availability = availabilityRepository.findByUniversityId(universityId);
         return resourceBuilder.from(availability, AvailabilityResource::new);
     }
 

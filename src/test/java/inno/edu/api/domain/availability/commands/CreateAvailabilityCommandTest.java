@@ -2,10 +2,8 @@ package inno.edu.api.domain.availability.commands;
 
 import inno.edu.api.domain.availability.models.Availability;
 import inno.edu.api.domain.availability.repositories.AvailabilityRepository;
-import inno.edu.api.domain.university.exceptions.UniversityNotFoundException;
-import inno.edu.api.domain.university.repositories.UniversityRepository;
-import inno.edu.api.domain.user.exceptions.UserNotFoundException;
-import inno.edu.api.domain.user.repositories.UserRepository;
+import inno.edu.api.domain.user.exceptions.ProfileNotFoundException;
+import inno.edu.api.domain.user.repositories.MentorProfileRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,18 +26,14 @@ public class CreateAvailabilityCommandTest {
     private AvailabilityRepository availabilityRepository;
 
     @Mock
-    private UserRepository userRepository;
-
-    @Mock
-    private UniversityRepository universityRepository;
+    private MentorProfileRepository mentorProfileRepository;
 
     @InjectMocks
     private CreateAvailabilityCommand createAvailabilityCommand;
 
     @Before
     public void setUp() {
-        when(userRepository.exists(any())).thenReturn(true);
-        when(universityRepository.exists(any())).thenReturn(true);
+        when(mentorProfileRepository.exists(any())).thenReturn(true);
     }
 
     @Test
@@ -65,16 +59,9 @@ public class CreateAvailabilityCommandTest {
         assertThat(argumentCaptor.getValue().getId(), not(availability().getId()));
     }
 
-    @Test(expected = UserNotFoundException.class)
-    public void shouldRaiseExceptionIfUserDoesNotExist() {
-        when(userRepository.exists(availability().getMentorId())).thenReturn(false);
-
-        createAvailabilityCommand.run(availability());
-    }
-
-    @Test(expected = UniversityNotFoundException.class)
-    public void shouldRaiseExceptionIfUniversityDoesNotExist() {
-        when(universityRepository.exists(availability().getUniversityId())).thenReturn(false);
+    @Test(expected = ProfileNotFoundException.class)
+    public void shouldRaiseExceptionIfProfileDoesNotExist() {
+        when(mentorProfileRepository.exists(availability().getMentorProfileId())).thenReturn(false);
 
         createAvailabilityCommand.run(availability());
     }

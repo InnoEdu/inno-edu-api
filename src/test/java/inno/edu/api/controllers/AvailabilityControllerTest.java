@@ -19,9 +19,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static inno.edu.api.support.AvailabilityFactory.allAvailability;
 import static inno.edu.api.support.AvailabilityFactory.availability;
-import static inno.edu.api.support.AvailabilityFactory.feiAvailability;
-import static inno.edu.api.support.UniversityFactory.stanford;
-import static inno.edu.api.support.UserFactory.fei;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentCaptor.forClass;
@@ -76,24 +73,6 @@ public class AvailabilityControllerTest {
         availabilityController.all();
 
         verify(resourceBuilder).from(eq(allAvailability()), any());
-    }
-
-    @Test
-    public void shouldListAllAvailabilityByMentor() {
-        when(availabilityRepository.findByMentorId(fei().getId())).thenReturn(feiAvailability());
-
-        availabilityController.allByMentor(fei().getId());
-
-        verify(resourceBuilder).from(eq(feiAvailability()), any());
-    }
-
-    @Test
-    public void shouldListAllAvailabilityByUniversity() {
-        when(availabilityRepository.findByUniversityId(stanford().getId())).thenReturn(feiAvailability());
-
-        availabilityController.allByUniversity(stanford().getId());
-
-        verify(resourceBuilder).from(eq(feiAvailability()), any());
     }
 
     @Test

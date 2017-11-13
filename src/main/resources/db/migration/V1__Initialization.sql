@@ -39,29 +39,24 @@ CREATE TABLE Mentor_Profile (
 
 
 CREATE TABLE Availability (
-  id             UUID PRIMARY KEY,
-  mentor_id      UUID,
-  university_id  UUID,
-  from_date_time TIMESTAMP,
-  to_date_time   TIMESTAMP,
+  id                UUID PRIMARY KEY,
+  mentor_profile_id UUID      NOT NULL,
+  from_date_time    TIMESTAMP NOT NULL,
+  to_date_time      TIMESTAMP NOT NULL,
 
-  FOREIGN KEY (mentor_id)
-  REFERENCES User (id)
+  FOREIGN KEY (mentor_profile_id)
+  REFERENCES Mentor_Profile (id)
   ON DELETE CASCADE,
-
-  FOREIGN KEY (university_id)
-  REFERENCES University (id)
-  ON DELETE CASCADE
 );
 
 CREATE TABLE Appointment (
   id                UUID PRIMARY KEY,
-  mentor_profile_id UUID,
-  mentee_id         UUID,
-  university_id     UUID,
-  from_date_time    TIMESTAMP,
-  to_date_time      TIMESTAMP,
-  status            SMALLINT NOT NULL,
+  mentor_profile_id UUID      NOT NULL,
+  mentee_id         UUID      NOT NULL,
+  university_id     UUID      NOT NULL,
+  from_date_time    TIMESTAMP NOT NULL,
+  to_date_time      TIMESTAMP NOT NULL,
+  status            SMALLINT  NOT NULL,
 
   FOREIGN KEY (mentor_profile_id)
   REFERENCES Mentor_Profile (id)
