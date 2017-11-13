@@ -2,8 +2,6 @@ package inno.edu.api.domain.appointment.commands;
 
 import inno.edu.api.domain.appointment.models.Appointment;
 import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
-import inno.edu.api.domain.university.exceptions.UniversityNotFoundException;
-import inno.edu.api.domain.university.repositories.UniversityRepository;
 import inno.edu.api.domain.user.exceptions.ProfileNotFoundException;
 import inno.edu.api.domain.user.exceptions.UserNotFoundException;
 import inno.edu.api.domain.user.repositories.MentorProfileRepository;
@@ -17,13 +15,11 @@ import static java.util.UUID.randomUUID;
 public class CreateAppointmentCommand {
     private final AppointmentRepository appointmentRepository;
     private final UserRepository userRepository;
-    private final UniversityRepository universityRepository;
     private final MentorProfileRepository mentorProfileRepository;
 
-    public CreateAppointmentCommand(AppointmentRepository appointmentRepository, UserRepository userRepository, UniversityRepository universityRepository, MentorProfileRepository mentorProfileRepository) {
+    public CreateAppointmentCommand(AppointmentRepository appointmentRepository, UserRepository userRepository, MentorProfileRepository mentorProfileRepository) {
         this.appointmentRepository = appointmentRepository;
         this.userRepository = userRepository;
-        this.universityRepository = universityRepository;
         this.mentorProfileRepository = mentorProfileRepository;
     }
 
@@ -34,10 +30,6 @@ public class CreateAppointmentCommand {
         if (!userRepository.exists(appointment.getMenteeId())) {
             throw new UserNotFoundException(appointment.getMenteeId());
         }
-        if (!universityRepository.exists(appointment.getUniversityId())) {
-            throw new UniversityNotFoundException(appointment.getUniversityId());
-        }
-
         appointment.setId(randomUUID());
         appointment.setStatus(PROPOSED);
 

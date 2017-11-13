@@ -34,12 +34,12 @@ VALUES ('8c0af3b9-2883-40f3-bf85-26ee0f506fde', '0e9e40c0-b44b-4387-92a9-9d75d10
 
 DELETE FROM Appointment;
 
-INSERT INTO Appointment (id, mentor_profile_id, mentee_id, university_id, from_date_time, to_date_time, status)
+INSERT INTO Appointment (id, mentor_profile_id, mentee_id, from_date_time, to_date_time, status)
 VALUES ('f192270f-2dad-4bcd-96c3-c3765df77ce8', '0e9e40c0-b44b-4387-92a9-9d75d10e3d42',
-        '8d6153fc-83e5-4b3a-90ac-d081ff789cef', '0a58153c-c15f-4e5b-802c-bbf5d6c1c55c', '2017-11-10 09:00:01.000',
+        '8d6153fc-83e5-4b3a-90ac-d081ff789cef', '2017-11-10 09:00:01.000',
         '2017-11-10 10:00:01.000', 0);
 
-INSERT INTO Appointment (id, mentor_profile_id, mentee_id, university_id, from_date_time, to_date_time, status)
+INSERT INTO Appointment (id, mentor_profile_id, mentee_id, from_date_time, to_date_time, status)
 VALUES ('42f2431a-0216-416e-b795-29292b637ec4', '0e9e40c0-b44b-4387-92a9-9d75d10e3d42',
-        '8d6153fc-83e5-4b3a-90ac-d081ff789cef', '0a58153c-c15f-4e5b-802c-bbf5d6c1c55c', '2017-11-10 10:00:01.000',
+        '8d6153fc-83e5-4b3a-90ac-d081ff789cef', '2017-11-10 10:00:01.000',
         '2017-11-10 11:00:01.000', 1);

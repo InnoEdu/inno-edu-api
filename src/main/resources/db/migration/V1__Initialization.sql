@@ -53,7 +53,6 @@ CREATE TABLE Appointment (
   id                UUID PRIMARY KEY,
   mentor_profile_id UUID      NOT NULL,
   mentee_id         UUID      NOT NULL,
-  university_id     UUID      NOT NULL,
   from_date_time    TIMESTAMP NOT NULL,
   to_date_time      TIMESTAMP NOT NULL,
   status            SMALLINT  NOT NULL,
@@ -65,10 +64,6 @@ CREATE TABLE Appointment (
   FOREIGN KEY (mentee_id)
   REFERENCES User (id)
   ON DELETE CASCADE,
-
-  FOREIGN KEY (university_id)
-  REFERENCES University (id)
-  ON DELETE CASCADE
 );
 
 -- Temporary stub data

@@ -3,7 +3,6 @@ package inno.edu.api.controllers.resources;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import inno.edu.api.controllers.AppointmentController;
 import inno.edu.api.controllers.MentorProfileController;
-import inno.edu.api.controllers.UniversityController;
 import inno.edu.api.controllers.UserController;
 import inno.edu.api.domain.appointment.models.Appointment;
 import lombok.Getter;
@@ -28,7 +27,6 @@ public class AppointmentResource extends ResourceSupport {
         add(linkTo(methodOn(AppointmentController.class).get(appointment.getId())).withSelfRel());
         add(linkTo(methodOn(MentorProfileController.class).get(appointment.getMentorProfileId())).withRel("mentor-profile"));
         add(linkTo(methodOn(UserController.class).get(appointment.getMenteeId())).withRel("mentee"));
-        add(linkTo(methodOn(UniversityController.class).get(appointment.getUniversityId())).withRel("university"));
     }
 
     public ResponseEntity<?> toCreated() {

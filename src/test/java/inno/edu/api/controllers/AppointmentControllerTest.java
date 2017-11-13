@@ -8,7 +8,6 @@ import inno.edu.api.domain.appointment.exceptions.AppointmentNotFoundException;
 import inno.edu.api.domain.appointment.models.Appointment;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByMenteeIdQuery;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByMentorIdQuery;
-import inno.edu.api.domain.appointment.queries.GetAppointmentsByUniversityIdQuery;
 import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +23,6 @@ import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.support.AppointmentFactory.appointment;
 import static inno.edu.api.support.AppointmentFactory.appointments;
 import static inno.edu.api.support.AppointmentFactory.proposedAppointments;
-import static inno.edu.api.support.UniversityFactory.stanford;
 import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.fei;
 import static org.hamcrest.core.Is.is;
@@ -49,9 +47,6 @@ public class AppointmentControllerTest {
 
     @Mock
     private UpdateAppointmentCommand updateAppointmentCommand;
-
-    @Mock
-    private GetAppointmentsByUniversityIdQuery getAppointmentsByUniversityIdQuery;
 
     @Mock
     private GetAppointmentsByMentorIdQuery getAppointmentsByMentorIdQuery;
@@ -90,24 +85,6 @@ public class AppointmentControllerTest {
         appointmentController.all();
 
         verify(resourceBuilder).from(eq(appointments()), any());
-    }
-
-    @Test
-    public void shouldListAppointmentsByUniversity() {
-        when(getAppointmentsByUniversityIdQuery.run(stanford().getId(), null)).thenReturn(appointments());
-
-        appointmentController.allByUniversity(stanford().getId(), null);
-
-        verify(resourceBuilder).from(eq(appointments()), any());
-    }
-
-    @Test
-    public void shouldListAppointmentsByUniversityAndStatus() {
-        when(getAppointmentsByUniversityIdQuery.run(stanford().getId(), PROPOSED)).thenReturn(proposedAppointments());
-
-        appointmentController.allByUniversity(stanford().getId(), PROPOSED);
-
-        verify(resourceBuilder).from(eq(proposedAppointments()), any());
     }
 
     @Test

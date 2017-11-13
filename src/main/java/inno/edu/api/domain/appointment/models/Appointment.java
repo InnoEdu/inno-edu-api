@@ -22,12 +22,10 @@ public class Appointment {
 
     private UUID mentorProfileId;
     private UUID menteeId;
-    private UUID universityId;
 
     private LocalDateTime fromDateTime;
     private LocalDateTime toDateTime;
 
     @Enumerated
     private AppointmentStatus status;
-
 }

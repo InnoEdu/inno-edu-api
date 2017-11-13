@@ -66,7 +66,7 @@ public class Payloads {
     }
 
     public static String postAppointmentPayload(Appointment appointment) {
-        return format(loadPayload("payloads/appointment/post-appointment.json"), appointment.getMentorProfileId(), appointment.getMenteeId(), appointment.getUniversityId(), appointment.getFromDateTime(), appointment.getToDateTime());
+        return format(loadPayload("payloads/appointment/post-appointment.json"), appointment.getMentorProfileId(), appointment.getMenteeId(), appointment.getFromDateTime(), appointment.getToDateTime());
     }
 
     public static String putAppointmentPayload(Appointment appointment) {

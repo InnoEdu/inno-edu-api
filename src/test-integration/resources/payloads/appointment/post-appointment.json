@@ -1,7 +1,6 @@
 {
   "mentorProfileId": "%s",
   "menteeId": "%s",
-  "universityId": "%s",
   "fromDateTime": "%s",
   "toDateTime": "%s"
 }

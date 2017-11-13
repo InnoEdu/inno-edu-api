@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import java.util.UUID;
 
@@ -21,5 +22,7 @@ public class MentorProfile {
     private UUID mentorId;
     private UUID universityId;
     private String email;
+
+    @Enumerated
     private ProfileStatus status;
 }
