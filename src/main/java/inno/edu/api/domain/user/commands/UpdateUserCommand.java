@@ -24,7 +24,6 @@ public class UpdateUserCommand {
         currentUser.setId(id);
         currentUser.setFirstName(user.getFirstName());
         currentUser.setLastName(user.getLastName());
-        currentUser.setUserName(user.getUserName());
 
         return userRepository.save(currentUser);
     }
