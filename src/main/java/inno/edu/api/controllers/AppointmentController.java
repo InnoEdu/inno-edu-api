@@ -49,6 +49,7 @@ public class AppointmentController {
         this.resourceBuilder = resourceBuilder;
         this.createAppointmentCommand = createAppointmentCommand;
         this.updateAppointmentCommand = updateAppointmentCommand;
+
         this.getAppointmentsByUniversityIdQuery = getAppointmentsByUniversityIdQuery;
         this.getAppointmentsByMentorIdQuery = getAppointmentsByMentorIdQuery;
         this.getAppointmentsByMenteeIdQuery = getAppointmentsByMenteeIdQuery;
@@ -69,14 +70,14 @@ public class AppointmentController {
 
     @GetMapping("/mentor/{mentorId}")
     public Resources<AppointmentResource> allByMentor(@PathVariable UUID mentorId,
-                                                          @RequestParam(required = false) AppointmentStatus status) {
+                                                      @RequestParam(required = false) AppointmentStatus status) {
         List<Appointment> appointments = getAppointmentsByMentorIdQuery.run(mentorId, status);
         return resourceBuilder.from(appointments, AppointmentResource::new);
     }
 
     @GetMapping("/mentee/{menteeId}")
     public Resources<AppointmentResource> allByMentee(@PathVariable UUID menteeId,
-                                                          @RequestParam(required = false) AppointmentStatus status) {
+                                                      @RequestParam(required = false) AppointmentStatus status) {
         List<Appointment> appointments = getAppointmentsByMenteeIdQuery.run(menteeId, status);
         return resourceBuilder.from(appointments, AppointmentResource::new);
     }

@@ -20,7 +20,7 @@ public class Appointment {
     @Id
     private UUID id;
 
-    private UUID mentorId;
+    private UUID mentorProfileId;
     private UUID menteeId;
     private UUID universityId;
 

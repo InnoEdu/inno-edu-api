@@ -11,8 +11,8 @@ public interface AppointmentRepository extends CrudRepository<Appointment, UUID>
     List<Appointment> findByUniversityId(UUID universityId);
     List<Appointment> findByUniversityIdAndStatus(UUID universityId, AppointmentStatus status);
 
-    List<Appointment> findByMentorId(UUID universityId);
-    List<Appointment> findByMentorIdAndStatus(UUID universityId, AppointmentStatus status);
+    List<Appointment> findByMentorProfileId(UUID universityId);
+    List<Appointment> findByMentorProfileIdAndStatus(UUID universityId, AppointmentStatus status);
 
     List<Appointment> findByMenteeId(UUID universityId);
     List<Appointment> findByMenteeIdAndStatus(UUID universityId, AppointmentStatus status);

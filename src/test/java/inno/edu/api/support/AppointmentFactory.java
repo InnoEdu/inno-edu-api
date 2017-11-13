@@ -9,14 +9,14 @@ import java.util.List;
 import static com.google.common.collect.Lists.newArrayList;
 import static inno.edu.api.support.UniversityFactory.stanford;
 import static inno.edu.api.support.UserFactory.alan;
-import static inno.edu.api.support.UserFactory.fei;
+import static inno.edu.api.support.UserFactory.feiProfile;
 import static java.util.UUID.fromString;
 
 public class AppointmentFactory {
     public static Appointment appointment() {
         return Appointment.builder()
                 .id(fromString("f192270f-2dad-4bcd-96c3-c3765df77ce8"))
-                .mentorId(fei().getId())
+                .mentorProfileId(feiProfile().getId())
                 .menteeId(alan().getId())
                 .universityId(stanford().getId())
                 .fromDateTime(LocalDateTime.of(2017, 11, 10, 9, 0, 1))
@@ -28,7 +28,7 @@ public class AppointmentFactory {
     public static Appointment otherAppointment() {
         return Appointment.builder()
                 .id(fromString("42f2431a-0216-416e-b795-29292b637ec4"))
-                .mentorId(fei().getId())
+                .mentorProfileId(feiProfile().getId())
                 .menteeId(alan().getId())
                 .universityId(stanford().getId())
                 .fromDateTime(LocalDateTime.of(2017, 11, 10, 10, 0, 1))
@@ -40,7 +40,7 @@ public class AppointmentFactory {
     public static Appointment updatedAppointment() {
         return Appointment.builder()
                 .id(fromString("f192270f-2dad-4bcd-96c3-c3765df77ce8"))
-                .mentorId(fei().getId())
+                .mentorProfileId(feiProfile().getId())
                 .menteeId(alan().getId())
                 .universityId(stanford().getId())
                 .fromDateTime(LocalDateTime.of(2019, 11, 9, 12, 0, 1))
