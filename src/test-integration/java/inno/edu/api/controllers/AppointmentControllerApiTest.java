@@ -30,7 +30,7 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].id", containsInAnyOrder(appointment().getId().toString(), otherAppointment().getId().toString())))
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].mentorProfileId", containsInAnyOrder(appointment().getMentorProfileId().toString(), otherAppointment().getMentorProfileId().toString())))
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].menteeId", containsInAnyOrder(appointment().getMenteeId().toString(), otherAppointment().getMenteeId().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].menteeProfileId", containsInAnyOrder(appointment().getMenteeProfileId().toString(), otherAppointment().getMenteeProfileId().toString())))
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].fromDateTime", containsInAnyOrder(appointment().getFromDateTime().toString(), otherAppointment().getFromDateTime().toString())))
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].toDateTime", containsInAnyOrder(appointment().getToDateTime().toString(), otherAppointment().getToDateTime().toString())))
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].status", containsInAnyOrder(appointment().getStatus().toString(), otherAppointment().getStatus().toString())));
@@ -44,7 +44,7 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].id", contains(appointment().getId().toString())))
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].mentorProfileId", contains(appointment().getMentorProfileId().toString())))
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].menteeId", contains(appointment().getMenteeId().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].menteeProfileId", contains(appointment().getMenteeProfileId().toString())))
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].fromDateTime", contains(appointment().getFromDateTime().toString())))
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].toDateTime", contains(appointment().getToDateTime().toString())))
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].status", contains(appointment().getStatus().toString())));
@@ -58,7 +58,7 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].id", contains(appointment().getId().toString())))
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].mentorProfileId", contains(appointment().getMentorProfileId().toString())))
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].menteeId", contains(appointment().getMenteeId().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].menteeProfileId", contains(appointment().getMenteeProfileId().toString())))
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].fromDateTime", contains(appointment().getFromDateTime().toString())))
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].toDateTime", contains(appointment().getToDateTime().toString())))
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].status", contains(appointment().getStatus().toString())));
@@ -70,7 +70,7 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(appointment().getId().toString())))
                 .andExpect(jsonPath("$.mentorProfileId", is(appointment().getMentorProfileId().toString())))
-                .andExpect(jsonPath("$.menteeId", is(appointment().getMenteeId().toString())))
+                .andExpect(jsonPath("$.menteeProfileId", is(appointment().getMenteeProfileId().toString())))
                 .andExpect(jsonPath("$.fromDateTime", is(appointment().getFromDateTime().toString())))
                 .andExpect(jsonPath("$.toDateTime", is(appointment().getToDateTime().toString())))
                 .andExpect(jsonPath("$.status", is(appointment().getStatus().toString())));

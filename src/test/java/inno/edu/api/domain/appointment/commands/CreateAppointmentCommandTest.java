@@ -3,9 +3,8 @@ package inno.edu.api.domain.appointment.commands;
 import inno.edu.api.domain.appointment.models.Appointment;
 import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
 import inno.edu.api.domain.user.exceptions.ProfileNotFoundException;
-import inno.edu.api.domain.user.exceptions.UserNotFoundException;
+import inno.edu.api.domain.user.repositories.MenteeProfileRepository;
 import inno.edu.api.domain.user.repositories.MentorProfileRepository;
-import inno.edu.api.domain.user.repositories.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +27,7 @@ public class CreateAppointmentCommandTest {
     private AppointmentRepository appointmentRepository;
 
     @Mock
-    private UserRepository userRepository;
+    private MenteeProfileRepository menteeProfileRepository;
 
     @Mock
     private MentorProfileRepository mentorProfileRepository;
@@ -38,7 +37,7 @@ public class CreateAppointmentCommandTest {
 
     @Before
     public void setUp() {
-        when(userRepository.exists(any())).thenReturn(true);
+        when(menteeProfileRepository.exists(any())).thenReturn(true);
         when(mentorProfileRepository.exists(any())).thenReturn(true);
     }
 
@@ -72,9 +71,9 @@ public class CreateAppointmentCommandTest {
         createAppointmentCommand.run(appointment());
     }
 
-    @Test(expected = UserNotFoundException.class)
-    public void shouldRaiseExceptionIfMenteeUserDoesNotExist() {
-        when(userRepository.exists(appointment().getMenteeId())).thenReturn(false);
+    @Test(expected = ProfileNotFoundException.class)
+    public void shouldRaiseExceptionIfMenteeProfileDoesNotExist() {
+        when(menteeProfileRepository.exists(appointment().getMenteeProfileId())).thenReturn(false);
 
         createAppointmentCommand.run(appointment());
     }

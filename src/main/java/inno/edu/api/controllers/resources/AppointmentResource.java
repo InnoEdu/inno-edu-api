@@ -26,7 +26,7 @@ public class AppointmentResource extends ResourceSupport {
 
         add(linkTo(methodOn(AppointmentController.class).get(appointment.getId())).withSelfRel());
         add(linkTo(methodOn(MentorProfileController.class).get(appointment.getMentorProfileId())).withRel("mentor-profile"));
-        add(linkTo(methodOn(UserController.class).get(appointment.getMenteeId())).withRel("mentee"));
+        add(linkTo(methodOn(UserController.class).get(appointment.getMenteeProfileId())).withRel("mentee"));
     }
 
     public ResponseEntity<?> toCreated() {

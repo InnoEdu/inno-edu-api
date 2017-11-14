@@ -21,7 +21,7 @@ public class Appointment {
     private UUID id;
 
     private UUID mentorProfileId;
-    private UUID menteeId;
+    private UUID menteeProfileId;
 
     private LocalDateTime fromDateTime;
     private LocalDateTime toDateTime;
