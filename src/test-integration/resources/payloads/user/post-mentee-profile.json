@@ -1,4 +1,5 @@
 {
   "menteeId": "%s",
-  "email": "%s"
+  "email": "%s",
+  "description": "%s"
 }

@@ -26,7 +26,8 @@ public class MenteeProfileControllerApiTest extends ApiTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.menteeProfileResourceList[*].id", containsInAnyOrder(alanProfile().getId().toString())))
                 .andExpect(jsonPath("$._embedded.menteeProfileResourceList[*].menteeId", containsInAnyOrder(alanProfile().getMenteeId().toString())))
-                .andExpect(jsonPath("$._embedded.menteeProfileResourceList[*].email", containsInAnyOrder(alanProfile().getEmail())));
+                .andExpect(jsonPath("$._embedded.menteeProfileResourceList[*].email", containsInAnyOrder(alanProfile().getEmail())))
+                .andExpect(jsonPath("$._embedded.menteeProfileResourceList[*].description", containsInAnyOrder(alanProfile().getDescription())));
     }
 
     @Test
@@ -35,7 +36,8 @@ public class MenteeProfileControllerApiTest extends ApiTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(alanProfile().getId().toString())))
                 .andExpect(jsonPath("$.menteeId", is(alanProfile().getMenteeId().toString())))
-                .andExpect(jsonPath("$.email", is(alanProfile().getEmail())));
+                .andExpect(jsonPath("$.email", is(alanProfile().getEmail())))
+                .andExpect(jsonPath("$.description", is(alanProfile().getDescription())));
     }
 
     @Test
@@ -68,7 +70,8 @@ public class MenteeProfileControllerApiTest extends ApiTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", is(updatedAlanProfile().getId().toString())))
                 .andExpect(jsonPath("$.menteeId", is(updatedAlanProfile().getMenteeId().toString())))
-                .andExpect(jsonPath("$.email", is(updatedAlanProfile().getEmail())));
+                .andExpect(jsonPath("$.email", is(updatedAlanProfile().getEmail())))
+                .andExpect(jsonPath("$.description", is(updatedAlanProfile().getDescription())));
     }
 
     @Test

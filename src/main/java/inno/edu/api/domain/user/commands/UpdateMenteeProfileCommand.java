@@ -23,6 +23,7 @@ public class UpdateMenteeProfileCommand {
 
         currentMenteeProfile.setId(id);
         currentMenteeProfile.setEmail(profile.getEmail());
+        currentMenteeProfile.setDescription(profile.getDescription());
 
         return profileRepository.save(currentMenteeProfile);
     }

@@ -63,7 +63,8 @@ public class MentorProfileControllerApiTest extends ApiTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", is(updatedFeiProfile().getId().toString())))
                 .andExpect(jsonPath("$.mentorId", is(updatedFeiProfile().getMentorId().toString())))
-                .andExpect(jsonPath("$.email", is(updatedFeiProfile().getEmail())));
+                .andExpect(jsonPath("$.email", is(updatedFeiProfile().getEmail())))
+                .andExpect(jsonPath("$.description", is(updatedFeiProfile().getDescription())));
     }
 
     @Test

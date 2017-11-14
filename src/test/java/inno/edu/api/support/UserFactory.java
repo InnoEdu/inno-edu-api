@@ -46,6 +46,7 @@ public class UserFactory {
         return MenteeProfile.builder().id(fromString("4fbee407-5ab3-4d4b-9ef0-39840e939d5e"))
                 .menteeId(fei().getId())
                 .email("gustavo@inno.edu")
+                .description("Gustavo is a great mentee.")
                 .build();
     }
 
@@ -53,6 +54,7 @@ public class UserFactory {
         return MenteeProfile.builder().id(fromString("c5f473b4-3311-40b1-8fb3-f70357894754"))
                 .menteeId(alan().getId())
                 .email("alanly@inno.edu")
+                .description("Alan is a great mentee.")
                 .build();
     }
 
@@ -80,6 +82,7 @@ public class UserFactory {
         return MenteeProfile.builder().id(fromString("c5f473b4-3311-40b1-8fb3-f70357894754"))
                 .menteeId(alan().getId())
                 .email("Updatedalanly@inno.edu")
+                .description("Updated description")
                 .build();
     }
 
@@ -88,6 +91,7 @@ public class UserFactory {
                 .mentorId(fei().getId())
                 .schoolId(stanford().getId())
                 .email("Updatedfeixiu@inno.edu")
+                .description("Updated description")
                 .status(ACTIVE)
                 .build();
     }

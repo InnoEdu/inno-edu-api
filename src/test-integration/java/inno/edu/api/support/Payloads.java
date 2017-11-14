@@ -42,11 +42,11 @@ public class Payloads {
     }
 
     public static String postMenteeProfilePayload(MenteeProfile profile) {
-        return format(loadPayload("payloads/user/post-mentee-profile.json"), profile.getMenteeId(), profile.getEmail());
+        return format(loadPayload("payloads/user/post-mentee-profile.json"), profile.getMenteeId(), profile.getEmail(), profile.getDescription());
     }
 
     public static String putMenteeProfilePayload(MenteeProfile profile) {
-        return format(loadPayload("payloads/user/put-mentee-profile.json"), profile.getEmail());
+        return format(loadPayload("payloads/user/put-mentee-profile.json"), profile.getEmail(), profile.getDescription());
     }
 
     public static String postSchoolPayload(School school) {

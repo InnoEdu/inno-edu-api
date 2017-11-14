@@ -8,8 +8,8 @@ VALUES ('8d6153fc-83e5-4b3a-90ac-d081ff789cef', 'Alan', 'Ly', 'alanly', 0);
 
 DELETE FROM Mentee_Profile;
 
-INSERT INTO Mentee_Profile (id, mentee_id, email)
-VALUES ('c5f473b4-3311-40b1-8fb3-f70357894754', '8d6153fc-83e5-4b3a-90ac-d081ff789cef', 'alanly@inno.edu');
+INSERT INTO Mentee_Profile (id, mentee_id, email, description)
+VALUES ('c5f473b4-3311-40b1-8fb3-f70357894754', '8d6153fc-83e5-4b3a-90ac-d081ff789cef', 'alanly@inno.edu', 'Alan is a great mentee.');
 
 DELETE FROM School;
 
