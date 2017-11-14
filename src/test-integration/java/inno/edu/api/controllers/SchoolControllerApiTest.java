@@ -26,7 +26,8 @@ public class SchoolControllerApiTest extends ApiTest {
         this.mockMvc.perform(get("/api/schools")).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.schoolResourceList[*].id", containsInAnyOrder(stanford().getId().toString(), berkeley().getId().toString())))
-                .andExpect(jsonPath("$._embedded.schoolResourceList[*].name", containsInAnyOrder(stanford().getName(), berkeley().getName())));
+                .andExpect(jsonPath("$._embedded.schoolResourceList[*].name", containsInAnyOrder(stanford().getName(), berkeley().getName())))
+                .andExpect(jsonPath("$._embedded.schoolResourceList[*].description", containsInAnyOrder(stanford().getDescription(), berkeley().getDescription())));
     }
 
     @Test
@@ -45,6 +46,7 @@ public class SchoolControllerApiTest extends ApiTest {
         this.mockMvc.perform(get("/api/schools/" + stanford().getId().toString())).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(stanford().getId().toString())))
+                .andExpect(jsonPath("$.description", is(stanford().getDescription())))
                 .andExpect(jsonPath("$.name", is(stanford().getName())));
     }
 

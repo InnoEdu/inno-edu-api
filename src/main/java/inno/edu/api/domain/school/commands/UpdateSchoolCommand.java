@@ -23,6 +23,7 @@ public class UpdateSchoolCommand {
 
         currentSchool.setId(id);
         currentSchool.setName(school.getName());
+        currentSchool.setDescription(school.getDescription());
 
         return schoolRepository.save(currentSchool);
     }

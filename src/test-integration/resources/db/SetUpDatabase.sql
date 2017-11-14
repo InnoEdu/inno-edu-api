@@ -13,8 +13,11 @@ VALUES ('c5f473b4-3311-40b1-8fb3-f70357894754', '8d6153fc-83e5-4b3a-90ac-d081ff7
 
 DELETE FROM School;
 
-INSERT INTO School (id, name) VALUES ('0a58153c-c15f-4e5b-802c-bbf5d6c1c55c', 'Stanford');
-INSERT INTO School (id, name) VALUES ('a10afaca-2016-44b8-940b-5b88323901b9', 'Berkeley');
+INSERT INTO School (id, name, description)
+VALUES ('0a58153c-c15f-4e5b-802c-bbf5d6c1c55c', 'Stanford', 'Stanford is an amazing university.');
+
+INSERT INTO School (id, name, description)
+VALUES ('a10afaca-2016-44b8-940b-5b88323901b9', 'Berkeley', 'Berkeley is an outstanding university.');
 
 DELETE FROM Mentor_Profile;
 

@@ -12,6 +12,7 @@ public class SchoolFactory {
         return School.builder()
                 .id(fromString("0a58153c-c15f-4e5b-802c-bbf5d6c1c55c"))
                 .name("Stanford")
+                .description("Stanford is an amazing university.")
                 .build();
     }
 
@@ -19,6 +20,7 @@ public class SchoolFactory {
         return School.builder()
                 .id(fromString("a10afaca-2016-44b8-940b-5b88323901b9"))
                 .name("Berkeley")
+                .description("Berkeley is an outstanding university.")
                 .build();
     }
 
@@ -26,6 +28,7 @@ public class SchoolFactory {
         return School.builder()
                 .id(fromString("0a58153c-c15f-4e5b-802c-bbf5d6c1c55c"))
                 .name("UpdatedBerkeley")
+                .name("Berkley is still an outstanding university.")
                 .build();
     }
 

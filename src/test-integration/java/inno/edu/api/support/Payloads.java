@@ -50,11 +50,11 @@ public class Payloads {
     }
 
     public static String postSchoolPayload(School school) {
-        return format(loadPayload("payloads/school/post-school.json"), school.getName());
+        return format(loadPayload("payloads/school/post-school.json"), school.getName(), school.getDescription());
     }
 
     public static String putSchoolPayload(School school) {
-        return format(loadPayload("payloads/school/put-school.json"), school.getName());
+        return format(loadPayload("payloads/school/put-school.json"), school.getName(), school.getDescription());
     }
 
     public static String postAvailabilityPayload(Availability availability) {
