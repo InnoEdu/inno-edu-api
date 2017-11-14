@@ -61,6 +61,7 @@ public class UserFactory {
                 .mentorId(fei().getId())
                 .schoolId(stanford().getId())
                 .email("feixiu@inno.edu")
+                .description("Fei is a great mentor.")
                 .status(ACTIVE)
                 .build();
     }

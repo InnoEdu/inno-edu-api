@@ -1,5 +1,6 @@
 {
   "mentorId": "%s",
   "schoolId": "%s",
-  "email": "%s"
+  "email": "%s",
+  "description": "%s"
 }

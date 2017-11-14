@@ -22,6 +22,7 @@ public class MentorProfile {
     private UUID mentorId;
     private UUID schoolId;
     private String email;
+    private String description;
 
     @Enumerated
     private ProfileStatus status;

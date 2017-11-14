@@ -27,6 +27,7 @@ public class MentorProfileControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].mentorId", containsInAnyOrder(feiProfile().getMentorId().toString())))
                 .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].schoolId", containsInAnyOrder(feiProfile().getSchoolId().toString())))
                 .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].email", containsInAnyOrder(feiProfile().getEmail())))
+                .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].description", containsInAnyOrder(feiProfile().getDescription())))
                 .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].status", containsInAnyOrder(feiProfile().getStatus().toString())));
     }
 
@@ -38,6 +39,7 @@ public class MentorProfileControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.mentorId", is(feiProfile().getMentorId().toString())))
                 .andExpect(jsonPath("$.schoolId", is(feiProfile().getSchoolId().toString())))
                 .andExpect(jsonPath("$.email", is(feiProfile().getEmail())))
+                .andExpect(jsonPath("$.description", is(feiProfile().getDescription())))
                 .andExpect(jsonPath("$.status", is(feiProfile().getStatus().toString())));
     }
 

@@ -23,11 +23,12 @@ CREATE TABLE School (
 );
 
 CREATE TABLE Mentor_Profile (
-  id        UUID PRIMARY KEY,
-  mentor_id UUID         NOT NULL,
-  school_id UUID         NOT NULL,
-  email     VARCHAR(255) NOT NULL,
-  status    SMALLINT     NOT NULL,
+  id          UUID PRIMARY KEY,
+  mentor_id   UUID         NOT NULL,
+  school_id   UUID         NOT NULL,
+  email       VARCHAR(255) NOT NULL,
+  description TEXT         NOT NULL,
+  status      SMALLINT     NOT NULL,
 
   FOREIGN KEY (mentor_id)
   REFERENCES User (id)

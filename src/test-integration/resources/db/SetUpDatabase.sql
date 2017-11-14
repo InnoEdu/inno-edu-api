@@ -21,9 +21,9 @@ VALUES ('a10afaca-2016-44b8-940b-5b88323901b9', 'Berkeley', 'Berkeley is an outs
 
 DELETE FROM Mentor_Profile;
 
-INSERT INTO Mentor_Profile (id, mentor_id, school_id, email, status)
+INSERT INTO Mentor_Profile (id, mentor_id, school_id, email, description, status)
 VALUES ('0e9e40c0-b44b-4387-92a9-9d75d10e3d42', 'ba7c6505-19fd-47c3-87a6-c6af6e5322b7',
-        '0a58153c-c15f-4e5b-802c-bbf5d6c1c55c', 'feixiu@inno.edu', 1);
+        '0a58153c-c15f-4e5b-802c-bbf5d6c1c55c', 'feixiu@inno.edu', 'Fei is a great mentor.', 1);
 
 DELETE FROM Availability;
 
