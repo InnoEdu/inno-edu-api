@@ -11,14 +11,14 @@ DELETE FROM Mentee_Profile;
 INSERT INTO Mentee_Profile (id, mentee_id, email)
 VALUES ('c5f473b4-3311-40b1-8fb3-f70357894754', '8d6153fc-83e5-4b3a-90ac-d081ff789cef', 'alanly@inno.edu');
 
-DELETE FROM University;
+DELETE FROM School;
 
-INSERT INTO University (id, name) VALUES ('0a58153c-c15f-4e5b-802c-bbf5d6c1c55c', 'Stanford');
-INSERT INTO University (id, name) VALUES ('a10afaca-2016-44b8-940b-5b88323901b9', 'Berkeley');
+INSERT INTO School (id, name) VALUES ('0a58153c-c15f-4e5b-802c-bbf5d6c1c55c', 'Stanford');
+INSERT INTO School (id, name) VALUES ('a10afaca-2016-44b8-940b-5b88323901b9', 'Berkeley');
 
 DELETE FROM Mentor_Profile;
 
-INSERT INTO Mentor_Profile (id, mentor_id, university_id, email, status)
+INSERT INTO Mentor_Profile (id, mentor_id, school_id, email, status)
 VALUES ('0e9e40c0-b44b-4387-92a9-9d75d10e3d42', 'ba7c6505-19fd-47c3-87a6-c6af6e5322b7',
         '0a58153c-c15f-4e5b-802c-bbf5d6c1c55c', 'feixiu@inno.edu', 1);
 

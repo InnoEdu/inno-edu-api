@@ -2,7 +2,7 @@ package inno.edu.api.support;
 
 import inno.edu.api.domain.appointment.models.Appointment;
 import inno.edu.api.domain.availability.models.Availability;
-import inno.edu.api.domain.university.models.University;
+import inno.edu.api.domain.school.models.School;
 import inno.edu.api.domain.user.models.MenteeProfile;
 import inno.edu.api.domain.user.models.MentorProfile;
 import inno.edu.api.domain.user.models.User;
@@ -34,7 +34,7 @@ public class Payloads {
     }
 
     public static String postMentorProfilePayload(MentorProfile profile) {
-        return format(loadPayload("payloads/user/post-mentor-profile.json"), profile.getMentorId(), profile.getUniversityId(), profile.getEmail());
+        return format(loadPayload("payloads/user/post-mentor-profile.json"), profile.getMentorId(), profile.getSchoolId(), profile.getEmail());
     }
 
     public static String putMentorProfilePayload(MentorProfile profile) {
@@ -49,12 +49,12 @@ public class Payloads {
         return format(loadPayload("payloads/user/put-mentee-profile.json"), profile.getEmail());
     }
 
-    public static String postUniversityPayload(University university) {
-        return format(loadPayload("payloads/university/post-university.json"), university.getName());
+    public static String postSchoolPayload(School school) {
+        return format(loadPayload("payloads/school/post-school.json"), school.getName());
     }
 
-    public static String putUniversityPayload(University university) {
-        return format(loadPayload("payloads/university/put-university.json"), university.getName());
+    public static String putSchoolPayload(School school) {
+        return format(loadPayload("payloads/school/put-school.json"), school.getName());
     }
 
     public static String postAvailabilityPayload(Availability availability) {

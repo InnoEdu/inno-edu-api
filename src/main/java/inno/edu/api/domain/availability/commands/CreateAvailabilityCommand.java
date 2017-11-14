@@ -2,7 +2,7 @@ package inno.edu.api.domain.availability.commands;
 
 import inno.edu.api.domain.availability.models.Availability;
 import inno.edu.api.domain.availability.repositories.AvailabilityRepository;
-import inno.edu.api.domain.university.repositories.UniversityRepository;
+import inno.edu.api.domain.school.repositories.SchoolRepository;
 import inno.edu.api.domain.user.exceptions.ProfileNotFoundException;
 import inno.edu.api.domain.user.repositories.MentorProfileRepository;
 import inno.edu.api.domain.user.repositories.UserRepository;
@@ -15,7 +15,7 @@ public class CreateAvailabilityCommand {
     private final AvailabilityRepository availabilityRepository;
     private final MentorProfileRepository mentorProfileRepository;
 
-    public CreateAvailabilityCommand(AvailabilityRepository availabilityRepository, UserRepository userRepository, UniversityRepository universityRepository, MentorProfileRepository mentorProfileRepository) {
+    public CreateAvailabilityCommand(AvailabilityRepository availabilityRepository, UserRepository userRepository, SchoolRepository schoolRepository, MentorProfileRepository mentorProfileRepository) {
         this.availabilityRepository = availabilityRepository;
         this.mentorProfileRepository = mentorProfileRepository;
     }

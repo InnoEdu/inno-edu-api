@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface MentorProfileRepository extends CrudRepository<MentorProfile, UUID> {
-    List<MentorProfile> findByUniversityIdAndStatus(UUID universityId, ProfileStatus status);
+    List<MentorProfile> findBySchoolIdAndStatus(UUID schoolId, ProfileStatus status);
     MentorProfile findOneByMentorIdAndStatus(UUID mentorId, ProfileStatus status);
 }

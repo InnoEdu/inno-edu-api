@@ -8,7 +8,7 @@ import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static inno.edu.api.domain.user.models.ProfileStatus.ACTIVE;
-import static inno.edu.api.support.UniversityFactory.stanford;
+import static inno.edu.api.support.SchoolFactory.stanford;
 import static java.util.Collections.singletonList;
 import static java.util.UUID.fromString;
 
@@ -59,7 +59,7 @@ public class UserFactory {
     public static MentorProfile feiProfile() {
         return MentorProfile.builder().id(fromString("0e9e40c0-b44b-4387-92a9-9d75d10e3d42"))
                 .mentorId(fei().getId())
-                .universityId(stanford().getId())
+                .schoolId(stanford().getId())
                 .email("feixiu@inno.edu")
                 .status(ACTIVE)
                 .build();
@@ -85,7 +85,7 @@ public class UserFactory {
     public static MentorProfile updatedFeiProfile() {
         return MentorProfile.builder().id(fromString("0e9e40c0-b44b-4387-92a9-9d75d10e3d42"))
                 .mentorId(fei().getId())
-                .universityId(stanford().getId())
+                .schoolId(stanford().getId())
                 .email("Updatedfeixiu@inno.edu")
                 .status(ACTIVE)
                 .build();

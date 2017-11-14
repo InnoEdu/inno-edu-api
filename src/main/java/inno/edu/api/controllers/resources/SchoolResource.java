@@ -1,8 +1,8 @@
 package inno.edu.api.controllers.resources;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import inno.edu.api.controllers.UniversityController;
-import inno.edu.api.domain.university.models.University;
+import inno.edu.api.controllers.SchoolController;
+import inno.edu.api.domain.school.models.School;
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.http.ResponseEntity;
@@ -15,15 +15,15 @@ import static org.springframework.http.ResponseEntity.created;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 @Getter
-public class UniversityResource extends ResourceSupport {
+public class SchoolResource extends ResourceSupport {
     @JsonUnwrapped
-    private final University university;
+    private final School school;
 
-    public UniversityResource(University university) {
-        this.university = university;
+    public SchoolResource(School school) {
+        this.school = school;
 
-        add(linkTo(methodOn(UniversityController.class).get(university.getId())).withSelfRel());
-        add(linkTo(methodOn(UniversityController.class).allMentorsProfile(university.getId())).withRel("mentors"));
+        add(linkTo(methodOn(SchoolController.class).get(school.getId())).withSelfRel());
+        add(linkTo(methodOn(SchoolController.class).allMentorsProfile(school.getId())).withRel("mentors"));
     }
 
     public ResponseEntity<?> toCreated() {
@@ -31,6 +31,6 @@ public class UniversityResource extends ResourceSupport {
     }
 
     public ResponseEntity<?> toUpdated() {
-        return created(fromCurrentRequest().build().toUri()).body(university);
+        return created(fromCurrentRequest().build().toUri()).body(school);
     }
 }

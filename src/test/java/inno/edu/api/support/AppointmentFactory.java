@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static inno.edu.api.support.UniversityFactory.stanford;
 import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.feiProfile;
 import static java.util.UUID.fromString;

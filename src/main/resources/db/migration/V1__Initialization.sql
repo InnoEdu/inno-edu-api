@@ -16,7 +16,7 @@ CREATE TABLE Mentee_Profile (
   ON DELETE CASCADE,
 );
 
-CREATE TABLE University (
+CREATE TABLE School (
   id   UUID PRIMARY KEY,
   name VARCHAR(255) NOT NULL
 );
@@ -24,7 +24,7 @@ CREATE TABLE University (
 CREATE TABLE Mentor_Profile (
   id            UUID PRIMARY KEY,
   mentor_id     UUID         NOT NULL,
-  university_id UUID         NOT NULL,
+  school_id UUID         NOT NULL,
   email         VARCHAR(255) NOT NULL,
   status        SMALLINT     NOT NULL,
 
@@ -32,8 +32,8 @@ CREATE TABLE Mentor_Profile (
   REFERENCES User (id)
   ON DELETE CASCADE,
 
-  FOREIGN KEY (university_id)
-  REFERENCES University (id)
+  FOREIGN KEY (school_id)
+  REFERENCES School (id)
   ON DELETE CASCADE,
 );
 

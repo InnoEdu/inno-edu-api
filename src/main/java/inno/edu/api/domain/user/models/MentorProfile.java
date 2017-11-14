@@ -20,7 +20,7 @@ public class MentorProfile {
     private UUID id;
 
     private UUID mentorId;
-    private UUID universityId;
+    private UUID schoolId;
     private String email;
 
     @Enumerated

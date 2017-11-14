@@ -11,25 +11,25 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.List;
 
 import static inno.edu.api.domain.user.models.ProfileStatus.ACTIVE;
-import static inno.edu.api.support.UniversityFactory.stanford;
+import static inno.edu.api.support.SchoolFactory.stanford;
 import static inno.edu.api.support.UserFactory.mentorProfiles;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class GetMentorProfilesByUniversityIdQueryTest {
+public class GetMentorProfilesBySchoolIdQueryTest {
     @Mock
     private MentorProfileRepository mentorProfileRepository;
 
     @InjectMocks
-    private GetMentorProfilesByUniversityIdQuery getMentorProfilesByUniversityIdQuery;
+    private GetMentorProfilesBySchoolIdQuery getMentorProfilesBySchoolIdQuery;
 
     @Test
-    public void shouldGetUniversityMentorProfiles() {
-        when(mentorProfileRepository.findByUniversityIdAndStatus(stanford().getId(), ACTIVE)).thenReturn(mentorProfiles());
+    public void shouldGetSchoolMentorProfiles() {
+        when(mentorProfileRepository.findBySchoolIdAndStatus(stanford().getId(), ACTIVE)).thenReturn(mentorProfiles());
 
-        List<MentorProfile> mentorProfiles = getMentorProfilesByUniversityIdQuery.run(stanford().getId());
+        List<MentorProfile> mentorProfiles = getMentorProfilesBySchoolIdQuery.run(stanford().getId());
 
         assertThat(mentorProfiles, is(mentorProfiles()));
     }

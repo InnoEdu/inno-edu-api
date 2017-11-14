@@ -2,7 +2,7 @@ package inno.edu.api.controllers.resources;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import inno.edu.api.controllers.MentorProfileController;
-import inno.edu.api.controllers.UniversityController;
+import inno.edu.api.controllers.SchoolController;
 import inno.edu.api.controllers.UserController;
 import inno.edu.api.domain.user.models.MentorProfile;
 import lombok.Getter;
@@ -25,7 +25,7 @@ public class MentorProfileResource extends ResourceSupport {
         this.mentorProfile = mentorProfile;
         add(linkTo(methodOn(MentorProfileController.class).get(mentorProfile.getId())).withSelfRel());
         add(linkTo(methodOn(UserController.class).get(mentorProfile.getMentorId())).withRel("mentor"));
-        add(linkTo(methodOn(UniversityController.class).get(mentorProfile.getUniversityId())).withRel("university"));
+        add(linkTo(methodOn(SchoolController.class).get(mentorProfile.getSchoolId())).withRel("school"));
     }
 
     public ResponseEntity<?> toCreated() {

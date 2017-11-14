@@ -10,14 +10,14 @@ import java.util.UUID;
 import static inno.edu.api.domain.user.models.ProfileStatus.ACTIVE;
 
 @Query
-public class GetMentorProfilesByUniversityIdQuery {
+public class GetMentorProfilesBySchoolIdQuery {
     private final MentorProfileRepository mentorProfileRepository;
 
-    public GetMentorProfilesByUniversityIdQuery(MentorProfileRepository mentorProfileRepository) {
+    public GetMentorProfilesBySchoolIdQuery(MentorProfileRepository mentorProfileRepository) {
         this.mentorProfileRepository = mentorProfileRepository;
     }
 
-    public List<MentorProfile> run(UUID universityId) {
-        return mentorProfileRepository.findByUniversityIdAndStatus(universityId, ACTIVE);
+    public List<MentorProfile> run(UUID schoolId) {
+        return mentorProfileRepository.findBySchoolIdAndStatus(schoolId, ACTIVE);
     }
 }

@@ -1,4 +1,4 @@
-package inno.edu.api.domain.university.models;
+package inno.edu.api.domain.school.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +14,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class University {
+public class School {
     @Id
     private UUID id;
 
