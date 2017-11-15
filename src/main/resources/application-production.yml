@@ -7,5 +7,4 @@ spring:
       write_dates_as_timestamps: false
 
 flyway:
-  schemas: heroku_5b0c5e9a46aa7de
   cleanOnValidationError: true
