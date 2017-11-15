@@ -24,6 +24,7 @@ public class UpdateAppointmentCommand {
         currentAppointment.setId(id);
         currentAppointment.setFromDateTime(appointment.getFromDateTime());
         currentAppointment.setToDateTime(appointment.getToDateTime());
+        currentAppointment.setDescription(appointment.getDescription());
         currentAppointment.setStatus(appointment.getStatus());
 
         return appointmentRepository.save(currentAppointment);

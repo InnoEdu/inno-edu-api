@@ -1,5 +1,6 @@
 {
   "fromDateTime": "%s",
   "toDateTime": "%s",
+  "description": "%s",
   "status": "%s"
 }

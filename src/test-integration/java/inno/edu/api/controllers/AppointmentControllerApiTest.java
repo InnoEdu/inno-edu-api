@@ -33,6 +33,7 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].menteeProfileId", containsInAnyOrder(appointment().getMenteeProfileId().toString(), otherAppointment().getMenteeProfileId().toString())))
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].fromDateTime", containsInAnyOrder(appointment().getFromDateTime().toString(), otherAppointment().getFromDateTime().toString())))
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].toDateTime", containsInAnyOrder(appointment().getToDateTime().toString(), otherAppointment().getToDateTime().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].description", containsInAnyOrder(appointment().getDescription(), otherAppointment().getDescription())))
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].status", containsInAnyOrder(appointment().getStatus().toString(), otherAppointment().getStatus().toString())));
     }
 
@@ -47,6 +48,7 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].menteeProfileId", contains(appointment().getMenteeProfileId().toString())))
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].fromDateTime", contains(appointment().getFromDateTime().toString())))
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].toDateTime", contains(appointment().getToDateTime().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].description", contains(appointment().getDescription())))
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].status", contains(appointment().getStatus().toString())));
     }
 
@@ -61,6 +63,7 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].menteeProfileId", contains(appointment().getMenteeProfileId().toString())))
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].fromDateTime", contains(appointment().getFromDateTime().toString())))
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].toDateTime", contains(appointment().getToDateTime().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].description", contains(appointment().getDescription())))
                 .andExpect(jsonPath("$._embedded.appointmentResourceList[*].status", contains(appointment().getStatus().toString())));
     }
 
@@ -73,6 +76,7 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.menteeProfileId", is(appointment().getMenteeProfileId().toString())))
                 .andExpect(jsonPath("$.fromDateTime", is(appointment().getFromDateTime().toString())))
                 .andExpect(jsonPath("$.toDateTime", is(appointment().getToDateTime().toString())))
+                .andExpect(jsonPath("$.description", is(appointment().getDescription())))
                 .andExpect(jsonPath("$.status", is(appointment().getStatus().toString())));
     }
 
@@ -97,6 +101,7 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.id", is(appointment().getId().toString())))
                 .andExpect(jsonPath("$.toDateTime", is(updatedAppointment().getToDateTime().toString())))
                 .andExpect(jsonPath("$.fromDateTime", is(updatedAppointment().getFromDateTime().toString())))
+                .andExpect(jsonPath("$.description", is(updatedAppointment().getDescription())))
                 .andExpect(jsonPath("$.status", is(updatedAppointment().getStatus().toString())));
     }
 

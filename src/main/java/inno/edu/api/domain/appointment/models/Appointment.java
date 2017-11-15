@@ -26,6 +26,8 @@ public class Appointment {
     private LocalDateTime fromDateTime;
     private LocalDateTime toDateTime;
 
+    private String description;
+
     @Enumerated
     private AppointmentStatus status;
 }

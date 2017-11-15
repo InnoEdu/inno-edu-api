@@ -2,5 +2,6 @@
   "mentorProfileId": "%s",
   "menteeProfileId": "%s",
   "fromDateTime": "%s",
-  "toDateTime": "%s"
+  "toDateTime": "%s",
+  "description": "%s"
 }

@@ -21,6 +21,7 @@ public class AppointmentFactory {
                 .menteeProfileId(alanProfile().getId())
                 .fromDateTime(LocalDateTime.of(2017, 11, 10, 9, 0, 1))
                 .toDateTime(LocalDateTime.of(2017, 11, 10, 10, 0, 1))
+                .description("My great first appointment.")
                 .status(PROPOSED)
                 .build();
     }
@@ -32,6 +33,7 @@ public class AppointmentFactory {
                 .menteeProfileId(alanProfile().getId())
                 .fromDateTime(LocalDateTime.of(2017, 11, 10, 10, 0, 1))
                 .toDateTime(LocalDateTime.of(2017, 11, 10, 11, 0, 1))
+                .description("My great second appointment.")
                 .status(ACCEPTED)
                 .build();
     }
@@ -43,6 +45,7 @@ public class AppointmentFactory {
                 .menteeProfileId(alanProfile().getId())
                 .fromDateTime(LocalDateTime.of(2019, 11, 9, 12, 0, 1))
                 .toDateTime(LocalDateTime.of(2019, 11, 10, 12, 0, 1))
+                .description("My great updated appointment.")
                 .status(REJECTED)
                 .build();
     }

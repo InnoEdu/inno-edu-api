@@ -37,12 +37,12 @@ VALUES ('8c0af3b9288340f3bf8526ee0f506fde', '0e9e40c0b44b438792a99d75d10e3d42',
 
 DELETE FROM Appointment;
 
-INSERT INTO Appointment (id, mentor_profile_id, mentee_profile_id, from_date_time, to_date_time, status)
+INSERT INTO Appointment (id, mentor_profile_id, mentee_profile_id, from_date_time, to_date_time, description, status)
 VALUES ('f192270f2dad4bcd96c3c3765df77ce8', '0e9e40c0b44b438792a99d75d10e3d42',
         'c5f473b4331140b18fb3f70357894754', '2017-11-10 09:00:01.000',
-        '2017-11-10 10:00:01.000', 0);
+        '2017-11-10 10:00:01.000', 'My great first appointment.', 0);
 
-INSERT INTO Appointment (id, mentor_profile_id, mentee_profile_id, from_date_time, to_date_time, status)
+INSERT INTO Appointment (id, mentor_profile_id, mentee_profile_id, from_date_time, to_date_time, description, status)
 VALUES ('42f2431a0216416eb79529292b637ec4', '0e9e40c0b44b438792a99d75d10e3d42',
         'c5f473b4331140b18fb3f70357894754', '2017-11-10 10:00:01.000',
-        '2017-11-10 11:00:01.000', 1);
+        '2017-11-10 11:00:01.000', 'My great second appointment.', 1);
