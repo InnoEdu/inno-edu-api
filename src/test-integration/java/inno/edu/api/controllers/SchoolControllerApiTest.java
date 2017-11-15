@@ -27,7 +27,8 @@ public class SchoolControllerApiTest extends ApiTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.schoolResourceList[*].id", containsInAnyOrder(stanford().getId().toString(), berkeley().getId().toString())))
                 .andExpect(jsonPath("$._embedded.schoolResourceList[*].name", containsInAnyOrder(stanford().getName(), berkeley().getName())))
-                .andExpect(jsonPath("$._embedded.schoolResourceList[*].description", containsInAnyOrder(stanford().getDescription(), berkeley().getDescription())));
+                .andExpect(jsonPath("$._embedded.schoolResourceList[*].description", containsInAnyOrder(stanford().getDescription(), berkeley().getDescription())))
+                .andExpect(jsonPath("$._embedded.schoolResourceList[*].photoUrl", containsInAnyOrder(stanford().getPhotoUrl(), berkeley().getPhotoUrl())));
     }
 
     @Test
@@ -46,8 +47,9 @@ public class SchoolControllerApiTest extends ApiTest {
         this.mockMvc.perform(get("/api/schools/" + stanford().getId().toString())).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(stanford().getId().toString())))
+                .andExpect(jsonPath("$.name", is(stanford().getName())))
                 .andExpect(jsonPath("$.description", is(stanford().getDescription())))
-                .andExpect(jsonPath("$.name", is(stanford().getName())));
+                .andExpect(jsonPath("$.photoUrl", is(stanford().getPhotoUrl())));
     }
 
     @Test
@@ -69,7 +71,9 @@ public class SchoolControllerApiTest extends ApiTest {
                 .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", is(stanford().getId().toString())))
-                .andExpect(jsonPath("$.name", is(updatedStanford().getName())));
+                .andExpect(jsonPath("$.name", is(updatedStanford().getName())))
+                .andExpect(jsonPath("$.description", is(updatedStanford().getDescription())))
+                .andExpect(jsonPath("$.photoUrl", is(updatedStanford().getPhotoUrl())));
     }
 
     @Test

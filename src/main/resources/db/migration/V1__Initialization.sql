@@ -21,7 +21,8 @@ CREATE TABLE Mentee_Profile (
 CREATE TABLE School (
   id          BINARY(16) PRIMARY KEY,
   name        VARCHAR(255) NOT NULL,
-  description TEXT         NOT NULL
+  description TEXT         NOT NULL,
+  photo_url  VARCHAR(255)
 );
 
 CREATE TABLE Mentor_Profile (

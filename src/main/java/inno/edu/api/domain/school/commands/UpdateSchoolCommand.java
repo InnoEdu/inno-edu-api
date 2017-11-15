@@ -24,6 +24,7 @@ public class UpdateSchoolCommand {
         currentSchool.setId(id);
         currentSchool.setName(school.getName());
         currentSchool.setDescription(school.getDescription());
+        currentSchool.setPhotoUrl(school.getPhotoUrl());
 
         return schoolRepository.save(currentSchool);
     }
