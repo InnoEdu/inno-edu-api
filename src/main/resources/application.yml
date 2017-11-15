@@ -1,10 +1,6 @@
-application:
-  name: inno-edu-api
-
-endpoints:
-  sensitive: false
-
 spring:
+  application:
+    name: inno-edu-api
   datasource:
     url: jdbc:h2:mem:inno-edu-db
   jpa:
@@ -16,6 +12,9 @@ spring:
   jackson:
     serialization:
       write_dates_as_timestamps: false
+
+endpoints:
+  sensitive: false
 
 flyway:
   schemas: inno-edu-db
