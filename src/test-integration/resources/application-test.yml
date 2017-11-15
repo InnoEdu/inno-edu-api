@@ -13,6 +13,3 @@ spring:
 
 endpoints:
   sensitive: false
-
-flyway:
-  schemas: inno-edu-db
