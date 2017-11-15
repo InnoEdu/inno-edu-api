@@ -24,6 +24,7 @@ public class UpdateUserCommand {
         currentUser.setId(id);
         currentUser.setFirstName(user.getFirstName());
         currentUser.setLastName(user.getLastName());
+        currentUser.setPhotoUrl(user.getPhotoUrl());
 
         return userRepository.save(currentUser);
     }

@@ -26,11 +26,11 @@ public class Payloads {
     }
 
     public static String postUserPayload(User user) {
-        return format(loadPayload("payloads/user/post-user.json"), user.getFirstName(), user.getLastName(), user.getUserName(), user.getIsMentor());
+        return format(loadPayload("payloads/user/post-user.json"), user.getFirstName(), user.getLastName(), user.getUserName(), user.getIsMentor(), user.getPhotoUrl());
     }
 
     public static String putUserPayload(User user) {
-        return format(loadPayload("payloads/user/put-user.json"), user.getFirstName(), user.getLastName(), user.getUserName());
+        return format(loadPayload("payloads/user/put-user.json"), user.getFirstName(), user.getLastName(), user.getPhotoUrl());
     }
 
     public static String postMentorProfilePayload(MentorProfile profile) {

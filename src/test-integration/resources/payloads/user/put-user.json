@@ -1,4 +1,5 @@
 {
   "firstName": "%s",
-  "lastName": "%s"
+  "lastName": "%s",
+  "photoUrl": "%s"
 }

@@ -22,5 +22,7 @@ public class User {
     private String lastName;
     private String userName;
 
+    private String photoUrl;
+
     private Boolean isMentor;
 }

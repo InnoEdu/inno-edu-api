@@ -1,10 +1,10 @@
 DELETE FROM User;
 
-INSERT INTO User (id, first_name, last_name, user_name, is_mentor)
-VALUES ('ba7c650519fd47c387a6c6af6e5322b7', 'Fei', 'Xiu', 'feixiu', 1);
+INSERT INTO User (id, first_name, last_name, user_name, is_mentor, photo_url)
+VALUES ('ba7c650519fd47c387a6c6af6e5322b7', 'Fei', 'Xiu', 'feixiu', 1, 'https://i1.rgstatic.net/ii/profile.image/AS%3A278674336174081%401443452547142_xl/Peng_Fei_Xu.png');
 
-INSERT INTO User (id, first_name, last_name, user_name, is_mentor)
-VALUES ('8d6153fc83e54b3a90acd081ff789cef', 'Alan', 'Ly', 'alanly', 0);
+INSERT INTO User (id, first_name, last_name, user_name, is_mentor, photo_url)
+VALUES ('8d6153fc83e54b3a90acd081ff789cef', 'Alan', 'Ly', 'alanly', 0, 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAeBAAAAJDk1ZDQyNzE0LWY2MGQtNDFmYS05MmRmLTRhMzc0MTAxMGEwMQ.jpg');
 
 DELETE FROM Mentee_Profile;
 
