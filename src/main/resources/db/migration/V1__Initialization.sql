@@ -3,6 +3,7 @@ CREATE TABLE User (
   first_name VARCHAR(255) NOT NULL,
   last_name  VARCHAR(255) NOT NULL,
   user_name  VARCHAR(30)  NOT NULL,
+  password   VARCHAR(30)  NOT NULL,
   photo_url  VARCHAR(255),
   is_mentor  BOOLEAN      NOT NULL
 );
@@ -22,7 +23,7 @@ CREATE TABLE School (
   id          BINARY(16) PRIMARY KEY,
   name        VARCHAR(255) NOT NULL,
   description TEXT         NOT NULL,
-  photo_url  VARCHAR(255)
+  photo_url   VARCHAR(255)
 );
 
 CREATE TABLE Mentor_Profile (

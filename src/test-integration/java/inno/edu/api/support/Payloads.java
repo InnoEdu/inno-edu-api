@@ -26,7 +26,7 @@ public class Payloads {
     }
 
     public static String postUserPayload(User user) {
-        return format(loadPayload("payloads/user/post-user.json"), user.getFirstName(), user.getLastName(), user.getUserName(), user.getIsMentor(), user.getPhotoUrl());
+        return format(loadPayload("payloads/user/post-user.json"), user.getFirstName(), user.getLastName(), user.getUserName(), user.getPassword(), user.getIsMentor(), user.getPhotoUrl());
     }
 
     public static String putUserPayload(User user) {

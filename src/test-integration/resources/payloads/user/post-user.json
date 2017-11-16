@@ -2,6 +2,7 @@
   "firstName": "%s",
   "lastName": "%s",
   "userName": "%s",
+  "password": "%s",
   "isMentor": "%s",
   "photoUrl": "%s"
 }
