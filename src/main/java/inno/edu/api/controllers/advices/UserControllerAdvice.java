@@ -4,7 +4,7 @@ import inno.edu.api.domain.user.exceptions.InvalidUserNameOrPasswordException;
 import inno.edu.api.domain.user.exceptions.UserNameAlreadyExistsException;
 import inno.edu.api.domain.user.exceptions.UserNotFoundException;
 import inno.edu.api.domain.user.exceptions.UserProfileNotFoundException;
-import org.springframework.hateoas.VndErrors;
+import org.springframework.hateoas.VndErrors.VndError;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,29 +17,29 @@ public class UserControllerAdvice {
     @ResponseBody
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    VndErrors userNotFoundExceptionHandler(UserNotFoundException ex) {
-        return new VndErrors("error", ex.getMessage());
+    VndError userNotFoundExceptionHandler(UserNotFoundException ex) {
+        return new VndError("error", ex.getMessage());
     }
 
     @ResponseBody
     @ExceptionHandler(UserNameAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    VndErrors userNameAlreadyExistsExceptionHandler(UserNameAlreadyExistsException ex) {
-        return new VndErrors("error", ex.getMessage());
+    VndError userNameAlreadyExistsExceptionHandler(UserNameAlreadyExistsException ex) {
+        return new VndError("error", ex.getMessage());
     }
 
     @ResponseBody
     @ExceptionHandler(UserProfileNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    VndErrors userProfileNotFoundExceptionHandler(UserProfileNotFoundException ex) {
-        return new VndErrors("error", ex.getMessage());
+    VndError userProfileNotFoundExceptionHandler(UserProfileNotFoundException ex) {
+        return new VndError("error", ex.getMessage());
     }
 
     @ResponseBody
     @ExceptionHandler(InvalidUserNameOrPasswordException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    VndErrors invalidUserNameOrPasswordExceptionHandler(InvalidUserNameOrPasswordException ex) {
-        return new VndErrors("error", ex.getMessage());
+    VndError invalidUserNameOrPasswordExceptionHandler(InvalidUserNameOrPasswordException ex) {
+        return new VndError("error", ex.getMessage());
     }
 
 }
