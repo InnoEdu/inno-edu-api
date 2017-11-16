@@ -3,6 +3,7 @@ package inno.edu.api.controllers;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.UserResource;
 import inno.edu.api.domain.user.commands.CreateUserCommand;
+import inno.edu.api.domain.user.commands.LoginCommand;
 import inno.edu.api.domain.user.commands.UpdateUserCommand;
 import inno.edu.api.domain.user.exceptions.UserNotFoundException;
 import inno.edu.api.domain.user.models.User;
@@ -22,6 +23,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.alanProfile;
 import static inno.edu.api.support.UserFactory.fei;
+import static inno.edu.api.support.UserFactory.feiCredentials;
 import static inno.edu.api.support.UserFactory.feiProfile;
 import static inno.edu.api.support.UserFactory.users;
 import static org.hamcrest.core.Is.is;
@@ -46,6 +48,9 @@ public class UserControllerTest {
 
     @Mock
     private GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery;
+
+    @Mock
+    private LoginCommand loginCommand;
 
     @Mock
     private CreateUserCommand createUserCommand;
@@ -104,6 +109,15 @@ public class UserControllerTest {
         userController.all();
 
         verify(resourceBuilder).from(eq(users()), any());
+    }
+
+    @Test
+    public void shouldSignInUser() {
+        when(loginCommand.run(feiCredentials())).thenReturn(fei());
+
+        UserResource userResource = userController.login(feiCredentials());
+
+        assertThat(userResource.getUser(), is(fei()));
     }
 
     @Test

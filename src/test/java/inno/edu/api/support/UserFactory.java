@@ -1,5 +1,6 @@
 package inno.edu.api.support;
 
+import inno.edu.api.domain.user.models.Login;
 import inno.edu.api.domain.user.models.MenteeProfile;
 import inno.edu.api.domain.user.models.MentorProfile;
 import inno.edu.api.domain.user.models.User;
@@ -35,6 +36,14 @@ public class UserFactory {
                 .isMentor(true)
                 .build();
     }
+
+    public static Login feiCredentials() {
+        return Login.builder()
+                .userName(fei().getUserName())
+                .password(fei().getPassword())
+                .build();
+    }
+
 
     public static User alan() {
         return User.builder().id(fromString("8d6153fc-83e5-4b3a-90ac-d081ff789cef"))

@@ -1,5 +1,6 @@
 package inno.edu.api.controllers.advices;
 
+import inno.edu.api.domain.user.exceptions.InvalidUserNameOrPasswordException;
 import inno.edu.api.domain.user.exceptions.UserNameAlreadyExistsException;
 import inno.edu.api.domain.user.exceptions.UserNotFoundException;
 import inno.edu.api.domain.user.exceptions.UserProfileNotFoundException;
@@ -33,4 +34,12 @@ public class UserControllerAdvice {
     VndErrors userProfileNotFoundExceptionHandler(UserProfileNotFoundException ex) {
         return new VndErrors("error", ex.getMessage());
     }
+
+    @ResponseBody
+    @ExceptionHandler(InvalidUserNameOrPasswordException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    VndErrors invalidUserNameOrPasswordExceptionHandler(InvalidUserNameOrPasswordException ex) {
+        return new VndErrors("error", ex.getMessage());
+    }
+
 }

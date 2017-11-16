@@ -5,8 +5,10 @@ import inno.edu.api.controllers.resources.MentorProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.UserResource;
 import inno.edu.api.domain.user.commands.CreateUserCommand;
+import inno.edu.api.domain.user.commands.LoginCommand;
 import inno.edu.api.domain.user.commands.UpdateUserCommand;
 import inno.edu.api.domain.user.exceptions.UserNotFoundException;
+import inno.edu.api.domain.user.models.Login;
 import inno.edu.api.domain.user.models.User;
 import inno.edu.api.domain.user.queries.GetMenteeProfileByUserIdQuery;
 import inno.edu.api.domain.user.queries.GetMentorActiveProfileByUserIdQuery;
@@ -39,16 +41,18 @@ public class UserController {
     private final GetMentorActiveProfileByUserIdQuery getMentorActiveProfileByUserIdQuery;
     private final GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery;
 
+    private final LoginCommand loginCommand;
     private final CreateUserCommand createUserCommand;
     private final UpdateUserCommand updateUserCommand;
 
     private final ResourceBuilder resourceBuilder;
 
     @Autowired
-    public UserController(UserRepository userRepository, GetMentorActiveProfileByUserIdQuery getMentorActiveProfileByUserIdQuery, GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery, CreateUserCommand createUserCommand, UpdateUserCommand updateUserCommand, ResourceBuilder resourceBuilder) {
+    public UserController(UserRepository userRepository, GetMentorActiveProfileByUserIdQuery getMentorActiveProfileByUserIdQuery, GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery, LoginCommand loginCommand, CreateUserCommand createUserCommand, UpdateUserCommand updateUserCommand, ResourceBuilder resourceBuilder) {
         this.userRepository = userRepository;
         this.getMentorActiveProfileByUserIdQuery = getMentorActiveProfileByUserIdQuery;
         this.getMenteeProfileByUserIdQuery = getMenteeProfileByUserIdQuery;
+        this.loginCommand = loginCommand;
         this.createUserCommand = createUserCommand;
         this.updateUserCommand = updateUserCommand;
         this.resourceBuilder = resourceBuilder;
@@ -72,6 +76,11 @@ public class UserController {
             return new MentorProfileResource(getMentorActiveProfileByUserIdQuery.run(id));
         }
         return new MenteeProfileResource(getMenteeProfileByUserIdQuery.run(id));
+    }
+
+    @PostMapping("/login")
+    public UserResource login(@RequestBody Login login) {
+        return new UserResource(loginCommand.run(login));
     }
 
     @PostMapping

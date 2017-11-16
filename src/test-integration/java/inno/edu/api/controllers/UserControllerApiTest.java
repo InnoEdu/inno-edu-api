@@ -4,9 +4,11 @@ import inno.edu.api.ApiTest;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
+import static inno.edu.api.support.Payloads.loginUserPayload;
 import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.alanProfile;
 import static inno.edu.api.support.UserFactory.fei;
+import static inno.edu.api.support.UserFactory.feiCredentials;
 import static inno.edu.api.support.UserFactory.feiProfile;
 import static inno.edu.api.support.UserFactory.gustavo;
 import static inno.edu.api.support.UserFactory.updatedFei;
@@ -65,6 +67,16 @@ public class UserControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.id", is(alanProfile().getId().toString())))
                 .andExpect(jsonPath("$.menteeId", is(alanProfile().getMenteeId().toString())))
                 .andExpect(jsonPath("$.email", is(alanProfile().getEmail())));
+    }
+
+    @Test
+    public void shouldLoginUser() throws Exception {
+        this.mockMvc.perform(
+                post("/api/users/login")
+                        .content(loginUserPayload(feiCredentials()))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 
     @Test

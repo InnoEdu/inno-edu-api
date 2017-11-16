@@ -3,6 +3,7 @@ package inno.edu.api.support;
 import inno.edu.api.domain.appointment.models.Appointment;
 import inno.edu.api.domain.availability.models.Availability;
 import inno.edu.api.domain.school.models.School;
+import inno.edu.api.domain.user.models.Login;
 import inno.edu.api.domain.user.models.MenteeProfile;
 import inno.edu.api.domain.user.models.MentorProfile;
 import inno.edu.api.domain.user.models.User;
@@ -23,6 +24,10 @@ public class Payloads {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public static String loginUserPayload(Login credentials) {
+        return format(loadPayload("payloads/user/login-user.json"), credentials.getUserName(), credentials.getPassword());
     }
 
     public static String postUserPayload(User user) {
