@@ -61,7 +61,6 @@ public class ApproveMentorProfileByUserCommandTest {
         when(userRepository.findOne(fei().getId())).thenReturn(fei());
         when(mentorProfileRepository.findOneByMentorIdAndStatus(fei().getId(), CREATED)).thenReturn(inactiveProfile);
 
-
         approveMentorProfileByUserCommand.run(fei().getId());
 
         verify(mentorProfileRepository).save(feiProfile());

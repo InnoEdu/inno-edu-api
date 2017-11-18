@@ -9,6 +9,7 @@ import static inno.edu.api.support.UserFactory.updatedFeiProfile;
 import static inno.edu.api.support.Payloads.postMentorProfilePayload;
 import static inno.edu.api.support.Payloads.putMentorProfilePayload;
 import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -23,12 +24,12 @@ public class MentorProfileControllerApiTest extends ApiTest {
     public void shouldListProfiles() throws Exception {
         this.mockMvc.perform(get("/api/mentor-profiles")).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].id", containsInAnyOrder(feiProfile().getId().toString())))
-                .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].mentorId", containsInAnyOrder(feiProfile().getMentorId().toString())))
-                .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].schoolId", containsInAnyOrder(feiProfile().getSchoolId().toString())))
-                .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].email", containsInAnyOrder(feiProfile().getEmail())))
-                .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].description", containsInAnyOrder(feiProfile().getDescription())))
-                .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].status", containsInAnyOrder(feiProfile().getStatus().toString())));
+                .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].id", hasItems(feiProfile().getId().toString())))
+                .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].mentorId", hasItems(feiProfile().getMentorId().toString())))
+                .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].schoolId", hasItems(feiProfile().getSchoolId().toString())))
+                .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].email", hasItems(feiProfile().getEmail())))
+                .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].description", hasItems(feiProfile().getDescription())))
+                .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].status", hasItems(feiProfile().getStatus().toString())));
     }
 
     @Test

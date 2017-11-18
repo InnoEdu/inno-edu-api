@@ -8,6 +8,10 @@ INSERT INTO User (id, first_name, last_name, user_name, password, is_mentor, pho
 VALUES ('8d6153fc83e54b3a90acd081ff789cef', 'Alan', 'Ly', 'alanly', 'password', 0,
         'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAeBAAAAJDk1ZDQyNzE0LWY2MGQtNDFmYS05MmRmLTRhMzc0MTAxMGEwMQ.jpg');
 
+INSERT INTO User (id, first_name, last_name, user_name, password, is_mentor, photo_url)
+VALUES ('df54ff863caa4145b228284f5d4a908a', 'Gustavo', 'Di Domenico', 'gdomenico', 'password', 1,
+        'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAANPAAAAJGMwMjU0ZWJlLTBjZmEtNDNiNC1hZWVlLTQzNDRjZDM1MDZjZQ.jpg');
+
 DELETE FROM Mentee_Profile;
 
 INSERT INTO Mentee_Profile (id, mentee_id, email, description)
@@ -29,6 +33,10 @@ DELETE FROM Mentor_Profile;
 INSERT INTO Mentor_Profile (id, mentor_id, school_id, email, description, status)
 VALUES ('0e9e40c0b44b438792a99d75d10e3d42', 'ba7c650519fd47c387a6c6af6e5322b7',
         '0a58153cc15f4e5b802cbbf5d6c1c55c', 'feixiu@inno.edu', 'Fei is a great mentor.', 1);
+
+INSERT INTO Mentor_Profile (id, mentor_id, school_id, email, description, status)
+VALUES ('e1b66612a94a4db386a104f3a102227b', 'df54ff863caa4145b228284f5d4a908a',
+        '0a58153cc15f4e5b802cbbf5d6c1c55c', 'feixiu@inno.edu', 'Fei is a great mentor.', 0);
 
 DELETE FROM Availability;
 

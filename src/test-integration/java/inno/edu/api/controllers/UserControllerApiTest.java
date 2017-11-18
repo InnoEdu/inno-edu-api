@@ -5,6 +5,8 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 
 import static inno.edu.api.support.Payloads.loginUserPayload;
+import static inno.edu.api.support.Payloads.postUserPayload;
+import static inno.edu.api.support.Payloads.putUserPayload;
 import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.alanProfile;
 import static inno.edu.api.support.UserFactory.fei;
@@ -12,9 +14,7 @@ import static inno.edu.api.support.UserFactory.feiCredentials;
 import static inno.edu.api.support.UserFactory.feiProfile;
 import static inno.edu.api.support.UserFactory.gustavo;
 import static inno.edu.api.support.UserFactory.updatedFei;
-import static inno.edu.api.support.Payloads.postUserPayload;
-import static inno.edu.api.support.Payloads.putUserPayload;
-import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -29,12 +29,12 @@ public class UserControllerApiTest extends ApiTest {
     public void shouldListUsers() throws Exception {
         this.mockMvc.perform(get("/api/users")).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.userResourceList[*].id", containsInAnyOrder(fei().getId().toString(), alan().getId().toString())))
-                .andExpect(jsonPath("$._embedded.userResourceList[*].firstName", containsInAnyOrder(fei().getFirstName(), alan().getFirstName())))
-                .andExpect(jsonPath("$._embedded.userResourceList[*].lastName", containsInAnyOrder(fei().getLastName(), alan().getLastName())))
-                .andExpect(jsonPath("$._embedded.userResourceList[*].userName", containsInAnyOrder(fei().getUserName(), alan().getUserName())))
-                .andExpect(jsonPath("$._embedded.userResourceList[*].photoUrl", containsInAnyOrder(fei().getPhotoUrl(), alan().getPhotoUrl())))
-                .andExpect(jsonPath("$._embedded.userResourceList[*].isMentor", containsInAnyOrder(fei().getIsMentor(), alan().getIsMentor())));
+                .andExpect(jsonPath("$._embedded.userResourceList[*].id", hasItems(fei().getId().toString(), alan().getId().toString())))
+                .andExpect(jsonPath("$._embedded.userResourceList[*].firstName", hasItems(fei().getFirstName(), alan().getFirstName())))
+                .andExpect(jsonPath("$._embedded.userResourceList[*].lastName", hasItems(fei().getLastName(), alan().getLastName())))
+                .andExpect(jsonPath("$._embedded.userResourceList[*].userName", hasItems(fei().getUserName(), alan().getUserName())))
+                .andExpect(jsonPath("$._embedded.userResourceList[*].photoUrl", hasItems(fei().getPhotoUrl(), alan().getPhotoUrl())))
+                .andExpect(jsonPath("$._embedded.userResourceList[*].isMentor", hasItems(fei().getIsMentor(), alan().getIsMentor())));
     }
 
     @Test
@@ -118,6 +118,14 @@ public class UserControllerApiTest extends ApiTest {
     public void shouldDeleteUser() throws Exception {
         this.mockMvc.perform(
                 delete("/api/users/" + fei().getId()))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void shouldApproveUserProfile() throws Exception {
+        this.mockMvc.perform(
+                put("/api/users/" + gustavo().getId() + "/approve"))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }
