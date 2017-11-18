@@ -12,10 +12,12 @@ import java.util.UUID;
 public class DeactivateMentorProfilesCommand {
     private final MentorProfileRepository mentorProfileRepository;
     private final UserRepository userRepository;
+    private final UpdateMentorProfileStatusCommand updateMentorProfileStatusCommand;
 
-    public DeactivateMentorProfilesCommand(MentorProfileRepository mentorProfileRepository, UserRepository userRepository) {
+    public DeactivateMentorProfilesCommand(MentorProfileRepository mentorProfileRepository, UserRepository userRepository, UpdateMentorProfileStatusCommand updateMentorProfileStatusCommand) {
         this.mentorProfileRepository = mentorProfileRepository;
         this.userRepository = userRepository;
+        this.updateMentorProfileStatusCommand = updateMentorProfileStatusCommand;
     }
 
     public void run(UUID mentorId) {
@@ -26,9 +28,6 @@ public class DeactivateMentorProfilesCommand {
         mentorProfileRepository
                 .findByMentorId(mentorId)
                 .stream()
-                .forEach((profile) -> {
-                    profile.setStatus(ProfileStatus.INACTIVE);
-                    mentorProfileRepository.save(profile);
-                });
+                .forEach((profile) -> updateMentorProfileStatusCommand.run(profile.getId(), ProfileStatus.INACTIVE));
     }
 }

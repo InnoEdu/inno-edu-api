@@ -1,8 +1,7 @@
 package inno.edu.api.domain.profile.commands;
 
-import inno.edu.api.domain.user.exceptions.UserNotFoundException;
-import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.profile.repositories.MentorProfileRepository;
+import inno.edu.api.domain.user.exceptions.UserNotFoundException;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +24,9 @@ public class DeactivateMentorProfilesCommandTest {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private UpdateMentorProfileStatusCommand updateMentorProfileStatusCommand;
+
     @InjectMocks
     private DeactivateMentorProfilesCommand deactivateMentorProfilesCommand;
 
@@ -42,10 +44,6 @@ public class DeactivateMentorProfilesCommandTest {
 
         deactivateMentorProfilesCommand.run(fei().getId());
 
-        MentorProfile inactiveProfile = feiProfile()
-                .toBuilder()
-                .status(INACTIVE).build();
-
-        verify(mentorProfileRepository).save(inactiveProfile);
+        verify(updateMentorProfileStatusCommand).run(feiProfile().getId(), INACTIVE);
     }
 }
