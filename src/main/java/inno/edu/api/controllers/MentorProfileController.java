@@ -2,11 +2,12 @@ package inno.edu.api.controllers;
 
 import inno.edu.api.controllers.resources.MentorProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
-import inno.edu.api.domain.profile.commands.ApproveMentorProfileCommand;
+import inno.edu.api.domain.profile.commands.UpdateMentorProfileStatusCommand;
 import inno.edu.api.domain.profile.commands.CreateMentorProfileCommand;
 import inno.edu.api.domain.profile.commands.UpdateMentorProfileCommand;
 import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
 import inno.edu.api.domain.profile.models.MentorProfile;
+import inno.edu.api.domain.profile.models.ProfileStatus;
 import inno.edu.api.domain.profile.repositories.MentorProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
@@ -36,15 +37,15 @@ public class MentorProfileController {
     private final UpdateMentorProfileCommand updateMentorProfileCommand;
     private final CreateMentorProfileCommand createMentorProfileCommand;
 
-    private final ApproveMentorProfileCommand approveMentorProfileCommand;
+    private final UpdateMentorProfileStatusCommand updateMentorProfileStatusCommand;
 
     @Autowired
-    public MentorProfileController(MentorProfileRepository mentorProfileRepository, ResourceBuilder resourceBuilder, UpdateMentorProfileCommand updateMentorProfileCommand, CreateMentorProfileCommand createMentorProfileCommand, ApproveMentorProfileCommand approveMentorProfileCommand) {
+    public MentorProfileController(MentorProfileRepository mentorProfileRepository, ResourceBuilder resourceBuilder, UpdateMentorProfileCommand updateMentorProfileCommand, CreateMentorProfileCommand createMentorProfileCommand, UpdateMentorProfileStatusCommand updateMentorProfileStatusCommand) {
         this.mentorProfileRepository = mentorProfileRepository;
         this.resourceBuilder = resourceBuilder;
         this.updateMentorProfileCommand = updateMentorProfileCommand;
         this.createMentorProfileCommand = createMentorProfileCommand;
-        this.approveMentorProfileCommand = approveMentorProfileCommand;
+        this.updateMentorProfileStatusCommand = updateMentorProfileStatusCommand;
     }
 
     @GetMapping
@@ -73,7 +74,13 @@ public class MentorProfileController {
 
     @PutMapping("/{id}/approve")
     public ResponseEntity<?> approve(@PathVariable UUID id) {
-        approveMentorProfileCommand.run(id);
+        updateMentorProfileStatusCommand.run(id, ProfileStatus.ACTIVE);
+        return noContent().build();
+    }
+
+    @PutMapping("/{id}/reject")
+    public ResponseEntity<?> reject(@PathVariable UUID id) {
+        updateMentorProfileStatusCommand.run(id, ProfileStatus.REJECTED);
         return noContent().build();
     }
 

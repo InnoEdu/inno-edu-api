@@ -11,18 +11,18 @@ import java.util.UUID;
 import static java.util.Optional.ofNullable;
 
 @Command
-public class ApproveMentorProfileCommand {
+public class UpdateMentorProfileStatusCommand {
     private final MentorProfileRepository mentorProfileRepository;
 
-    public ApproveMentorProfileCommand(MentorProfileRepository mentorProfileRepository) {
+    public UpdateMentorProfileStatusCommand(MentorProfileRepository mentorProfileRepository) {
         this.mentorProfileRepository = mentorProfileRepository;
     }
 
-    public void run(UUID profileId) {
+    public void run(UUID profileId, ProfileStatus status) {
         MentorProfile profile = ofNullable(mentorProfileRepository.findOne(profileId))
                 .orElseThrow(() -> new ProfileNotFoundException(profileId));
 
-        profile.setStatus(ProfileStatus.ACTIVE);
+        profile.setStatus(status);
         mentorProfileRepository.save(profile);
     }
 }

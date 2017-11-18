@@ -15,18 +15,18 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ApproveMentorProfileCommandTest {
+public class UpdateMentorProfileStatusCommandTest {
     @Mock
     private MentorProfileRepository mentorProfileRepository;
 
     @InjectMocks
-    private ApproveMentorProfileCommand approveMentorProfileCommand;
+    private UpdateMentorProfileStatusCommand updateMentorProfileStatusCommand;
 
     @Test(expected = ProfileNotFoundException.class)
     public void shouldThrowExceptionIfProfileDoesNotExist() {
         when(mentorProfileRepository.findOne(feiProfile().getId())).thenReturn(null);
 
-        approveMentorProfileCommand.run(feiProfile().getId());
+        updateMentorProfileStatusCommand.run(feiProfile().getId(), ProfileStatus.ACTIVE);
     }
 
     @Test
@@ -38,7 +38,7 @@ public class ApproveMentorProfileCommandTest {
 
         when(mentorProfileRepository.findOne(feiProfile().getId())).thenReturn(inactiveProfile);
 
-        approveMentorProfileCommand.run(feiProfile().getId());
+        updateMentorProfileStatusCommand.run(feiProfile().getId(), ProfileStatus.ACTIVE);
 
         verify(mentorProfileRepository).save(feiProfile());
     }

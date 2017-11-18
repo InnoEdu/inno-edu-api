@@ -95,7 +95,7 @@ public class MenteeProfileControllerTest {
     }
 
     @Test
-    public void shouldUDeleteUser() {
+    public void shouldDeleteUser() {
         when(menteeProfileRepository.exists(alanProfile().getId())).thenReturn(true);
 
         menteeProfileController.delete(alanProfile().getId());

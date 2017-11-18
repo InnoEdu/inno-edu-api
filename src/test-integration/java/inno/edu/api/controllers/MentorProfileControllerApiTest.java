@@ -83,4 +83,12 @@ public class MentorProfileControllerApiTest extends ApiTest {
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }
+
+    @Test
+    public void shouldRejectProfile() throws Exception {
+        this.mockMvc.perform(
+                put("/api/mentor-profiles/" + gustavoProfile().getId() + "/reject"))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+    }
 }

@@ -2,11 +2,12 @@ package inno.edu.api.controllers;
 
 import inno.edu.api.controllers.resources.MentorProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
-import inno.edu.api.domain.profile.commands.ApproveMentorProfileCommand;
+import inno.edu.api.domain.profile.commands.UpdateMentorProfileStatusCommand;
 import inno.edu.api.domain.profile.commands.CreateMentorProfileCommand;
 import inno.edu.api.domain.profile.commands.UpdateMentorProfileCommand;
 import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
 import inno.edu.api.domain.profile.models.MentorProfile;
+import inno.edu.api.domain.profile.models.ProfileStatus;
 import inno.edu.api.domain.profile.repositories.MentorProfileRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,7 +45,7 @@ public class MentorProfileControllerTest {
     private UpdateMentorProfileCommand updateMentorProfileCommand;
 
     @Mock
-    private ApproveMentorProfileCommand approveMentorProfileCommand;
+    private UpdateMentorProfileStatusCommand updateMentorProfileStatusCommand;
 
     @InjectMocks
     private MentorProfileController mentorProfileController;
@@ -111,6 +112,13 @@ public class MentorProfileControllerTest {
     public void shouldApproveProfile() {
         mentorProfileController.approve(feiProfile().getId());
 
-        verify(approveMentorProfileCommand).run(feiProfile().getId());
+        verify(updateMentorProfileStatusCommand).run(feiProfile().getId(), ProfileStatus.ACTIVE);
+    }
+
+    @Test
+    public void shouldRejectedProfile() {
+        mentorProfileController.reject(feiProfile().getId());
+
+        verify(updateMentorProfileStatusCommand).run(feiProfile().getId(), ProfileStatus.REJECTED);
     }
 }
