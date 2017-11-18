@@ -7,7 +7,7 @@ import inno.edu.api.domain.profile.commands.CreateMentorProfileCommand;
 import inno.edu.api.domain.profile.commands.UpdateMentorProfileCommand;
 import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
 import inno.edu.api.domain.profile.models.MentorProfile;
-import inno.edu.api.domain.user.repositories.MentorProfileRepository;
+import inno.edu.api.domain.profile.repositories.MentorProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;

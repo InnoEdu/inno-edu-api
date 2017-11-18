@@ -1,4 +1,4 @@
-package inno.edu.api.domain.user.repositories;
+package inno.edu.api.domain.profile.repositories;
 
 import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.profile.models.ProfileStatus;

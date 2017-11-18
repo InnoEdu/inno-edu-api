@@ -2,7 +2,7 @@ package inno.edu.api.domain.profile.commands;
 
 import inno.edu.api.domain.profile.exceptions.MenteeProfileAlreadyCreatedException;
 import inno.edu.api.domain.profile.models.MenteeProfile;
-import inno.edu.api.domain.user.repositories.MenteeProfileRepository;
+import inno.edu.api.domain.profile.repositories.MenteeProfileRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;

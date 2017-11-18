@@ -3,8 +3,8 @@ package inno.edu.api.domain.appointment.commands;
 import inno.edu.api.domain.appointment.models.Appointment;
 import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
 import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
-import inno.edu.api.domain.user.repositories.MenteeProfileRepository;
-import inno.edu.api.domain.user.repositories.MentorProfileRepository;
+import inno.edu.api.domain.profile.repositories.MenteeProfileRepository;
+import inno.edu.api.domain.profile.repositories.MentorProfileRepository;
 import inno.edu.api.infrastructure.annotations.Command;
 
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;

@@ -6,7 +6,7 @@ import inno.edu.api.domain.profile.commands.CreateMenteeProfileCommand;
 import inno.edu.api.domain.profile.commands.UpdateMenteeProfileCommand;
 import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
 import inno.edu.api.domain.profile.models.MenteeProfile;
-import inno.edu.api.domain.user.repositories.MenteeProfileRepository;
+import inno.edu.api.domain.profile.repositories.MenteeProfileRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

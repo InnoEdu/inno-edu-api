@@ -6,7 +6,7 @@ import inno.edu.api.domain.profile.exceptions.UserProfileNotFoundException;
 import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.profile.models.ProfileStatus;
 import inno.edu.api.domain.user.models.User;
-import inno.edu.api.domain.user.repositories.MentorProfileRepository;
+import inno.edu.api.domain.profile.repositories.MentorProfileRepository;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import inno.edu.api.infrastructure.annotations.Command;
 

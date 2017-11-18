@@ -1,8 +1,8 @@
-package inno.edu.api.domain.user.queries;
+package inno.edu.api.domain.profile.queries;
 
 import inno.edu.api.domain.profile.exceptions.UserProfileNotFoundException;
 import inno.edu.api.domain.profile.models.MentorProfile;
-import inno.edu.api.domain.user.repositories.MentorProfileRepository;
+import inno.edu.api.domain.profile.repositories.MentorProfileRepository;
 import inno.edu.api.infrastructure.annotations.Query;
 
 import java.util.UUID;

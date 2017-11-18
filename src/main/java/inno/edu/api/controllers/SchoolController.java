@@ -8,7 +8,7 @@ import inno.edu.api.domain.school.commands.UpdateSchoolCommand;
 import inno.edu.api.domain.school.exceptions.SchoolNotFoundException;
 import inno.edu.api.domain.school.models.School;
 import inno.edu.api.domain.school.repositories.SchoolRepository;
-import inno.edu.api.domain.user.queries.GetMentorProfilesBySchoolIdQuery;
+import inno.edu.api.domain.profile.queries.GetMentorProfilesBySchoolIdQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;

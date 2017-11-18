@@ -4,7 +4,7 @@ import inno.edu.api.domain.user.exceptions.UserIsNotMentorException;
 import inno.edu.api.domain.user.exceptions.UserNotFoundException;
 import inno.edu.api.domain.profile.exceptions.UserProfileNotFoundException;
 import inno.edu.api.domain.profile.models.MentorProfile;
-import inno.edu.api.domain.user.repositories.MentorProfileRepository;
+import inno.edu.api.domain.profile.repositories.MentorProfileRepository;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
