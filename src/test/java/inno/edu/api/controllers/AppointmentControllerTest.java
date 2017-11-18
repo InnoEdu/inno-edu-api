@@ -4,6 +4,7 @@ import inno.edu.api.controllers.resources.AppointmentResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.appointment.commands.CreateAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentCommand;
+import inno.edu.api.domain.appointment.commands.UpdateAppointmentStatusCommand;
 import inno.edu.api.domain.appointment.exceptions.AppointmentNotFoundException;
 import inno.edu.api.domain.appointment.models.Appointment;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByMenteeIdQuery;
@@ -19,6 +20,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import static inno.edu.api.domain.appointment.models.AppointmentStatus.CANCELED;
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.support.AppointmentFactory.appointment;
 import static inno.edu.api.support.AppointmentFactory.appointments;
@@ -53,6 +55,9 @@ public class AppointmentControllerTest {
 
     @Mock
     private GetAppointmentsByMenteeIdQuery getAppointmentsByMenteeIdQuery;
+
+    @Mock
+    private UpdateAppointmentStatusCommand updateAppointmentStatusCommand;
 
     @InjectMocks
     private AppointmentController appointmentController;
@@ -143,11 +148,17 @@ public class AppointmentControllerTest {
     }
 
     @Test
-    public void shouldUDeleteAppointment() {
+    public void shouldDeleteAppointment() {
         when(appointmentRepository.exists(appointment().getId())).thenReturn(true);
 
         appointmentController.delete(appointment().getId());
 
         verify(appointmentRepository).delete(appointment().getId());
+    }
+    @Test
+    public void shouldCancelAppointment() {
+        appointmentController.cancel(appointment().getId());
+
+        verify(updateAppointmentStatusCommand).run(appointment().getId(), CANCELED);
     }
 }

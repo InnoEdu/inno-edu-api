@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Entity
 @Data
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class Appointment {
