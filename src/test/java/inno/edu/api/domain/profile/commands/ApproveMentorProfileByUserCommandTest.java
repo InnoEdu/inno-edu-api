@@ -1,9 +1,8 @@
 package inno.edu.api.domain.profile.commands;
 
-import inno.edu.api.domain.profile.commands.ApproveMentorProfileByUserCommand;
 import inno.edu.api.domain.user.exceptions.UserIsNotMentorException;
 import inno.edu.api.domain.user.exceptions.UserNotFoundException;
-import inno.edu.api.domain.user.exceptions.UserProfileNotFoundException;
+import inno.edu.api.domain.profile.exceptions.UserProfileNotFoundException;
 import inno.edu.api.domain.user.models.MentorProfile;
 import inno.edu.api.domain.user.repositories.MentorProfileRepository;
 import inno.edu.api.domain.user.repositories.UserRepository;

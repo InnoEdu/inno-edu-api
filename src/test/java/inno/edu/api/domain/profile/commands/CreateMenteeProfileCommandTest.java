@@ -1,6 +1,6 @@
 package inno.edu.api.domain.profile.commands;
 
-import inno.edu.api.domain.user.exceptions.MenteeProfileAlreadyCreatedException;
+import inno.edu.api.domain.profile.exceptions.MenteeProfileAlreadyCreatedException;
 import inno.edu.api.domain.user.models.MenteeProfile;
 import inno.edu.api.domain.user.repositories.MenteeProfileRepository;
 import org.junit.Test;

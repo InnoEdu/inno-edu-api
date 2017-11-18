@@ -1,6 +1,6 @@
 package inno.edu.api.domain.user.queries;
 
-import inno.edu.api.domain.user.exceptions.UserProfileNotFoundException;
+import inno.edu.api.domain.profile.exceptions.UserProfileNotFoundException;
 import inno.edu.api.domain.user.models.MentorProfile;
 import inno.edu.api.domain.user.repositories.MentorProfileRepository;
 import org.junit.Test;

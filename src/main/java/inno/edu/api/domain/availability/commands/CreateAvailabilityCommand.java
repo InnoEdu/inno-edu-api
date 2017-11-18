@@ -3,7 +3,7 @@ package inno.edu.api.domain.availability.commands;
 import inno.edu.api.domain.availability.models.Availability;
 import inno.edu.api.domain.availability.repositories.AvailabilityRepository;
 import inno.edu.api.domain.school.repositories.SchoolRepository;
-import inno.edu.api.domain.user.exceptions.ProfileNotFoundException;
+import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
 import inno.edu.api.domain.user.repositories.MentorProfileRepository;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import inno.edu.api.infrastructure.annotations.Command;

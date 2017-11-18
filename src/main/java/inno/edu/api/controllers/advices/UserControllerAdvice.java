@@ -4,7 +4,7 @@ import inno.edu.api.domain.user.exceptions.InvalidUserNameOrPasswordException;
 import inno.edu.api.domain.user.exceptions.UserIsNotMentorException;
 import inno.edu.api.domain.user.exceptions.UserNameAlreadyExistsException;
 import inno.edu.api.domain.user.exceptions.UserNotFoundException;
-import inno.edu.api.domain.user.exceptions.UserProfileNotFoundException;
+import inno.edu.api.domain.profile.exceptions.UserProfileNotFoundException;
 import org.springframework.hateoas.VndErrors.VndError;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;

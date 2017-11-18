@@ -1,7 +1,7 @@
 package inno.edu.api.controllers.advices;
 
-import inno.edu.api.domain.user.exceptions.MenteeProfileAlreadyCreatedException;
-import inno.edu.api.domain.user.exceptions.ProfileNotFoundException;
+import inno.edu.api.domain.profile.exceptions.MenteeProfileAlreadyCreatedException;
+import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
 import org.springframework.hateoas.VndErrors.VndError;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
