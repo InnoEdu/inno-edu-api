@@ -36,7 +36,7 @@ VALUES ('0e9e40c0b44b438792a99d75d10e3d42', 'ba7c650519fd47c387a6c6af6e5322b7',
 
 INSERT INTO Mentor_Profile (id, mentor_id, school_id, email, description, status)
 VALUES ('e1b66612a94a4db386a104f3a102227b', 'df54ff863caa4145b228284f5d4a908a',
-        '0a58153cc15f4e5b802cbbf5d6c1c55c', 'feixiu@inno.edu', 'Fei is a great mentor.', 0);
+        '0a58153cc15f4e5b802cbbf5d6c1c55c', 'gustavo@inno.edu', 'Gustavo is a great mentor.', 0);
 
 DELETE FROM Availability;
 

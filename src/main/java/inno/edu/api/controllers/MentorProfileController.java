@@ -2,6 +2,7 @@ package inno.edu.api.controllers;
 
 import inno.edu.api.controllers.resources.MentorProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
+import inno.edu.api.domain.user.commands.ApproveMentorProfileCommand;
 import inno.edu.api.domain.user.commands.CreateMentorProfileCommand;
 import inno.edu.api.domain.user.commands.UpdateMentorProfileCommand;
 import inno.edu.api.domain.user.exceptions.ProfileNotFoundException;
@@ -32,15 +33,18 @@ public class MentorProfileController {
     private final ResourceBuilder resourceBuilder;
     private final MentorProfileRepository mentorProfileRepository;
 
-    private UpdateMentorProfileCommand updateMentorProfileCommand;
-    private CreateMentorProfileCommand createMentorProfileCommand;
+    private final UpdateMentorProfileCommand updateMentorProfileCommand;
+    private final CreateMentorProfileCommand createMentorProfileCommand;
+
+    private final ApproveMentorProfileCommand approveMentorProfileCommand;
 
     @Autowired
-    public MentorProfileController(MentorProfileRepository mentorProfileRepository, ResourceBuilder resourceBuilder, UpdateMentorProfileCommand updateMentorProfileCommand, CreateMentorProfileCommand createMentorProfileCommand) {
+    public MentorProfileController(MentorProfileRepository mentorProfileRepository, ResourceBuilder resourceBuilder, UpdateMentorProfileCommand updateMentorProfileCommand, CreateMentorProfileCommand createMentorProfileCommand, ApproveMentorProfileCommand approveMentorProfileCommand) {
         this.mentorProfileRepository = mentorProfileRepository;
         this.resourceBuilder = resourceBuilder;
         this.updateMentorProfileCommand = updateMentorProfileCommand;
         this.createMentorProfileCommand = createMentorProfileCommand;
+        this.approveMentorProfileCommand = approveMentorProfileCommand;
     }
 
     @GetMapping
@@ -65,6 +69,12 @@ public class MentorProfileController {
     public ResponseEntity<?> put(@PathVariable UUID id, @RequestBody MentorProfile profile) {
         MentorProfileResource profileResource = new MentorProfileResource(updateMentorProfileCommand.run(id, profile));
         return profileResource.toUpdated();
+    }
+
+    @PutMapping("/{id}/approve")
+    public ResponseEntity<?> approve(@PathVariable UUID id) {
+        approveMentorProfileCommand.run(id);
+        return noContent().build();
     }
 
     @DeleteMapping("/{id}")

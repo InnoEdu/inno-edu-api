@@ -2,6 +2,7 @@ package inno.edu.api.controllers;
 
 import inno.edu.api.controllers.resources.MentorProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
+import inno.edu.api.domain.user.commands.ApproveMentorProfileCommand;
 import inno.edu.api.domain.user.commands.CreateMentorProfileCommand;
 import inno.edu.api.domain.user.commands.UpdateMentorProfileCommand;
 import inno.edu.api.domain.user.exceptions.ProfileNotFoundException;
@@ -41,6 +42,9 @@ public class MentorProfileControllerTest {
 
     @Mock
     private UpdateMentorProfileCommand updateMentorProfileCommand;
+
+    @Mock
+    private ApproveMentorProfileCommand approveMentorProfileCommand;
 
     @InjectMocks
     private MentorProfileController mentorProfileController;
@@ -95,11 +99,18 @@ public class MentorProfileControllerTest {
     }
 
     @Test
-    public void shouldUDeleteProfile() {
+    public void shouldDeleteProfile() {
         when(mentorProfileRepository.exists(feiProfile().getId())).thenReturn(true);
 
         mentorProfileController.delete(feiProfile().getId());
 
         verify(mentorProfileRepository).delete(feiProfile().getId());
+    }
+
+    @Test
+    public void shouldApproveProfile() {
+        mentorProfileController.approve(feiProfile().getId());
+
+        verify(approveMentorProfileCommand).run(feiProfile().getId());
     }
 }

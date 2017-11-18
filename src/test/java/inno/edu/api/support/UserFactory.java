@@ -9,6 +9,7 @@ import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static inno.edu.api.domain.user.models.ProfileStatus.ACTIVE;
+import static inno.edu.api.domain.user.models.ProfileStatus.CREATED;
 import static inno.edu.api.support.SchoolFactory.stanford;
 import static java.util.Collections.singletonList;
 import static java.util.UUID.fromString;
@@ -56,11 +57,13 @@ public class UserFactory {
                 .build();
     }
 
-    public static MenteeProfile gustavoProfile() {
-        return MenteeProfile.builder().id(fromString("4fbee407-5ab3-4d4b-9ef0-39840e939d5e"))
-                .menteeId(fei().getId())
+    public static MentorProfile gustavoProfile() {
+        return MentorProfile.builder().id(fromString("e1b66612-a94a-4db3-86a1-04f3a102227b"))
+                .mentorId(gustavo().getId())
+                .schoolId(stanford().getId())
                 .email("gustavo@inno.edu")
                 .description("Gustavo is a great mentee.")
+                .status(CREATED)
                 .build();
     }
 
@@ -79,6 +82,14 @@ public class UserFactory {
                 .email("feixiu@inno.edu")
                 .description("Fei is a great mentor.")
                 .status(ACTIVE)
+                .build();
+    }
+
+    public static MenteeProfile tuanyProfile() {
+        return MenteeProfile.builder().id(fromString("4fbee407-5ab3-4d4b-9ef0-39840e939d5e"))
+                .menteeId(gustavo().getId())
+                .email("tuany@inno.edu")
+                .description("Tuany is a great mentee.")
                 .build();
     }
 

@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import static inno.edu.api.support.Payloads.postMentorProfilePayload;
 import static inno.edu.api.support.Payloads.putMentorProfilePayload;
 import static inno.edu.api.support.UserFactory.feiProfile;
+import static inno.edu.api.support.UserFactory.gustavoProfile;
 import static inno.edu.api.support.UserFactory.updatedFeiProfile;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.core.Is.is;
@@ -71,6 +72,14 @@ public class MentorProfileControllerApiTest extends ApiTest {
     public void shouldDeleteProfile() throws Exception {
         this.mockMvc.perform(
                 delete("/api/mentor-profiles/" + feiProfile().getId()))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void shouldApproveProfile() throws Exception {
+        this.mockMvc.perform(
+                put("/api/mentor-profiles/" + gustavoProfile().getId() + "/approve"))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }

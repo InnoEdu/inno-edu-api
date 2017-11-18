@@ -4,11 +4,11 @@ import inno.edu.api.ApiTest;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
-import static inno.edu.api.support.UserFactory.alanProfile;
-import static inno.edu.api.support.UserFactory.gustavoProfile;
-import static inno.edu.api.support.UserFactory.updatedAlanProfile;
 import static inno.edu.api.support.Payloads.postMenteeProfilePayload;
 import static inno.edu.api.support.Payloads.putMenteeProfilePayload;
+import static inno.edu.api.support.UserFactory.alanProfile;
+import static inno.edu.api.support.UserFactory.tuanyProfile;
+import static inno.edu.api.support.UserFactory.updatedAlanProfile;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -44,7 +44,7 @@ public class MenteeProfileControllerApiTest extends ApiTest {
     public void shouldCreateNewProfile() throws Exception {
         this.mockMvc.perform(
                 post("/api/mentee-profiles")
-                        .content(postMenteeProfilePayload(gustavoProfile()))
+                        .content(postMenteeProfilePayload(tuanyProfile()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated());
