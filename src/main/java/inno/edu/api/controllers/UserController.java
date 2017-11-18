@@ -4,6 +4,7 @@ import inno.edu.api.controllers.resources.MenteeProfileResource;
 import inno.edu.api.controllers.resources.MentorProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.UserResource;
+import inno.edu.api.domain.user.commands.ApproveMentorProfileByUserCommand;
 import inno.edu.api.domain.user.commands.CreateUserCommand;
 import inno.edu.api.domain.user.commands.LoginCommand;
 import inno.edu.api.domain.user.commands.UpdateUserCommand;
@@ -46,9 +47,10 @@ public class UserController {
     private final UpdateUserCommand updateUserCommand;
 
     private final ResourceBuilder resourceBuilder;
+    private final ApproveMentorProfileByUserCommand approveMentorProfileByUserCommand;
 
     @Autowired
-    public UserController(UserRepository userRepository, GetMentorActiveProfileByUserIdQuery getMentorActiveProfileByUserIdQuery, GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery, LoginCommand loginCommand, CreateUserCommand createUserCommand, UpdateUserCommand updateUserCommand, ResourceBuilder resourceBuilder) {
+    public UserController(UserRepository userRepository, GetMentorActiveProfileByUserIdQuery getMentorActiveProfileByUserIdQuery, GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery, LoginCommand loginCommand, CreateUserCommand createUserCommand, UpdateUserCommand updateUserCommand, ResourceBuilder resourceBuilder, ApproveMentorProfileByUserCommand approveMentorProfileByUserCommand) {
         this.userRepository = userRepository;
         this.getMentorActiveProfileByUserIdQuery = getMentorActiveProfileByUserIdQuery;
         this.getMenteeProfileByUserIdQuery = getMenteeProfileByUserIdQuery;
@@ -56,6 +58,7 @@ public class UserController {
         this.createUserCommand = createUserCommand;
         this.updateUserCommand = updateUserCommand;
         this.resourceBuilder = resourceBuilder;
+        this.approveMentorProfileByUserCommand = approveMentorProfileByUserCommand;
     }
 
     @GetMapping
@@ -102,6 +105,12 @@ public class UserController {
         }
         userRepository.delete(id);
 
+        return noContent().build();
+    }
+
+    @PutMapping("/{id}/approve")
+    public  ResponseEntity<?>  approve(@PathVariable UUID id) {
+        approveMentorProfileByUserCommand.run(id);
         return noContent().build();
     }
 }
