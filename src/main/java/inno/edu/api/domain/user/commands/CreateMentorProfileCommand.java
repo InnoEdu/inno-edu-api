@@ -10,12 +10,16 @@ import static java.util.UUID.randomUUID;
 @Command
 public class CreateMentorProfileCommand {
     private final MentorProfileRepository profileRepository;
+    private final DeactivateMentorProfilesCommand deactivateMentorProfilesCommand;
 
-    public CreateMentorProfileCommand(MentorProfileRepository profileRepository) {
+    public CreateMentorProfileCommand(MentorProfileRepository profileRepository, DeactivateMentorProfilesCommand deactivateMentorProfilesCommand) {
         this.profileRepository = profileRepository;
+        this.deactivateMentorProfilesCommand = deactivateMentorProfilesCommand;
     }
 
     public MentorProfile run(MentorProfile profile) {
+        deactivateMentorProfilesCommand.run(profile.getMentorId());
+
         profile.setId(randomUUID());
         profile.setStatus(CREATED);
         return profileRepository.save(profile);

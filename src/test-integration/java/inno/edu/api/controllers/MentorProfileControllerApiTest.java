@@ -4,11 +4,10 @@ import inno.edu.api.ApiTest;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
-import static inno.edu.api.support.UserFactory.feiProfile;
-import static inno.edu.api.support.UserFactory.updatedFeiProfile;
 import static inno.edu.api.support.Payloads.postMentorProfilePayload;
 import static inno.edu.api.support.Payloads.putMentorProfilePayload;
-import static org.hamcrest.Matchers.containsInAnyOrder;
+import static inno.edu.api.support.UserFactory.feiProfile;
+import static inno.edu.api.support.UserFactory.updatedFeiProfile;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;

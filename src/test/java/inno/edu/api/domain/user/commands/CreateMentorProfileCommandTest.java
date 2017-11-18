@@ -15,12 +15,16 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentCaptor.forClass;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CreateMentorProfileCommandTest {
     @Mock
     private MentorProfileRepository mentorProfileRepository;
+
+    @Mock
+    private DeactivateMentorProfilesCommand deactivateMentorProfilesCommand;
 
     @InjectMocks
     private CreateMentorProfileCommand createMentorProfileCommand;
@@ -59,4 +63,10 @@ public class CreateMentorProfileCommandTest {
         assertThat(argumentCaptor.getValue().getStatus(), is(CREATED));
     }
 
+    @Test
+    public void shouldDeactivateOtherMentorProfiles() {
+        createMentorProfileCommand.run(feiProfile());
+
+        verify(deactivateMentorProfilesCommand).run(feiProfile().getMentorId());
+    }
 }
