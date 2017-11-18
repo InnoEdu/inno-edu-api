@@ -120,4 +120,20 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }
+
+    @Test
+    public void shouldDeclineAppointment() throws Exception {
+        this.mockMvc.perform(
+                put("/api/appointments/" + appointment().getId() + "/decline"))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void shouldAcceptAppointment() throws Exception {
+        this.mockMvc.perform(
+                put("/api/appointments/" + appointment().getId() + "/accept"))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+    }
 }

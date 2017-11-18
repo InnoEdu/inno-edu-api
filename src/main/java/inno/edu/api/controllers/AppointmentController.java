@@ -27,7 +27,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import static inno.edu.api.domain.appointment.models.AppointmentStatus.ACCEPTED;
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.CANCELED;
+import static inno.edu.api.domain.appointment.models.AppointmentStatus.DECLINED;
 import static java.util.Optional.ofNullable;
 import static org.springframework.http.ResponseEntity.noContent;
 
@@ -97,6 +99,18 @@ public class AppointmentController {
     @PutMapping("/{id}/cancel")
     public ResponseEntity<?> cancel(@PathVariable UUID id) {
         updateAppointmentStatusCommand.run(id, CANCELED);
+        return noContent().build();
+    }
+
+    @PutMapping("/{id}/decline")
+    public ResponseEntity<?> decline(@PathVariable UUID id) {
+        updateAppointmentStatusCommand.run(id, DECLINED);
+        return noContent().build();
+    }
+
+    @PutMapping("/{id}/accept")
+    public ResponseEntity<?> accept(@PathVariable UUID id) {
+        updateAppointmentStatusCommand.run(id, ACCEPTED);
         return noContent().build();
     }
 

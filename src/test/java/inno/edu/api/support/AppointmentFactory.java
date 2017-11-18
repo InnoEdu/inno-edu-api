@@ -8,7 +8,7 @@ import java.util.List;
 import static com.google.common.collect.Lists.newArrayList;
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.ACCEPTED;
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
-import static inno.edu.api.domain.appointment.models.AppointmentStatus.REJECTED;
+import static inno.edu.api.domain.appointment.models.AppointmentStatus.DECLINED;
 import static inno.edu.api.support.UserFactory.alanProfile;
 import static inno.edu.api.support.UserFactory.feiProfile;
 import static java.util.UUID.fromString;
@@ -46,7 +46,7 @@ public class AppointmentFactory {
                 .fromDateTime(LocalDateTime.of(2019, 11, 9, 12, 0, 1))
                 .toDateTime(LocalDateTime.of(2019, 11, 10, 12, 0, 1))
                 .description("My great updated appointment.")
-                .status(REJECTED)
+                .status(DECLINED)
                 .build();
     }
 

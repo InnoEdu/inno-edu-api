@@ -20,7 +20,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import static inno.edu.api.domain.appointment.models.AppointmentStatus.ACCEPTED;
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.CANCELED;
+import static inno.edu.api.domain.appointment.models.AppointmentStatus.DECLINED;
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.support.AppointmentFactory.appointment;
 import static inno.edu.api.support.AppointmentFactory.appointments;
@@ -155,10 +157,25 @@ public class AppointmentControllerTest {
 
         verify(appointmentRepository).delete(appointment().getId());
     }
+
     @Test
     public void shouldCancelAppointment() {
         appointmentController.cancel(appointment().getId());
 
         verify(updateAppointmentStatusCommand).run(appointment().getId(), CANCELED);
+    }
+
+    @Test
+    public void shouldDeclineAppointment() {
+        appointmentController.decline(appointment().getId());
+
+        verify(updateAppointmentStatusCommand).run(appointment().getId(), DECLINED);
+    }
+
+    @Test
+    public void shouldAcceptAppointment() {
+        appointmentController.accept(appointment().getId());
+
+        verify(updateAppointmentStatusCommand).run(appointment().getId(), ACCEPTED);
     }
 }
