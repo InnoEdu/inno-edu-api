@@ -1,4 +1,4 @@
-package inno.edu.api.domain.user.commands;
+package inno.edu.api.domain.profile.commands;
 
 /**
  * Created by gdomenic on 17/11/17.

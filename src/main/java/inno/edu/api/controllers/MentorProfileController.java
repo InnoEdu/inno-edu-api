@@ -2,9 +2,9 @@ package inno.edu.api.controllers;
 
 import inno.edu.api.controllers.resources.MentorProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
-import inno.edu.api.domain.user.commands.ApproveMentorProfileCommand;
-import inno.edu.api.domain.user.commands.CreateMentorProfileCommand;
-import inno.edu.api.domain.user.commands.UpdateMentorProfileCommand;
+import inno.edu.api.domain.profile.commands.ApproveMentorProfileCommand;
+import inno.edu.api.domain.profile.commands.CreateMentorProfileCommand;
+import inno.edu.api.domain.profile.commands.UpdateMentorProfileCommand;
 import inno.edu.api.domain.user.exceptions.ProfileNotFoundException;
 import inno.edu.api.domain.user.models.MentorProfile;
 import inno.edu.api.domain.user.repositories.MentorProfileRepository;

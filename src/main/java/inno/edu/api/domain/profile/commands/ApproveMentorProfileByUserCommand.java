@@ -1,4 +1,4 @@
-package inno.edu.api.domain.user.commands;
+package inno.edu.api.domain.profile.commands;
 
 import inno.edu.api.domain.user.exceptions.UserIsNotMentorException;
 import inno.edu.api.domain.user.exceptions.UserNotFoundException;

@@ -1,5 +1,7 @@
-package inno.edu.api.domain.user.commands;
+package inno.edu.api.domain.profile.commands;
 
+import inno.edu.api.domain.profile.commands.CreateMentorProfileCommand;
+import inno.edu.api.domain.profile.commands.DeactivateMentorProfilesCommand;
 import inno.edu.api.domain.user.models.MentorProfile;
 import inno.edu.api.domain.user.repositories.MentorProfileRepository;
 import org.junit.Test;

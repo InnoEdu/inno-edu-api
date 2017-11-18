@@ -1,5 +1,6 @@
-package inno.edu.api.domain.user.commands;
+package inno.edu.api.domain.profile.commands;
 
+import inno.edu.api.domain.profile.commands.ApproveMentorProfileCommand;
 import inno.edu.api.domain.user.exceptions.ProfileNotFoundException;
 import inno.edu.api.domain.user.models.MentorProfile;
 import inno.edu.api.domain.user.models.ProfileStatus;
