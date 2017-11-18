@@ -6,7 +6,7 @@ import inno.edu.api.domain.profile.commands.ApproveMentorProfileCommand;
 import inno.edu.api.domain.profile.commands.CreateMentorProfileCommand;
 import inno.edu.api.domain.profile.commands.UpdateMentorProfileCommand;
 import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
-import inno.edu.api.domain.user.models.MentorProfile;
+import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.user.repositories.MentorProfileRepository;
 import org.junit.Before;
 import org.junit.Test;

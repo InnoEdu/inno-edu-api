@@ -5,7 +5,7 @@ import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.profile.commands.CreateMenteeProfileCommand;
 import inno.edu.api.domain.profile.commands.UpdateMenteeProfileCommand;
 import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
-import inno.edu.api.domain.user.models.MenteeProfile;
+import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.user.repositories.MenteeProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;

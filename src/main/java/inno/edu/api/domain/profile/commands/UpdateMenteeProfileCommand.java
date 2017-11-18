@@ -1,7 +1,7 @@
 package inno.edu.api.domain.profile.commands;
 
 import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
-import inno.edu.api.domain.user.models.MenteeProfile;
+import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.user.repositories.MenteeProfileRepository;
 import inno.edu.api.infrastructure.annotations.Command;
 

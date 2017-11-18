@@ -1,8 +1,6 @@
 package inno.edu.api.domain.profile.commands;
 
-import inno.edu.api.domain.profile.commands.CreateMentorProfileCommand;
-import inno.edu.api.domain.profile.commands.DeactivateMentorProfilesCommand;
-import inno.edu.api.domain.user.models.MentorProfile;
+import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.user.repositories.MentorProfileRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,7 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static inno.edu.api.domain.user.models.ProfileStatus.CREATED;
+import static inno.edu.api.domain.profile.models.ProfileStatus.CREATED;
 import static inno.edu.api.support.UserFactory.feiProfile;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;

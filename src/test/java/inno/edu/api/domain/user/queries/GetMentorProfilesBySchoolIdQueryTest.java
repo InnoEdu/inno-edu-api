@@ -2,7 +2,7 @@ package inno.edu.api.domain.user.queries;
 
 import inno.edu.api.domain.school.exceptions.SchoolNotFoundException;
 import inno.edu.api.domain.school.repositories.SchoolRepository;
-import inno.edu.api.domain.user.models.MentorProfile;
+import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.user.repositories.MentorProfileRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +12,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.List;
 
-import static inno.edu.api.domain.user.models.ProfileStatus.ACTIVE;
+import static inno.edu.api.domain.profile.models.ProfileStatus.ACTIVE;
 import static inno.edu.api.support.SchoolFactory.stanford;
 import static inno.edu.api.support.UserFactory.mentorProfiles;
 import static org.hamcrest.CoreMatchers.is;

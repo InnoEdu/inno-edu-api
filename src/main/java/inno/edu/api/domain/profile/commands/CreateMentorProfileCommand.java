@@ -1,10 +1,10 @@
 package inno.edu.api.domain.profile.commands;
 
-import inno.edu.api.domain.user.models.MentorProfile;
+import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.user.repositories.MentorProfileRepository;
 import inno.edu.api.infrastructure.annotations.Command;
 
-import static inno.edu.api.domain.user.models.ProfileStatus.CREATED;
+import static inno.edu.api.domain.profile.models.ProfileStatus.CREATED;
 import static java.util.UUID.randomUUID;
 
 @Command

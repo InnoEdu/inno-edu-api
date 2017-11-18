@@ -4,8 +4,8 @@ import inno.edu.api.domain.appointment.models.Appointment;
 import inno.edu.api.domain.availability.models.Availability;
 import inno.edu.api.domain.school.models.School;
 import inno.edu.api.domain.user.models.Login;
-import inno.edu.api.domain.user.models.MenteeProfile;
-import inno.edu.api.domain.user.models.MentorProfile;
+import inno.edu.api.domain.profile.models.MenteeProfile;
+import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.user.models.User;
 import org.apache.commons.io.IOUtils;
 

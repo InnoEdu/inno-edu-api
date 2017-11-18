@@ -1,8 +1,7 @@
 package inno.edu.api.domain.profile.commands;
 
-import inno.edu.api.domain.profile.commands.DeactivateMentorProfilesCommand;
 import inno.edu.api.domain.user.exceptions.UserNotFoundException;
-import inno.edu.api.domain.user.models.MentorProfile;
+import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.user.repositories.MentorProfileRepository;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import org.junit.Test;
@@ -11,7 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static inno.edu.api.domain.user.models.ProfileStatus.INACTIVE;
+import static inno.edu.api.domain.profile.models.ProfileStatus.INACTIVE;
 import static inno.edu.api.support.UserFactory.fei;
 import static inno.edu.api.support.UserFactory.feiProfile;
 import static inno.edu.api.support.UserFactory.mentorProfiles;

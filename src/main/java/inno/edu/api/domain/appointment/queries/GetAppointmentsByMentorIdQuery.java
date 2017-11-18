@@ -3,7 +3,7 @@ package inno.edu.api.domain.appointment.queries;
 import inno.edu.api.domain.appointment.models.Appointment;
 import inno.edu.api.domain.appointment.models.AppointmentStatus;
 import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
-import inno.edu.api.domain.user.models.MentorProfile;
+import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.user.queries.GetMentorActiveProfileByUserIdQuery;
 import inno.edu.api.infrastructure.annotations.Query;
 

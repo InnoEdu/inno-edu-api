@@ -1,7 +1,7 @@
 package inno.edu.api.domain.user.queries;
 
 import inno.edu.api.domain.profile.exceptions.UserProfileNotFoundException;
-import inno.edu.api.domain.user.models.MenteeProfile;
+import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.user.repositories.MenteeProfileRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -3,7 +3,7 @@ package inno.edu.api.controllers.resources;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import inno.edu.api.controllers.MenteeProfileController;
 import inno.edu.api.controllers.UserController;
-import inno.edu.api.domain.user.models.MenteeProfile;
+import inno.edu.api.domain.profile.models.MenteeProfile;
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.http.ResponseEntity;

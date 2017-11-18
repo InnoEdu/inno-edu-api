@@ -1,7 +1,7 @@
 package inno.edu.api.domain.profile.commands;
 
 import inno.edu.api.domain.user.exceptions.UserNotFoundException;
-import inno.edu.api.domain.user.models.ProfileStatus;
+import inno.edu.api.domain.profile.models.ProfileStatus;
 import inno.edu.api.domain.user.repositories.MentorProfileRepository;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import inno.edu.api.infrastructure.annotations.Command;

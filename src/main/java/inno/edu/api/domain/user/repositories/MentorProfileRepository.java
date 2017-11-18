@@ -1,7 +1,7 @@
 package inno.edu.api.domain.user.repositories;
 
-import inno.edu.api.domain.user.models.MentorProfile;
-import inno.edu.api.domain.user.models.ProfileStatus;
+import inno.edu.api.domain.profile.models.MentorProfile;
+import inno.edu.api.domain.profile.models.ProfileStatus;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
