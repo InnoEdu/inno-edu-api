@@ -15,16 +15,16 @@ import java.util.UUID;
 import static java.util.Optional.ofNullable;
 
 @Command
-public class ApproveMentorProfileByUserCommand {
+public class UpdateMentorProfileStatusByUserCommand {
     private final UserRepository userRepository;
     private final MentorProfileRepository mentorProfileRepository;
 
-    public ApproveMentorProfileByUserCommand(UserRepository userRepository, MentorProfileRepository mentorProfileRepository) {
+    public UpdateMentorProfileStatusByUserCommand(UserRepository userRepository, MentorProfileRepository mentorProfileRepository) {
         this.userRepository = userRepository;
         this.mentorProfileRepository = mentorProfileRepository;
     }
 
-    public void run(UUID userId) {
+    public void run(UUID userId, ProfileStatus status) {
         User user = ofNullable(userRepository.findOne(userId))
                 .orElseThrow(() -> new UserNotFoundException(userId));
 
@@ -35,7 +35,7 @@ public class ApproveMentorProfileByUserCommand {
         MentorProfile profile = ofNullable(mentorProfileRepository.findOneByMentorIdAndStatus(userId, ProfileStatus.CREATED))
                 .orElseThrow(() -> new UserProfileNotFoundException(userId));
 
-        profile.setStatus(ProfileStatus.ACTIVE);
+        profile.setStatus(status);
 
         mentorProfileRepository.save(profile);
     }

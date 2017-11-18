@@ -43,7 +43,6 @@ public class UserControllerAdvice {
         return new VndError("error", ex.getMessage());
     }
 
-
     @ResponseBody
     @ExceptionHandler(UserIsNotMentorException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)

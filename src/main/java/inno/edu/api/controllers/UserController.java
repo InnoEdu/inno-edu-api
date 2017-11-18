@@ -4,7 +4,8 @@ import inno.edu.api.controllers.resources.MenteeProfileResource;
 import inno.edu.api.controllers.resources.MentorProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.UserResource;
-import inno.edu.api.domain.profile.commands.ApproveMentorProfileByUserCommand;
+import inno.edu.api.domain.profile.commands.UpdateMentorProfileStatusByUserCommand;
+import inno.edu.api.domain.profile.models.ProfileStatus;
 import inno.edu.api.domain.user.commands.CreateUserCommand;
 import inno.edu.api.domain.user.commands.LoginCommand;
 import inno.edu.api.domain.user.commands.UpdateUserCommand;
@@ -47,10 +48,10 @@ public class UserController {
     private final UpdateUserCommand updateUserCommand;
 
     private final ResourceBuilder resourceBuilder;
-    private final ApproveMentorProfileByUserCommand approveMentorProfileByUserCommand;
+    private final UpdateMentorProfileStatusByUserCommand updateMentorProfileStatusByUserCommand;
 
     @Autowired
-    public UserController(UserRepository userRepository, GetMentorActiveProfileByUserIdQuery getMentorActiveProfileByUserIdQuery, GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery, LoginCommand loginCommand, CreateUserCommand createUserCommand, UpdateUserCommand updateUserCommand, ResourceBuilder resourceBuilder, ApproveMentorProfileByUserCommand approveMentorProfileByUserCommand) {
+    public UserController(UserRepository userRepository, GetMentorActiveProfileByUserIdQuery getMentorActiveProfileByUserIdQuery, GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery, LoginCommand loginCommand, CreateUserCommand createUserCommand, UpdateUserCommand updateUserCommand, ResourceBuilder resourceBuilder, UpdateMentorProfileStatusByUserCommand updateMentorProfileStatusByUserCommand) {
         this.userRepository = userRepository;
         this.getMentorActiveProfileByUserIdQuery = getMentorActiveProfileByUserIdQuery;
         this.getMenteeProfileByUserIdQuery = getMenteeProfileByUserIdQuery;
@@ -58,7 +59,7 @@ public class UserController {
         this.createUserCommand = createUserCommand;
         this.updateUserCommand = updateUserCommand;
         this.resourceBuilder = resourceBuilder;
-        this.approveMentorProfileByUserCommand = approveMentorProfileByUserCommand;
+        this.updateMentorProfileStatusByUserCommand = updateMentorProfileStatusByUserCommand;
     }
 
     @GetMapping
@@ -110,7 +111,14 @@ public class UserController {
 
     @PutMapping("/{id}/approve")
     public  ResponseEntity<?>  approve(@PathVariable UUID id) {
-        approveMentorProfileByUserCommand.run(id);
+        updateMentorProfileStatusByUserCommand.run(id, ProfileStatus.ACTIVE);
         return noContent().build();
     }
+
+    @PutMapping("/{id}/reject")
+    public  ResponseEntity<?>  reject(@PathVariable UUID id) {
+        updateMentorProfileStatusByUserCommand.run(id, ProfileStatus.REJECTED);
+        return noContent().build();
+    }
+
 }

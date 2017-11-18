@@ -129,4 +129,12 @@ public class UserControllerApiTest extends ApiTest {
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }
+
+    @Test
+    public void shouldRejectUserProfile() throws Exception {
+        this.mockMvc.perform(
+                put("/api/users/" + gustavo().getId() + "/reject"))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+    }
 }

@@ -2,7 +2,8 @@ package inno.edu.api.controllers;
 
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.UserResource;
-import inno.edu.api.domain.profile.commands.ApproveMentorProfileByUserCommand;
+import inno.edu.api.domain.profile.commands.UpdateMentorProfileStatusByUserCommand;
+import inno.edu.api.domain.profile.models.ProfileStatus;
 import inno.edu.api.domain.user.commands.CreateUserCommand;
 import inno.edu.api.domain.user.commands.LoginCommand;
 import inno.edu.api.domain.user.commands.UpdateUserCommand;
@@ -60,7 +61,7 @@ public class UserControllerTest {
     private UpdateUserCommand updateUserCommand;
 
     @Mock
-    private ApproveMentorProfileByUserCommand approveMentorProfileByUserCommand;
+    private UpdateMentorProfileStatusByUserCommand updateMentorProfileStatusByUserCommand;
 
     @InjectMocks
     private UserController userController;
@@ -156,7 +157,13 @@ public class UserControllerTest {
     public void shouldApproveUserProfile() {
         userController.approve(fei().getId());
 
-        verify(approveMentorProfileByUserCommand).run(fei().getId());
+        verify(updateMentorProfileStatusByUserCommand).run(fei().getId(), ProfileStatus.ACTIVE);
     }
 
+    @Test
+    public void shouldRejectUserProfile() {
+        userController.reject(fei().getId());
+
+        verify(updateMentorProfileStatusByUserCommand).run(fei().getId(), ProfileStatus.REJECTED);
+    }
 }
