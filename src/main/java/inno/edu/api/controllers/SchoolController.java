@@ -3,12 +3,13 @@ package inno.edu.api.controllers;
 import inno.edu.api.controllers.resources.MentorProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.SchoolResource;
+import inno.edu.api.domain.profile.queries.GetMentorProfilesBySchoolIdQuery;
 import inno.edu.api.domain.school.commands.CreateSchoolCommand;
 import inno.edu.api.domain.school.commands.UpdateSchoolCommand;
 import inno.edu.api.domain.school.exceptions.SchoolNotFoundException;
 import inno.edu.api.domain.school.models.School;
+import inno.edu.api.domain.school.queries.GetSchoolByIdQuery;
 import inno.edu.api.domain.school.repositories.SchoolRepository;
-import inno.edu.api.domain.profile.queries.GetMentorProfilesBySchoolIdQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +22,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
 import java.util.UUID;
 
-import static java.util.Optional.ofNullable;
 import static org.springframework.http.ResponseEntity.noContent;
 
 @RestController
@@ -36,15 +35,17 @@ public class SchoolController {
     private final CreateSchoolCommand createSchoolCommand;
     private final UpdateSchoolCommand updateSchoolCommand;
 
+    private final GetSchoolByIdQuery getSchoolByIdQuery;
     private final GetMentorProfilesBySchoolIdQuery getMentorProfilesBySchoolIdQuery;
 
     private final ResourceBuilder resourceBuilder;
 
     @Autowired
-    public SchoolController(SchoolRepository schoolRepository, CreateSchoolCommand createSchoolCommand, UpdateSchoolCommand updateSchoolCommand, GetMentorProfilesBySchoolIdQuery getMentorProfilesBySchoolIdQuery, ResourceBuilder resourceBuilder) {
+    public SchoolController(SchoolRepository schoolRepository, CreateSchoolCommand createSchoolCommand, UpdateSchoolCommand updateSchoolCommand, GetSchoolByIdQuery getSchoolByIdQuery, GetMentorProfilesBySchoolIdQuery getMentorProfilesBySchoolIdQuery, ResourceBuilder resourceBuilder) {
         this.schoolRepository = schoolRepository;
         this.createSchoolCommand = createSchoolCommand;
         this.updateSchoolCommand = updateSchoolCommand;
+        this.getSchoolByIdQuery = getSchoolByIdQuery;
         this.getMentorProfilesBySchoolIdQuery = getMentorProfilesBySchoolIdQuery;
         this.resourceBuilder = resourceBuilder;
     }
@@ -57,8 +58,7 @@ public class SchoolController {
 
     @GetMapping("/{id}")
     public SchoolResource get(@PathVariable UUID id) {
-        Optional<School> school = ofNullable(schoolRepository.findOne(id));
-        return new SchoolResource(school.orElseThrow(() -> new SchoolNotFoundException(id)));
+        return new SchoolResource(getSchoolByIdQuery.run(id));
     }
 
     @GetMapping("/{id}/mentors")

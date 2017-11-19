@@ -2,12 +2,12 @@ package inno.edu.api.controllers;
 
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.SchoolResource;
+import inno.edu.api.domain.profile.queries.GetMentorProfilesBySchoolIdQuery;
 import inno.edu.api.domain.school.commands.CreateSchoolCommand;
 import inno.edu.api.domain.school.commands.UpdateSchoolCommand;
-import inno.edu.api.domain.school.exceptions.SchoolNotFoundException;
 import inno.edu.api.domain.school.models.School;
+import inno.edu.api.domain.school.queries.GetSchoolByIdQuery;
 import inno.edu.api.domain.school.repositories.SchoolRepository;
-import inno.edu.api.domain.profile.queries.GetMentorProfilesBySchoolIdQuery;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,8 +18,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import static inno.edu.api.support.SchoolFactory.stanford;
 import static inno.edu.api.support.SchoolFactory.schools;
+import static inno.edu.api.support.SchoolFactory.stanford;
 import static inno.edu.api.support.UserFactory.mentorProfiles;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -47,6 +47,9 @@ public class SchoolControllerTest {
     @Mock
     private GetMentorProfilesBySchoolIdQuery getMentorProfilesBySchoolIdQuery;
 
+    @Mock
+    private GetSchoolByIdQuery getSchoolByIdQuery;
+
     @InjectMocks
     private SchoolController schoolController;
 
@@ -57,18 +60,11 @@ public class SchoolControllerTest {
 
     @Test
     public void shouldGetSchoolById() {
-        when(schoolRepository.findOne(eq(stanford().getId()))).thenReturn(stanford());
+        when(getSchoolByIdQuery.run(eq(stanford().getId()))).thenReturn(stanford());
 
         SchoolResource schoolResource = schoolController.get(stanford().getId());
 
         assertThat(schoolResource.getSchool(), is(stanford()));
-    }
-
-    @Test(expected = SchoolNotFoundException.class)
-    public void shouldRaiseExceptionIfSchoolNotFound() {
-        when(schoolRepository.findOne(any())).thenReturn(null);
-
-        schoolController.get(stanford().getId());
     }
 
     @Test
