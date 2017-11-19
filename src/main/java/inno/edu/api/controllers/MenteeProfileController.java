@@ -3,8 +3,8 @@ package inno.edu.api.controllers;
 import inno.edu.api.controllers.resources.MenteeProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.profile.commands.CreateMenteeProfileCommand;
+import inno.edu.api.domain.profile.commands.DeleteMenteeProfileCommand;
 import inno.edu.api.domain.profile.commands.UpdateMenteeProfileCommand;
-import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
 import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.profile.queries.GetMenteeProfileByIdQuery;
 import inno.edu.api.domain.profile.repositories.MenteeProfileRepository;
@@ -35,14 +35,16 @@ public class MenteeProfileController {
 
     private final UpdateMenteeProfileCommand updateMenteeProfileCommand;
     private final CreateMenteeProfileCommand createMenteeProfileCommand;
+    private final DeleteMenteeProfileCommand deleteMenteeProfileCommand;
 
     @Autowired
-    public MenteeProfileController(MenteeProfileRepository menteeProfileRepository, ResourceBuilder resourceBuilder, GetMenteeProfileByIdQuery getMenteeProfileByIdQuery, UpdateMenteeProfileCommand updateMenteeProfileCommand, CreateMenteeProfileCommand createMenteeProfileCommand) {
+    public MenteeProfileController(MenteeProfileRepository menteeProfileRepository, ResourceBuilder resourceBuilder, GetMenteeProfileByIdQuery getMenteeProfileByIdQuery, UpdateMenteeProfileCommand updateMenteeProfileCommand, CreateMenteeProfileCommand createMenteeProfileCommand, DeleteMenteeProfileCommand deleteMenteeProfileCommand) {
         this.menteeProfileRepository = menteeProfileRepository;
         this.resourceBuilder = resourceBuilder;
         this.getMenteeProfileByIdQuery = getMenteeProfileByIdQuery;
         this.updateMenteeProfileCommand = updateMenteeProfileCommand;
         this.createMenteeProfileCommand = createMenteeProfileCommand;
+        this.deleteMenteeProfileCommand = deleteMenteeProfileCommand;
     }
 
     @GetMapping
@@ -70,10 +72,7 @@ public class MenteeProfileController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
-        if (!menteeProfileRepository.exists(id)) {
-            throw new ProfileNotFoundException(id);
-        }
-        menteeProfileRepository.delete(id);
+        deleteMenteeProfileCommand.run(id);
 
         return noContent().build();
     }

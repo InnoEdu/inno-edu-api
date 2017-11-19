@@ -3,6 +3,7 @@ package inno.edu.api.controllers;
 import inno.edu.api.controllers.resources.AppointmentResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.appointment.commands.CreateAppointmentCommand;
+import inno.edu.api.domain.appointment.commands.DeleteAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentStatusCommand;
 import inno.edu.api.domain.appointment.exceptions.AppointmentNotFoundException;
@@ -53,6 +54,9 @@ public class AppointmentControllerTest {
 
     @Mock
     private UpdateAppointmentCommand updateAppointmentCommand;
+
+    @Mock
+    private DeleteAppointmentCommand deleteAppointmentCommand;
 
     @Mock
     private GetAppointmentsByMentorIdQuery getAppointmentsByMentorIdQuery;
@@ -153,11 +157,9 @@ public class AppointmentControllerTest {
 
     @Test
     public void shouldDeleteAppointment() {
-        when(appointmentRepository.exists(appointment().getId())).thenReturn(true);
-
         appointmentController.delete(appointment().getId());
 
-        verify(appointmentRepository).delete(appointment().getId());
+        verify(deleteAppointmentCommand).run(appointment().getId());
     }
 
     @Test

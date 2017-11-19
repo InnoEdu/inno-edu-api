@@ -3,9 +3,9 @@ package inno.edu.api.controllers;
 import inno.edu.api.controllers.resources.MentorProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.profile.commands.CreateMentorProfileCommand;
+import inno.edu.api.domain.profile.commands.DeleteMentorProfileCommand;
 import inno.edu.api.domain.profile.commands.UpdateMentorProfileCommand;
 import inno.edu.api.domain.profile.commands.UpdateMentorProfileStatusCommand;
-import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
 import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.profile.models.ProfileStatus;
 import inno.edu.api.domain.profile.queries.GetMentorProfileByIdQuery;
@@ -37,16 +37,18 @@ public class MentorProfileController {
 
     private final UpdateMentorProfileCommand updateMentorProfileCommand;
     private final CreateMentorProfileCommand createMentorProfileCommand;
+    private final DeleteMentorProfileCommand deleteMentorProfileCommand;
 
     private final UpdateMentorProfileStatusCommand updateMentorProfileStatusCommand;
 
     @Autowired
-    public MentorProfileController(MentorProfileRepository mentorProfileRepository, ResourceBuilder resourceBuilder, GetMentorProfileByIdQuery getMentorProfileByIdQuery, UpdateMentorProfileCommand updateMentorProfileCommand, CreateMentorProfileCommand createMentorProfileCommand, UpdateMentorProfileStatusCommand updateMentorProfileStatusCommand) {
+    public MentorProfileController(MentorProfileRepository mentorProfileRepository, ResourceBuilder resourceBuilder, GetMentorProfileByIdQuery getMentorProfileByIdQuery, UpdateMentorProfileCommand updateMentorProfileCommand, CreateMentorProfileCommand createMentorProfileCommand, DeleteMentorProfileCommand deleteMentorProfileCommand, UpdateMentorProfileStatusCommand updateMentorProfileStatusCommand) {
         this.mentorProfileRepository = mentorProfileRepository;
         this.resourceBuilder = resourceBuilder;
         this.getMentorProfileByIdQuery = getMentorProfileByIdQuery;
         this.updateMentorProfileCommand = updateMentorProfileCommand;
         this.createMentorProfileCommand = createMentorProfileCommand;
+        this.deleteMentorProfileCommand = deleteMentorProfileCommand;
         this.updateMentorProfileStatusCommand = updateMentorProfileStatusCommand;
     }
 
@@ -87,11 +89,7 @@ public class MentorProfileController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
-        if (!mentorProfileRepository.exists(id)) {
-            throw new ProfileNotFoundException(id);
-        }
-        mentorProfileRepository.delete(id);
-
+        deleteMentorProfileCommand.run(id);
         return noContent().build();
     }
 }

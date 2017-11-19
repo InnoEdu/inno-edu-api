@@ -3,6 +3,7 @@ package inno.edu.api.controllers;
 import inno.edu.api.controllers.resources.AvailabilityResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.availability.commands.CreateAvailabilityCommand;
+import inno.edu.api.domain.availability.commands.DeleteAvailabilityCommand;
 import inno.edu.api.domain.availability.commands.UpdateAvailabilityCommand;
 import inno.edu.api.domain.availability.exceptions.AvailabilityNotFoundException;
 import inno.edu.api.domain.availability.models.Availability;
@@ -41,6 +42,9 @@ public class AvailabilityControllerTest {
 
     @Mock
     private UpdateAvailabilityCommand updateAvailabilityCommand;
+
+    @Mock
+    private DeleteAvailabilityCommand deleteAvailabilityCommand;
 
     @InjectMocks
     private AvailabilityController availabilityController;
@@ -95,11 +99,9 @@ public class AvailabilityControllerTest {
     }
 
     @Test
-    public void shouldUDeleteAvailability() {
-        when(availabilityRepository.exists(availability().getId())).thenReturn(true);
-
+    public void shouldDeleteAvailability() {
         availabilityController.delete(availability().getId());
 
-        verify(availabilityRepository).delete(availability().getId());
+        verify(deleteAvailabilityCommand).run(availability().getId());
     }
 }

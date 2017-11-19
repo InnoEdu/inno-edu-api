@@ -4,6 +4,7 @@ import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.SchoolResource;
 import inno.edu.api.domain.profile.queries.GetMentorProfilesBySchoolIdQuery;
 import inno.edu.api.domain.school.commands.CreateSchoolCommand;
+import inno.edu.api.domain.school.commands.DeleteSchoolCommand;
 import inno.edu.api.domain.school.commands.UpdateSchoolCommand;
 import inno.edu.api.domain.school.models.School;
 import inno.edu.api.domain.school.queries.GetSchoolByIdQuery;
@@ -43,6 +44,9 @@ public class SchoolControllerTest {
 
     @Mock
     private UpdateSchoolCommand updateSchoolCommand;
+
+    @Mock
+    private DeleteSchoolCommand deleteSchoolCommand;
 
     @Mock
     private GetMentorProfilesBySchoolIdQuery getMentorProfilesBySchoolIdQuery;
@@ -106,11 +110,9 @@ public class SchoolControllerTest {
     }
 
     @Test
-    public void shouldUDeleteSchool() {
-        when(schoolRepository.exists(stanford().getId())).thenReturn(true);
-
+    public void shouldDeleteSchool() {
         schoolController.delete(stanford().getId());
 
-        verify(schoolRepository).delete(stanford().getId());
+        verify(deleteSchoolCommand).run(stanford().getId());
     }
 }

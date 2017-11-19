@@ -3,6 +3,7 @@ package inno.edu.api.controllers;
 import inno.edu.api.controllers.resources.AppointmentResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.appointment.commands.CreateAppointmentCommand;
+import inno.edu.api.domain.appointment.commands.DeleteAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentStatusCommand;
 import inno.edu.api.domain.appointment.exceptions.AppointmentNotFoundException;
@@ -43,17 +44,19 @@ public class AppointmentController {
 
     private final CreateAppointmentCommand createAppointmentCommand;
     private final UpdateAppointmentCommand updateAppointmentCommand;
+    private final DeleteAppointmentCommand deleteAppointmentCommand;
 
     private final GetAppointmentsByMentorIdQuery getAppointmentsByMentorIdQuery;
     private final GetAppointmentsByMenteeIdQuery getAppointmentsByMenteeIdQuery;
 
     private final UpdateAppointmentStatusCommand updateAppointmentStatusCommand;
 
-    public AppointmentController(AppointmentRepository appointmentRepository, ResourceBuilder resourceBuilder, CreateAppointmentCommand createAppointmentCommand, UpdateAppointmentCommand updateAppointmentCommand, GetAppointmentsByMentorIdQuery getAppointmentsByMentorIdQuery, GetAppointmentsByMenteeIdQuery getAppointmentsByMenteeIdQuery, UpdateAppointmentStatusCommand updateAppointmentStatusCommand) {
+    public AppointmentController(AppointmentRepository appointmentRepository, ResourceBuilder resourceBuilder, CreateAppointmentCommand createAppointmentCommand, UpdateAppointmentCommand updateAppointmentCommand, DeleteAppointmentCommand deleteAppointmentCommand, GetAppointmentsByMentorIdQuery getAppointmentsByMentorIdQuery, GetAppointmentsByMenteeIdQuery getAppointmentsByMenteeIdQuery, UpdateAppointmentStatusCommand updateAppointmentStatusCommand) {
         this.appointmentRepository = appointmentRepository;
         this.resourceBuilder = resourceBuilder;
         this.createAppointmentCommand = createAppointmentCommand;
         this.updateAppointmentCommand = updateAppointmentCommand;
+        this.deleteAppointmentCommand = deleteAppointmentCommand;
         this.getAppointmentsByMentorIdQuery = getAppointmentsByMentorIdQuery;
         this.getAppointmentsByMenteeIdQuery = getAppointmentsByMenteeIdQuery;
         this.updateAppointmentStatusCommand = updateAppointmentStatusCommand;
@@ -117,11 +120,7 @@ public class AppointmentController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
-        if (!appointmentRepository.exists(id)) {
-            throw new AppointmentNotFoundException(id);
-        }
-        appointmentRepository.delete(id);
-
+        deleteAppointmentCommand.run(id);
         return noContent().build();
     }
 }

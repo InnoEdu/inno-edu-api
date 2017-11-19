@@ -3,6 +3,7 @@ package inno.edu.api.controllers;
 import inno.edu.api.controllers.resources.AvailabilityResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.availability.commands.CreateAvailabilityCommand;
+import inno.edu.api.domain.availability.commands.DeleteAvailabilityCommand;
 import inno.edu.api.domain.availability.commands.UpdateAvailabilityCommand;
 import inno.edu.api.domain.availability.exceptions.AvailabilityNotFoundException;
 import inno.edu.api.domain.availability.models.Availability;
@@ -32,12 +33,14 @@ public class AvailabilityController {
     private final ResourceBuilder resourceBuilder;
     private final CreateAvailabilityCommand createAvailabilityCommand;
     private final UpdateAvailabilityCommand updateAvailabilityCommand;
+    private final DeleteAvailabilityCommand deleteAvailabilityCommand;
 
-    public AvailabilityController(AvailabilityRepository availabilityRepository, ResourceBuilder resourceBuilder, CreateAvailabilityCommand createAvailabilityCommand, UpdateAvailabilityCommand updateAvailabilityCommand) {
+    public AvailabilityController(AvailabilityRepository availabilityRepository, ResourceBuilder resourceBuilder, CreateAvailabilityCommand createAvailabilityCommand, UpdateAvailabilityCommand updateAvailabilityCommand, DeleteAvailabilityCommand deleteAvailabilityCommand) {
         this.availabilityRepository = availabilityRepository;
         this.resourceBuilder = resourceBuilder;
         this.createAvailabilityCommand = createAvailabilityCommand;
         this.updateAvailabilityCommand = updateAvailabilityCommand;
+        this.deleteAvailabilityCommand = deleteAvailabilityCommand;
     }
 
     @GetMapping
@@ -66,11 +69,7 @@ public class AvailabilityController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
-        if (!availabilityRepository.exists(id)) {
-            throw new AvailabilityNotFoundException(id);
-        }
-        availabilityRepository.delete(id);
-
+        deleteAvailabilityCommand.run(id);
         return noContent().build();
     }
 }

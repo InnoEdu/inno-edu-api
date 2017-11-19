@@ -7,6 +7,7 @@ import inno.edu.api.domain.profile.models.ProfileStatus;
 import inno.edu.api.domain.profile.queries.GetMenteeProfileByUserIdQuery;
 import inno.edu.api.domain.profile.queries.GetMentorActiveProfileByUserIdQuery;
 import inno.edu.api.domain.user.commands.CreateUserCommand;
+import inno.edu.api.domain.user.commands.DeleteUserCommand;
 import inno.edu.api.domain.user.commands.LoginCommand;
 import inno.edu.api.domain.user.commands.UpdateUserCommand;
 import inno.edu.api.domain.user.models.User;
@@ -62,6 +63,9 @@ public class UserControllerTest {
 
     @Mock
     private UpdateUserCommand updateUserCommand;
+
+    @Mock
+    private DeleteUserCommand deleteUserCommand;
 
     @Mock
     private UpdateMentorProfileStatusByUserCommand updateMentorProfileStatusByUserCommand;
@@ -141,12 +145,10 @@ public class UserControllerTest {
     }
 
     @Test
-    public void shouldUDeleteUser() {
-        when(userRepository.exists(fei().getId())).thenReturn(true);
-
+    public void shouldDeleteUser() {
         userController.delete(fei().getId());
 
-        verify(userRepository).delete(fei().getId());
+        verify(deleteUserCommand).run(fei().getId());
     }
 
     @Test

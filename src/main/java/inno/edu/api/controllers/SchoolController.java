@@ -5,8 +5,8 @@ import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.SchoolResource;
 import inno.edu.api.domain.profile.queries.GetMentorProfilesBySchoolIdQuery;
 import inno.edu.api.domain.school.commands.CreateSchoolCommand;
+import inno.edu.api.domain.school.commands.DeleteSchoolCommand;
 import inno.edu.api.domain.school.commands.UpdateSchoolCommand;
-import inno.edu.api.domain.school.exceptions.SchoolNotFoundException;
 import inno.edu.api.domain.school.models.School;
 import inno.edu.api.domain.school.queries.GetSchoolByIdQuery;
 import inno.edu.api.domain.school.repositories.SchoolRepository;
@@ -34,6 +34,7 @@ public class SchoolController {
 
     private final CreateSchoolCommand createSchoolCommand;
     private final UpdateSchoolCommand updateSchoolCommand;
+    private final DeleteSchoolCommand deleteSchoolCommand;
 
     private final GetSchoolByIdQuery getSchoolByIdQuery;
     private final GetMentorProfilesBySchoolIdQuery getMentorProfilesBySchoolIdQuery;
@@ -41,10 +42,11 @@ public class SchoolController {
     private final ResourceBuilder resourceBuilder;
 
     @Autowired
-    public SchoolController(SchoolRepository schoolRepository, CreateSchoolCommand createSchoolCommand, UpdateSchoolCommand updateSchoolCommand, GetSchoolByIdQuery getSchoolByIdQuery, GetMentorProfilesBySchoolIdQuery getMentorProfilesBySchoolIdQuery, ResourceBuilder resourceBuilder) {
+    public SchoolController(SchoolRepository schoolRepository, CreateSchoolCommand createSchoolCommand, UpdateSchoolCommand updateSchoolCommand, DeleteSchoolCommand deleteSchoolCommand, GetSchoolByIdQuery getSchoolByIdQuery, GetMentorProfilesBySchoolIdQuery getMentorProfilesBySchoolIdQuery, ResourceBuilder resourceBuilder) {
         this.schoolRepository = schoolRepository;
         this.createSchoolCommand = createSchoolCommand;
         this.updateSchoolCommand = updateSchoolCommand;
+        this.deleteSchoolCommand = deleteSchoolCommand;
         this.getSchoolByIdQuery = getSchoolByIdQuery;
         this.getMentorProfilesBySchoolIdQuery = getMentorProfilesBySchoolIdQuery;
         this.resourceBuilder = resourceBuilder;
@@ -80,11 +82,7 @@ public class SchoolController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
-        if (!schoolRepository.exists(id)) {
-            throw new SchoolNotFoundException(id);
-        }
-        schoolRepository.delete(id);
-
+        deleteSchoolCommand.run(id);
         return noContent().build();
     }
 }

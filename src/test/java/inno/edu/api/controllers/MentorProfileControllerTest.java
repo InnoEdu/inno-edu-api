@@ -3,6 +3,7 @@ package inno.edu.api.controllers;
 import inno.edu.api.controllers.resources.MentorProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.profile.commands.CreateMentorProfileCommand;
+import inno.edu.api.domain.profile.commands.DeleteMentorProfileCommand;
 import inno.edu.api.domain.profile.commands.UpdateMentorProfileCommand;
 import inno.edu.api.domain.profile.commands.UpdateMentorProfileStatusCommand;
 import inno.edu.api.domain.profile.models.MentorProfile;
@@ -46,6 +47,9 @@ public class MentorProfileControllerTest {
 
     @Mock
     private UpdateMentorProfileCommand updateMentorProfileCommand;
+
+    @Mock
+    private DeleteMentorProfileCommand deleteMentorProfileCommand;
 
     @Mock
     private UpdateMentorProfileStatusCommand updateMentorProfileStatusCommand;
@@ -97,11 +101,9 @@ public class MentorProfileControllerTest {
 
     @Test
     public void shouldDeleteProfile() {
-        when(mentorProfileRepository.exists(feiProfile().getId())).thenReturn(true);
-
         mentorProfileController.delete(feiProfile().getId());
 
-        verify(mentorProfileRepository).delete(feiProfile().getId());
+        verify(deleteMentorProfileCommand).run(feiProfile().getId());
     }
 
     @Test

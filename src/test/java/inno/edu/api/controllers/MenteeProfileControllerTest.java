@@ -3,6 +3,7 @@ package inno.edu.api.controllers;
 import inno.edu.api.controllers.resources.MenteeProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.profile.commands.CreateMenteeProfileCommand;
+import inno.edu.api.domain.profile.commands.DeleteMenteeProfileCommand;
 import inno.edu.api.domain.profile.commands.UpdateMenteeProfileCommand;
 import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.profile.queries.GetMenteeProfileByIdQuery;
@@ -44,6 +45,9 @@ public class MenteeProfileControllerTest {
 
     @Mock
     private UpdateMenteeProfileCommand updateMenteeProfileCommand;
+
+    @Mock
+    private DeleteMenteeProfileCommand deleteMenteeProfileCommand;
 
     @InjectMocks
     private MenteeProfileController menteeProfileController;
@@ -92,10 +96,8 @@ public class MenteeProfileControllerTest {
 
     @Test
     public void shouldDeleteUser() {
-        when(menteeProfileRepository.exists(alanProfile().getId())).thenReturn(true);
-
         menteeProfileController.delete(alanProfile().getId());
 
-        verify(menteeProfileRepository).delete(alanProfile().getId());
+        verify(deleteMenteeProfileCommand).run(alanProfile().getId());
     }
 }

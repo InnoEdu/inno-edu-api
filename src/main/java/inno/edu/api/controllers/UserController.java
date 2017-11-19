@@ -9,9 +9,9 @@ import inno.edu.api.domain.profile.models.ProfileStatus;
 import inno.edu.api.domain.profile.queries.GetMenteeProfileByUserIdQuery;
 import inno.edu.api.domain.profile.queries.GetMentorActiveProfileByUserIdQuery;
 import inno.edu.api.domain.user.commands.CreateUserCommand;
+import inno.edu.api.domain.user.commands.DeleteUserCommand;
 import inno.edu.api.domain.user.commands.LoginCommand;
 import inno.edu.api.domain.user.commands.UpdateUserCommand;
-import inno.edu.api.domain.user.exceptions.UserNotFoundException;
 import inno.edu.api.domain.user.models.Login;
 import inno.edu.api.domain.user.models.User;
 import inno.edu.api.domain.user.queries.GetUserByIdQuery;
@@ -46,12 +46,13 @@ public class UserController {
     private final LoginCommand loginCommand;
     private final CreateUserCommand createUserCommand;
     private final UpdateUserCommand updateUserCommand;
+    private final DeleteUserCommand deleteUserCommand;
 
     private final ResourceBuilder resourceBuilder;
     private final UpdateMentorProfileStatusByUserCommand updateMentorProfileStatusByUserCommand;
 
     @Autowired
-    public UserController(UserRepository userRepository, GetMentorActiveProfileByUserIdQuery getMentorActiveProfileByUserIdQuery, GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery, GetUserByIdQuery getUserByIdQuery, LoginCommand loginCommand, CreateUserCommand createUserCommand, UpdateUserCommand updateUserCommand, ResourceBuilder resourceBuilder, UpdateMentorProfileStatusByUserCommand updateMentorProfileStatusByUserCommand) {
+    public UserController(UserRepository userRepository, GetMentorActiveProfileByUserIdQuery getMentorActiveProfileByUserIdQuery, GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery, GetUserByIdQuery getUserByIdQuery, LoginCommand loginCommand, CreateUserCommand createUserCommand, UpdateUserCommand updateUserCommand, DeleteUserCommand deleteUserCommand, ResourceBuilder resourceBuilder, UpdateMentorProfileStatusByUserCommand updateMentorProfileStatusByUserCommand) {
         this.userRepository = userRepository;
         this.getMentorActiveProfileByUserIdQuery = getMentorActiveProfileByUserIdQuery;
         this.getMenteeProfileByUserIdQuery = getMenteeProfileByUserIdQuery;
@@ -59,6 +60,7 @@ public class UserController {
         this.loginCommand = loginCommand;
         this.createUserCommand = createUserCommand;
         this.updateUserCommand = updateUserCommand;
+        this.deleteUserCommand = deleteUserCommand;
         this.resourceBuilder = resourceBuilder;
         this.updateMentorProfileStatusByUserCommand = updateMentorProfileStatusByUserCommand;
     }
@@ -101,11 +103,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
-        if (!userRepository.exists(id)) {
-            throw new UserNotFoundException(id);
-        }
-        userRepository.delete(id);
-
+        deleteUserCommand.run(id);
         return noContent().build();
     }
 
