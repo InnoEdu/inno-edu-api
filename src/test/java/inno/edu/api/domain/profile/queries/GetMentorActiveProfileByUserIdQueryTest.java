@@ -2,7 +2,6 @@ package inno.edu.api.domain.profile.queries;
 
 import inno.edu.api.domain.profile.exceptions.UserProfileNotFoundException;
 import inno.edu.api.domain.profile.models.MentorProfile;
-import inno.edu.api.domain.profile.queries.GetMentorActiveProfileByUserIdQuery;
 import inno.edu.api.domain.profile.repositories.MentorProfileRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,8 +10,8 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static inno.edu.api.domain.profile.models.ProfileStatus.ACTIVE;
+import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static inno.edu.api.support.UserFactory.fei;
-import static inno.edu.api.support.UserFactory.feiProfile;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;

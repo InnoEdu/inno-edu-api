@@ -15,7 +15,7 @@ import java.util.List;
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.support.AppointmentFactory.appointments;
 import static inno.edu.api.support.UserFactory.fei;
-import static inno.edu.api.support.UserFactory.feiProfile;
+import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;

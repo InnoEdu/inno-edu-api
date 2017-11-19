@@ -10,8 +10,8 @@ import static com.google.common.collect.Lists.newArrayList;
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.ACCEPTED;
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.DECLINED;
-import static inno.edu.api.support.UserFactory.alanProfile;
-import static inno.edu.api.support.UserFactory.feiProfile;
+import static inno.edu.api.support.ProfileFactory.alanProfile;
+import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static java.util.UUID.fromString;
 
 public class AppointmentFactory {

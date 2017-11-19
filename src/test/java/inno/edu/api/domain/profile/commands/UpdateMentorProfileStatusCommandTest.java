@@ -10,7 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static inno.edu.api.support.UserFactory.feiProfile;
+import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 

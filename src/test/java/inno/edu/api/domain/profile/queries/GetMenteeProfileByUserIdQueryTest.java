@@ -2,7 +2,6 @@ package inno.edu.api.domain.profile.queries;
 
 import inno.edu.api.domain.profile.exceptions.UserProfileNotFoundException;
 import inno.edu.api.domain.profile.models.MenteeProfile;
-import inno.edu.api.domain.profile.queries.GetMenteeProfileByUserIdQuery;
 import inno.edu.api.domain.profile.repositories.MenteeProfileRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,8 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static inno.edu.api.support.ProfileFactory.alanProfile;
 import static inno.edu.api.support.UserFactory.alan;
-import static inno.edu.api.support.UserFactory.alanProfile;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;

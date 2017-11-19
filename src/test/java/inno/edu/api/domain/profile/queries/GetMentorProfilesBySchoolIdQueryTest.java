@@ -1,10 +1,9 @@
 package inno.edu.api.domain.profile.queries;
 
-import inno.edu.api.domain.profile.queries.GetMentorProfilesBySchoolIdQuery;
-import inno.edu.api.domain.school.exceptions.SchoolNotFoundException;
-import inno.edu.api.domain.school.repositories.SchoolRepository;
 import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.profile.repositories.MentorProfileRepository;
+import inno.edu.api.domain.school.exceptions.SchoolNotFoundException;
+import inno.edu.api.domain.school.repositories.SchoolRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -14,8 +13,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.List;
 
 import static inno.edu.api.domain.profile.models.ProfileStatus.ACTIVE;
+import static inno.edu.api.support.ProfileFactory.mentorProfiles;
 import static inno.edu.api.support.SchoolFactory.stanford;
-import static inno.edu.api.support.UserFactory.mentorProfiles;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;

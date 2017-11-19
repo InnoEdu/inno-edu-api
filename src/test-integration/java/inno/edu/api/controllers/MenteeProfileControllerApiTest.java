@@ -6,9 +6,9 @@ import org.springframework.http.MediaType;
 
 import static inno.edu.api.support.Payloads.postMenteeProfilePayload;
 import static inno.edu.api.support.Payloads.putMenteeProfilePayload;
-import static inno.edu.api.support.UserFactory.alanProfile;
-import static inno.edu.api.support.UserFactory.tuanyProfile;
-import static inno.edu.api.support.UserFactory.updatedAlanProfile;
+import static inno.edu.api.support.ProfileFactory.alanProfile;
+import static inno.edu.api.support.ProfileFactory.tuanyProfile;
+import static inno.edu.api.support.ProfileFactory.updatedAlanProfile;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;

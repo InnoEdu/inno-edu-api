@@ -20,7 +20,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static inno.edu.api.support.SchoolFactory.schools;
 import static inno.edu.api.support.SchoolFactory.stanford;
-import static inno.edu.api.support.UserFactory.mentorProfiles;
+import static inno.edu.api.support.ProfileFactory.mentorProfiles;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentCaptor.forClass;

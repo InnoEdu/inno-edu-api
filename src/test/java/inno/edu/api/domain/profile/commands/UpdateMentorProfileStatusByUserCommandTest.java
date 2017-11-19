@@ -16,7 +16,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import static inno.edu.api.domain.profile.models.ProfileStatus.CREATED;
 import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.fei;
-import static inno.edu.api.support.UserFactory.feiProfile;
+import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 

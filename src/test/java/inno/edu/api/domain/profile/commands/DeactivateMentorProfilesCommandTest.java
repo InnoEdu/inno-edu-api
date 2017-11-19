@@ -11,8 +11,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import static inno.edu.api.domain.profile.models.ProfileStatus.INACTIVE;
 import static inno.edu.api.support.UserFactory.fei;
-import static inno.edu.api.support.UserFactory.feiProfile;
-import static inno.edu.api.support.UserFactory.mentorProfiles;
+import static inno.edu.api.support.ProfileFactory.feiProfile;
+import static inno.edu.api.support.ProfileFactory.mentorProfiles;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
