@@ -32,5 +32,4 @@ public class SchoolExistsAssertionTest {
 
         schoolExistsAssertion.run(stanford().getId());
     }
-
 }
