@@ -1,27 +1,25 @@
 package inno.edu.api.domain.availability.commands;
 
-import inno.edu.api.domain.availability.exceptions.AvailabilityNotFoundException;
 import inno.edu.api.domain.availability.models.Availability;
+import inno.edu.api.domain.availability.queries.GetAvailabilityByIdQuery;
 import inno.edu.api.domain.availability.repositories.AvailabilityRepository;
 import inno.edu.api.infrastructure.annotations.Command;
 
 import java.util.UUID;
 
-import static java.util.Optional.ofNullable;
-
 @Command
 public class UpdateAvailabilityCommand {
+    private final GetAvailabilityByIdQuery getAvailabilityByIdQuery;
     private final AvailabilityRepository availabilityRepository;
 
-    public UpdateAvailabilityCommand(AvailabilityRepository availabilityRepository) {
+    public UpdateAvailabilityCommand(GetAvailabilityByIdQuery getAvailabilityByIdQuery, AvailabilityRepository availabilityRepository) {
+        this.getAvailabilityByIdQuery = getAvailabilityByIdQuery;
         this.availabilityRepository = availabilityRepository;
     }
 
     public Availability run(UUID id, Availability availability) {
-        Availability currentAvailability = ofNullable(availabilityRepository.findOne(id))
-                .orElseThrow(() -> new AvailabilityNotFoundException(id));
+        Availability currentAvailability = getAvailabilityByIdQuery.run(id);
 
-        currentAvailability.setId(id);
         currentAvailability.setFromDateTime(availability.getFromDateTime());
         currentAvailability.setToDateTime(availability.getToDateTime());
 

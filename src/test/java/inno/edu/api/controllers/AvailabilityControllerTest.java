@@ -5,8 +5,8 @@ import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.availability.commands.CreateAvailabilityCommand;
 import inno.edu.api.domain.availability.commands.DeleteAvailabilityCommand;
 import inno.edu.api.domain.availability.commands.UpdateAvailabilityCommand;
-import inno.edu.api.domain.availability.exceptions.AvailabilityNotFoundException;
 import inno.edu.api.domain.availability.models.Availability;
+import inno.edu.api.domain.availability.queries.GetAvailabilityByIdQuery;
 import inno.edu.api.domain.availability.repositories.AvailabilityRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,6 +46,9 @@ public class AvailabilityControllerTest {
     @Mock
     private DeleteAvailabilityCommand deleteAvailabilityCommand;
 
+    @Mock
+    private GetAvailabilityByIdQuery getAvailabilityByIdQuery;
+
     @InjectMocks
     private AvailabilityController availabilityController;
 
@@ -56,18 +59,11 @@ public class AvailabilityControllerTest {
 
     @Test
     public void shouldGetAvailabilityUsingId() {
-        when(availabilityRepository.findOne(eq(availability().getId()))).thenReturn(availability());
+        when(getAvailabilityByIdQuery.run(eq(availability().getId()))).thenReturn(availability());
 
         AvailabilityResource availabilityResource = availabilityController.get(availability().getId());
 
         assertThat(availabilityResource.getAvailability(), is(availability()));
-    }
-
-    @Test(expected = AvailabilityNotFoundException.class)
-    public void shouldRaiseExceptionIfAvailabilityNotFound() {
-        when(availabilityRepository.findOne(any())).thenReturn(null);
-
-        availabilityController.get(availability().getId());
     }
 
     @Test

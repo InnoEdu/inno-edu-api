@@ -5,8 +5,8 @@ import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.availability.commands.CreateAvailabilityCommand;
 import inno.edu.api.domain.availability.commands.DeleteAvailabilityCommand;
 import inno.edu.api.domain.availability.commands.UpdateAvailabilityCommand;
-import inno.edu.api.domain.availability.exceptions.AvailabilityNotFoundException;
 import inno.edu.api.domain.availability.models.Availability;
+import inno.edu.api.domain.availability.queries.GetAvailabilityByIdQuery;
 import inno.edu.api.domain.availability.repositories.AvailabilityRepository;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
 import java.util.UUID;
 
-import static java.util.Optional.ofNullable;
 import static org.springframework.http.ResponseEntity.noContent;
 
 @RestController
@@ -31,16 +29,20 @@ public class AvailabilityController {
     private final AvailabilityRepository availabilityRepository;
 
     private final ResourceBuilder resourceBuilder;
+
     private final CreateAvailabilityCommand createAvailabilityCommand;
     private final UpdateAvailabilityCommand updateAvailabilityCommand;
     private final DeleteAvailabilityCommand deleteAvailabilityCommand;
 
-    public AvailabilityController(AvailabilityRepository availabilityRepository, ResourceBuilder resourceBuilder, CreateAvailabilityCommand createAvailabilityCommand, UpdateAvailabilityCommand updateAvailabilityCommand, DeleteAvailabilityCommand deleteAvailabilityCommand) {
+    private final GetAvailabilityByIdQuery getAvailabilityByIdQuery;
+
+    public AvailabilityController(AvailabilityRepository availabilityRepository, ResourceBuilder resourceBuilder, CreateAvailabilityCommand createAvailabilityCommand, UpdateAvailabilityCommand updateAvailabilityCommand, DeleteAvailabilityCommand deleteAvailabilityCommand, GetAvailabilityByIdQuery getAvailabilityByIdQuery) {
         this.availabilityRepository = availabilityRepository;
         this.resourceBuilder = resourceBuilder;
         this.createAvailabilityCommand = createAvailabilityCommand;
         this.updateAvailabilityCommand = updateAvailabilityCommand;
         this.deleteAvailabilityCommand = deleteAvailabilityCommand;
+        this.getAvailabilityByIdQuery = getAvailabilityByIdQuery;
     }
 
     @GetMapping
@@ -51,8 +53,7 @@ public class AvailabilityController {
 
     @GetMapping("/{id}")
     public AvailabilityResource get(@PathVariable UUID id) {
-        Optional<Availability> availability = ofNullable(availabilityRepository.findOne(id));
-        return new AvailabilityResource(availability.orElseThrow(() -> new AvailabilityNotFoundException(id)));
+        return new AvailabilityResource(getAvailabilityByIdQuery.run(id));
     }
 
     @PostMapping
