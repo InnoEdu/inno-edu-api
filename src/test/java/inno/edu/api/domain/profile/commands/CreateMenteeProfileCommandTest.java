@@ -3,6 +3,7 @@ package inno.edu.api.domain.profile.commands;
 import inno.edu.api.domain.profile.exceptions.MenteeProfileAlreadyCreatedException;
 import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.profile.repositories.MenteeProfileRepository;
+import inno.edu.api.domain.user.assertions.UserExistsAssertion;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -15,10 +16,14 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentCaptor.forClass;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CreateMenteeProfileCommandTest {
+    @Mock
+    private UserExistsAssertion userExistsAssertion;
+
     @Mock
     private MenteeProfileRepository menteeProfileRepository;
 
@@ -53,5 +58,12 @@ public class CreateMenteeProfileCommandTest {
         when(menteeProfileRepository.existsByMenteeId(alanProfile().getMenteeId())).thenReturn(true);
 
         createMenteeProfileCommand.run(alanProfile());
+    }
+
+    @Test
+    public void shouldRunAllAssertions() {
+        createMenteeProfileCommand.run(alanProfile());
+
+        verify(userExistsAssertion).run(alanProfile().getMenteeId());
     }
 }

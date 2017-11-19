@@ -2,6 +2,8 @@ package inno.edu.api.domain.profile.commands;
 
 import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.profile.repositories.MentorProfileRepository;
+import inno.edu.api.domain.school.assertions.SchoolExistsAssertion;
+import inno.edu.api.domain.user.assertions.UserExistsAssertion;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -20,6 +22,12 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CreateMentorProfileCommandTest {
+    @Mock
+    private UserExistsAssertion userExistsAssertion;
+
+    @Mock
+    private SchoolExistsAssertion schoolExistsAssertion;
+
     @Mock
     private MentorProfileRepository mentorProfileRepository;
 
@@ -68,5 +76,14 @@ public class CreateMentorProfileCommandTest {
         createMentorProfileCommand.run(feiProfile());
 
         verify(deactivateMentorProfilesCommand).run(feiProfile().getMentorId());
+    }
+
+    @Test
+    public void shouldRunAllAssertions() {
+        createMentorProfileCommand.run(feiProfile());
+
+        verify(userExistsAssertion).run(feiProfile().getMentorId());
+        verify(schoolExistsAssertion).run(feiProfile().getSchoolId());
+
     }
 }
