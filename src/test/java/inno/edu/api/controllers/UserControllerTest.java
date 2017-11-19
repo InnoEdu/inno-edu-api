@@ -4,13 +4,13 @@ import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.UserResource;
 import inno.edu.api.domain.profile.commands.UpdateMentorProfileStatusByUserCommand;
 import inno.edu.api.domain.profile.models.ProfileStatus;
+import inno.edu.api.domain.profile.queries.GetMenteeProfileByUserIdQuery;
+import inno.edu.api.domain.profile.queries.GetMentorActiveProfileByUserIdQuery;
 import inno.edu.api.domain.user.commands.CreateUserCommand;
 import inno.edu.api.domain.user.commands.LoginCommand;
 import inno.edu.api.domain.user.commands.UpdateUserCommand;
-import inno.edu.api.domain.user.exceptions.UserNotFoundException;
 import inno.edu.api.domain.user.models.User;
-import inno.edu.api.domain.profile.queries.GetMenteeProfileByUserIdQuery;
-import inno.edu.api.domain.profile.queries.GetMentorActiveProfileByUserIdQuery;
+import inno.edu.api.domain.user.queries.GetUserByIdQuery;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,6 +46,9 @@ public class UserControllerTest {
     private UserRepository userRepository;
 
     @Mock
+    private GetUserByIdQuery getUserByIdQuery;
+
+    @Mock
     private GetMentorActiveProfileByUserIdQuery getMentorActiveProfileByUserIdQuery;
 
     @Mock
@@ -73,7 +76,7 @@ public class UserControllerTest {
 
     @Test
     public void shouldGetUserById() {
-        when(userRepository.findOne(eq(fei().getId()))).thenReturn(fei());
+        when(getUserByIdQuery.run(eq(fei().getId()))).thenReturn(fei());
 
         UserResource userResource = userController.get(fei().getId());
 
@@ -98,13 +101,6 @@ public class UserControllerTest {
         userController.getProfile(alan().getId());
 
         verify(getMenteeProfileByUserIdQuery).run(alan().getId());
-    }
-
-    @Test(expected = UserNotFoundException.class)
-    public void shouldRaiseExceptionIfUserNotFound() {
-        when(userRepository.findOne(any())).thenReturn(null);
-
-        userController.get(fei().getId());
     }
 
     @Test
