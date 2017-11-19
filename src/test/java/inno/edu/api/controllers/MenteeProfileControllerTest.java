@@ -4,8 +4,8 @@ import inno.edu.api.controllers.resources.MenteeProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.profile.commands.CreateMenteeProfileCommand;
 import inno.edu.api.domain.profile.commands.UpdateMenteeProfileCommand;
-import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
 import inno.edu.api.domain.profile.models.MenteeProfile;
+import inno.edu.api.domain.profile.queries.GetMenteeProfileByIdQuery;
 import inno.edu.api.domain.profile.repositories.MenteeProfileRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,6 +34,9 @@ public class MenteeProfileControllerTest {
     private ResourceBuilder resourceBuilder;
 
     @Mock
+    private GetMenteeProfileByIdQuery getMenteeProfileByIdQuery;
+
+    @Mock
     private MenteeProfileRepository menteeProfileRepository;
 
     @Mock
@@ -52,18 +55,11 @@ public class MenteeProfileControllerTest {
 
     @Test
     public void shouldGetProfileById() {
-        when(menteeProfileRepository.findOne(eq(alanProfile().getId()))).thenReturn(alanProfile());
+        when(getMenteeProfileByIdQuery.run(eq(alanProfile().getId()))).thenReturn(alanProfile());
 
         MenteeProfileResource profileResource = menteeProfileController.get(alanProfile().getId());
 
         assertThat(profileResource.getMenteeProfile(), is(alanProfile()));
-    }
-
-    @Test(expected = ProfileNotFoundException.class)
-    public void shouldRaiseExceptionIfProfileNotFound() {
-        when(menteeProfileRepository.findOne(any())).thenReturn(null);
-
-        menteeProfileController.get(alanProfile().getId());
     }
 
     @Test

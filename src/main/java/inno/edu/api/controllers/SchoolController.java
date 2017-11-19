@@ -63,9 +63,6 @@ public class SchoolController {
 
     @GetMapping("/{id}/mentors")
     public Resources<MentorProfileResource> allMentorsProfile(@PathVariable UUID id) {
-        if (!schoolRepository.exists(id)) {
-            throw new SchoolNotFoundException(id);
-        }
         return resourceBuilder.from(getMentorProfilesBySchoolIdQuery.run(id), MentorProfileResource::new);
     }
 

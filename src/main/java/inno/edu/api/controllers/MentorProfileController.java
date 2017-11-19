@@ -2,12 +2,13 @@ package inno.edu.api.controllers;
 
 import inno.edu.api.controllers.resources.MentorProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
-import inno.edu.api.domain.profile.commands.UpdateMentorProfileStatusCommand;
 import inno.edu.api.domain.profile.commands.CreateMentorProfileCommand;
 import inno.edu.api.domain.profile.commands.UpdateMentorProfileCommand;
+import inno.edu.api.domain.profile.commands.UpdateMentorProfileStatusCommand;
 import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
 import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.profile.models.ProfileStatus;
+import inno.edu.api.domain.profile.queries.GetMentorProfileByIdQuery;
 import inno.edu.api.domain.profile.repositories.MentorProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
@@ -21,10 +22,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
 import java.util.UUID;
 
-import static java.util.Optional.ofNullable;
 import static org.springframework.http.ResponseEntity.noContent;
 
 @RestController
@@ -34,15 +33,18 @@ public class MentorProfileController {
     private final ResourceBuilder resourceBuilder;
     private final MentorProfileRepository mentorProfileRepository;
 
+    private final GetMentorProfileByIdQuery getMentorProfileByIdQuery;
+
     private final UpdateMentorProfileCommand updateMentorProfileCommand;
     private final CreateMentorProfileCommand createMentorProfileCommand;
 
     private final UpdateMentorProfileStatusCommand updateMentorProfileStatusCommand;
 
     @Autowired
-    public MentorProfileController(MentorProfileRepository mentorProfileRepository, ResourceBuilder resourceBuilder, UpdateMentorProfileCommand updateMentorProfileCommand, CreateMentorProfileCommand createMentorProfileCommand, UpdateMentorProfileStatusCommand updateMentorProfileStatusCommand) {
+    public MentorProfileController(MentorProfileRepository mentorProfileRepository, ResourceBuilder resourceBuilder, GetMentorProfileByIdQuery getMentorProfileByIdQuery, UpdateMentorProfileCommand updateMentorProfileCommand, CreateMentorProfileCommand createMentorProfileCommand, UpdateMentorProfileStatusCommand updateMentorProfileStatusCommand) {
         this.mentorProfileRepository = mentorProfileRepository;
         this.resourceBuilder = resourceBuilder;
+        this.getMentorProfileByIdQuery = getMentorProfileByIdQuery;
         this.updateMentorProfileCommand = updateMentorProfileCommand;
         this.createMentorProfileCommand = createMentorProfileCommand;
         this.updateMentorProfileStatusCommand = updateMentorProfileStatusCommand;
@@ -56,8 +58,7 @@ public class MentorProfileController {
 
     @GetMapping("/{id}")
     public MentorProfileResource get(@PathVariable UUID id) {
-        Optional<MentorProfile> profile = ofNullable(mentorProfileRepository.findOne(id));
-        return new MentorProfileResource(profile.orElseThrow(() -> new ProfileNotFoundException(id)));
+        return new MentorProfileResource(getMentorProfileByIdQuery.run(id));
     }
 
     @PostMapping

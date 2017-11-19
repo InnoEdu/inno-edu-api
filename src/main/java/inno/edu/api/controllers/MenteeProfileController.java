@@ -6,6 +6,7 @@ import inno.edu.api.domain.profile.commands.CreateMenteeProfileCommand;
 import inno.edu.api.domain.profile.commands.UpdateMenteeProfileCommand;
 import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
 import inno.edu.api.domain.profile.models.MenteeProfile;
+import inno.edu.api.domain.profile.queries.GetMenteeProfileByIdQuery;
 import inno.edu.api.domain.profile.repositories.MenteeProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
@@ -19,10 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
 import java.util.UUID;
 
-import static java.util.Optional.ofNullable;
 import static org.springframework.http.ResponseEntity.noContent;
 
 @RestController
@@ -32,13 +31,16 @@ public class MenteeProfileController {
     private final ResourceBuilder resourceBuilder;
     private final MenteeProfileRepository menteeProfileRepository;
 
-    private UpdateMenteeProfileCommand updateMenteeProfileCommand;
-    private CreateMenteeProfileCommand createMenteeProfileCommand;
+    private final GetMenteeProfileByIdQuery getMenteeProfileByIdQuery;
+
+    private final UpdateMenteeProfileCommand updateMenteeProfileCommand;
+    private final CreateMenteeProfileCommand createMenteeProfileCommand;
 
     @Autowired
-    public MenteeProfileController(MenteeProfileRepository menteeProfileRepository, ResourceBuilder resourceBuilder, UpdateMenteeProfileCommand updateMenteeProfileCommand, CreateMenteeProfileCommand createMenteeProfileCommand) {
+    public MenteeProfileController(MenteeProfileRepository menteeProfileRepository, ResourceBuilder resourceBuilder, GetMenteeProfileByIdQuery getMenteeProfileByIdQuery, UpdateMenteeProfileCommand updateMenteeProfileCommand, CreateMenteeProfileCommand createMenteeProfileCommand) {
         this.menteeProfileRepository = menteeProfileRepository;
         this.resourceBuilder = resourceBuilder;
+        this.getMenteeProfileByIdQuery = getMenteeProfileByIdQuery;
         this.updateMenteeProfileCommand = updateMenteeProfileCommand;
         this.createMenteeProfileCommand = createMenteeProfileCommand;
     }
@@ -51,8 +53,7 @@ public class MenteeProfileController {
 
     @GetMapping("/{id}")
     public MenteeProfileResource get(@PathVariable UUID id) {
-        Optional<MenteeProfile> profile = ofNullable(menteeProfileRepository.findOne(id));
-        return new MenteeProfileResource(profile.orElseThrow(() -> new ProfileNotFoundException(id)));
+        return new MenteeProfileResource(getMenteeProfileByIdQuery.run(id));
     }
 
     @PostMapping

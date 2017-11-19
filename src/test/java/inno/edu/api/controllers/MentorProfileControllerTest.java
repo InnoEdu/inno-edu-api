@@ -2,12 +2,12 @@ package inno.edu.api.controllers;
 
 import inno.edu.api.controllers.resources.MentorProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
-import inno.edu.api.domain.profile.commands.UpdateMentorProfileStatusCommand;
 import inno.edu.api.domain.profile.commands.CreateMentorProfileCommand;
 import inno.edu.api.domain.profile.commands.UpdateMentorProfileCommand;
-import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
+import inno.edu.api.domain.profile.commands.UpdateMentorProfileStatusCommand;
 import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.profile.models.ProfileStatus;
+import inno.edu.api.domain.profile.queries.GetMentorProfileByIdQuery;
 import inno.edu.api.domain.profile.repositories.MentorProfileRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,6 +36,9 @@ public class MentorProfileControllerTest {
     private ResourceBuilder resourceBuilder;
 
     @Mock
+    private GetMentorProfileByIdQuery getMentorProfileByIdQuery;
+
+    @Mock
     private MentorProfileRepository mentorProfileRepository;
 
     @Mock
@@ -57,18 +60,11 @@ public class MentorProfileControllerTest {
 
     @Test
     public void shouldGetProfileById() {
-        when(mentorProfileRepository.findOne(eq(feiProfile().getId()))).thenReturn(feiProfile());
+        when(getMentorProfileByIdQuery.run(eq(feiProfile().getId()))).thenReturn(feiProfile());
 
         MentorProfileResource profileResource = mentorProfileController.get(feiProfile().getId());
 
         assertThat(profileResource.getMentorProfile(), is(feiProfile()));
-    }
-
-    @Test(expected = ProfileNotFoundException.class)
-    public void shouldRaiseExceptionIfProfileNotFound() {
-        when(mentorProfileRepository.findOne(any())).thenReturn(null);
-
-        mentorProfileController.get(feiProfile().getId());
     }
 
     @Test
