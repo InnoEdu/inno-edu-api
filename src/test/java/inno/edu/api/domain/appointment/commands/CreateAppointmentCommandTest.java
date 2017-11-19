@@ -2,10 +2,8 @@ package inno.edu.api.domain.appointment.commands;
 
 import inno.edu.api.domain.appointment.models.Appointment;
 import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
-import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
-import inno.edu.api.domain.profile.repositories.MenteeProfileRepository;
-import inno.edu.api.domain.profile.repositories.MentorProfileRepository;
-import org.junit.Before;
+import inno.edu.api.domain.profile.assertions.MenteeProfileExistsAssertion;
+import inno.edu.api.domain.profile.assertions.MentorProfileExistsAssertion;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -18,7 +16,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentCaptor.forClass;
-import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -27,19 +25,13 @@ public class CreateAppointmentCommandTest {
     private AppointmentRepository appointmentRepository;
 
     @Mock
-    private MenteeProfileRepository menteeProfileRepository;
+    private MenteeProfileExistsAssertion menteeProfileExistsAssertion;
 
     @Mock
-    private MentorProfileRepository mentorProfileRepository;
+    private MentorProfileExistsAssertion mentorProfileExistsAssertion;
 
     @InjectMocks
     private CreateAppointmentCommand createAppointmentCommand;
-
-    @Before
-    public void setUp() {
-        when(menteeProfileRepository.exists(any())).thenReturn(true);
-        when(mentorProfileRepository.exists(any())).thenReturn(true);
-    }
 
     @Test
     public void shouldCallRepositoryToSaveAppointment() {
@@ -64,18 +56,11 @@ public class CreateAppointmentCommandTest {
         assertThat(argumentCaptor.getValue().getId(), not(appointment().getId()));
     }
 
-    @Test(expected = ProfileNotFoundException.class)
-    public void shouldRaiseExceptionIfMentorProfileDoesNotExist() {
-        when(mentorProfileRepository.exists(appointment().getMentorProfileId())).thenReturn(false);
-
+    @Test
+    public void shouldRunAllConstraints() {
         createAppointmentCommand.run(appointment());
+
+        verify(menteeProfileExistsAssertion).run(appointment().getMenteeProfileId());
+        verify(mentorProfileExistsAssertion).run(appointment().getMentorProfileId());
     }
-
-    @Test(expected = ProfileNotFoundException.class)
-    public void shouldRaiseExceptionIfMenteeProfileDoesNotExist() {
-        when(menteeProfileRepository.exists(appointment().getMenteeProfileId())).thenReturn(false);
-
-        createAppointmentCommand.run(appointment());
-    }
-
 }

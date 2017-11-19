@@ -2,9 +2,7 @@ package inno.edu.api.domain.availability.commands;
 
 import inno.edu.api.domain.availability.models.Availability;
 import inno.edu.api.domain.availability.repositories.AvailabilityRepository;
-import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
-import inno.edu.api.domain.profile.repositories.MentorProfileRepository;
-import org.junit.Before;
+import inno.edu.api.domain.profile.assertions.MentorProfileExistsAssertion;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -17,7 +15,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentCaptor.forClass;
-import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -26,15 +24,10 @@ public class CreateAvailabilityCommandTest {
     private AvailabilityRepository availabilityRepository;
 
     @Mock
-    private MentorProfileRepository mentorProfileRepository;
+    private MentorProfileExistsAssertion mentorProfileExistsAssertion;
 
     @InjectMocks
     private CreateAvailabilityCommand createAvailabilityCommand;
-
-    @Before
-    public void setUp() {
-        when(mentorProfileRepository.exists(any())).thenReturn(true);
-    }
 
     @Test
     public void shouldCallRepositoryToSaveAvailability() {
@@ -59,10 +52,10 @@ public class CreateAvailabilityCommandTest {
         assertThat(argumentCaptor.getValue().getId(), not(availability().getId()));
     }
 
-    @Test(expected = ProfileNotFoundException.class)
-    public void shouldRaiseExceptionIfProfileDoesNotExist() {
-        when(mentorProfileRepository.exists(availability().getMentorProfileId())).thenReturn(false);
-
+    @Test
+    public void shouldRunAllAssertions() {
         createAvailabilityCommand.run(availability());
+
+        verify(mentorProfileExistsAssertion).run(availability().getMentorProfileId());
     }
 }
