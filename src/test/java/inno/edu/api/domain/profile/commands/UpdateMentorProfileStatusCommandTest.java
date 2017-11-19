@@ -1,8 +1,8 @@
 package inno.edu.api.domain.profile.commands;
 
-import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
 import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.profile.models.ProfileStatus;
+import inno.edu.api.domain.profile.queries.GetMentorProfileByIdQuery;
 import inno.edu.api.domain.profile.repositories.MentorProfileRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,15 +19,11 @@ public class UpdateMentorProfileStatusCommandTest {
     @Mock
     private MentorProfileRepository mentorProfileRepository;
 
+    @Mock
+    private GetMentorProfileByIdQuery getMentorProfileByIdQuery;
+
     @InjectMocks
     private UpdateMentorProfileStatusCommand updateMentorProfileStatusCommand;
-
-    @Test(expected = ProfileNotFoundException.class)
-    public void shouldThrowExceptionIfProfileDoesNotExist() {
-        when(mentorProfileRepository.findOne(feiProfile().getId())).thenReturn(null);
-
-        updateMentorProfileStatusCommand.run(feiProfile().getId(), ProfileStatus.ACTIVE);
-    }
 
     @Test
     public void shouldApproveMentorProfile() {
@@ -36,7 +32,7 @@ public class UpdateMentorProfileStatusCommandTest {
                 .status(ProfileStatus.CREATED)
                 .build();
 
-        when(mentorProfileRepository.findOne(feiProfile().getId())).thenReturn(inactiveProfile);
+        when(getMentorProfileByIdQuery.run(feiProfile().getId())).thenReturn(inactiveProfile);
 
         updateMentorProfileStatusCommand.run(feiProfile().getId(), ProfileStatus.ACTIVE);
 
