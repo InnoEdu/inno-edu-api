@@ -6,8 +6,8 @@ import inno.edu.api.domain.appointment.commands.CreateAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.DeleteAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentStatusCommand;
-import inno.edu.api.domain.appointment.exceptions.AppointmentNotFoundException;
 import inno.edu.api.domain.appointment.models.Appointment;
+import inno.edu.api.domain.appointment.queries.GetAppointmentByIdQuery;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByMenteeIdQuery;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByMentorIdQuery;
 import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
@@ -59,6 +59,9 @@ public class AppointmentControllerTest {
     private DeleteAppointmentCommand deleteAppointmentCommand;
 
     @Mock
+    private GetAppointmentByIdQuery getAppointmentByIdQuery;
+
+    @Mock
     private GetAppointmentsByMentorIdQuery getAppointmentsByMentorIdQuery;
 
     @Mock
@@ -77,18 +80,11 @@ public class AppointmentControllerTest {
 
     @Test
     public void shouldGetAppointmentById() {
-        when(appointmentRepository.findOne(eq(appointment().getId()))).thenReturn(appointment());
+        when(getAppointmentByIdQuery.run(eq(appointment().getId()))).thenReturn(appointment());
 
         AppointmentResource appointmentResource = appointmentController.get(appointment().getId());
 
         assertThat(appointmentResource.getAppointment(), is(appointment()));
-    }
-
-    @Test(expected = AppointmentNotFoundException.class)
-    public void shouldRaiseExceptionIfAppointmentNotFound() {
-        when(appointmentRepository.findOne(any())).thenReturn(null);
-
-        appointmentController.get(appointment().getId());
     }
 
     @Test

@@ -6,10 +6,10 @@ import inno.edu.api.domain.appointment.commands.CreateAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.DeleteAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentStatusCommand;
-import inno.edu.api.domain.appointment.exceptions.AppointmentNotFoundException;
 import inno.edu.api.domain.appointment.models.Appointment;
 import inno.edu.api.domain.appointment.models.AppointmentReason;
 import inno.edu.api.domain.appointment.models.AppointmentStatus;
+import inno.edu.api.domain.appointment.queries.GetAppointmentByIdQuery;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByMenteeIdQuery;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByMentorIdQuery;
 import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
@@ -26,13 +26,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.ACCEPTED;
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.CANCELED;
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.DECLINED;
-import static java.util.Optional.ofNullable;
 import static org.springframework.http.ResponseEntity.noContent;
 
 @RestController
@@ -46,17 +44,19 @@ public class AppointmentController {
     private final UpdateAppointmentCommand updateAppointmentCommand;
     private final DeleteAppointmentCommand deleteAppointmentCommand;
 
+    private final GetAppointmentByIdQuery getAppointmentByIdQuery;
     private final GetAppointmentsByMentorIdQuery getAppointmentsByMentorIdQuery;
     private final GetAppointmentsByMenteeIdQuery getAppointmentsByMenteeIdQuery;
 
     private final UpdateAppointmentStatusCommand updateAppointmentStatusCommand;
 
-    public AppointmentController(AppointmentRepository appointmentRepository, ResourceBuilder resourceBuilder, CreateAppointmentCommand createAppointmentCommand, UpdateAppointmentCommand updateAppointmentCommand, DeleteAppointmentCommand deleteAppointmentCommand, GetAppointmentsByMentorIdQuery getAppointmentsByMentorIdQuery, GetAppointmentsByMenteeIdQuery getAppointmentsByMenteeIdQuery, UpdateAppointmentStatusCommand updateAppointmentStatusCommand) {
+    public AppointmentController(AppointmentRepository appointmentRepository, ResourceBuilder resourceBuilder, CreateAppointmentCommand createAppointmentCommand, UpdateAppointmentCommand updateAppointmentCommand, DeleteAppointmentCommand deleteAppointmentCommand, GetAppointmentByIdQuery getAppointmentByIdQuery, GetAppointmentsByMentorIdQuery getAppointmentsByMentorIdQuery, GetAppointmentsByMenteeIdQuery getAppointmentsByMenteeIdQuery, UpdateAppointmentStatusCommand updateAppointmentStatusCommand) {
         this.appointmentRepository = appointmentRepository;
         this.resourceBuilder = resourceBuilder;
         this.createAppointmentCommand = createAppointmentCommand;
         this.updateAppointmentCommand = updateAppointmentCommand;
         this.deleteAppointmentCommand = deleteAppointmentCommand;
+        this.getAppointmentByIdQuery = getAppointmentByIdQuery;
         this.getAppointmentsByMentorIdQuery = getAppointmentsByMentorIdQuery;
         this.getAppointmentsByMenteeIdQuery = getAppointmentsByMenteeIdQuery;
         this.updateAppointmentStatusCommand = updateAppointmentStatusCommand;
@@ -84,8 +84,7 @@ public class AppointmentController {
 
     @GetMapping("/{id}")
     public AppointmentResource get(@PathVariable UUID id) {
-        Optional<Appointment> appointment = ofNullable(appointmentRepository.findOne(id));
-        return new AppointmentResource(appointment.orElseThrow(() -> new AppointmentNotFoundException(id)));
+        return new AppointmentResource(getAppointmentByIdQuery.run(id));
     }
 
     @PostMapping
