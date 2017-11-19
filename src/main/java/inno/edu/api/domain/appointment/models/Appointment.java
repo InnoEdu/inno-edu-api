@@ -30,4 +30,6 @@ public class Appointment {
 
     @Enumerated
     private AppointmentStatus status;
+
+    private String reason;
 }

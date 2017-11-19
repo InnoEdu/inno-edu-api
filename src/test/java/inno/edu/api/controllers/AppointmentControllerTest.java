@@ -26,7 +26,9 @@ import static inno.edu.api.domain.appointment.models.AppointmentStatus.DECLINED;
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.support.AppointmentFactory.appointment;
 import static inno.edu.api.support.AppointmentFactory.appointments;
+import static inno.edu.api.support.AppointmentFactory.emptyReason;
 import static inno.edu.api.support.AppointmentFactory.proposedAppointments;
+import static inno.edu.api.support.AppointmentFactory.reason;
 import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.fei;
 import static org.hamcrest.core.Is.is;
@@ -160,22 +162,22 @@ public class AppointmentControllerTest {
 
     @Test
     public void shouldCancelAppointment() {
-        appointmentController.cancel(appointment().getId());
+        appointmentController.cancel(appointment().getId(), reason());
 
-        verify(updateAppointmentStatusCommand).run(appointment().getId(), CANCELED);
+        verify(updateAppointmentStatusCommand).run(appointment().getId(), reason(), CANCELED);
     }
 
     @Test
     public void shouldDeclineAppointment() {
-        appointmentController.decline(appointment().getId());
+        appointmentController.decline(appointment().getId(), reason());
 
-        verify(updateAppointmentStatusCommand).run(appointment().getId(), DECLINED);
+        verify(updateAppointmentStatusCommand).run(appointment().getId(), reason(), DECLINED);
     }
 
     @Test
     public void shouldAcceptAppointment() {
         appointmentController.accept(appointment().getId());
 
-        verify(updateAppointmentStatusCommand).run(appointment().getId(), ACCEPTED);
+        verify(updateAppointmentStatusCommand).run(appointment().getId(), emptyReason(), ACCEPTED);
     }
 }

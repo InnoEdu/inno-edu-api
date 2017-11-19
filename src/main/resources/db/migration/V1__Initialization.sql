@@ -57,12 +57,13 @@ CREATE TABLE Availability (
 
 CREATE TABLE Appointment (
   id                BINARY(16) PRIMARY KEY,
-  mentor_profile_id BINARY(16) NOT NULL,
-  mentee_profile_id BINARY(16) NOT NULL,
-  from_date_time    TIMESTAMP  NOT NULL,
-  to_date_time      TIMESTAMP  NOT NULL,
-  description       TEXT       NOT NULL,
-  status            SMALLINT   NOT NULL,
+  mentor_profile_id BINARY(16)   NOT NULL,
+  mentee_profile_id BINARY(16)   NOT NULL,
+  from_date_time    TIMESTAMP    NOT NULL,
+  to_date_time      TIMESTAMP    NOT NULL,
+  description       TEXT         NOT NULL,
+  status            SMALLINT     NOT NULL,
+  reason            VARCHAR(255),
 
   FOREIGN KEY (mentor_profile_id)
   REFERENCES Mentor_Profile (id)

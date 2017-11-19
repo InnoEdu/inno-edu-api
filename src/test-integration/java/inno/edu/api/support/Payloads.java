@@ -1,6 +1,7 @@
 package inno.edu.api.support;
 
 import inno.edu.api.domain.appointment.models.Appointment;
+import inno.edu.api.domain.appointment.models.AppointmentReason;
 import inno.edu.api.domain.availability.models.Availability;
 import inno.edu.api.domain.school.models.School;
 import inno.edu.api.domain.user.models.Login;
@@ -76,5 +77,9 @@ public class Payloads {
 
     public static String putAppointmentPayload(Appointment appointment) {
         return format(loadPayload("payloads/appointment/put-appointment.json"), appointment.getFromDateTime(), appointment.getToDateTime(), appointment.getDescription(), appointment.getStatus());
+    }
+
+    public static String putAppointmentReasonPayload(AppointmentReason reason) {
+        return format(loadPayload("payloads/appointment/put-appointment-reason.json"), reason.getReason());
     }
 }

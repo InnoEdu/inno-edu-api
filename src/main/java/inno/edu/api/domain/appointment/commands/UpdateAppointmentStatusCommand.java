@@ -2,6 +2,7 @@ package inno.edu.api.domain.appointment.commands;
 
 import inno.edu.api.domain.appointment.exceptions.AppointmentNotFoundException;
 import inno.edu.api.domain.appointment.models.Appointment;
+import inno.edu.api.domain.appointment.models.AppointmentReason;
 import inno.edu.api.domain.appointment.models.AppointmentStatus;
 import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
 import inno.edu.api.infrastructure.annotations.Command;
@@ -18,11 +19,12 @@ public class UpdateAppointmentStatusCommand {
         this.appointmentRepository = appointmentRepository;
     }
 
-    public void run(UUID appointmentId, AppointmentStatus status) {
+    public void run(UUID appointmentId, AppointmentReason reason, AppointmentStatus status) {
         Appointment appointment = ofNullable(appointmentRepository.findOne(appointmentId))
                 .orElseThrow(() -> new AppointmentNotFoundException(appointmentId));
 
         appointment.setStatus(status);
+        appointment.setReason(reason.getReason());
         appointmentRepository.save(appointment);
     }
 }

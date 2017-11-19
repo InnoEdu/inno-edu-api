@@ -7,9 +7,11 @@ import org.springframework.http.MediaType;
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.support.AppointmentFactory.appointment;
 import static inno.edu.api.support.AppointmentFactory.otherAppointment;
+import static inno.edu.api.support.AppointmentFactory.reason;
 import static inno.edu.api.support.AppointmentFactory.updatedAppointment;
 import static inno.edu.api.support.Payloads.postAppointmentPayload;
 import static inno.edu.api.support.Payloads.putAppointmentPayload;
+import static inno.edu.api.support.Payloads.putAppointmentReasonPayload;
 import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.fei;
 import static org.hamcrest.Matchers.contains;
@@ -116,7 +118,9 @@ public class AppointmentControllerApiTest extends ApiTest {
     @Test
     public void shouldCancelAppointment() throws Exception {
         this.mockMvc.perform(
-                put("/api/appointments/" + appointment().getId() + "/cancel"))
+                put("/api/appointments/" + appointment().getId() + "/cancel")
+                        .content(putAppointmentReasonPayload(reason()))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }
@@ -124,7 +128,9 @@ public class AppointmentControllerApiTest extends ApiTest {
     @Test
     public void shouldDeclineAppointment() throws Exception {
         this.mockMvc.perform(
-                put("/api/appointments/" + appointment().getId() + "/decline"))
+                put("/api/appointments/" + appointment().getId() + "/decline")
+                        .content(putAppointmentReasonPayload(reason()))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }

@@ -1,6 +1,7 @@
 package inno.edu.api.support;
 
 import inno.edu.api.domain.appointment.models.Appointment;
+import inno.edu.api.domain.appointment.models.AppointmentReason;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -48,6 +49,14 @@ public class AppointmentFactory {
                 .description("My great updated appointment.")
                 .status(DECLINED)
                 .build();
+    }
+
+    public static AppointmentReason reason() {
+        return AppointmentReason.builder().reason("Reason for appointment.").build();
+    }
+
+    public static AppointmentReason emptyReason() {
+        return AppointmentReason.builder().build();
     }
 
     public static List<Appointment> appointments() {

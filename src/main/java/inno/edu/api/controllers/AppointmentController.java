@@ -7,6 +7,7 @@ import inno.edu.api.domain.appointment.commands.UpdateAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentStatusCommand;
 import inno.edu.api.domain.appointment.exceptions.AppointmentNotFoundException;
 import inno.edu.api.domain.appointment.models.Appointment;
+import inno.edu.api.domain.appointment.models.AppointmentReason;
 import inno.edu.api.domain.appointment.models.AppointmentStatus;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByMenteeIdQuery;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByMentorIdQuery;
@@ -97,20 +98,20 @@ public class AppointmentController {
     }
 
     @PutMapping("/{id}/cancel")
-    public ResponseEntity<?> cancel(@PathVariable UUID id) {
-        updateAppointmentStatusCommand.run(id, CANCELED);
+    public ResponseEntity<?> cancel(@PathVariable UUID id, @RequestBody AppointmentReason reason) {
+        updateAppointmentStatusCommand.run(id, reason, CANCELED);
         return noContent().build();
     }
 
     @PutMapping("/{id}/decline")
-    public ResponseEntity<?> decline(@PathVariable UUID id) {
-        updateAppointmentStatusCommand.run(id, DECLINED);
+    public ResponseEntity<?> decline(@PathVariable UUID id, AppointmentReason reason) {
+        updateAppointmentStatusCommand.run(id, reason, DECLINED);
         return noContent().build();
     }
 
     @PutMapping("/{id}/accept")
     public ResponseEntity<?> accept(@PathVariable UUID id) {
-        updateAppointmentStatusCommand.run(id, ACCEPTED);
+        updateAppointmentStatusCommand.run(id, new AppointmentReason(), ACCEPTED);
         return noContent().build();
     }
 
