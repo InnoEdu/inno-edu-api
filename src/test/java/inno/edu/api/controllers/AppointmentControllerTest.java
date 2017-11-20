@@ -14,10 +14,10 @@ import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -30,11 +30,11 @@ import static inno.edu.api.support.AppointmentFactory.appointments;
 import static inno.edu.api.support.AppointmentFactory.emptyReason;
 import static inno.edu.api.support.AppointmentFactory.proposedAppointments;
 import static inno.edu.api.support.AppointmentFactory.reason;
+import static inno.edu.api.support.AppointmentFactory.updatedAppointment;
 import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.fei;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
@@ -134,21 +134,20 @@ public class AppointmentControllerTest {
 
     @Test
     public void shouldCreateNewAppointment() {
-        ArgumentCaptor<Appointment> argumentCaptor = forClass(Appointment.class);
-        when(createAppointmentCommand.run(argumentCaptor.capture())).thenReturn(appointment());
+        when(createAppointmentCommand.run(appointment())).thenReturn(appointment());
 
-        appointmentController.post(appointment());
+        ResponseEntity<Appointment> entity = appointmentController.post(appointment());
 
-        verify(createAppointmentCommand).run(argumentCaptor.capture());
+        assertThat(entity.getBody(), is(appointment()));
     }
 
     @Test
     public void shouldUpdateAppointment() {
-        when(updateAppointmentCommand.run(appointment().getId(), appointment())).thenReturn(appointment());
+        when(updateAppointmentCommand.run(appointment().getId(), updatedAppointment())).thenReturn(updatedAppointment());
 
-        appointmentController.put(appointment().getId(), appointment());
+        ResponseEntity<Appointment> entity = appointmentController.put(appointment().getId(), updatedAppointment());
 
-        verify(updateAppointmentCommand).run(appointment().getId(), appointment());
+        assertThat(entity.getBody(), is(updatedAppointment()));
     }
 
     @Test

@@ -29,11 +29,11 @@ public class AppointmentResource extends ResourceSupport {
         add(linkTo(methodOn(UserController.class).get(appointment.getMenteeProfileId())).withRel("mentee"));
     }
 
-    public ResponseEntity<?> toCreated() {
-        return created(URI.create(getLink("self").getHref())).build();
+    public ResponseEntity<Appointment> toCreated() {
+        return created(URI.create(getLink("self").getHref())).body(appointment);
     }
 
-    public ResponseEntity<?> toUpdated() {
+    public ResponseEntity<Appointment> toUpdated() {
         return created(fromCurrentRequest().build().toUri()).body(appointment);
     }
 }
