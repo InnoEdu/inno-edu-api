@@ -11,18 +11,18 @@ import inno.edu.api.domain.profile.repositories.MenteeProfileRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static inno.edu.api.support.ProfileFactory.alanProfile;
 import static inno.edu.api.support.ProfileFactory.menteeProfiles;
+import static inno.edu.api.support.ProfileFactory.updatedAlanProfile;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
@@ -77,21 +77,20 @@ public class MenteeProfileControllerTest {
 
     @Test
     public void shouldCreateNewProfiles() {
-        ArgumentCaptor<MenteeProfile> argumentCaptor = forClass(MenteeProfile.class);
-        when(createMenteeProfileCommand.run(argumentCaptor.capture())).thenReturn(alanProfile());
+        when(createMenteeProfileCommand.run(alanProfile())).thenReturn(alanProfile());
 
-        menteeProfileController.post(alanProfile());
+        ResponseEntity<MenteeProfile> entity = menteeProfileController.post(alanProfile());
 
-        verify(createMenteeProfileCommand).run(argumentCaptor.capture());
+        assertThat(entity.getBody(), is(alanProfile()));
     }
 
     @Test
     public void shouldUpdateUser() {
-        when(updateMenteeProfileCommand.run(alanProfile().getId(), alanProfile())).thenReturn(alanProfile());
+        when(updateMenteeProfileCommand.run(alanProfile().getId(), updatedAlanProfile())).thenReturn(updatedAlanProfile());
 
-        menteeProfileController.put(alanProfile().getId(), alanProfile());
+        ResponseEntity<MenteeProfile> entity = menteeProfileController.put(alanProfile().getId(), updatedAlanProfile());
 
-        verify(updateMenteeProfileCommand).run(alanProfile().getId(), alanProfile());
+        assertThat(entity.getBody(), is(updatedAlanProfile()));
     }
 
     @Test

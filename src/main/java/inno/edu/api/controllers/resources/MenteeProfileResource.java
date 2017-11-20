@@ -26,11 +26,11 @@ public class MenteeProfileResource extends ResourceSupport {
         add(linkTo(methodOn(UserController.class).get(menteeProfile.getMenteeId())).withRel("mentee"));
     }
 
-    public ResponseEntity<?> toCreated() {
-        return created(URI.create(getLink("self").getHref())).build();
+    public ResponseEntity<MenteeProfile> toCreated() {
+        return created(URI.create(getLink("self").getHref())).body(menteeProfile);
     }
 
-    public ResponseEntity<?> toUpdated() {
+    public ResponseEntity<MenteeProfile> toUpdated() {
         return created(fromCurrentRequest().build().toUri()).body(menteeProfile);
     }
 }
