@@ -12,6 +12,7 @@ import java.util.Collections;
 import static com.google.common.collect.Lists.newArrayList;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static springfox.documentation.builders.RequestHandlerSelectors.basePackage;
+import static springfox.documentation.service.ApiInfo.DEFAULT_CONTACT;
 import static springfox.documentation.spi.DocumentationType.SWAGGER_2;
 
 @Configuration
@@ -35,10 +36,10 @@ public class SwaggerConfiguration {
     private ApiInfo apiInfo() {
         return new ApiInfo(
                 "InnoEdu - API",
-                "",
+                "Plataform.",
                 "1.0",
                 "Terms of service",
-                null,
-                "", "", Collections.emptyList());
+                DEFAULT_CONTACT,
+                "Private", "inno.edu", Collections.emptyList());
     }
 }
