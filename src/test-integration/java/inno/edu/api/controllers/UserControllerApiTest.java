@@ -69,8 +69,7 @@ public class UserControllerApiTest extends ApiTest {
         this.mockMvc.perform(get("/api/users/" + alan().getId().toString() + "/profile")).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(alanProfile().getId().toString())))
-                .andExpect(jsonPath("$.menteeId", is(alanProfile().getMenteeId().toString())))
-                .andExpect(jsonPath("$.email", is(alanProfile().getEmail())));
+                .andExpect(jsonPath("$.menteeId", is(alanProfile().getMenteeId().toString())));
     }
 
     @Test

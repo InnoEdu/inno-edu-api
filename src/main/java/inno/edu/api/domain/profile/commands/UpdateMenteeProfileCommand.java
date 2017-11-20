@@ -20,7 +20,6 @@ public class UpdateMenteeProfileCommand {
     public MenteeProfile run(UUID id, MenteeProfile profile) {
         MenteeProfile currentMenteeProfile = getMenteeProfileByIdQuery.run(id);
 
-        currentMenteeProfile.setEmail(profile.getEmail());
         currentMenteeProfile.setDescription(profile.getDescription());
 
         return profileRepository.save(currentMenteeProfile);

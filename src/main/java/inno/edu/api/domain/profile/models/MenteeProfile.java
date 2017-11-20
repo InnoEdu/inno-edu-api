@@ -19,6 +19,5 @@ public class MenteeProfile {
     private UUID id;
 
     private UUID menteeId;
-    private String email;
     private String description;
 }

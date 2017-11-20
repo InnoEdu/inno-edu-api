@@ -28,7 +28,6 @@ public class ProfileFactory {
     public static MenteeProfile alanProfile() {
         return MenteeProfile.builder().id(fromString("c5f473b4-3311-40b1-8fb3-f70357894754"))
                 .menteeId(alan().getId())
-                .email("alanly@inno.edu")
                 .description("Alan is a great mentee.")
                 .build();
     }
@@ -46,7 +45,6 @@ public class ProfileFactory {
     public static MenteeProfile tuanyProfile() {
         return MenteeProfile.builder().id(fromString("4fbee407-5ab3-4d4b-9ef0-39840e939d5e"))
                 .menteeId(gustavo().getId())
-                .email("tuany@inno.edu")
                 .description("Tuany is a great mentee.")
                 .build();
     }
@@ -54,7 +52,6 @@ public class ProfileFactory {
     public static MenteeProfile updatedAlanProfile() {
         return MenteeProfile.builder().id(fromString("c5f473b4-3311-40b1-8fb3-f70357894754"))
                 .menteeId(alan().getId())
-                .email("Updatedalanly@inno.edu")
                 .description("Updated description")
                 .build();
     }

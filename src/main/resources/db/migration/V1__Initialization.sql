@@ -12,7 +12,6 @@ CREATE TABLE User (
 CREATE TABLE Mentee_Profile (
   id          BINARY(16) PRIMARY KEY,
   mentee_id   BINARY(16)   NOT NULL,
-  email       VARCHAR(255) NOT NULL,
   description TEXT         NOT NULL,
 
   FOREIGN KEY (mentee_id)
