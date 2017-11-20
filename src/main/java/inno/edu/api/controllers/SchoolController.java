@@ -86,7 +86,7 @@ public class SchoolController {
     @ApiResponses({
             @ApiResponse(code = 201, message = "New school successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
     })
-    public ResponseEntity<?> post(@RequestBody School school) {
+    public ResponseEntity<School> post(@RequestBody School school) {
         SchoolResource schoolResource = new SchoolResource(createSchoolCommand.run(school));
         return schoolResource.toCreated();
     }
@@ -97,7 +97,7 @@ public class SchoolController {
             @ApiResponse(code = 201, message = "New school successfully updated.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the updated resource.", response = String.class)),
             @ApiResponse(code = 404, message = "School not found."),
     })
-    public ResponseEntity<?> put(@PathVariable UUID id, @RequestBody School school) {
+    public ResponseEntity<School> put(@PathVariable UUID id, @RequestBody School school) {
         SchoolResource schoolResource = new SchoolResource(updateSchoolCommand.run(id, school));
         return schoolResource.toUpdated();
     }

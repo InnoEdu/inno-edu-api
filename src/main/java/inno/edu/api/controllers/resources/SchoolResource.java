@@ -26,11 +26,11 @@ public class SchoolResource extends ResourceSupport {
         add(linkTo(methodOn(SchoolController.class).allMentorsProfile(school.getId())).withRel("mentors"));
     }
 
-    public ResponseEntity<?> toCreated() {
-        return created(URI.create(getLink("self").getHref())).build();
+    public ResponseEntity<School> toCreated() {
+        return created(URI.create(getLink("self").getHref())).body(school);
     }
 
-    public ResponseEntity<?> toUpdated() {
+    public ResponseEntity<School> toUpdated() {
         return created(fromCurrentRequest().build().toUri()).body(school);
     }
 }

@@ -12,19 +12,19 @@ import inno.edu.api.domain.school.repositories.SchoolRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import static inno.edu.api.support.ProfileFactory.mentorProfiles;
 import static inno.edu.api.support.SchoolFactory.schools;
 import static inno.edu.api.support.SchoolFactory.stanford;
-import static inno.edu.api.support.ProfileFactory.mentorProfiles;
+import static inno.edu.api.support.SchoolFactory.updatedStanford;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
@@ -92,21 +92,20 @@ public class SchoolControllerTest {
 
     @Test
     public void shouldCreateNewSchool() {
-        ArgumentCaptor<School> argumentCaptor = forClass(School.class);
-        when(createSchoolCommand.run(argumentCaptor.capture())).thenReturn(stanford());
+        when(createSchoolCommand.run(stanford())).thenReturn(stanford());
 
-        schoolController.post(stanford());
+        ResponseEntity<School> entity = schoolController.post(stanford());
 
-        verify(createSchoolCommand).run(argumentCaptor.capture());
+        assertThat(entity.getBody(), is(stanford()));
     }
 
     @Test
     public void shouldUpdateSchool() {
-        when(updateSchoolCommand.run(stanford().getId(), stanford())).thenReturn(stanford());
+        when(updateSchoolCommand.run(stanford().getId(), updatedStanford())).thenReturn(updatedStanford());
 
-        schoolController.put(stanford().getId(), stanford());
+        ResponseEntity<School> entity = schoolController.put(stanford().getId(), updatedStanford());
 
-        verify(updateSchoolCommand).run(stanford().getId(), stanford());
+        assertThat(entity.getBody(), is(updatedStanford()));
     }
 
     @Test

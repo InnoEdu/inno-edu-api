@@ -10,16 +10,16 @@ import inno.edu.api.domain.user.commands.CreateUserCommand;
 import inno.edu.api.domain.user.commands.DeleteUserCommand;
 import inno.edu.api.domain.user.commands.LoginCommand;
 import inno.edu.api.domain.user.commands.UpdateUserCommand;
-import inno.edu.api.domain.user.commands.dtos.CreateUserRequest;
+import inno.edu.api.domain.user.models.User;
 import inno.edu.api.domain.user.queries.GetUserByIdQuery;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -30,10 +30,10 @@ import static inno.edu.api.support.UserFactory.createFeiRequest;
 import static inno.edu.api.support.UserFactory.fei;
 import static inno.edu.api.support.UserFactory.feiCredentials;
 import static inno.edu.api.support.UserFactory.updateFeiRequest;
+import static inno.edu.api.support.UserFactory.updatedFei;
 import static inno.edu.api.support.UserFactory.users;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
@@ -129,21 +129,20 @@ public class UserControllerTest {
 
     @Test
     public void shouldCreateNewUser() {
-        ArgumentCaptor<CreateUserRequest> argumentCaptor = forClass(CreateUserRequest.class);
-        when(createUserCommand.run(argumentCaptor.capture())).thenReturn(fei());
+        when(createUserCommand.run(createFeiRequest())).thenReturn(fei());
 
-        userController.post(createFeiRequest());
+        ResponseEntity<User> entity = userController.post(createFeiRequest());
 
-        verify(createUserCommand).run(argumentCaptor.capture());
+        assertThat(entity.getBody(), is(fei()));
     }
 
     @Test
     public void shouldUpdateUser() {
-        when(updateUserCommand.run(fei().getId(), updateFeiRequest())).thenReturn(fei());
+        when(updateUserCommand.run(fei().getId(), updateFeiRequest())).thenReturn(updatedFei());
 
-        userController.put(fei().getId(), updateFeiRequest());
+        ResponseEntity<User> entity = userController.put(fei().getId(), updateFeiRequest());
 
-        verify(updateUserCommand).run(fei().getId(), updateFeiRequest());
+        assertThat(entity.getBody(), is(updatedFei()));
     }
 
     @Test
