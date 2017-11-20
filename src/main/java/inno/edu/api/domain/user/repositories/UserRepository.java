@@ -8,5 +8,6 @@ import java.util.UUID;
 public interface UserRepository extends CrudRepository<User, UUID> {
     User findOneByUserNameAndPassword(String userName, String password);
     boolean existsByIdAndIsMentorIsTrue(UUID id);
+    boolean existsByIdAndIsMentorIsFalse(UUID id);
     boolean existsByUserName(String userName);
 }

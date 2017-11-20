@@ -5,7 +5,7 @@ import inno.edu.api.domain.appointment.models.AppointmentStatus;
 import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
 import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.profile.queries.GetMenteeProfileByUserIdQuery;
-import inno.edu.api.domain.user.assertions.UserExistsAssertion;
+import inno.edu.api.domain.user.assertions.UserIsMenteeAssertion;
 import inno.edu.api.infrastructure.annotations.Query;
 
 import java.util.List;
@@ -15,19 +15,19 @@ import static java.util.Objects.nonNull;
 
 @Query
 public class GetAppointmentsByMenteeIdQuery {
-    private final UserExistsAssertion userExistsAssertion;
+    private final UserIsMenteeAssertion userIsMenteeAssertion;
 
     private final AppointmentRepository appointmentRepository;
     private final GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery;
 
-    public GetAppointmentsByMenteeIdQuery(UserExistsAssertion userExistsAssertion, AppointmentRepository appointmentRepository, GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery) {
-        this.userExistsAssertion = userExistsAssertion;
+    public GetAppointmentsByMenteeIdQuery(UserIsMenteeAssertion userIsMenteeAssertion, AppointmentRepository appointmentRepository, GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery) {
+        this.userIsMenteeAssertion = userIsMenteeAssertion;
         this.appointmentRepository = appointmentRepository;
         this.getMenteeProfileByUserIdQuery = getMenteeProfileByUserIdQuery;
     }
 
     public List<Appointment> run(UUID menteeId, AppointmentStatus status) {
-        userExistsAssertion.run(menteeId);
+        userIsMenteeAssertion.run(menteeId);
 
         MenteeProfile menteeProfile = getMenteeProfileByUserIdQuery.run(menteeId);
 

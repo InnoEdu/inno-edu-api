@@ -75,6 +75,9 @@ public class AppointmentController {
 
     @GetMapping("/mentor/{mentorId}")
     @ApiOperation(value = "Find all appointments by mentor and status", notes = "Return all appointments for the specific mentor and also optionally filtered by the appointment status. ", response = Appointment.class, responseContainer = "List")
+    @ApiResponses({
+            @ApiResponse(code = 400, message = "Invalid mentor ID supplied."),
+    })
     public Resources<AppointmentResource> allByMentor(@PathVariable UUID mentorId,
                                                       @RequestParam(required = false) AppointmentStatus status) {
         List<Appointment> appointments = getAppointmentsByMentorIdQuery.run(mentorId, status);
@@ -83,6 +86,9 @@ public class AppointmentController {
 
     @GetMapping("/mentee/{menteeId}")
     @ApiOperation(value = "Find all appointments by mentee and status", notes = "Return all appointments for the specific mentee and also optionally filtered by the appointment status. ", response = Appointment.class, responseContainer = "List")
+    @ApiResponses({
+            @ApiResponse(code = 400, message = "Invalid mentee ID supplied."),
+    })
     public Resources<AppointmentResource> allByMentee(@PathVariable UUID menteeId,
                                                       @RequestParam(required = false) AppointmentStatus status) {
         List<Appointment> appointments = getAppointmentsByMenteeIdQuery.run(menteeId, status);

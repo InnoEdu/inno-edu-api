@@ -3,6 +3,7 @@ package inno.edu.api.domain.appointment.queries;
 import inno.edu.api.domain.appointment.models.Appointment;
 import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
 import inno.edu.api.domain.profile.queries.GetMentorActiveProfileByUserIdQuery;
+import inno.edu.api.domain.user.assertions.UserIsMentorAssertion;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +24,9 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GetAppointmentsByMentorIdQueryTest {
+    @Mock
+    private UserIsMentorAssertion userIsMentorAssertion;
+
     @Mock
     private AppointmentRepository appointmentRepository;
 
@@ -55,5 +59,12 @@ public class GetAppointmentsByMentorIdQueryTest {
         verify(appointmentRepository).findByMentorProfileIdAndStatus(feiProfile().getId(), PROPOSED);
 
         assertThat(expected, is(appointments()));
+    }
+
+    @Test
+    public void shouldRunAllAssertions() {
+        getAppointmentsByMentorIdQuery.run(fei().getId(), PROPOSED);
+
+        verify(userIsMentorAssertion).run(fei().getId());
     }
 }

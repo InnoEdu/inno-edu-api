@@ -45,5 +45,4 @@ public class UserIsMentorAssertionTest {
 
         verify(userExistsAssertion).run(fei().getId());
     }
-
 }
