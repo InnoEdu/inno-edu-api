@@ -11,18 +11,18 @@ import inno.edu.api.domain.availability.repositories.AvailabilityRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static inno.edu.api.support.AvailabilityFactory.allAvailability;
 import static inno.edu.api.support.AvailabilityFactory.availability;
+import static inno.edu.api.support.AvailabilityFactory.updatedAvailability;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
@@ -77,21 +77,20 @@ public class AvailabilityControllerTest {
 
     @Test
     public void shouldCreateNewAvailability() {
-        ArgumentCaptor<Availability> argumentCaptor = forClass(Availability.class);
-        when(createAvailabilityCommand.run(argumentCaptor.capture())).thenReturn(availability());
+        when(createAvailabilityCommand.run(availability())).thenReturn(availability());
 
-        availabilityController.post(availability());
+        ResponseEntity<Availability> entity = availabilityController.post(availability());
 
-        verify(createAvailabilityCommand).run(argumentCaptor.capture());
+        assertThat(entity.getBody(), is(availability()));
     }
 
     @Test
     public void shouldUpdateAvailability() {
-        when(updateAvailabilityCommand.run(availability().getId(), availability())).thenReturn(availability());
+        when(updateAvailabilityCommand.run(availability().getId(), updatedAvailability())).thenReturn(updatedAvailability());
 
-        availabilityController.put(availability().getId(), availability());
+        ResponseEntity<Availability> entity = availabilityController.put(availability().getId(), updatedAvailability());
 
-        verify(updateAvailabilityCommand).run(availability().getId(), availability());
+        assertThat(entity.getBody(), is(updatedAvailability()));
     }
 
     @Test

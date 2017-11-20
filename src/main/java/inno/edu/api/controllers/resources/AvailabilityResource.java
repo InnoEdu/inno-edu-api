@@ -27,11 +27,11 @@ public class AvailabilityResource extends ResourceSupport {
         add(linkTo(methodOn(MentorProfileController.class).get(availability.getMentorProfileId())).withRel("mentor-profile"));
     }
 
-    public ResponseEntity<?> toCreated() {
-        return created(URI.create(getLink("self").getHref())).build();
+    public ResponseEntity<Availability> toCreated() {
+        return created(URI.create(getLink("self").getHref())).body(availability);
     }
 
-    public ResponseEntity<?> toUpdated() {
+    public ResponseEntity<Availability> toUpdated() {
         return created(fromCurrentRequest().build().toUri()).body(availability);
     }
 }

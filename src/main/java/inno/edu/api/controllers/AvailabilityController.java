@@ -71,7 +71,7 @@ public class AvailabilityController {
             @ApiResponse(code = 201, message = "New availability successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
             @ApiResponse(code = 400, message = "Invalid mentor profile ID supplied."),
     })
-    public ResponseEntity<?> post(@RequestBody Availability availability) {
+    public ResponseEntity<Availability> post(@RequestBody Availability availability) {
         AvailabilityResource availabilityResource = new AvailabilityResource(createAvailabilityCommand.run(availability));
         return availabilityResource.toCreated();
     }
@@ -82,7 +82,7 @@ public class AvailabilityController {
             @ApiResponse(code = 201, message = "New availability successfully updated.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the updated resource.", response = String.class)),
             @ApiResponse(code = 404, message = "Availability not found."),
     })
-    public ResponseEntity<?> put(@PathVariable UUID id, @RequestBody Availability availability) {
+    public ResponseEntity<Availability> put(@PathVariable UUID id, @RequestBody Availability availability) {
         AvailabilityResource availabilityResource = new AvailabilityResource(updateAvailabilityCommand.run(id, availability));
         return availabilityResource.toUpdated();
     }
