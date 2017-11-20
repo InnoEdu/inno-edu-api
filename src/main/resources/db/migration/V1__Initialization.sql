@@ -2,7 +2,7 @@ CREATE TABLE User (
   id         BINARY(16) PRIMARY KEY,
   first_name VARCHAR(255) NOT NULL,
   last_name  VARCHAR(255) NOT NULL,
-  user_name  VARCHAR(30)  NOT NULL,
+  username  VARCHAR(30)  NOT NULL,
   password   VARCHAR(30)  NOT NULL,
   photo_url  VARCHAR(255),
   is_mentor  BOOLEAN      NOT NULL

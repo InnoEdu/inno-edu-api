@@ -1,6 +1,6 @@
 package inno.edu.api.domain.user.commands;
 
-import inno.edu.api.domain.user.exceptions.UserNameAlreadyExistsException;
+import inno.edu.api.domain.user.exceptions.UsernameAlreadyExistsException;
 import inno.edu.api.domain.user.models.User;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import inno.edu.api.infrastructure.annotations.Command;
@@ -16,8 +16,8 @@ public class CreateUserCommand {
     }
 
     public User run(User user) {
-        if (userRepository.existsByUserName(user.getUserName())) {
-            throw new UserNameAlreadyExistsException(user.getUserName());
+        if (userRepository.existsByUsername(user.getUsername())) {
+            throw new UsernameAlreadyExistsException(user.getUsername());
         }
 
         user.setId(randomUUID());

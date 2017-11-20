@@ -24,7 +24,7 @@ public class User {
     private String firstName;
     private String lastName;
 
-    private String userName;
+    private String username;
 
     @JsonProperty(access = WRITE_ONLY)
     private String password;

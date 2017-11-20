@@ -28,11 +28,11 @@ public class Payloads {
     }
 
     public static String loginUserPayload(Login credentials) {
-        return format(loadPayload("payloads/user/login-user.json"), credentials.getUserName(), credentials.getPassword());
+        return format(loadPayload("payloads/user/login-user.json"), credentials.getUsername(), credentials.getPassword());
     }
 
     public static String postUserPayload(User user) {
-        return format(loadPayload("payloads/user/post-user.json"), user.getFirstName(), user.getLastName(), user.getUserName(), user.getPassword(), user.getIsMentor(), user.getPhotoUrl());
+        return format(loadPayload("payloads/user/post-user.json"), user.getFirstName(), user.getLastName(), user.getUsername(), user.getPassword(), user.getIsMentor(), user.getPhotoUrl());
     }
 
     public static String putUserPayload(User user) {

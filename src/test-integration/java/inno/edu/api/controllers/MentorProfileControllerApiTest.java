@@ -7,7 +7,7 @@ import org.springframework.http.MediaType;
 import static inno.edu.api.support.Payloads.postMentorProfilePayload;
 import static inno.edu.api.support.Payloads.putMentorProfilePayload;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
-import static inno.edu.api.support.UserFactory.gustavoProfile;
+import static inno.edu.api.support.ProfileFactory.gustavoProfile;
 import static inno.edu.api.support.ProfileFactory.updatedFeiProfile;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.core.Is.is;

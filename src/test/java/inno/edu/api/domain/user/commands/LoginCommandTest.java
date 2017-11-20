@@ -1,6 +1,6 @@
 package inno.edu.api.domain.user.commands;
 
-import inno.edu.api.domain.user.exceptions.InvalidUserNameOrPasswordException;
+import inno.edu.api.domain.user.exceptions.InvalidUsernameOrPasswordException;
 import inno.edu.api.domain.user.models.User;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import org.junit.Test;
@@ -25,7 +25,7 @@ public class LoginCommandTest {
 
     @Test
     public void shouldReturnUserIfCredentialsAreValid() {
-        when(userRepository.findOneByUserNameAndPassword(fei().getUserName(), fei().getPassword()))
+        when(userRepository.findOneByUsernameAndPassword(fei().getUsername(), fei().getPassword()))
                 .thenReturn(fei());
 
         User user = loginCommand.run(feiCredentials());
@@ -33,9 +33,9 @@ public class LoginCommandTest {
         assertThat(user, is(fei()));
     }
 
-    @Test(expected = InvalidUserNameOrPasswordException.class)
+    @Test(expected = InvalidUsernameOrPasswordException.class)
     public void shouldThrowExceptionIfCredentialsAreNotValid() {
-        when(userRepository.findOneByUserNameAndPassword(fei().getUserName(), fei().getPassword()))
+        when(userRepository.findOneByUsernameAndPassword(fei().getUsername(), fei().getPassword()))
                 .thenReturn(null);
 
         loginCommand.run(feiCredentials());

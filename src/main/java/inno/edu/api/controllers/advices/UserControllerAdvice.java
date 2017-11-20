@@ -1,8 +1,8 @@
 package inno.edu.api.controllers.advices;
 
-import inno.edu.api.domain.user.exceptions.InvalidUserNameOrPasswordException;
+import inno.edu.api.domain.user.exceptions.InvalidUsernameOrPasswordException;
 import inno.edu.api.domain.user.exceptions.UserIsNotMentorException;
-import inno.edu.api.domain.user.exceptions.UserNameAlreadyExistsException;
+import inno.edu.api.domain.user.exceptions.UsernameAlreadyExistsException;
 import inno.edu.api.domain.user.exceptions.UserNotFoundException;
 import inno.edu.api.domain.profile.exceptions.UserProfileNotFoundException;
 import org.springframework.hateoas.VndErrors.VndError;
@@ -23,9 +23,9 @@ public class UserControllerAdvice {
     }
 
     @ResponseBody
-    @ExceptionHandler(UserNameAlreadyExistsException.class)
+    @ExceptionHandler(UsernameAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    VndError userNameAlreadyExistsExceptionHandler(UserNameAlreadyExistsException ex) {
+    VndError usernameAlreadyExistsExceptionHandler(UsernameAlreadyExistsException ex) {
         return new VndError("error", ex.getMessage());
     }
 
@@ -37,9 +37,9 @@ public class UserControllerAdvice {
     }
 
     @ResponseBody
-    @ExceptionHandler(InvalidUserNameOrPasswordException.class)
+    @ExceptionHandler(InvalidUsernameOrPasswordException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    VndError invalidUserNameOrPasswordExceptionHandler(InvalidUserNameOrPasswordException ex) {
+    VndError invalidUserNameOrPasswordExceptionHandler(InvalidUsernameOrPasswordException ex) {
         return new VndError("error", ex.getMessage());
     }
 

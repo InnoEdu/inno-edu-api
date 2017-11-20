@@ -32,7 +32,7 @@ public class UserControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$._embedded.userResourceList[*].id", hasItems(fei().getId().toString(), alan().getId().toString())))
                 .andExpect(jsonPath("$._embedded.userResourceList[*].firstName", hasItems(fei().getFirstName(), alan().getFirstName())))
                 .andExpect(jsonPath("$._embedded.userResourceList[*].lastName", hasItems(fei().getLastName(), alan().getLastName())))
-                .andExpect(jsonPath("$._embedded.userResourceList[*].userName", hasItems(fei().getUserName(), alan().getUserName())))
+                .andExpect(jsonPath("$._embedded.userResourceList[*].username", hasItems(fei().getUsername(), alan().getUsername())))
                 .andExpect(jsonPath("$._embedded.userResourceList[*].photoUrl", hasItems(fei().getPhotoUrl(), alan().getPhotoUrl())))
                 .andExpect(jsonPath("$._embedded.userResourceList[*].isMentor", hasItems(fei().getIsMentor(), alan().getIsMentor())));
     }
@@ -44,7 +44,7 @@ public class UserControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.id", is(fei().getId().toString())))
                 .andExpect(jsonPath("$.firstName", is(fei().getFirstName())))
                 .andExpect(jsonPath("$.lastName", is(fei().getLastName())))
-                .andExpect(jsonPath("$.userName", is(fei().getUserName())))
+                .andExpect(jsonPath("$.username", is(fei().getUsername())))
                 .andExpect(jsonPath("$.photoUrl", is(fei().getPhotoUrl())))
                 .andExpect(jsonPath("$.isMentor", is(fei().getIsMentor())));
     }

@@ -1,14 +1,14 @@
 DELETE FROM User;
 
-INSERT INTO User (id, first_name, last_name, user_name, password, is_mentor, photo_url)
+INSERT INTO User (id, first_name, last_name, username, password, is_mentor, photo_url)
 VALUES ('ba7c650519fd47c387a6c6af6e5322b7', 'Fei', 'Xiu', 'feixiu', 'password', 1,
         'https://i1.rgstatic.net/ii/profile.image/AS%3A278674336174081%401443452547142_xl/Peng_Fei_Xu.png');
 
-INSERT INTO User (id, first_name, last_name, user_name, password, is_mentor, photo_url)
+INSERT INTO User (id, first_name, last_name, username, password, is_mentor, photo_url)
 VALUES ('8d6153fc83e54b3a90acd081ff789cef', 'Alan', 'Ly', 'alanly', 'password', 0,
         'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAeBAAAAJDk1ZDQyNzE0LWY2MGQtNDFmYS05MmRmLTRhMzc0MTAxMGEwMQ.jpg');
 
-INSERT INTO User (id, first_name, last_name, user_name, password, is_mentor, photo_url)
+INSERT INTO User (id, first_name, last_name, username, password, is_mentor, photo_url)
 VALUES ('df54ff863caa4145b228284f5d4a908a', 'Gustavo', 'Di Domenico', 'gdomenico', 'password', 1,
         'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAANPAAAAJGMwMjU0ZWJlLTBjZmEtNDNiNC1hZWVlLTQzNDRjZDM1MDZjZQ.jpg');
 

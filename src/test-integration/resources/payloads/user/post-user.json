@@ -1,7 +1,7 @@
 {
   "firstName": "%s",
   "lastName": "%s",
-  "userName": "%s",
+  "username": "%s",
   "password": "%s",
   "isMentor": "%s",
   "photoUrl": "%s"

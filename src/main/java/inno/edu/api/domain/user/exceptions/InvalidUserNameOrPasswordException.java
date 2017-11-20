@@ -1,7 +1,7 @@
 package inno.edu.api.domain.user.exceptions;
 
-public class InvalidUserNameOrPasswordException extends RuntimeException {
-    public InvalidUserNameOrPasswordException() {
-        super("Invalid user name or password.");
+public class InvalidUsernameOrPasswordException extends RuntimeException {
+    public InvalidUsernameOrPasswordException() {
+        super("Invalid username or password.");
     }
 }
