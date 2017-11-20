@@ -1,7 +1,7 @@
 package inno.edu.api.domain.appointment.commands;
 
-import inno.edu.api.domain.appointment.exceptions.AppointmentNotFoundException;
 import inno.edu.api.domain.appointment.models.Appointment;
+import inno.edu.api.domain.appointment.queries.GetAppointmentByIdQuery;
 import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,21 +18,17 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class UpdateAppointmentStatusCommandTest {
     @Mock
+    private GetAppointmentByIdQuery getAppointmentByIdQuery;
+
+    @Mock
     private AppointmentRepository appointmentRepository;
 
     @InjectMocks
     private UpdateAppointmentStatusCommand updateAppointmentStatusCommand;
 
-    @Test(expected = AppointmentNotFoundException.class)
-    public void shouldThrowExceptionIfAppointmentDoesNotExist() {
-        when(appointmentRepository.findOne(appointment().getId())).thenReturn(null);
-
-        updateAppointmentStatusCommand.run(appointment().getId(), reason(), ACCEPTED);
-    }
-
     @Test
     public void shouldUpdateAppointmentStatus() {
-        when(appointmentRepository.findOne(appointment().getId())).thenReturn(appointment());
+        when(getAppointmentByIdQuery.run(appointment().getId())).thenReturn(appointment());
 
         updateAppointmentStatusCommand.run(appointment().getId(), reason(), ACCEPTED);
 
