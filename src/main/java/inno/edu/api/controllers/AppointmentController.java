@@ -13,6 +13,10 @@ import inno.edu.api.domain.appointment.queries.GetAppointmentByIdQuery;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByMenteeIdQuery;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByMentorIdQuery;
 import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ResponseHeader;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -63,12 +67,14 @@ public class AppointmentController {
     }
 
     @GetMapping
+    @ApiOperation(value = "Find all appointments", notes = "Return all appointments currently saved into the database.", response = Appointment.class, responseContainer = "List")
     public Resources<AppointmentResource> all() {
         Iterable<Appointment> appointments = appointmentRepository.findAll();
         return resourceBuilder.from(appointments, AppointmentResource::new);
     }
 
     @GetMapping("/mentor/{mentorId}")
+    @ApiOperation(value = "Find all appointments by mentor and status", notes = "Return all appointments for the specific mentor and also optionally filtered by the appointment status. ", response = Appointment.class, responseContainer = "List")
     public Resources<AppointmentResource> allByMentor(@PathVariable UUID mentorId,
                                                       @RequestParam(required = false) AppointmentStatus status) {
         List<Appointment> appointments = getAppointmentsByMentorIdQuery.run(mentorId, status);
@@ -76,6 +82,7 @@ public class AppointmentController {
     }
 
     @GetMapping("/mentee/{menteeId}")
+    @ApiOperation(value = "Find all appointments by mentee and status", notes = "Return all appointments for the specific mentee and also optionally filtered by the appointment status. ", response = Appointment.class, responseContainer = "List")
     public Resources<AppointmentResource> allByMentee(@PathVariable UUID menteeId,
                                                       @RequestParam(required = false) AppointmentStatus status) {
         List<Appointment> appointments = getAppointmentsByMenteeIdQuery.run(menteeId, status);
@@ -83,41 +90,77 @@ public class AppointmentController {
     }
 
     @GetMapping("/{id}")
+    @ApiOperation(value = "Get an appointment", notes = "Get an appointments by ID.", response = Appointment.class)
+    @ApiResponses({
+            @ApiResponse(code = 404, message = "Appointment not found."),
+    })
     public AppointmentResource get(@PathVariable UUID id) {
         return new AppointmentResource(getAppointmentByIdQuery.run(id));
     }
 
     @PostMapping
+    @ApiOperation(value = "Create a new appointment", notes = "Creates a new appointment for a Mentee Profile, Mentor Profile and School combination.")
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "New appointment successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
+            @ApiResponse(code = 400, message = "Invalid Mentor Profile or Mentee Profile supplied."),
+    })
     public ResponseEntity<?> post(@RequestBody Appointment appointment) {
         AppointmentResource appointmentResource = new AppointmentResource(createAppointmentCommand.run(appointment));
         return appointmentResource.toCreated();
     }
 
     @PutMapping("/{id}")
+    @ApiOperation(value = "Update an appointment", notes = "Update an appointment. You cannot change the original profiles that created the appointment.", response = Appointment.class)
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "New appointment successfully updated.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the updated resource.", response = String.class)),
+            @ApiResponse(code = 404, message = "Appointment not found."),
+    })
     public ResponseEntity<?> put(@PathVariable UUID id, @RequestBody Appointment appointment) {
         AppointmentResource appointmentResource = new AppointmentResource(updateAppointmentCommand.run(id, appointment));
         return appointmentResource.toUpdated();
     }
 
     @PutMapping("/{id}/cancel")
+    @ApiOperation(value = "Cancel an appointment", notes = "Cancel an appointment because of a specific reason. This operation should be performed by a mentee.")
+    @ApiResponses({
+            @ApiResponse(code = 204, message = "Appointment successfully canceled."),
+            @ApiResponse(code = 400, message = "Reason not provided."),
+            @ApiResponse(code = 404, message = "Appointment not found."),
+    })
     public ResponseEntity<?> cancel(@PathVariable UUID id, @RequestBody AppointmentReason reason) {
         updateAppointmentStatusCommand.run(id, reason, CANCELED);
         return noContent().build();
     }
 
     @PutMapping("/{id}/decline")
-    public ResponseEntity<?> decline(@PathVariable UUID id, AppointmentReason reason) {
+    @ApiOperation(value = "Decline an appointment", notes = "Decline an appointment because of a specific reason. This operation should be performed by a mentor.")
+    @ApiResponses({
+            @ApiResponse(code = 204, message = "Appointment successfully declined."),
+            @ApiResponse(code = 400, message = "Reason not provided."),
+            @ApiResponse(code = 404, message = "Appointment not found."),
+    })
+    public ResponseEntity<?> decline(@PathVariable UUID id, @RequestBody AppointmentReason reason) {
         updateAppointmentStatusCommand.run(id, reason, DECLINED);
         return noContent().build();
     }
 
     @PutMapping("/{id}/accept")
+    @ApiOperation(value = "Accept an appointment", notes = "Accept an appointment. This operation should be performed by a mentor.")
+    @ApiResponses({
+            @ApiResponse(code = 204, message = "Appointment successfully accepted."),
+            @ApiResponse(code = 404, message = "Appointment not found."),
+    })
     public ResponseEntity<?> accept(@PathVariable UUID id) {
         updateAppointmentStatusCommand.run(id, new AppointmentReason(), ACCEPTED);
         return noContent().build();
     }
 
     @DeleteMapping("/{id}")
+    @ApiOperation(value = "Delete an appointment", notes = "Delete an appointment, this operation cannot be undone.")
+    @ApiResponses({
+            @ApiResponse(code = 204, message = "Appointment successfully deleted."),
+            @ApiResponse(code = 404, message = "Appointment not found.")
+    })
     public ResponseEntity<?> delete(@PathVariable UUID id) {
         deleteAppointmentCommand.run(id);
         return noContent().build();
