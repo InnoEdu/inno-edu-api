@@ -16,6 +16,7 @@ public class UserFactory {
                 .firstName("Gustavo")
                 .lastName("Domenico")
                 .username("gustavodomenico")
+                .email("gustavo@inno.edu")
                 .password("password")
                 .isMentor(true)
                 .build();
@@ -82,7 +83,8 @@ public class UserFactory {
                 .id(fromString("ba7c6505-19fd-47c3-87a6-c6af6e5322b7"))
                 .firstName("UpdatedFei")
                 .lastName("UpdatedXiu")
-                .username("feixiu")
+                .username(fei().getUsername())
+                .email(fei().getEmail())
                 .photoUrl("UpdatedProfileUrl")
                 .isMentor(true)
                 .build();

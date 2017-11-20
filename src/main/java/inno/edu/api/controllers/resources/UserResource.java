@@ -34,11 +34,11 @@ public class UserResource extends ResourceSupport {
         }
     }
 
-    public ResponseEntity<?> toCreated() {
-        return created(URI.create(getLink("self").getHref())).build();
+    public ResponseEntity<User> toCreated() {
+        return created(URI.create(getLink("self").getHref())).body(user);
     }
 
-    public ResponseEntity<?> toUpdated() {
+    public ResponseEntity<User> toUpdated() {
         return created(fromCurrentRequest().build().toUri()).body(user);
     }
 }
