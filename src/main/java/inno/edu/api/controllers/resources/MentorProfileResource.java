@@ -28,11 +28,11 @@ public class MentorProfileResource extends ResourceSupport {
         add(linkTo(methodOn(SchoolController.class).get(mentorProfile.getSchoolId())).withRel("school"));
     }
 
-    public ResponseEntity<?> toCreated() {
-        return created(URI.create(getLink("self").getHref())).build();
+    public ResponseEntity<MentorProfile> toCreated() {
+        return created(URI.create(getLink("self").getHref())).body(mentorProfile);
     }
 
-    public ResponseEntity<?> toUpdated() {
+    public ResponseEntity<MentorProfile> toUpdated() {
         return created(fromCurrentRequest().build().toUri()).body(mentorProfile);
     }
 }

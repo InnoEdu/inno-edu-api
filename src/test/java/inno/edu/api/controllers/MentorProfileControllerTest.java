@@ -13,18 +13,18 @@ import inno.edu.api.domain.profile.repositories.MentorProfileRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static inno.edu.api.support.ProfileFactory.mentorProfiles;
+import static inno.edu.api.support.ProfileFactory.updatedFeiProfile;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
@@ -82,21 +82,20 @@ public class MentorProfileControllerTest {
 
     @Test
     public void shouldCreateNewProfiles() {
-        ArgumentCaptor<MentorProfile> argumentCaptor = forClass(MentorProfile.class);
-        when(createMentorProfileCommand.run(argumentCaptor.capture())).thenReturn(feiProfile());
+        when(createMentorProfileCommand.run(feiProfile())).thenReturn(feiProfile());
 
-        mentorProfileController.post(feiProfile());
+        ResponseEntity<MentorProfile> entity = mentorProfileController.post(feiProfile());
 
-        verify(createMentorProfileCommand).run(argumentCaptor.capture());
+        assertThat(entity.getBody(), is(feiProfile()));
     }
 
     @Test
     public void shouldUpdateProfile() {
-        when(updateMentorProfileCommand.run(feiProfile().getId(), feiProfile())).thenReturn(feiProfile());
+        when(updateMentorProfileCommand.run(feiProfile().getId(), updatedFeiProfile())).thenReturn(updatedFeiProfile());
 
-        mentorProfileController.put(feiProfile().getId(), feiProfile());
+        ResponseEntity<MentorProfile> entity = mentorProfileController.put(feiProfile().getId(), updatedFeiProfile());
 
-        verify(updateMentorProfileCommand).run(feiProfile().getId(), feiProfile());
+        assertThat(entity.getBody(), is(updatedFeiProfile()));
     }
 
     @Test
