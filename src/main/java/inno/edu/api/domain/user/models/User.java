@@ -25,6 +25,7 @@ public class User {
     private String lastName;
 
     private String username;
+    private String email;
 
     @JsonProperty(access = WRITE_ONLY)
     private String password;

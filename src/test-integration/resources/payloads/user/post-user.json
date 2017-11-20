@@ -2,6 +2,7 @@
   "firstName": "%s",
   "lastName": "%s",
   "username": "%s",
+  "email": "%s",
   "password": "%s",
   "confirmPassword": "%s",
   "isMentor": "%s"

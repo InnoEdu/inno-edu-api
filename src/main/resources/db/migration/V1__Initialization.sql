@@ -2,7 +2,8 @@ CREATE TABLE User (
   id         BINARY(16) PRIMARY KEY,
   first_name VARCHAR(255) NOT NULL,
   last_name  VARCHAR(255) NOT NULL,
-  username  VARCHAR(30)  NOT NULL,
+  username   VARCHAR(30)  NOT NULL,
+  email      VARCHAR(255) NOT NULL,
   password   VARCHAR(30)  NOT NULL,
   photo_url  VARCHAR(255),
   is_mentor  BOOLEAN      NOT NULL
@@ -16,7 +17,7 @@ CREATE TABLE Mentee_Profile (
 
   FOREIGN KEY (mentee_id)
   REFERENCES User (id)
-  ON DELETE CASCADE
+    ON DELETE CASCADE
 );
 
 CREATE TABLE School (
@@ -36,11 +37,11 @@ CREATE TABLE Mentor_Profile (
 
   FOREIGN KEY (mentor_id)
   REFERENCES User (id)
-  ON DELETE CASCADE,
+    ON DELETE CASCADE,
 
   FOREIGN KEY (school_id)
   REFERENCES School (id)
-  ON DELETE CASCADE
+    ON DELETE CASCADE
 );
 
 
@@ -52,24 +53,24 @@ CREATE TABLE Availability (
 
   FOREIGN KEY (mentor_profile_id)
   REFERENCES Mentor_Profile (id)
-  ON DELETE CASCADE
+    ON DELETE CASCADE
 );
 
 CREATE TABLE Appointment (
   id                BINARY(16) PRIMARY KEY,
-  mentor_profile_id BINARY(16)   NOT NULL,
-  mentee_profile_id BINARY(16)   NOT NULL,
-  from_date_time    TIMESTAMP    NOT NULL,
-  to_date_time      TIMESTAMP    NOT NULL,
-  description       TEXT         NOT NULL,
-  status            SMALLINT     NOT NULL,
+  mentor_profile_id BINARY(16) NOT NULL,
+  mentee_profile_id BINARY(16) NOT NULL,
+  from_date_time    TIMESTAMP  NOT NULL,
+  to_date_time      TIMESTAMP  NOT NULL,
+  description       TEXT       NOT NULL,
+  status            SMALLINT   NOT NULL,
   reason            VARCHAR(255),
 
   FOREIGN KEY (mentor_profile_id)
   REFERENCES Mentor_Profile (id)
-  ON DELETE CASCADE,
+    ON DELETE CASCADE,
 
   FOREIGN KEY (mentee_profile_id)
   REFERENCES Mentee_Profile (id)
-  ON DELETE CASCADE
+    ON DELETE CASCADE
 );
