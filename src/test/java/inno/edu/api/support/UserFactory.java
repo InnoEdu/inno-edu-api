@@ -1,6 +1,6 @@
 package inno.edu.api.support;
 
-import inno.edu.api.domain.user.models.Login;
+import inno.edu.api.domain.user.commands.dtos.LoginRequest;
 import inno.edu.api.domain.user.models.User;
 
 import java.util.List;
@@ -32,8 +32,8 @@ public class UserFactory {
                 .build();
     }
 
-    public static Login feiCredentials() {
-        return Login.builder()
+    public static LoginRequest feiCredentials() {
+        return LoginRequest.builder()
                 .username(fei().getUsername())
                 .password(fei().getPassword())
                 .build();

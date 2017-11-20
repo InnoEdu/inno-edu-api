@@ -1,4 +1,4 @@
-package inno.edu.api.domain.user.models;
+package inno.edu.api.domain.user.commands.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Login {
+public class LoginRequest {
     private String username;
     private String password;
-
 }

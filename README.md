@@ -11,7 +11,7 @@
 ## Deploy
 
 * Install [Heroku cli](https://devcenter.heroku.com/articles/heroku-cli#download-and-install). 
-* Login `heroku login`.
+* Login `heroku loginRequest`.
 * Deploy: `git push heroku master`.
 
 ## Swagger

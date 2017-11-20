@@ -12,7 +12,7 @@ import inno.edu.api.domain.user.commands.CreateUserCommand;
 import inno.edu.api.domain.user.commands.DeleteUserCommand;
 import inno.edu.api.domain.user.commands.LoginCommand;
 import inno.edu.api.domain.user.commands.UpdateUserCommand;
-import inno.edu.api.domain.user.models.Login;
+import inno.edu.api.domain.user.commands.dtos.LoginRequest;
 import inno.edu.api.domain.user.models.User;
 import inno.edu.api.domain.user.queries.GetUserByIdQuery;
 import inno.edu.api.domain.user.repositories.UserRepository;
@@ -103,8 +103,8 @@ public class UserController {
     @ApiResponses({
             @ApiResponse(code = 400, message = "Invalid credentials supplied."),
     })
-    public UserResource login(@RequestBody Login login) {
-        return new UserResource(loginCommand.run(login));
+    public UserResource login(@RequestBody LoginRequest loginRequest) {
+        return new UserResource(loginCommand.run(loginRequest));
     }
 
     @PostMapping
