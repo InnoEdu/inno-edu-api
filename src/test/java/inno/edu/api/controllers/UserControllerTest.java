@@ -29,6 +29,7 @@ import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.createFeiRequest;
 import static inno.edu.api.support.UserFactory.fei;
 import static inno.edu.api.support.UserFactory.feiCredentials;
+import static inno.edu.api.support.UserFactory.updateFeiRequest;
 import static inno.edu.api.support.UserFactory.users;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -138,11 +139,11 @@ public class UserControllerTest {
 
     @Test
     public void shouldUpdateUser() {
-        when(updateUserCommand.run(fei().getId(), fei())).thenReturn(fei());
+        when(updateUserCommand.run(fei().getId(), updateFeiRequest())).thenReturn(fei());
 
-        userController.put(fei().getId(), fei());
+        userController.put(fei().getId(), updateFeiRequest());
 
-        verify(updateUserCommand).run(fei().getId(), fei());
+        verify(updateUserCommand).run(fei().getId(), updateFeiRequest());
     }
 
     @Test

@@ -14,6 +14,7 @@ import inno.edu.api.domain.user.commands.LoginCommand;
 import inno.edu.api.domain.user.commands.UpdateUserCommand;
 import inno.edu.api.domain.user.commands.dtos.CreateUserRequest;
 import inno.edu.api.domain.user.commands.dtos.LoginRequest;
+import inno.edu.api.domain.user.commands.dtos.UpdateUserRequest;
 import inno.edu.api.domain.user.models.User;
 import inno.edu.api.domain.user.queries.GetUserByIdQuery;
 import inno.edu.api.domain.user.repositories.UserRepository;
@@ -125,8 +126,8 @@ public class UserController {
             @ApiResponse(code = 201, message = "New user successfully updated.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the updated resource.", response = String.class)),
             @ApiResponse(code = 404, message = "User not found."),
     })
-    public ResponseEntity<?> put(@PathVariable UUID id, @RequestBody User user) {
-        UserResource userResource = new UserResource(updateUserCommand.run(id, user));
+    public ResponseEntity<?> put(@PathVariable UUID id, @RequestBody UpdateUserRequest updateUserRequest) {
+        UserResource userResource = new UserResource(updateUserCommand.run(id, updateUserRequest));
         return userResource.toUpdated();
     }
 

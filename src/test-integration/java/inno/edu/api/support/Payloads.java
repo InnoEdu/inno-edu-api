@@ -3,12 +3,12 @@ package inno.edu.api.support;
 import inno.edu.api.domain.appointment.models.Appointment;
 import inno.edu.api.domain.appointment.models.AppointmentReason;
 import inno.edu.api.domain.availability.models.Availability;
+import inno.edu.api.domain.profile.models.MenteeProfile;
+import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.school.models.School;
 import inno.edu.api.domain.user.commands.dtos.CreateUserRequest;
 import inno.edu.api.domain.user.commands.dtos.LoginRequest;
-import inno.edu.api.domain.profile.models.MenteeProfile;
-import inno.edu.api.domain.profile.models.MentorProfile;
-import inno.edu.api.domain.user.models.User;
+import inno.edu.api.domain.user.commands.dtos.UpdateUserRequest;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -36,8 +36,8 @@ public class Payloads {
         return format(loadPayload("payloads/user/post-user.json"), createUserRequest.getFirstName(), createUserRequest.getLastName(), createUserRequest.getUsername(), createUserRequest.getEmail(), createUserRequest.getPassword(), createUserRequest.getConfirmPassword(), createUserRequest.getIsMentor());
     }
 
-    public static String putUserPayload(User user) {
-        return format(loadPayload("payloads/user/put-user.json"), user.getFirstName(), user.getLastName(), user.getPhotoUrl());
+    public static String putUserPayload(UpdateUserRequest user) {
+        return format(loadPayload("payloads/user/put-user.json"), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhotoUrl());
     }
 
     public static String postMentorProfilePayload(MentorProfile profile) {

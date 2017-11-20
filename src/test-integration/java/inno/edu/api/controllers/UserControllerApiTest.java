@@ -15,6 +15,7 @@ import static inno.edu.api.support.UserFactory.fei;
 import static inno.edu.api.support.UserFactory.feiCredentials;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static inno.edu.api.support.UserFactory.gustavo;
+import static inno.edu.api.support.UserFactory.updateFeiRequest;
 import static inno.edu.api.support.UserFactory.updatedFei;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.core.Is.is;
@@ -112,7 +113,7 @@ public class UserControllerApiTest extends ApiTest {
     public void shouldUpdateUser() throws Exception {
         this.mockMvc.perform(
                 put("/api/users/" + fei().getId())
-                        .content(putUserPayload(updatedFei()))
+                        .content(putUserPayload(updateFeiRequest()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())

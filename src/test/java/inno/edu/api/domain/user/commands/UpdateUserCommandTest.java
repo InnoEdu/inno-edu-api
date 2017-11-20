@@ -1,5 +1,6 @@
 package inno.edu.api.domain.user.commands;
 
+import inno.edu.api.domain.user.commands.mappers.UpdateUserRequestToUserMapper;
 import inno.edu.api.domain.user.models.User;
 import inno.edu.api.domain.user.queries.GetUserByIdQuery;
 import inno.edu.api.domain.user.repositories.UserRepository;
@@ -9,14 +10,19 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.fei;
+import static inno.edu.api.support.UserFactory.updateFeiRequest;
+import static inno.edu.api.support.UserFactory.updatedFei;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UpdateUserCommandTest {
+    @Mock
+    private UpdateUserRequestToUserMapper updateUserRequestToUserMapper;
+
     @Mock
     private UserRepository userRepository;
 
@@ -29,10 +35,12 @@ public class UpdateUserCommandTest {
     @Test
     public void shouldReturnUpdatedUser() {
         when(getUserByIdQuery.run(fei().getId())).thenReturn(fei());
-        when(userRepository.save(fei())).thenReturn(alan());
+        when(userRepository.save(fei())).thenReturn(updatedFei());
 
-        User user = updateUserCommand.run(fei().getId(), fei());
+        User user = updateUserCommand.run(fei().getId(), updateFeiRequest());
 
-        assertThat(user, is(alan()));
+        verify(updateUserRequestToUserMapper).updateUserRequestToUser(updateFeiRequest(), fei());
+
+        assertThat(user, is(updatedFei()));
     }
 }

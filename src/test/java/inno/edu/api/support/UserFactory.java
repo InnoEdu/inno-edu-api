@@ -2,6 +2,7 @@ package inno.edu.api.support;
 
 import inno.edu.api.domain.user.commands.dtos.CreateUserRequest;
 import inno.edu.api.domain.user.commands.dtos.LoginRequest;
+import inno.edu.api.domain.user.commands.dtos.UpdateUserRequest;
 import inno.edu.api.domain.user.models.User;
 
 import java.util.List;
@@ -32,6 +33,15 @@ public class UserFactory {
                 .password("password")
                 .photoUrl("https://i1.rgstatic.net/ii/profile.image/AS%3A278674336174081%401443452547142_xl/Peng_Fei_Xu.png")
                 .isMentor(true)
+                .build();
+    }
+
+    public static UpdateUserRequest updateFeiRequest() {
+        return UpdateUserRequest.builder()
+                .firstName(updatedFei().getFirstName())
+                .lastName(updatedFei().getLastName())
+                .email(updatedFei().getEmail())
+                .photoUrl(updatedFei().getPhotoUrl())
                 .build();
     }
 
