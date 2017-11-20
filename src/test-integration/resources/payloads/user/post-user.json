@@ -4,6 +4,5 @@
   "username": "%s",
   "password": "%s",
   "confirmPassword": "%s",
-  "isMentor": "%s",
-  "photoUrl": "%s"
+  "isMentor": "%s"
 }

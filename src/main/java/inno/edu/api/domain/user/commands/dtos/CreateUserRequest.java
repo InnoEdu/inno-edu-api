@@ -18,6 +18,4 @@ public class CreateUserRequest {
     private String confirmPassword;
 
     private Boolean isMentor;
-
-    private String photoUrl;
 }

@@ -40,7 +40,6 @@ public class UserFactory {
                 .username("feixiu")
                 .password("password")
                 .confirmPassword("password")
-                .photoUrl("https://i1.rgstatic.net/ii/profile.image/AS%3A278674336174081%401443452547142_xl/Peng_Fei_Xu.png")
                 .isMentor(true)
                 .build();
     }

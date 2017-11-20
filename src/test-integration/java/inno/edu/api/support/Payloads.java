@@ -33,7 +33,7 @@ public class Payloads {
     }
 
     public static String postUserPayload(CreateUserRequest createUserRequest) {
-        return format(loadPayload("payloads/user/post-user.json"), createUserRequest.getFirstName(), createUserRequest.getLastName(), createUserRequest.getUsername(), createUserRequest.getPassword(), createUserRequest.getConfirmPassword(), createUserRequest.getIsMentor(), createUserRequest.getPhotoUrl());
+        return format(loadPayload("payloads/user/post-user.json"), createUserRequest.getFirstName(), createUserRequest.getLastName(), createUserRequest.getUsername(), createUserRequest.getPassword(), createUserRequest.getConfirmPassword(), createUserRequest.getIsMentor());
     }
 
     public static String putUserPayload(User user) {
