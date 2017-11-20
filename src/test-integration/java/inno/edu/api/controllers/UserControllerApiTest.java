@@ -9,6 +9,8 @@ import static inno.edu.api.support.Payloads.postUserPayload;
 import static inno.edu.api.support.Payloads.putUserPayload;
 import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.ProfileFactory.alanProfile;
+import static inno.edu.api.support.UserFactory.createFeiRequest;
+import static inno.edu.api.support.UserFactory.createGustavoRequest;
 import static inno.edu.api.support.UserFactory.fei;
 import static inno.edu.api.support.UserFactory.feiCredentials;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
@@ -83,7 +85,7 @@ public class UserControllerApiTest extends ApiTest {
     public void shouldCreateNewUser() throws Exception {
         this.mockMvc.perform(
                 post("/api/users")
-                        .content(postUserPayload(gustavo()))
+                        .content(postUserPayload(createGustavoRequest()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated());
@@ -93,7 +95,7 @@ public class UserControllerApiTest extends ApiTest {
     public void shouldNotCreateNewUserIfUserNameAlreadyExists() throws Exception {
         this.mockMvc.perform(
                 post("/api/users")
-                        .content(postUserPayload(fei()))
+                        .content(postUserPayload(createFeiRequest()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isBadRequest());

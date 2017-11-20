@@ -12,6 +12,7 @@ import inno.edu.api.domain.user.commands.CreateUserCommand;
 import inno.edu.api.domain.user.commands.DeleteUserCommand;
 import inno.edu.api.domain.user.commands.LoginCommand;
 import inno.edu.api.domain.user.commands.UpdateUserCommand;
+import inno.edu.api.domain.user.commands.dtos.CreateUserRequest;
 import inno.edu.api.domain.user.commands.dtos.LoginRequest;
 import inno.edu.api.domain.user.models.User;
 import inno.edu.api.domain.user.queries.GetUserByIdQuery;
@@ -112,8 +113,8 @@ public class UserController {
     @ApiResponses({
             @ApiResponse(code = 201, message = "New user successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
     })
-    public ResponseEntity<?> post(@RequestBody User user) {
-        UserResource userResource = new UserResource(createUserCommand.run(user));
+    public ResponseEntity<?> post(@RequestBody CreateUserRequest createUserRequest) {
+        UserResource userResource = new UserResource(createUserCommand.run(createUserRequest));
         return userResource.toCreated();
     }
 

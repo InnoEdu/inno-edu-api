@@ -1,5 +1,6 @@
 package inno.edu.api.support;
 
+import inno.edu.api.domain.user.commands.dtos.CreateUserRequest;
 import inno.edu.api.domain.user.commands.dtos.LoginRequest;
 import inno.edu.api.domain.user.models.User;
 
@@ -28,6 +29,29 @@ public class UserFactory {
                 .username("feixiu")
                 .password("password")
                 .photoUrl("https://i1.rgstatic.net/ii/profile.image/AS%3A278674336174081%401443452547142_xl/Peng_Fei_Xu.png")
+                .isMentor(true)
+                .build();
+    }
+
+    public static CreateUserRequest createFeiRequest() {
+        return CreateUserRequest.builder()
+                .firstName("Fei")
+                .lastName("Xiu")
+                .username("feixiu")
+                .password("password")
+                .confirmPassword("password")
+                .photoUrl("https://i1.rgstatic.net/ii/profile.image/AS%3A278674336174081%401443452547142_xl/Peng_Fei_Xu.png")
+                .isMentor(true)
+                .build();
+    }
+
+    public static CreateUserRequest createGustavoRequest() {
+        return CreateUserRequest.builder()
+                .firstName("Gustavo")
+                .lastName("Domenico")
+                .username("gustavodomenico")
+                .password("password")
+                .confirmPassword("password")
                 .isMentor(true)
                 .build();
     }

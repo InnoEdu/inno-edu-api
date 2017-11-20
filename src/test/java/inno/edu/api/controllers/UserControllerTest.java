@@ -10,7 +10,7 @@ import inno.edu.api.domain.user.commands.CreateUserCommand;
 import inno.edu.api.domain.user.commands.DeleteUserCommand;
 import inno.edu.api.domain.user.commands.LoginCommand;
 import inno.edu.api.domain.user.commands.UpdateUserCommand;
-import inno.edu.api.domain.user.models.User;
+import inno.edu.api.domain.user.commands.dtos.CreateUserRequest;
 import inno.edu.api.domain.user.queries.GetUserByIdQuery;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import org.junit.Before;
@@ -23,11 +23,12 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.ProfileFactory.alanProfile;
+import static inno.edu.api.support.ProfileFactory.feiProfile;
+import static inno.edu.api.support.UserFactory.alan;
+import static inno.edu.api.support.UserFactory.createFeiRequest;
 import static inno.edu.api.support.UserFactory.fei;
 import static inno.edu.api.support.UserFactory.feiCredentials;
-import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static inno.edu.api.support.UserFactory.users;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -127,10 +128,10 @@ public class UserControllerTest {
 
     @Test
     public void shouldCreateNewUser() {
-        ArgumentCaptor<User> argumentCaptor = forClass(User.class);
+        ArgumentCaptor<CreateUserRequest> argumentCaptor = forClass(CreateUserRequest.class);
         when(createUserCommand.run(argumentCaptor.capture())).thenReturn(fei());
 
-        userController.post(fei());
+        userController.post(createFeiRequest());
 
         verify(createUserCommand).run(argumentCaptor.capture());
     }

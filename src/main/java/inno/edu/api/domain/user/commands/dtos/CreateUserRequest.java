@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateUserRequest {
@@ -16,6 +16,8 @@ public class CreateUserRequest {
     private String username;
     private String password;
     private String confirmPassword;
+
+    private Boolean isMentor;
 
     private String photoUrl;
 }
