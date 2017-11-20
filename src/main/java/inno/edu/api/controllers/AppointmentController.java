@@ -67,7 +67,7 @@ public class AppointmentController {
     }
 
     @GetMapping
-    @ApiOperation(value = "Find all appointments", notes = "Return all appointments currently saved into the database.", response = Appointment.class, responseContainer = "List")
+    @ApiOperation(value = "Find all appointments", notes = "Return all appointments.", response = Appointment.class, responseContainer = "List")
     public Resources<AppointmentResource> all() {
         Iterable<Appointment> appointments = appointmentRepository.findAll();
         return resourceBuilder.from(appointments, AppointmentResource::new);
@@ -96,7 +96,7 @@ public class AppointmentController {
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "Get an appointment", notes = "Get an appointments by ID.", response = Appointment.class)
+    @ApiOperation(value = "Get an appointment", notes = "Get an appointment by ID.", response = Appointment.class)
     @ApiResponses({
             @ApiResponse(code = 404, message = "Appointment not found."),
     })
