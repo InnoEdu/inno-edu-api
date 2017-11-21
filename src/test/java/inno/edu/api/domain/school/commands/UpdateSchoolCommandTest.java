@@ -1,6 +1,6 @@
 package inno.edu.api.domain.school.commands;
 
-import inno.edu.api.domain.school.commands.mappers.UpdateSchoolRequestToSchoolMapper;
+import inno.edu.api.domain.school.commands.mappers.UpdateSchoolRequestMapper;
 import inno.edu.api.domain.school.models.School;
 import inno.edu.api.domain.school.queries.GetSchoolByIdQuery;
 import inno.edu.api.domain.school.repositories.SchoolRepository;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class UpdateSchoolCommandTest {
     @Mock
-    private UpdateSchoolRequestToSchoolMapper updateSchoolRequestToSchoolMapper;
+    private UpdateSchoolRequestMapper updateSchoolRequestMapper;
 
     @Mock
     private SchoolRepository schoolRepository;
@@ -39,7 +39,7 @@ public class UpdateSchoolCommandTest {
 
         School school = updateSchoolCommand.run(stanford().getId(), updateStanfordRequest());
 
-        verify(updateSchoolRequestToSchoolMapper).updateSchoolRequestToSchool(updateStanfordRequest(), stanford());
+        verify(updateSchoolRequestMapper).setSchool(updateStanfordRequest(), stanford());
 
         assertThat(school, is(updatedStanford()));
     }

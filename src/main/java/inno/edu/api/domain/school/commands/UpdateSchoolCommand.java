@@ -1,7 +1,7 @@
 package inno.edu.api.domain.school.commands;
 
 import inno.edu.api.domain.school.commands.dtos.UpdateSchoolRequest;
-import inno.edu.api.domain.school.commands.mappers.UpdateSchoolRequestToSchoolMapper;
+import inno.edu.api.domain.school.commands.mappers.UpdateSchoolRequestMapper;
 import inno.edu.api.domain.school.models.School;
 import inno.edu.api.domain.school.queries.GetSchoolByIdQuery;
 import inno.edu.api.domain.school.repositories.SchoolRepository;
@@ -11,20 +11,20 @@ import java.util.UUID;
 
 @Command
 public class UpdateSchoolCommand {
-    private final UpdateSchoolRequestToSchoolMapper updateSchoolRequestToSchoolMapper;
+    private final UpdateSchoolRequestMapper updateSchoolRequestMapper;
 
     private final SchoolRepository schoolRepository;
     private final GetSchoolByIdQuery getSchoolByIdQuery;
 
-    public UpdateSchoolCommand(UpdateSchoolRequestToSchoolMapper updateSchoolRequestToSchoolMapper, SchoolRepository schoolRepository, GetSchoolByIdQuery getSchoolByIdQuery) {
-        this.updateSchoolRequestToSchoolMapper = updateSchoolRequestToSchoolMapper;
+    public UpdateSchoolCommand(UpdateSchoolRequestMapper updateSchoolRequestMapper, SchoolRepository schoolRepository, GetSchoolByIdQuery getSchoolByIdQuery) {
+        this.updateSchoolRequestMapper = updateSchoolRequestMapper;
         this.schoolRepository = schoolRepository;
         this.getSchoolByIdQuery = getSchoolByIdQuery;
     }
 
     public School run(UUID id, UpdateSchoolRequest updateSchoolRequest) {
         School currentSchool = getSchoolByIdQuery.run(id);
-        updateSchoolRequestToSchoolMapper.updateSchoolRequestToSchool(updateSchoolRequest, currentSchool);
+        updateSchoolRequestMapper.setSchool(updateSchoolRequest, currentSchool);
         return schoolRepository.save(currentSchool);
     }
 }

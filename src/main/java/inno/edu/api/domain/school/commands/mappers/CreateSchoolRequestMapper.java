@@ -5,6 +5,6 @@ import inno.edu.api.domain.school.models.School;
 import org.mapstruct.Mapper;
 
 @Mapper
-public interface CreateSchoolRequestToSchoolMapper {
-    School createSchoolRequestToSchool(CreateSchoolRequest createSchoolRequest);
+public interface CreateSchoolRequestMapper {
+    School toSchool(CreateSchoolRequest createSchoolRequest);
 }

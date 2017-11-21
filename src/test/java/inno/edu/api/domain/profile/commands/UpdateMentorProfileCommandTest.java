@@ -1,6 +1,6 @@
 package inno.edu.api.domain.profile.commands;
 
-import inno.edu.api.domain.profile.commands.mappers.UpdateMentorProfileRequestToMentorProfileMapper;
+import inno.edu.api.domain.profile.commands.mappers.UpdateMentorProfileRequestMapper;
 import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.profile.queries.GetMentorProfileByIdQuery;
 import inno.edu.api.domain.profile.repositories.MentorProfileRepository;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class UpdateMentorProfileCommandTest {
     @Mock
-    private UpdateMentorProfileRequestToMentorProfileMapper updateProfileToProfileMapper;
+    private UpdateMentorProfileRequestMapper updateProfileToProfileMapper;
 
     @Mock
     private GetMentorProfileByIdQuery getMentorProfileByIdQuery;
@@ -39,7 +39,7 @@ public class UpdateMentorProfileCommandTest {
 
         MentorProfile mentorProfile = updateMentorProfileCommand.run(feiProfile().getId(), updateFeiProfileRequest());
 
-        verify(updateProfileToProfileMapper).updateMentorProfileRequestToMentorProfile(updateFeiProfileRequest(), feiProfile());
+        verify(updateProfileToProfileMapper).setMentorProfile(updateFeiProfileRequest(), feiProfile());
 
         assertThat(mentorProfile, is(updatedFeiProfile()));
     }

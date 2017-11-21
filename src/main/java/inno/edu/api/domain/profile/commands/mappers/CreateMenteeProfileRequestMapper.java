@@ -5,6 +5,6 @@ import inno.edu.api.domain.profile.models.MenteeProfile;
 import org.mapstruct.Mapper;
 
 @Mapper
-public interface CreateMenteeProfileRequestToMenteeProfileMapper {
-    MenteeProfile createMenteeProfileRequestToMenteeProfile(CreateMenteeProfileRequest createMenteeProfileRequest);
+public interface CreateMenteeProfileRequestMapper {
+    MenteeProfile toMenteeProfile(CreateMenteeProfileRequest createMenteeProfileRequest);
 }

@@ -7,6 +7,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
 @Mapper
-public interface UpdateMenteeProfileRequestToMenteeProfileMapper {
-    void updateMenteeProfileRequestToMenteeProfile(UpdateMenteeProfileRequest updateMenteeProfileRequest, @MappingTarget MenteeProfile menteeProfile);
+public interface UpdateMenteeProfileRequestMapper {
+    void setMenteeProfile(UpdateMenteeProfileRequest updateMenteeProfileRequest, @MappingTarget MenteeProfile menteeProfile);
 }

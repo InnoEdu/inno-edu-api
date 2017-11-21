@@ -6,6 +6,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
 @Mapper
-public interface UpdateSchoolRequestToSchoolMapper {
-    void updateSchoolRequestToSchool(UpdateSchoolRequest updateSchoolRequest, @MappingTarget School school);
+public interface UpdateSchoolRequestMapper {
+    void setSchool(UpdateSchoolRequest updateSchoolRequest, @MappingTarget School school);
 }

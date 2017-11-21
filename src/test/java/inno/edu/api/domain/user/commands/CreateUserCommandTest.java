@@ -1,7 +1,7 @@
 package inno.edu.api.domain.user.commands;
 
 import inno.edu.api.domain.user.commands.dtos.CreateUserRequest;
-import inno.edu.api.domain.user.commands.mappers.CreateUserRequestToUserMapper;
+import inno.edu.api.domain.user.commands.mappers.CreateUserRequestMapper;
 import inno.edu.api.domain.user.exceptions.PasswordMismatchException;
 import inno.edu.api.domain.user.exceptions.UsernameAlreadyExistsException;
 import inno.edu.api.domain.user.models.User;
@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class CreateUserCommandTest {
     @Mock
-    private CreateUserRequestToUserMapper createUserRequestToUserMapper;
+    private CreateUserRequestMapper createUserRequestMapper;
 
     @Mock
     private UserRepository userRepository;
@@ -35,7 +35,7 @@ public class CreateUserCommandTest {
 
     @Before
     public void setUp() {
-        when(createUserRequestToUserMapper.createUserRequestToUser(createFeiRequest())).thenReturn(fei());
+        when(createUserRequestMapper.toUser(createFeiRequest())).thenReturn(fei());
     }
 
     @Test

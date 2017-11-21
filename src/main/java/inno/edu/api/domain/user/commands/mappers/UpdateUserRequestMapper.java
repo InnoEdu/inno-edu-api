@@ -6,6 +6,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
 @Mapper
-public interface UpdateUserRequestToUserMapper {
-    void updateUserRequestToUser(UpdateUserRequest updateUserRequest, @MappingTarget User user);
+public interface UpdateUserRequestMapper {
+    void setUser(UpdateUserRequest updateUserRequest, @MappingTarget User user);
 }

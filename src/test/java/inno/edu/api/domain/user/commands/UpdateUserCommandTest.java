@@ -1,6 +1,6 @@
 package inno.edu.api.domain.user.commands;
 
-import inno.edu.api.domain.user.commands.mappers.UpdateUserRequestToUserMapper;
+import inno.edu.api.domain.user.commands.mappers.UpdateUserRequestMapper;
 import inno.edu.api.domain.user.models.User;
 import inno.edu.api.domain.user.queries.GetUserByIdQuery;
 import inno.edu.api.domain.user.repositories.UserRepository;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class UpdateUserCommandTest {
     @Mock
-    private UpdateUserRequestToUserMapper updateUserRequestToUserMapper;
+    private UpdateUserRequestMapper updateUserRequestMapper;
 
     @Mock
     private UserRepository userRepository;
@@ -39,7 +39,7 @@ public class UpdateUserCommandTest {
 
         User user = updateUserCommand.run(fei().getId(), updateFeiRequest());
 
-        verify(updateUserRequestToUserMapper).updateUserRequestToUser(updateFeiRequest(), fei());
+        verify(updateUserRequestMapper).setUser(updateFeiRequest(), fei());
 
         assertThat(user, is(updatedFei()));
     }

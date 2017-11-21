@@ -1,7 +1,7 @@
 package inno.edu.api.domain.user.commands;
 
 import inno.edu.api.domain.user.commands.dtos.CreateUserRequest;
-import inno.edu.api.domain.user.commands.mappers.CreateUserRequestToUserMapper;
+import inno.edu.api.domain.user.commands.mappers.CreateUserRequestMapper;
 import inno.edu.api.domain.user.exceptions.PasswordMismatchException;
 import inno.edu.api.domain.user.exceptions.UsernameAlreadyExistsException;
 import inno.edu.api.domain.user.models.User;
@@ -13,16 +13,16 @@ import static java.util.UUID.randomUUID;
 
 @Command
 public class CreateUserCommand {
-    private final CreateUserRequestToUserMapper createUserRequestToUserMapper;
+    private final CreateUserRequestMapper createUserRequestMapper;
     private final UserRepository userRepository;
 
-    public CreateUserCommand(CreateUserRequestToUserMapper createUserRequestToUserMapper, UserRepository userRepository) {
-        this.createUserRequestToUserMapper = createUserRequestToUserMapper;
+    public CreateUserCommand(CreateUserRequestMapper createUserRequestMapper, UserRepository userRepository) {
+        this.createUserRequestMapper = createUserRequestMapper;
         this.userRepository = userRepository;
     }
 
     public User run(CreateUserRequest createUserRequest) {
-        User user = createUserRequestToUserMapper.createUserRequestToUser(createUserRequest);
+        User user = createUserRequestMapper.toUser(createUserRequest);
 
         if (!StringUtils.equals(createUserRequest.getPassword(), createUserRequest.getConfirmPassword())) {
             throw new PasswordMismatchException();

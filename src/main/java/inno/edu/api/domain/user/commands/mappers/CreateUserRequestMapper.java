@@ -5,6 +5,6 @@ import inno.edu.api.domain.user.models.User;
 import org.mapstruct.Mapper;
 
 @Mapper
-public interface CreateUserRequestToUserMapper {
-    User createUserRequestToUser(CreateUserRequest createUserRequest);
+public interface CreateUserRequestMapper {
+    User toUser(CreateUserRequest createUserRequest);
 }

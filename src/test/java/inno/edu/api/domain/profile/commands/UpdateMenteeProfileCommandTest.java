@@ -1,6 +1,6 @@
 package inno.edu.api.domain.profile.commands;
 
-import inno.edu.api.domain.profile.commands.mappers.UpdateMenteeProfileRequestToMenteeProfileMapper;
+import inno.edu.api.domain.profile.commands.mappers.UpdateMenteeProfileRequestMapper;
 import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.profile.queries.GetMenteeProfileByIdQuery;
 import inno.edu.api.domain.profile.repositories.MenteeProfileRepository;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class UpdateMenteeProfileCommandTest {
     @Mock
-    private UpdateMenteeProfileRequestToMenteeProfileMapper updateProfileToProfileMapper;
+    private UpdateMenteeProfileRequestMapper updateMenteeProfileRequestMapper;
 
     @Mock
     private MenteeProfileRepository menteeProfileRepository;
@@ -39,7 +39,7 @@ public class UpdateMenteeProfileCommandTest {
 
         MenteeProfile menteeProfile = updateMenteeProfileCommand.run(alanProfile().getId(), updateAlanProfileRequest());
 
-        verify(updateProfileToProfileMapper).updateMenteeProfileRequestToMenteeProfile(updateAlanProfileRequest(), alanProfile());
+        verify(updateMenteeProfileRequestMapper).setMenteeProfile(updateAlanProfileRequest(), alanProfile());
 
         assertThat(menteeProfile, is(updatedAlanProfile()));
     }

@@ -1,6 +1,6 @@
 package inno.edu.api.domain.profile.commands;
 
-import inno.edu.api.domain.profile.commands.mappers.CreateMentorProfileRequestToMentorProfileMapper;
+import inno.edu.api.domain.profile.commands.mappers.CreateMentorProfileRequestMapper;
 import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.profile.repositories.MentorProfileRepository;
 import inno.edu.api.domain.school.assertions.SchoolExistsAssertion;
@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
 public class CreateMentorProfileCommandTest {
 
     @Mock
-    private CreateMentorProfileRequestToMentorProfileMapper createProfileToProfileMapper;
+    private CreateMentorProfileRequestMapper createMentorProfileRequestMapper;
 
     @Mock
     private UserIsMentorAssertion userIsMentorAssertion;
@@ -46,7 +46,7 @@ public class CreateMentorProfileCommandTest {
 
     @Before
     public void setUp() {
-        when(createProfileToProfileMapper.createMentorProfileRequestToMentorProfile(createFeiProfileRequest()))
+        when(createMentorProfileRequestMapper.toMentorProfile(createFeiProfileRequest()))
                 .thenReturn(feiProfile());
     }
 

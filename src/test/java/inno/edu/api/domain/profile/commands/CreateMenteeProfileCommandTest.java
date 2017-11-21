@@ -1,6 +1,6 @@
 package inno.edu.api.domain.profile.commands;
 
-import inno.edu.api.domain.profile.commands.mappers.CreateMenteeProfileRequestToMenteeProfileMapper;
+import inno.edu.api.domain.profile.commands.mappers.CreateMenteeProfileRequestMapper;
 import inno.edu.api.domain.profile.exceptions.MenteeProfileAlreadyCreatedException;
 import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.profile.repositories.MenteeProfileRepository;
@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class CreateMenteeProfileCommandTest {
     @Mock
-    private CreateMenteeProfileRequestToMenteeProfileMapper createProfileRequestToProfileMapper;
+    private CreateMenteeProfileRequestMapper createMenteeProfileRequestMapper;
 
     @Mock
     private UserExistsAssertion userExistsAssertion;
@@ -38,7 +38,7 @@ public class CreateMenteeProfileCommandTest {
 
     @Before
     public void setUp() {
-        when(createProfileRequestToProfileMapper.createMenteeProfileRequestToMenteeProfile(createAlanProfileRequest()))
+        when(createMenteeProfileRequestMapper.toMenteeProfile(createAlanProfileRequest()))
                 .thenReturn(alanProfile());
     }
 

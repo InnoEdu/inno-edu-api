@@ -1,6 +1,6 @@
 package inno.edu.api.domain.school.commands;
 
-import inno.edu.api.domain.school.commands.mappers.CreateSchoolRequestToSchoolMapper;
+import inno.edu.api.domain.school.commands.mappers.CreateSchoolRequestMapper;
 import inno.edu.api.domain.school.models.School;
 import inno.edu.api.domain.school.repositories.SchoolRepository;
 import org.junit.Before;
@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class CreateSchoolCommandTest {
     @Mock
-    private CreateSchoolRequestToSchoolMapper createSchoolRequestToSchoolMapper;
+    private CreateSchoolRequestMapper createSchoolRequestMapper;
 
     @Mock
     private SchoolRepository schoolRepository;
@@ -32,7 +32,7 @@ public class CreateSchoolCommandTest {
 
     @Before
     public void setUp() {
-        when(createSchoolRequestToSchoolMapper.createSchoolRequestToSchool(createStanfordRequest()))
+        when(createSchoolRequestMapper.toSchool(createStanfordRequest()))
                 .thenReturn(stanford());
     }
 

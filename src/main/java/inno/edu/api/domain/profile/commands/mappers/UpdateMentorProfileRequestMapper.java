@@ -6,6 +6,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
 @Mapper
-public interface UpdateMentorProfileRequestToMentorProfileMapper {
-    void updateMentorProfileRequestToMentorProfile(UpdateMentorProfileRequest updateMentorProfileRequest, @MappingTarget MentorProfile menteeProfile);
+public interface UpdateMentorProfileRequestMapper {
+    void setMentorProfile(UpdateMentorProfileRequest updateMentorProfileRequest, @MappingTarget MentorProfile menteeProfile);
 }
