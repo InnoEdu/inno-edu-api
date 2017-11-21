@@ -6,6 +6,7 @@ import inno.edu.api.domain.profile.commands.CreateMentorProfileCommand;
 import inno.edu.api.domain.profile.commands.DeleteMentorProfileCommand;
 import inno.edu.api.domain.profile.commands.UpdateMentorProfileCommand;
 import inno.edu.api.domain.profile.commands.UpdateMentorProfileStatusCommand;
+import inno.edu.api.domain.profile.commands.dtos.CreateMentorProfileRequest;
 import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.profile.models.ProfileStatus;
@@ -79,9 +80,9 @@ public class MentorProfileController {
             @ApiResponse(code = 201, message = "New profile successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
             @ApiResponse(code = 400, message = "Invalid mentor user ID or school ID supplied."),
     })
-    public ResponseEntity<MentorProfile> post(@RequestBody MentorProfile profile) {
-        MentorProfileResource userResource = new MentorProfileResource(createMentorProfileCommand.run(profile));
-        return userResource.toCreated();
+    public ResponseEntity<MentorProfile> post(@RequestBody CreateMentorProfileRequest createMentorProfileRequest) {
+        MentorProfileResource mentorProfileResource = new MentorProfileResource(createMentorProfileCommand.run(createMentorProfileRequest));
+        return mentorProfileResource.toCreated();
     }
 
     @PutMapping("/{id}")

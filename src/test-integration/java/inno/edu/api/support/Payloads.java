@@ -4,6 +4,7 @@ import inno.edu.api.domain.appointment.models.Appointment;
 import inno.edu.api.domain.appointment.models.AppointmentReason;
 import inno.edu.api.domain.availability.models.Availability;
 import inno.edu.api.domain.profile.commands.dtos.CreateMenteeProfileRequest;
+import inno.edu.api.domain.profile.commands.dtos.CreateMentorProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.UpdateMenteeProfileRequest;
 import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.school.commands.dtos.CreateSchoolRequest;
@@ -42,8 +43,8 @@ public class Payloads {
         return format(loadPayload("payloads/user/put-user.json"), updateUserRequest.getFirstName(), updateUserRequest.getLastName(), updateUserRequest.getEmail(), updateUserRequest.getPhotoUrl());
     }
 
-    public static String postMentorProfilePayload(MentorProfile profile) {
-        return format(loadPayload("payloads/user/post-mentor-profile.json"), profile.getMentorId(), profile.getSchoolId(), profile.getEmail(), profile.getDescription());
+    public static String postMentorProfilePayload(CreateMentorProfileRequest createMentorProfileRequest) {
+        return format(loadPayload("payloads/user/post-mentor-profile.json"), createMentorProfileRequest.getMentorId(), createMentorProfileRequest.getSchoolId(), createMentorProfileRequest.getEmail(), createMentorProfileRequest.getDescription());
     }
 
     public static String putMentorProfilePayload(MentorProfile profile) {

@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import static inno.edu.api.support.ProfileFactory.createFeiProfileRequest;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static inno.edu.api.support.ProfileFactory.mentorProfiles;
 import static inno.edu.api.support.ProfileFactory.updatedFeiProfile;
@@ -82,9 +83,9 @@ public class MentorProfileControllerTest {
 
     @Test
     public void shouldCreateNewProfiles() {
-        when(createMentorProfileCommand.run(feiProfile())).thenReturn(feiProfile());
+        when(createMentorProfileCommand.run(createFeiProfileRequest())).thenReturn(feiProfile());
 
-        ResponseEntity<MentorProfile> entity = mentorProfileController.post(feiProfile());
+        ResponseEntity<MentorProfile> entity = mentorProfileController.post(createFeiProfileRequest());
 
         assertThat(entity.getBody(), is(feiProfile()));
     }

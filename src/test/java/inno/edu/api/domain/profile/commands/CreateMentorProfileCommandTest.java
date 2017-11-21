@@ -1,9 +1,11 @@
 package inno.edu.api.domain.profile.commands;
 
+import inno.edu.api.domain.profile.commands.mappers.CreateMentorProfileRequestToMentorProfileMapper;
 import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.profile.repositories.MentorProfileRepository;
 import inno.edu.api.domain.school.assertions.SchoolExistsAssertion;
 import inno.edu.api.domain.user.assertions.UserIsMentorAssertion;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -12,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static inno.edu.api.domain.profile.models.ProfileStatus.CREATED;
+import static inno.edu.api.support.ProfileFactory.createFeiProfileRequest;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -22,6 +25,10 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CreateMentorProfileCommandTest {
+
+    @Mock
+    private CreateMentorProfileRequestToMentorProfileMapper createProfileToProfileMapper;
+
     @Mock
     private UserIsMentorAssertion userIsMentorAssertion;
 
@@ -37,6 +44,12 @@ public class CreateMentorProfileCommandTest {
     @InjectMocks
     private CreateMentorProfileCommand createMentorProfileCommand;
 
+    @Before
+    public void setUp() {
+        when(createProfileToProfileMapper.createMentorProfileRequestToMentorProfile(createFeiProfileRequest()))
+                .thenReturn(feiProfile());
+    }
+
     @Test
     public void shouldCallRepositoryToSaveMentorProfile() {
         ArgumentCaptor<MentorProfile> argumentCaptor = forClass(MentorProfile.class);
@@ -44,7 +57,7 @@ public class CreateMentorProfileCommandTest {
         when(mentorProfileRepository.save(argumentCaptor.capture()))
                 .thenAnswer((invocation -> invocation.getArguments()[0]));
 
-        MentorProfile mentorProfile = createMentorProfileCommand.run(feiProfile());
+        MentorProfile mentorProfile = createMentorProfileCommand.run(createFeiProfileRequest());
 
         assertThat(mentorProfile, is(argumentCaptor.getValue()));
     }
@@ -55,7 +68,7 @@ public class CreateMentorProfileCommandTest {
 
         when(mentorProfileRepository.save(argumentCaptor.capture())).thenReturn(feiProfile());
 
-        createMentorProfileCommand.run(feiProfile());
+        createMentorProfileCommand.run(createFeiProfileRequest());
 
         assertThat(argumentCaptor.getValue().getId(), not(feiProfile().getId()));
     }
@@ -66,21 +79,21 @@ public class CreateMentorProfileCommandTest {
 
         when(mentorProfileRepository.save(argumentCaptor.capture())).thenReturn(feiProfile());
 
-        createMentorProfileCommand.run(feiProfile());
+        createMentorProfileCommand.run(createFeiProfileRequest());
 
         assertThat(argumentCaptor.getValue().getStatus(), is(CREATED));
     }
 
     @Test
     public void shouldDeactivateOtherMentorProfiles() {
-        createMentorProfileCommand.run(feiProfile());
+        createMentorProfileCommand.run(createFeiProfileRequest());
 
         verify(deactivateMentorProfilesCommand).run(feiProfile().getMentorId());
     }
 
     @Test
     public void shouldRunAllAssertions() {
-        createMentorProfileCommand.run(feiProfile());
+        createMentorProfileCommand.run(createFeiProfileRequest());
 
         verify(userIsMentorAssertion).run(feiProfile().getMentorId());
         verify(schoolExistsAssertion).run(feiProfile().getSchoolId());
