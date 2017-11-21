@@ -18,6 +18,7 @@ import static inno.edu.api.support.UserFactory.gustavo;
 import static inno.edu.api.support.UserFactory.updateFeiRequest;
 import static inno.edu.api.support.UserFactory.updatedFei;
 import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -91,6 +92,7 @@ public class UserControllerApiTest extends ApiTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id", not(fei().getId().toString())))
                 .andExpect(jsonPath("$.firstName", is(gustavo().getFirstName())))
                 .andExpect(jsonPath("$.lastName", is(gustavo().getLastName())))
                 .andExpect(jsonPath("$.username", is(gustavo().getUsername())))

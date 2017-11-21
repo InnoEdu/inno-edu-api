@@ -20,8 +20,10 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static inno.edu.api.support.ProfileFactory.mentorProfiles;
+import static inno.edu.api.support.SchoolFactory.createStanfordRequest;
 import static inno.edu.api.support.SchoolFactory.schools;
 import static inno.edu.api.support.SchoolFactory.stanford;
+import static inno.edu.api.support.SchoolFactory.updateStanfordRequest;
 import static inno.edu.api.support.SchoolFactory.updatedStanford;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -92,18 +94,18 @@ public class SchoolControllerTest {
 
     @Test
     public void shouldCreateNewSchool() {
-        when(createSchoolCommand.run(stanford())).thenReturn(stanford());
+        when(createSchoolCommand.run(createStanfordRequest())).thenReturn(stanford());
 
-        ResponseEntity<School> entity = schoolController.post(stanford());
+        ResponseEntity<School> entity = schoolController.post(createStanfordRequest());
 
         assertThat(entity.getBody(), is(stanford()));
     }
 
     @Test
     public void shouldUpdateSchool() {
-        when(updateSchoolCommand.run(stanford().getId(), updatedStanford())).thenReturn(updatedStanford());
+        when(updateSchoolCommand.run(stanford().getId(), updateStanfordRequest())).thenReturn(updatedStanford());
 
-        ResponseEntity<School> entity = schoolController.put(stanford().getId(), updatedStanford());
+        ResponseEntity<School> entity = schoolController.put(stanford().getId(), updateStanfordRequest());
 
         assertThat(entity.getBody(), is(updatedStanford()));
     }

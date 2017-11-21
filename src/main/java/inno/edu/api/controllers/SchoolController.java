@@ -7,6 +7,8 @@ import inno.edu.api.domain.profile.queries.GetMentorProfilesBySchoolIdQuery;
 import inno.edu.api.domain.school.commands.CreateSchoolCommand;
 import inno.edu.api.domain.school.commands.DeleteSchoolCommand;
 import inno.edu.api.domain.school.commands.UpdateSchoolCommand;
+import inno.edu.api.domain.school.commands.dtos.CreateSchoolRequest;
+import inno.edu.api.domain.school.commands.dtos.UpdateSchoolRequest;
 import inno.edu.api.domain.school.models.School;
 import inno.edu.api.domain.school.queries.GetSchoolByIdQuery;
 import inno.edu.api.domain.school.repositories.SchoolRepository;
@@ -86,8 +88,8 @@ public class SchoolController {
     @ApiResponses({
             @ApiResponse(code = 201, message = "New school successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
     })
-    public ResponseEntity<School> post(@RequestBody School school) {
-        SchoolResource schoolResource = new SchoolResource(createSchoolCommand.run(school));
+    public ResponseEntity<School> post(@RequestBody CreateSchoolRequest createSchoolRequest) {
+        SchoolResource schoolResource = new SchoolResource(createSchoolCommand.run(createSchoolRequest));
         return schoolResource.toCreated();
     }
 
@@ -97,8 +99,8 @@ public class SchoolController {
             @ApiResponse(code = 201, message = "New school successfully updated.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the updated resource.", response = String.class)),
             @ApiResponse(code = 404, message = "School not found."),
     })
-    public ResponseEntity<School> put(@PathVariable UUID id, @RequestBody School school) {
-        SchoolResource schoolResource = new SchoolResource(updateSchoolCommand.run(id, school));
+    public ResponseEntity<School> put(@PathVariable UUID id, @RequestBody UpdateSchoolRequest updateSchoolRequest) {
+        SchoolResource schoolResource = new SchoolResource(updateSchoolCommand.run(id, updateSchoolRequest));
         return schoolResource.toUpdated();
     }
 

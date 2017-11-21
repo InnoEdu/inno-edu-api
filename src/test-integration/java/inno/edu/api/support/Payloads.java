@@ -5,7 +5,8 @@ import inno.edu.api.domain.appointment.models.AppointmentReason;
 import inno.edu.api.domain.availability.models.Availability;
 import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.profile.models.MentorProfile;
-import inno.edu.api.domain.school.models.School;
+import inno.edu.api.domain.school.commands.dtos.CreateSchoolRequest;
+import inno.edu.api.domain.school.commands.dtos.UpdateSchoolRequest;
 import inno.edu.api.domain.user.commands.dtos.CreateUserRequest;
 import inno.edu.api.domain.user.commands.dtos.LoginRequest;
 import inno.edu.api.domain.user.commands.dtos.UpdateUserRequest;
@@ -36,8 +37,8 @@ public class Payloads {
         return format(loadPayload("payloads/user/post-user.json"), createUserRequest.getFirstName(), createUserRequest.getLastName(), createUserRequest.getUsername(), createUserRequest.getEmail(), createUserRequest.getPassword(), createUserRequest.getConfirmPassword(), createUserRequest.getIsMentor());
     }
 
-    public static String putUserPayload(UpdateUserRequest user) {
-        return format(loadPayload("payloads/user/put-user.json"), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhotoUrl());
+    public static String putUserPayload(UpdateUserRequest updateUserRequest) {
+        return format(loadPayload("payloads/user/put-user.json"), updateUserRequest.getFirstName(), updateUserRequest.getLastName(), updateUserRequest.getEmail(), updateUserRequest.getPhotoUrl());
     }
 
     public static String postMentorProfilePayload(MentorProfile profile) {
@@ -56,12 +57,12 @@ public class Payloads {
         return format(loadPayload("payloads/user/put-mentee-profile.json"), profile.getDescription());
     }
 
-    public static String postSchoolPayload(School school) {
-        return format(loadPayload("payloads/school/post-school.json"), school.getName(), school.getDescription(), school.getPhotoUrl());
+    public static String postSchoolPayload(CreateSchoolRequest createSchoolRequest) {
+        return format(loadPayload("payloads/school/post-school.json"), createSchoolRequest.getName(), createSchoolRequest.getDescription(), createSchoolRequest.getPhotoUrl());
     }
 
-    public static String putSchoolPayload(School school) {
-        return format(loadPayload("payloads/school/put-school.json"), school.getName(), school.getDescription(), school.getPhotoUrl());
+    public static String putSchoolPayload(UpdateSchoolRequest updateSchoolRequest) {
+        return format(loadPayload("payloads/school/put-school.json"), updateSchoolRequest.getName(), updateSchoolRequest.getDescription(), updateSchoolRequest.getPhotoUrl());
     }
 
     public static String postAvailabilityPayload(Availability availability) {

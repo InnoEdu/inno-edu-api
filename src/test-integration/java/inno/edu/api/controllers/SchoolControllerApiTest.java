@@ -7,11 +7,14 @@ import org.springframework.http.MediaType;
 import static inno.edu.api.support.Payloads.postSchoolPayload;
 import static inno.edu.api.support.Payloads.putSchoolPayload;
 import static inno.edu.api.support.SchoolFactory.berkeley;
+import static inno.edu.api.support.SchoolFactory.createStanfordRequest;
 import static inno.edu.api.support.SchoolFactory.stanford;
+import static inno.edu.api.support.SchoolFactory.updateStanfordRequest;
 import static inno.edu.api.support.SchoolFactory.updatedStanford;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNot.not;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -56,17 +59,21 @@ public class SchoolControllerApiTest extends ApiTest {
     public void shouldCreateNewSchool() throws Exception {
         this.mockMvc.perform(
                 post("/api/schools")
-                        .content(postSchoolPayload(stanford()))
+                        .content(postSchoolPayload(createStanfordRequest()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id", not(stanford().getId().toString())))
+                .andExpect(jsonPath("$.name", is(stanford().getName())))
+                .andExpect(jsonPath("$.description", is(stanford().getDescription())))
+                .andExpect(jsonPath("$.photoUrl", is(stanford().getPhotoUrl())));
     }
 
     @Test
     public void shouldUpdateSchool() throws Exception {
         this.mockMvc.perform(
                 put("/api/schools/" + stanford().getId())
-                        .content(putSchoolPayload(updatedStanford()))
+                        .content(putSchoolPayload(updateStanfordRequest()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
