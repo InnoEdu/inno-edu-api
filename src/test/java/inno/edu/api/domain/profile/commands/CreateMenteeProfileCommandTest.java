@@ -1,9 +1,11 @@
 package inno.edu.api.domain.profile.commands;
 
+import inno.edu.api.domain.profile.commands.mappers.CreateMenteeProfileRequestToMenteeProfileMapper;
 import inno.edu.api.domain.profile.exceptions.MenteeProfileAlreadyCreatedException;
 import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.profile.repositories.MenteeProfileRepository;
 import inno.edu.api.domain.user.assertions.UserExistsAssertion;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -12,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static inno.edu.api.support.ProfileFactory.alanProfile;
+import static inno.edu.api.support.ProfileFactory.createAlanProfileRequest;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
@@ -22,6 +25,9 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class CreateMenteeProfileCommandTest {
     @Mock
+    private CreateMenteeProfileRequestToMenteeProfileMapper createProfileRequestToProfileMapper;
+
+    @Mock
     private UserExistsAssertion userExistsAssertion;
 
     @Mock
@@ -30,6 +36,12 @@ public class CreateMenteeProfileCommandTest {
     @InjectMocks
     private CreateMenteeProfileCommand createMenteeProfileCommand;
 
+    @Before
+    public void setUp() {
+        when(createProfileRequestToProfileMapper.createMenteeProfileRequestToMenteeProfile(createAlanProfileRequest()))
+                .thenReturn(alanProfile());
+    }
+
     @Test
     public void shouldCallRepositoryToSaveMenteeProfile() {
         ArgumentCaptor<MenteeProfile> argumentCaptor = forClass(MenteeProfile.class);
@@ -37,7 +49,7 @@ public class CreateMenteeProfileCommandTest {
         when(menteeProfileRepository.save(argumentCaptor.capture()))
                 .thenAnswer((invocation -> invocation.getArguments()[0]));
 
-        MenteeProfile menteeProfile = createMenteeProfileCommand.run(alanProfile());
+        MenteeProfile menteeProfile = createMenteeProfileCommand.run(createAlanProfileRequest());
 
         assertThat(menteeProfile, is(argumentCaptor.getValue()));
     }
@@ -48,7 +60,7 @@ public class CreateMenteeProfileCommandTest {
 
         when(menteeProfileRepository.save(argumentCaptor.capture())).thenReturn(alanProfile());
 
-        createMenteeProfileCommand.run(alanProfile());
+        createMenteeProfileCommand.run(createAlanProfileRequest());
 
         assertThat(argumentCaptor.getValue().getId(), not(alanProfile().getId()));
     }
@@ -57,12 +69,12 @@ public class CreateMenteeProfileCommandTest {
     public void shouldNotAllowMultipleMenteeProfiles() {
         when(menteeProfileRepository.existsByMenteeId(alanProfile().getMenteeId())).thenReturn(true);
 
-        createMenteeProfileCommand.run(alanProfile());
+        createMenteeProfileCommand.run(createAlanProfileRequest());
     }
 
     @Test
     public void shouldRunAllAssertions() {
-        createMenteeProfileCommand.run(alanProfile());
+        createMenteeProfileCommand.run(createAlanProfileRequest());
 
         verify(userExistsAssertion).run(alanProfile().getMenteeId());
     }

@@ -1,5 +1,7 @@
 package inno.edu.api.domain.profile.commands;
 
+import inno.edu.api.domain.profile.commands.dtos.CreateMenteeProfileRequest;
+import inno.edu.api.domain.profile.commands.mappers.CreateMenteeProfileRequestToMenteeProfileMapper;
 import inno.edu.api.domain.profile.exceptions.MenteeProfileAlreadyCreatedException;
 import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.profile.repositories.MenteeProfileRepository;
@@ -10,23 +12,27 @@ import static java.util.UUID.randomUUID;
 
 @Command
 public class CreateMenteeProfileCommand {
+    private final CreateMenteeProfileRequestToMenteeProfileMapper createProfileRequestToProfileMapper;
     private final UserExistsAssertion userExistsAssertion;
 
     private final MenteeProfileRepository profileRepository;
 
-    public CreateMenteeProfileCommand(UserExistsAssertion userExistsAssertion, MenteeProfileRepository profileRepository) {
+    public CreateMenteeProfileCommand(CreateMenteeProfileRequestToMenteeProfileMapper createProfileRequestToProfileMapper, UserExistsAssertion userExistsAssertion, MenteeProfileRepository profileRepository) {
+        this.createProfileRequestToProfileMapper = createProfileRequestToProfileMapper;
         this.userExistsAssertion = userExistsAssertion;
         this.profileRepository = profileRepository;
     }
 
-    public MenteeProfile run(MenteeProfile profile) {
-        userExistsAssertion.run(profile.getMenteeId());
+    public MenteeProfile run(CreateMenteeProfileRequest createMenteeProfileRequest) {
+        userExistsAssertion.run(createMenteeProfileRequest.getMenteeId());
 
-        if (profileRepository.existsByMenteeId(profile.getMenteeId())) {
-            throw new MenteeProfileAlreadyCreatedException(profile.getMenteeId());
+        MenteeProfile menteeProfile = createProfileRequestToProfileMapper.createMenteeProfileRequestToMenteeProfile(createMenteeProfileRequest);
+
+        if (profileRepository.existsByMenteeId(createMenteeProfileRequest.getMenteeId())) {
+            throw new MenteeProfileAlreadyCreatedException(createMenteeProfileRequest.getMenteeId());
         }
 
-        profile.setId(randomUUID());
-        return profileRepository.save(profile);
+        menteeProfile.setId(randomUUID());
+        return profileRepository.save(menteeProfile);
     }
 }

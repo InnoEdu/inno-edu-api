@@ -5,6 +5,7 @@ import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.profile.commands.CreateMenteeProfileCommand;
 import inno.edu.api.domain.profile.commands.DeleteMenteeProfileCommand;
 import inno.edu.api.domain.profile.commands.UpdateMenteeProfileCommand;
+import inno.edu.api.domain.profile.commands.dtos.CreateMenteeProfileRequest;
 import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.profile.queries.GetMenteeProfileByIdQuery;
 import inno.edu.api.domain.profile.repositories.MenteeProfileRepository;
@@ -73,9 +74,9 @@ public class MenteeProfileController {
             @ApiResponse(code = 201, message = "New profile successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
             @ApiResponse(code = 400, message = "Invalid mentee user ID supplied or mentee already has a profile."),
     })
-    public ResponseEntity<MenteeProfile> post(@RequestBody MenteeProfile profile) {
-        MenteeProfileResource userResource = new MenteeProfileResource(createMenteeProfileCommand.run(profile));
-        return userResource.toCreated();
+    public ResponseEntity<MenteeProfile> post(@RequestBody CreateMenteeProfileRequest createMenteeProfileRequest) {
+        MenteeProfileResource profileReource = new MenteeProfileResource(createMenteeProfileCommand.run(createMenteeProfileRequest));
+        return profileReource.toCreated();
     }
 
     @PutMapping("/{id}")

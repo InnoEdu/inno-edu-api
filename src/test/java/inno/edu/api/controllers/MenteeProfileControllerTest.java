@@ -19,6 +19,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static inno.edu.api.support.ProfileFactory.alanProfile;
+import static inno.edu.api.support.ProfileFactory.createAlanProfileRequest;
 import static inno.edu.api.support.ProfileFactory.menteeProfiles;
 import static inno.edu.api.support.ProfileFactory.updatedAlanProfile;
 import static org.hamcrest.core.Is.is;
@@ -77,9 +78,9 @@ public class MenteeProfileControllerTest {
 
     @Test
     public void shouldCreateNewProfiles() {
-        when(createMenteeProfileCommand.run(alanProfile())).thenReturn(alanProfile());
+        when(createMenteeProfileCommand.run(createAlanProfileRequest())).thenReturn(alanProfile());
 
-        ResponseEntity<MenteeProfile> entity = menteeProfileController.post(alanProfile());
+        ResponseEntity<MenteeProfile> entity = menteeProfileController.post(createAlanProfileRequest());
 
         assertThat(entity.getBody(), is(alanProfile()));
     }

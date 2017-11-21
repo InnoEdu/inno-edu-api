@@ -7,9 +7,12 @@ import org.springframework.http.MediaType;
 import static inno.edu.api.support.Payloads.postMenteeProfilePayload;
 import static inno.edu.api.support.Payloads.putMenteeProfilePayload;
 import static inno.edu.api.support.ProfileFactory.alanProfile;
+import static inno.edu.api.support.ProfileFactory.createAlanProfileRequest;
+import static inno.edu.api.support.ProfileFactory.createTuanyProfileRequest;
 import static inno.edu.api.support.ProfileFactory.tuanyProfile;
 import static inno.edu.api.support.ProfileFactory.updatedAlanProfile;
 import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -42,17 +45,20 @@ public class MenteeProfileControllerApiTest extends ApiTest {
     public void shouldCreateNewProfile() throws Exception {
         this.mockMvc.perform(
                 post("/api/mentee-profiles")
-                        .content(postMenteeProfilePayload(tuanyProfile()))
+                        .content(postMenteeProfilePayload(createTuanyProfileRequest()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id", not(tuanyProfile().getId().toString())))
+                .andExpect(jsonPath("$.menteeId", is(tuanyProfile().getMenteeId().toString())))
+                .andExpect(jsonPath("$.description", is(tuanyProfile().getDescription())));
     }
 
     @Test
     public void shouldMenteeShouldNotHaveMultipleProfiles() throws Exception {
         this.mockMvc.perform(
                 post("/api/mentee-profiles")
-                        .content(postMenteeProfilePayload(alanProfile()))
+                        .content(postMenteeProfilePayload(createAlanProfileRequest()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isBadRequest());

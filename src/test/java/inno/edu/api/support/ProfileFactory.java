@@ -1,5 +1,6 @@
 package inno.edu.api.support;
 
+import inno.edu.api.domain.profile.commands.dtos.CreateMenteeProfileRequest;
 import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.profile.models.MentorProfile;
 
@@ -46,6 +47,20 @@ public class ProfileFactory {
         return MenteeProfile.builder().id(fromString("4fbee407-5ab3-4d4b-9ef0-39840e939d5e"))
                 .menteeId(gustavo().getId())
                 .description("Tuany is a great mentee.")
+                .build();
+    }
+
+    public static CreateMenteeProfileRequest createTuanyProfileRequest() {
+        return CreateMenteeProfileRequest.builder()
+                .menteeId(gustavo().getId())
+                .description("Tuany is a great mentee.")
+                .build();
+    }
+
+    public static CreateMenteeProfileRequest createAlanProfileRequest() {
+        return CreateMenteeProfileRequest.builder()
+                .menteeId(alan().getId())
+                .description("Alan is a great mentee.")
                 .build();
     }
 
