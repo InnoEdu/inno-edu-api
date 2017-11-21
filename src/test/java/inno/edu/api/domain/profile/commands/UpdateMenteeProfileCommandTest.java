@@ -1,5 +1,6 @@
 package inno.edu.api.domain.profile.commands;
 
+import inno.edu.api.domain.profile.commands.mappers.UpdateMenteeProfileRequestToMenteeProfileMapper;
 import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.profile.queries.GetMenteeProfileByIdQuery;
 import inno.edu.api.domain.profile.repositories.MenteeProfileRepository;
@@ -10,13 +11,18 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static inno.edu.api.support.ProfileFactory.alanProfile;
+import static inno.edu.api.support.ProfileFactory.updateAlanProfileRequest;
 import static inno.edu.api.support.ProfileFactory.updatedAlanProfile;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UpdateMenteeProfileCommandTest {
+    @Mock
+    private UpdateMenteeProfileRequestToMenteeProfileMapper updateProfileToProfileMapper;
+
     @Mock
     private MenteeProfileRepository menteeProfileRepository;
 
@@ -31,7 +37,9 @@ public class UpdateMenteeProfileCommandTest {
         when(getMenteeProfileByIdQuery.run(alanProfile().getId())).thenReturn(alanProfile());
         when(menteeProfileRepository.save(alanProfile())).thenReturn(updatedAlanProfile());
 
-        MenteeProfile menteeProfile = updateMenteeProfileCommand.run(alanProfile().getId(), alanProfile());
+        MenteeProfile menteeProfile = updateMenteeProfileCommand.run(alanProfile().getId(), updateAlanProfileRequest());
+
+        verify(updateProfileToProfileMapper).updateMenteeProfileRequestToMenteeProfile(updateAlanProfileRequest(), alanProfile());
 
         assertThat(menteeProfile, is(updatedAlanProfile()));
     }

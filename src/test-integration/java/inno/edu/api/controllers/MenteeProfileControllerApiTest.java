@@ -10,6 +10,7 @@ import static inno.edu.api.support.ProfileFactory.alanProfile;
 import static inno.edu.api.support.ProfileFactory.createAlanProfileRequest;
 import static inno.edu.api.support.ProfileFactory.createTuanyProfileRequest;
 import static inno.edu.api.support.ProfileFactory.tuanyProfile;
+import static inno.edu.api.support.ProfileFactory.updateAlanProfileRequest;
 import static inno.edu.api.support.ProfileFactory.updatedAlanProfile;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.not;
@@ -68,7 +69,7 @@ public class MenteeProfileControllerApiTest extends ApiTest {
     public void shouldUpdateProfile() throws Exception {
         this.mockMvc.perform(
                 put("/api/mentee-profiles/" + alanProfile().getId())
-                        .content(putMenteeProfilePayload(updatedAlanProfile()))
+                        .content(putMenteeProfilePayload(updateAlanProfileRequest()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())

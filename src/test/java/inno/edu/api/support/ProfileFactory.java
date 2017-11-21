@@ -1,6 +1,7 @@
 package inno.edu.api.support;
 
 import inno.edu.api.domain.profile.commands.dtos.CreateMenteeProfileRequest;
+import inno.edu.api.domain.profile.commands.dtos.UpdateMenteeProfileRequest;
 import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.profile.models.MentorProfile;
 
@@ -67,6 +68,11 @@ public class ProfileFactory {
     public static MenteeProfile updatedAlanProfile() {
         return MenteeProfile.builder().id(fromString("c5f473b4-3311-40b1-8fb3-f70357894754"))
                 .menteeId(alan().getId())
+                .description("Updated description")
+                .build();
+    }
+    public static UpdateMenteeProfileRequest updateAlanProfileRequest() {
+        return UpdateMenteeProfileRequest.builder()
                 .description("Updated description")
                 .build();
     }

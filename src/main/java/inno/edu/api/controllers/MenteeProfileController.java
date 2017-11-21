@@ -6,6 +6,7 @@ import inno.edu.api.domain.profile.commands.CreateMenteeProfileCommand;
 import inno.edu.api.domain.profile.commands.DeleteMenteeProfileCommand;
 import inno.edu.api.domain.profile.commands.UpdateMenteeProfileCommand;
 import inno.edu.api.domain.profile.commands.dtos.CreateMenteeProfileRequest;
+import inno.edu.api.domain.profile.commands.dtos.UpdateMenteeProfileRequest;
 import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.profile.queries.GetMenteeProfileByIdQuery;
 import inno.edu.api.domain.profile.repositories.MenteeProfileRepository;
@@ -85,8 +86,8 @@ public class MenteeProfileController {
             @ApiResponse(code = 201, message = "New profile successfully updated.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the updated resource.", response = String.class)),
             @ApiResponse(code = 404, message = "Profile not found."),
     })
-    public ResponseEntity<MenteeProfile> put(@PathVariable UUID id, @RequestBody MenteeProfile profile) {
-        MenteeProfileResource profileResource = new MenteeProfileResource(updateMenteeProfileCommand.run(id, profile));
+    public ResponseEntity<MenteeProfile> put(@PathVariable UUID id, @RequestBody UpdateMenteeProfileRequest updateMenteeProfileRequest) {
+        MenteeProfileResource profileResource = new MenteeProfileResource(updateMenteeProfileCommand.run(id, updateMenteeProfileRequest));
         return profileResource.toUpdated();
     }
 

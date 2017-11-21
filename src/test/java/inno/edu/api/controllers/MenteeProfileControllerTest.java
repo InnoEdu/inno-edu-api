@@ -21,6 +21,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import static inno.edu.api.support.ProfileFactory.alanProfile;
 import static inno.edu.api.support.ProfileFactory.createAlanProfileRequest;
 import static inno.edu.api.support.ProfileFactory.menteeProfiles;
+import static inno.edu.api.support.ProfileFactory.updateAlanProfileRequest;
 import static inno.edu.api.support.ProfileFactory.updatedAlanProfile;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -87,9 +88,9 @@ public class MenteeProfileControllerTest {
 
     @Test
     public void shouldUpdateUser() {
-        when(updateMenteeProfileCommand.run(alanProfile().getId(), updatedAlanProfile())).thenReturn(updatedAlanProfile());
+        when(updateMenteeProfileCommand.run(alanProfile().getId(), updateAlanProfileRequest())).thenReturn(updatedAlanProfile());
 
-        ResponseEntity<MenteeProfile> entity = menteeProfileController.put(alanProfile().getId(), updatedAlanProfile());
+        ResponseEntity<MenteeProfile> entity = menteeProfileController.put(alanProfile().getId(), updateAlanProfileRequest());
 
         assertThat(entity.getBody(), is(updatedAlanProfile()));
     }
