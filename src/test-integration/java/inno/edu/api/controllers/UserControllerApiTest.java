@@ -122,10 +122,10 @@ public class UserControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.id", is(fei().getId().toString())))
                 .andExpect(jsonPath("$.firstName", is(updatedFei().getFirstName())))
                 .andExpect(jsonPath("$.lastName", is(updatedFei().getLastName())))
-                .andExpect(jsonPath("$.username", is(updatedFei().getUsername())))
+                .andExpect(jsonPath("$.username", is(fei().getUsername())))
                 .andExpect(jsonPath("$.email", is(updatedFei().getEmail())))
                 .andExpect(jsonPath("$.photoUrl", is(updatedFei().getPhotoUrl())))
-                .andExpect(jsonPath("$.isMentor", is(updatedFei().getIsMentor())));
+                .andExpect(jsonPath("$.isMentor", is(fei().getIsMentor())));
     }
 
     @Test

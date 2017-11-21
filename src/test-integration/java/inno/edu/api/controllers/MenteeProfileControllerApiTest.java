@@ -73,8 +73,8 @@ public class MenteeProfileControllerApiTest extends ApiTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", is(updatedAlanProfile().getId().toString())))
-                .andExpect(jsonPath("$.menteeId", is(updatedAlanProfile().getMenteeId().toString())))
+                .andExpect(jsonPath("$.id", is(alanProfile().getId().toString())))
+                .andExpect(jsonPath("$.menteeId", is(alanProfile().getMenteeId().toString())))
                 .andExpect(jsonPath("$.description", is(updatedAlanProfile().getDescription())));
     }
 
