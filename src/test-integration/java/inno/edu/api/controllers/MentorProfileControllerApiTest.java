@@ -10,6 +10,7 @@ import static inno.edu.api.support.Payloads.putMentorProfilePayload;
 import static inno.edu.api.support.ProfileFactory.createFeiProfileRequest;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static inno.edu.api.support.ProfileFactory.gustavoProfile;
+import static inno.edu.api.support.ProfileFactory.updateFeiProfileRequest;
 import static inno.edu.api.support.ProfileFactory.updatedFeiProfile;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.not;
@@ -67,14 +68,16 @@ public class MentorProfileControllerApiTest extends ApiTest {
     public void shouldUpdateProfile() throws Exception {
         this.mockMvc.perform(
                 put("/api/mentor-profiles/" + feiProfile().getId())
-                        .content(putMentorProfilePayload(updatedFeiProfile()))
+                        .content(putMentorProfilePayload(updateFeiProfileRequest()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", is(updatedFeiProfile().getId().toString())))
-                .andExpect(jsonPath("$.mentorId", is(updatedFeiProfile().getMentorId().toString())))
-                .andExpect(jsonPath("$.email", is(updatedFeiProfile().getEmail())))
-                .andExpect(jsonPath("$.description", is(updatedFeiProfile().getDescription())));
+                .andExpect(jsonPath("$.id", is(feiProfile().getId().toString())))
+                .andExpect(jsonPath("$.mentorId", is(feiProfile().getMentorId().toString())))
+                .andExpect(jsonPath("$.schoolId", is(feiProfile().getSchoolId().toString())))
+                .andExpect(jsonPath("$.email", is(feiProfile().getEmail())))
+                .andExpect(jsonPath("$.description", is(updatedFeiProfile().getDescription())))
+                .andExpect(jsonPath("$.status", is(feiProfile().getStatus().toString())));
     }
 
     @Test

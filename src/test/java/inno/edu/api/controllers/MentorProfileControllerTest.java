@@ -23,6 +23,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import static inno.edu.api.support.ProfileFactory.createFeiProfileRequest;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static inno.edu.api.support.ProfileFactory.mentorProfiles;
+import static inno.edu.api.support.ProfileFactory.updateFeiProfileRequest;
 import static inno.edu.api.support.ProfileFactory.updatedFeiProfile;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -82,7 +83,7 @@ public class MentorProfileControllerTest {
     }
 
     @Test
-    public void shouldCreateNewProfiles() {
+    public void shouldCreateNewProfile() {
         when(createMentorProfileCommand.run(createFeiProfileRequest())).thenReturn(feiProfile());
 
         ResponseEntity<MentorProfile> entity = mentorProfileController.post(createFeiProfileRequest());
@@ -92,9 +93,9 @@ public class MentorProfileControllerTest {
 
     @Test
     public void shouldUpdateProfile() {
-        when(updateMentorProfileCommand.run(feiProfile().getId(), updatedFeiProfile())).thenReturn(updatedFeiProfile());
+        when(updateMentorProfileCommand.run(feiProfile().getId(), updateFeiProfileRequest())).thenReturn(updatedFeiProfile());
 
-        ResponseEntity<MentorProfile> entity = mentorProfileController.put(feiProfile().getId(), updatedFeiProfile());
+        ResponseEntity<MentorProfile> entity = mentorProfileController.put(feiProfile().getId(), updateFeiProfileRequest());
 
         assertThat(entity.getBody(), is(updatedFeiProfile()));
     }

@@ -3,6 +3,7 @@ package inno.edu.api.support;
 import inno.edu.api.domain.profile.commands.dtos.CreateMenteeProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.CreateMentorProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.UpdateMenteeProfileRequest;
+import inno.edu.api.domain.profile.commands.dtos.UpdateMentorProfileRequest;
 import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.profile.models.MentorProfile;
 
@@ -94,6 +95,12 @@ public class ProfileFactory {
                 .email("Updatedfeixiu@inno.edu")
                 .description("Updated description")
                 .status(ACTIVE)
+                .build();
+    }
+
+    public static UpdateMentorProfileRequest updateFeiProfileRequest() {
+        return UpdateMentorProfileRequest.builder()
+                .description("Updated description")
                 .build();
     }
 

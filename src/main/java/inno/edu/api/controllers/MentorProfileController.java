@@ -7,6 +7,7 @@ import inno.edu.api.domain.profile.commands.DeleteMentorProfileCommand;
 import inno.edu.api.domain.profile.commands.UpdateMentorProfileCommand;
 import inno.edu.api.domain.profile.commands.UpdateMentorProfileStatusCommand;
 import inno.edu.api.domain.profile.commands.dtos.CreateMentorProfileRequest;
+import inno.edu.api.domain.profile.commands.dtos.UpdateMentorProfileRequest;
 import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.profile.models.ProfileStatus;
@@ -91,8 +92,8 @@ public class MentorProfileController {
             @ApiResponse(code = 201, message = "New profile successfully updated.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the updated resource.", response = String.class)),
             @ApiResponse(code = 404, message = "Profile not found."),
     })
-    public ResponseEntity<MentorProfile> put(@PathVariable UUID id, @RequestBody MentorProfile profile) {
-        MentorProfileResource profileResource = new MentorProfileResource(updateMentorProfileCommand.run(id, profile));
+    public ResponseEntity<MentorProfile> put(@PathVariable UUID id, @RequestBody UpdateMentorProfileRequest updateMentorProfileRequest) {
+        MentorProfileResource profileResource = new MentorProfileResource(updateMentorProfileCommand.run(id, updateMentorProfileRequest));
         return profileResource.toUpdated();
     }
 
