@@ -45,8 +45,7 @@ public class SchoolFactory {
     }
 
     public static School updatedStanford() {
-        return School.builder()
-                .id(fromString("0a58153c-c15f-4e5b-802c-bbf5d6c1c55c"))
+        return stanford().toBuilder()
                 .name("UpdatedStanford")
                 .description("Stanford is still an outstanding university.")
                 .photoUrl("UpdatedPhoto")

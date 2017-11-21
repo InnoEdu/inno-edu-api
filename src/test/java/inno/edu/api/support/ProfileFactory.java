@@ -77,8 +77,7 @@ public class ProfileFactory {
     }
 
     public static MenteeProfile updatedAlanProfile() {
-        return MenteeProfile.builder().id(fromString("c5f473b4-3311-40b1-8fb3-f70357894754"))
-                .menteeId(alan().getId())
+        return alanProfile().toBuilder()
                 .description("Updated description")
                 .build();
     }
@@ -89,12 +88,8 @@ public class ProfileFactory {
     }
 
     public static MentorProfile updatedFeiProfile() {
-        return MentorProfile.builder().id(fromString("0e9e40c0-b44b-4387-92a9-9d75d10e3d42"))
-                .mentorId(fei().getId())
-                .schoolId(stanford().getId())
-                .email("Updatedfeixiu@inno.edu")
+        return feiProfile().toBuilder()
                 .description("Updated description")
-                .status(ACTIVE)
                 .build();
     }
 

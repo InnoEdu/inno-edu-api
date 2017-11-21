@@ -40,9 +40,7 @@ public class AvailabilityFactory {
     }
 
     public static Availability updatedAvailability() {
-        return Availability.builder()
-                .id(fromString("0c55130c-6e63-420b-b3ae-b2485caadc23"))
-                .mentorProfileId(feiProfile().getId())
+        return availability().toBuilder()
                 .fromDateTime(LocalDateTime.of(2018, 11, 9, 12, 0, 1))
                 .toDateTime(LocalDateTime.of(2018, 11, 10, 12, 0, 1))
                 .build();

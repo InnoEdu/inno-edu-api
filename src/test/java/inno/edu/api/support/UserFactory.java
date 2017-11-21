@@ -89,14 +89,11 @@ public class UserFactory {
     }
 
     public static User updatedFei() {
-        return User.builder()
-                .id(fromString("ba7c6505-19fd-47c3-87a6-c6af6e5322b7"))
+        return fei().toBuilder()
                 .firstName("UpdatedFei")
                 .lastName("UpdatedXiu")
-                .username(fei().getUsername())
-                .email(fei().getEmail())
+                .email("UpdatedEmail")
                 .photoUrl("UpdatedProfileUrl")
-                .isMentor(true)
                 .build();
     }
 
