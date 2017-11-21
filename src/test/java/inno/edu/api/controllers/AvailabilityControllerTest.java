@@ -20,6 +20,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static inno.edu.api.support.AvailabilityFactory.allAvailability;
 import static inno.edu.api.support.AvailabilityFactory.availability;
+import static inno.edu.api.support.AvailabilityFactory.createAvailabilityRequest;
+import static inno.edu.api.support.AvailabilityFactory.updateAvailabilityRequest;
 import static inno.edu.api.support.AvailabilityFactory.updatedAvailability;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -77,18 +79,18 @@ public class AvailabilityControllerTest {
 
     @Test
     public void shouldCreateNewAvailability() {
-        when(createAvailabilityCommand.run(availability())).thenReturn(availability());
+        when(createAvailabilityCommand.run(createAvailabilityRequest())).thenReturn(availability());
 
-        ResponseEntity<Availability> entity = availabilityController.post(availability());
+        ResponseEntity<Availability> entity = availabilityController.post(createAvailabilityRequest());
 
         assertThat(entity.getBody(), is(availability()));
     }
 
     @Test
     public void shouldUpdateAvailability() {
-        when(updateAvailabilityCommand.run(availability().getId(), updatedAvailability())).thenReturn(updatedAvailability());
+        when(updateAvailabilityCommand.run(availability().getId(), updateAvailabilityRequest())).thenReturn(updatedAvailability());
 
-        ResponseEntity<Availability> entity = availabilityController.put(availability().getId(), updatedAvailability());
+        ResponseEntity<Availability> entity = availabilityController.put(availability().getId(), updateAvailabilityRequest());
 
         assertThat(entity.getBody(), is(updatedAvailability()));
     }

@@ -5,6 +5,8 @@ import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.availability.commands.CreateAvailabilityCommand;
 import inno.edu.api.domain.availability.commands.DeleteAvailabilityCommand;
 import inno.edu.api.domain.availability.commands.UpdateAvailabilityCommand;
+import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityRequest;
+import inno.edu.api.domain.availability.commands.dtos.UpdateAvailabilityRequest;
 import inno.edu.api.domain.availability.models.Availability;
 import inno.edu.api.domain.availability.queries.GetAvailabilityByIdQuery;
 import inno.edu.api.domain.availability.repositories.AvailabilityRepository;
@@ -71,8 +73,8 @@ public class AvailabilityController {
             @ApiResponse(code = 201, message = "New availability successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
             @ApiResponse(code = 400, message = "Invalid mentor profile ID supplied."),
     })
-    public ResponseEntity<Availability> post(@RequestBody Availability availability) {
-        AvailabilityResource availabilityResource = new AvailabilityResource(createAvailabilityCommand.run(availability));
+    public ResponseEntity<Availability> post(@RequestBody CreateAvailabilityRequest createAvailabilityRequest) {
+        AvailabilityResource availabilityResource = new AvailabilityResource(createAvailabilityCommand.run(createAvailabilityRequest));
         return availabilityResource.toCreated();
     }
 
@@ -82,8 +84,8 @@ public class AvailabilityController {
             @ApiResponse(code = 201, message = "New availability successfully updated.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the updated resource.", response = String.class)),
             @ApiResponse(code = 404, message = "Availability not found."),
     })
-    public ResponseEntity<Availability> put(@PathVariable UUID id, @RequestBody Availability availability) {
-        AvailabilityResource availabilityResource = new AvailabilityResource(updateAvailabilityCommand.run(id, availability));
+    public ResponseEntity<Availability> put(@PathVariable UUID id, @RequestBody UpdateAvailabilityRequest updateAvailabilityRequest) {
+        AvailabilityResource availabilityResource = new AvailabilityResource(updateAvailabilityCommand.run(id, updateAvailabilityRequest));
         return availabilityResource.toUpdated();
     }
 

@@ -1,5 +1,7 @@
 package inno.edu.api.support;
 
+import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityRequest;
+import inno.edu.api.domain.availability.commands.dtos.UpdateAvailabilityRequest;
 import inno.edu.api.domain.availability.models.Availability;
 
 import java.time.LocalDateTime;
@@ -20,6 +22,14 @@ public class AvailabilityFactory {
                 .build();
     }
 
+    public static CreateAvailabilityRequest createAvailabilityRequest() {
+        return CreateAvailabilityRequest.builder()
+                .mentorProfileId(feiProfile().getId())
+                .fromDateTime(LocalDateTime.of(2017, 11, 9, 12, 0, 1))
+                .toDateTime(LocalDateTime.of(2017, 11, 10, 12, 0, 1))
+                .build();
+    }
+
     public static Availability otherAvailability() {
         return Availability.builder()
                 .id(fromString("8c0af3b9-2883-40f3-bf85-26ee0f506fde"))
@@ -33,6 +43,13 @@ public class AvailabilityFactory {
         return Availability.builder()
                 .id(fromString("0c55130c-6e63-420b-b3ae-b2485caadc23"))
                 .mentorProfileId(feiProfile().getId())
+                .fromDateTime(LocalDateTime.of(2018, 11, 9, 12, 0, 1))
+                .toDateTime(LocalDateTime.of(2018, 11, 10, 12, 0, 1))
+                .build();
+    }
+
+    public static UpdateAvailabilityRequest updateAvailabilityRequest() {
+        return UpdateAvailabilityRequest.builder()
                 .fromDateTime(LocalDateTime.of(2018, 11, 9, 12, 0, 1))
                 .toDateTime(LocalDateTime.of(2018, 11, 10, 12, 0, 1))
                 .build();

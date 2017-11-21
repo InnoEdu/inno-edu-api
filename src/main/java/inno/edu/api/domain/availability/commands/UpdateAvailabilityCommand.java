@@ -1,5 +1,7 @@
 package inno.edu.api.domain.availability.commands;
 
+import inno.edu.api.domain.availability.commands.dtos.UpdateAvailabilityRequest;
+import inno.edu.api.domain.availability.commands.mappers.UpdateAvailabilityRequestMapper;
 import inno.edu.api.domain.availability.models.Availability;
 import inno.edu.api.domain.availability.queries.GetAvailabilityByIdQuery;
 import inno.edu.api.domain.availability.repositories.AvailabilityRepository;
@@ -9,20 +11,19 @@ import java.util.UUID;
 
 @Command
 public class UpdateAvailabilityCommand {
+    private final UpdateAvailabilityRequestMapper updateAvailabilityRequestMapper;
     private final GetAvailabilityByIdQuery getAvailabilityByIdQuery;
     private final AvailabilityRepository availabilityRepository;
 
-    public UpdateAvailabilityCommand(GetAvailabilityByIdQuery getAvailabilityByIdQuery, AvailabilityRepository availabilityRepository) {
+    public UpdateAvailabilityCommand(UpdateAvailabilityRequestMapper updateAvailabilityRequestMapper, GetAvailabilityByIdQuery getAvailabilityByIdQuery, AvailabilityRepository availabilityRepository) {
+        this.updateAvailabilityRequestMapper = updateAvailabilityRequestMapper;
         this.getAvailabilityByIdQuery = getAvailabilityByIdQuery;
         this.availabilityRepository = availabilityRepository;
     }
 
-    public Availability run(UUID id, Availability availability) {
+    public Availability run(UUID id, UpdateAvailabilityRequest updateAvailabilityRequest) {
         Availability currentAvailability = getAvailabilityByIdQuery.run(id);
-
-        currentAvailability.setFromDateTime(availability.getFromDateTime());
-        currentAvailability.setToDateTime(availability.getToDateTime());
-
+        updateAvailabilityRequestMapper.setAvailability(updateAvailabilityRequest, currentAvailability);
         return availabilityRepository.save(currentAvailability);
     }
 }

@@ -2,7 +2,8 @@ package inno.edu.api.support;
 
 import inno.edu.api.domain.appointment.models.Appointment;
 import inno.edu.api.domain.appointment.models.AppointmentReason;
-import inno.edu.api.domain.availability.models.Availability;
+import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityRequest;
+import inno.edu.api.domain.availability.commands.dtos.UpdateAvailabilityRequest;
 import inno.edu.api.domain.profile.commands.dtos.CreateMenteeProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.CreateMentorProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.UpdateMenteeProfileRequest;
@@ -67,12 +68,12 @@ public class Payloads {
         return format(loadPayload("payloads/school/put-school.json"), updateSchoolRequest.getName(), updateSchoolRequest.getDescription(), updateSchoolRequest.getPhotoUrl());
     }
 
-    public static String postAvailabilityPayload(Availability availability) {
-        return format(loadPayload("payloads/availability/post-availability.json"), availability.getMentorProfileId(), availability.getFromDateTime(), availability.getToDateTime());
+    public static String postAvailabilityPayload(CreateAvailabilityRequest createAvailabilityRequest) {
+        return format(loadPayload("payloads/availability/post-availability.json"), createAvailabilityRequest.getMentorProfileId(), createAvailabilityRequest.getFromDateTime(), createAvailabilityRequest.getToDateTime());
     }
 
-    public static String putAvailabilityPayload(Availability availability) {
-        return format(loadPayload("payloads/availability/put-availability.json"), availability.getFromDateTime(), availability.getToDateTime());
+    public static String putAvailabilityPayload(UpdateAvailabilityRequest updateAvailabilityRequest) {
+        return format(loadPayload("payloads/availability/put-availability.json"), updateAvailabilityRequest.getFromDateTime(), updateAvailabilityRequest.getToDateTime());
     }
 
     public static String postAppointmentPayload(Appointment appointment) {
