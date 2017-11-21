@@ -1,9 +1,11 @@
 package inno.edu.api.domain.appointment.commands;
 
+import inno.edu.api.domain.appointment.commands.mappers.CreateAppointmentRequestMapper;
 import inno.edu.api.domain.appointment.models.Appointment;
 import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
 import inno.edu.api.domain.profile.assertions.MenteeProfileExistsAssertion;
 import inno.edu.api.domain.profile.assertions.MentorProfileExistsAssertion;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -12,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static inno.edu.api.support.AppointmentFactory.appointment;
+import static inno.edu.api.support.AppointmentFactory.createAppointmentRequest;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
@@ -21,6 +24,9 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CreateAppointmentCommandTest {
+    @Mock
+    private CreateAppointmentRequestMapper createAppointmentRequestMapper;
+
     @Mock
     private AppointmentRepository appointmentRepository;
 
@@ -33,6 +39,11 @@ public class CreateAppointmentCommandTest {
     @InjectMocks
     private CreateAppointmentCommand createAppointmentCommand;
 
+    @Before
+    public void setUp() {
+        when(createAppointmentRequestMapper.toAppointment(createAppointmentRequest()))
+                .thenReturn(appointment());
+    }
     @Test
     public void shouldCallRepositoryToSaveAppointment() {
         ArgumentCaptor<Appointment> argumentCaptor = forClass(Appointment.class);
@@ -40,7 +51,7 @@ public class CreateAppointmentCommandTest {
         when(appointmentRepository.save(argumentCaptor.capture()))
                 .thenAnswer((invocation -> invocation.getArguments()[0]));
 
-        Appointment appointment = createAppointmentCommand.run(appointment());
+        Appointment appointment = createAppointmentCommand.run(createAppointmentRequest());
 
         assertThat(appointment, is(argumentCaptor.getValue()));
     }
@@ -51,14 +62,14 @@ public class CreateAppointmentCommandTest {
 
         when(appointmentRepository.save(argumentCaptor.capture())).thenReturn(appointment());
 
-        createAppointmentCommand.run(appointment());
+        createAppointmentCommand.run(createAppointmentRequest());
 
         assertThat(argumentCaptor.getValue().getId(), not(appointment().getId()));
     }
 
     @Test
     public void shouldRunAllConstraints() {
-        createAppointmentCommand.run(appointment());
+        createAppointmentCommand.run(createAppointmentRequest());
 
         verify(menteeProfileExistsAssertion).run(appointment().getMenteeProfileId());
         verify(mentorProfileExistsAssertion).run(appointment().getMentorProfileId());

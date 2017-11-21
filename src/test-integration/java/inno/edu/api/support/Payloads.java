@@ -1,7 +1,8 @@
 package inno.edu.api.support;
 
-import inno.edu.api.domain.appointment.models.Appointment;
-import inno.edu.api.domain.appointment.models.AppointmentReason;
+import inno.edu.api.domain.appointment.commands.dtos.CreateAppointmentRequest;
+import inno.edu.api.domain.appointment.commands.dtos.UpdateAppointmentRequest;
+import inno.edu.api.domain.appointment.commands.dtos.AppointmentReason;
 import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityRequest;
 import inno.edu.api.domain.availability.commands.dtos.UpdateAvailabilityRequest;
 import inno.edu.api.domain.profile.commands.dtos.CreateMenteeProfileRequest;
@@ -76,12 +77,12 @@ public class Payloads {
         return format(loadPayload("payloads/availability/put-availability.json"), updateAvailabilityRequest.getFromDateTime(), updateAvailabilityRequest.getToDateTime());
     }
 
-    public static String postAppointmentPayload(Appointment appointment) {
-        return format(loadPayload("payloads/appointment/post-appointment.json"), appointment.getMentorProfileId(), appointment.getMenteeProfileId(), appointment.getFromDateTime(), appointment.getToDateTime(), appointment.getDescription());
+    public static String postAppointmentPayload(CreateAppointmentRequest createAppointmentRequest) {
+        return format(loadPayload("payloads/appointment/post-appointment.json"), createAppointmentRequest.getMentorProfileId(), createAppointmentRequest.getMenteeProfileId(), createAppointmentRequest.getFromDateTime(), createAppointmentRequest.getToDateTime(), createAppointmentRequest.getDescription());
     }
 
-    public static String putAppointmentPayload(Appointment appointment) {
-        return format(loadPayload("payloads/appointment/put-appointment.json"), appointment.getFromDateTime(), appointment.getToDateTime(), appointment.getDescription(), appointment.getStatus());
+    public static String putAppointmentPayload(UpdateAppointmentRequest appointmentRequest) {
+        return format(loadPayload("payloads/appointment/put-appointment.json"), appointmentRequest.getFromDateTime(), appointmentRequest.getToDateTime(), appointmentRequest.getDescription());
     }
 
     public static String putAppointmentReasonPayload(AppointmentReason reason) {

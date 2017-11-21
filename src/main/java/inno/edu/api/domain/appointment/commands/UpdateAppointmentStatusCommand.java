@@ -1,7 +1,7 @@
 package inno.edu.api.domain.appointment.commands;
 
 import inno.edu.api.domain.appointment.models.Appointment;
-import inno.edu.api.domain.appointment.models.AppointmentReason;
+import inno.edu.api.domain.appointment.commands.dtos.AppointmentReason;
 import inno.edu.api.domain.appointment.models.AppointmentStatus;
 import inno.edu.api.domain.appointment.queries.GetAppointmentByIdQuery;
 import inno.edu.api.domain.appointment.repositories.AppointmentRepository;

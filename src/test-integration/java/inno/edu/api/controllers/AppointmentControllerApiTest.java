@@ -6,8 +6,10 @@ import org.springframework.http.MediaType;
 
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.support.AppointmentFactory.appointment;
+import static inno.edu.api.support.AppointmentFactory.createAppointmentRequest;
 import static inno.edu.api.support.AppointmentFactory.otherAppointment;
 import static inno.edu.api.support.AppointmentFactory.reason;
+import static inno.edu.api.support.AppointmentFactory.updateAppointmentRequest;
 import static inno.edu.api.support.AppointmentFactory.updatedAppointment;
 import static inno.edu.api.support.Payloads.postAppointmentPayload;
 import static inno.edu.api.support.Payloads.putAppointmentPayload;
@@ -16,6 +18,7 @@ import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.fei;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -86,25 +89,34 @@ public class AppointmentControllerApiTest extends ApiTest {
     public void shouldCreateNewAppointment() throws Exception {
         this.mockMvc.perform(
                 post("/api/appointments")
-                        .content(postAppointmentPayload(appointment()))
+                        .content(postAppointmentPayload(createAppointmentRequest()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id", not(appointment().getId().toString())))
+                .andExpect(jsonPath("$.mentorProfileId", is(appointment().getMentorProfileId().toString())))
+                .andExpect(jsonPath("$.menteeProfileId", is(appointment().getMenteeProfileId().toString())))
+                .andExpect(jsonPath("$.fromDateTime", is(appointment().getFromDateTime().toString())))
+                .andExpect(jsonPath("$.toDateTime", is(appointment().getToDateTime().toString())))
+                .andExpect(jsonPath("$.description", is(appointment().getDescription())))
+                .andExpect(jsonPath("$.status", is(PROPOSED.toString())));
     }
 
     @Test
     public void shouldUpdateAppointment() throws Exception {
         this.mockMvc.perform(
                 put("/api/appointments/" + appointment().getId())
-                        .content(putAppointmentPayload(updatedAppointment()))
+                        .content(putAppointmentPayload(updateAppointmentRequest()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", is(appointment().getId().toString())))
-                .andExpect(jsonPath("$.toDateTime", is(updatedAppointment().getToDateTime().toString())))
+                .andExpect(jsonPath("$.mentorProfileId", is(appointment().getMentorProfileId().toString())))
+                .andExpect(jsonPath("$.menteeProfileId", is(appointment().getMenteeProfileId().toString())))
                 .andExpect(jsonPath("$.fromDateTime", is(updatedAppointment().getFromDateTime().toString())))
+                .andExpect(jsonPath("$.toDateTime", is(updatedAppointment().getToDateTime().toString())))
                 .andExpect(jsonPath("$.description", is(updatedAppointment().getDescription())))
-                .andExpect(jsonPath("$.status", is(updatedAppointment().getStatus().toString())));
+                .andExpect(jsonPath("$.status", is(appointment().getStatus().toString())));
     }
 
     @Test

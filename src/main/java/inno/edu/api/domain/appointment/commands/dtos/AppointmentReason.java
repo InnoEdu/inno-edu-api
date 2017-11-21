@@ -1,4 +1,4 @@
-package inno.edu.api.domain.appointment.models;
+package inno.edu.api.domain.appointment.commands.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

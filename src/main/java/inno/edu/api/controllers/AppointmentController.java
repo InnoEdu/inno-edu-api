@@ -6,8 +6,10 @@ import inno.edu.api.domain.appointment.commands.CreateAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.DeleteAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentStatusCommand;
+import inno.edu.api.domain.appointment.commands.dtos.CreateAppointmentRequest;
+import inno.edu.api.domain.appointment.commands.dtos.UpdateAppointmentRequest;
 import inno.edu.api.domain.appointment.models.Appointment;
-import inno.edu.api.domain.appointment.models.AppointmentReason;
+import inno.edu.api.domain.appointment.commands.dtos.AppointmentReason;
 import inno.edu.api.domain.appointment.models.AppointmentStatus;
 import inno.edu.api.domain.appointment.queries.GetAppointmentByIdQuery;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByMenteeIdQuery;
@@ -110,8 +112,8 @@ public class AppointmentController {
             @ApiResponse(code = 201, message = "New appointment successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
             @ApiResponse(code = 400, message = "Invalid Mentor Profile or Mentee Profile supplied."),
     })
-    public ResponseEntity<Appointment> post(@RequestBody Appointment appointment) {
-        AppointmentResource appointmentResource = new AppointmentResource(createAppointmentCommand.run(appointment));
+    public ResponseEntity<Appointment> post(@RequestBody CreateAppointmentRequest createAppointmentRequest) {
+        AppointmentResource appointmentResource = new AppointmentResource(createAppointmentCommand.run(createAppointmentRequest));
         return appointmentResource.toCreated();
     }
 
@@ -121,8 +123,8 @@ public class AppointmentController {
             @ApiResponse(code = 201, message = "New appointment successfully updated.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the updated resource.", response = String.class)),
             @ApiResponse(code = 404, message = "Appointment not found."),
     })
-    public ResponseEntity<Appointment> put(@PathVariable UUID id, @RequestBody Appointment appointment) {
-        AppointmentResource appointmentResource = new AppointmentResource(updateAppointmentCommand.run(id, appointment));
+    public ResponseEntity<Appointment> put(@PathVariable UUID id, @RequestBody UpdateAppointmentRequest updateAppointmentRequest) {
+        AppointmentResource appointmentResource = new AppointmentResource(updateAppointmentCommand.run(id, updateAppointmentRequest));
         return appointmentResource.toUpdated();
     }
 

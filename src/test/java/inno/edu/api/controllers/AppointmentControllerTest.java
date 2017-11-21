@@ -27,9 +27,11 @@ import static inno.edu.api.domain.appointment.models.AppointmentStatus.DECLINED;
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.support.AppointmentFactory.appointment;
 import static inno.edu.api.support.AppointmentFactory.appointments;
+import static inno.edu.api.support.AppointmentFactory.createAppointmentRequest;
 import static inno.edu.api.support.AppointmentFactory.emptyReason;
 import static inno.edu.api.support.AppointmentFactory.proposedAppointments;
 import static inno.edu.api.support.AppointmentFactory.reason;
+import static inno.edu.api.support.AppointmentFactory.updateAppointmentRequest;
 import static inno.edu.api.support.AppointmentFactory.updatedAppointment;
 import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.fei;
@@ -134,18 +136,18 @@ public class AppointmentControllerTest {
 
     @Test
     public void shouldCreateNewAppointment() {
-        when(createAppointmentCommand.run(appointment())).thenReturn(appointment());
+        when(createAppointmentCommand.run(createAppointmentRequest())).thenReturn(appointment());
 
-        ResponseEntity<Appointment> entity = appointmentController.post(appointment());
+        ResponseEntity<Appointment> entity = appointmentController.post(createAppointmentRequest());
 
         assertThat(entity.getBody(), is(appointment()));
     }
 
     @Test
     public void shouldUpdateAppointment() {
-        when(updateAppointmentCommand.run(appointment().getId(), updatedAppointment())).thenReturn(updatedAppointment());
+        when(updateAppointmentCommand.run(appointment().getId(), updateAppointmentRequest())).thenReturn(updatedAppointment());
 
-        ResponseEntity<Appointment> entity = appointmentController.put(appointment().getId(), updatedAppointment());
+        ResponseEntity<Appointment> entity = appointmentController.put(appointment().getId(), updateAppointmentRequest());
 
         assertThat(entity.getBody(), is(updatedAppointment()));
     }
