@@ -32,7 +32,7 @@ public class GlobalControllerExceptionHandler {
     VndErrors methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException ex) {
         List<VndError> errors =
                 ex.getBindingResult().getFieldErrors().stream().map(fieldError -> new VndError("error",
-                        format("Invalid value '%s' supplied for field '%s', field %s.",
+                        format("Invalid value '%s' supplied for field '%s', %s.",
                                 fieldError.getRejectedValue(),
                                 fieldError.getField(),
                                 fieldError.getDefaultMessage()))).collect(toList());
