@@ -2,7 +2,7 @@ package inno.edu.api.controllers.advices;
 
 import inno.edu.api.domain.school.exceptions.SchoolNotFoundException;
 import org.springframework.core.annotation.Order;
-import org.springframework.hateoas.VndErrors.VndError;
+import org.springframework.hateoas.VndErrors;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,7 +17,7 @@ public class SchoolControllerAdvice {
     @ResponseBody
     @ExceptionHandler(SchoolNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    VndError schoolNotFoundExceptionHandler(SchoolNotFoundException ex) {
-        return new VndError("error", ex.getMessage());
+    VndErrors schoolNotFoundExceptionHandler(SchoolNotFoundException ex) {
+        return new VndErrors("error", ex.getMessage());
     }
 }
