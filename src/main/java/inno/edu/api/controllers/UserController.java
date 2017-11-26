@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 import static org.springframework.http.ResponseEntity.noContent;
@@ -115,7 +116,7 @@ public class UserController {
             @ApiResponse(code = 201, message = "New user successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
             @ApiResponse(code = 400, message = "Username already exists or the passwords don't match."),
     })
-    public ResponseEntity<User> post(@RequestBody CreateUserRequest createUserRequest) {
+    public ResponseEntity<User> post(@Valid @RequestBody CreateUserRequest createUserRequest) {
         UserResource userResource = new UserResource(createUserCommand.run(createUserRequest));
         return userResource.toCreated();
     }
