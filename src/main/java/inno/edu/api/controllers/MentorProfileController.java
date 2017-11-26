@@ -79,7 +79,7 @@ public class MentorProfileController {
     @ApiOperation(value = "Create a new profile", notes = "Creates a new profile.")
     @ApiResponses({
             @ApiResponse(code = 201, message = "New profile successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
-            @ApiResponse(code = 400, message = "Invalid mentor user ID or school ID supplied."),
+            @ApiResponse(code = 404, message = "Invalid mentor user ID or school ID supplied."),
     })
     public ResponseEntity<MentorProfile> post(@RequestBody CreateMentorProfileRequest createMentorProfileRequest) {
         MentorProfileResource mentorProfileResource = new MentorProfileResource(createMentorProfileCommand.run(createMentorProfileRequest));
