@@ -71,7 +71,7 @@ public class AvailabilityController {
     @ApiOperation(value = "Create a new availability", notes = "Creates a new availability.")
     @ApiResponses({
             @ApiResponse(code = 201, message = "New availability successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
-            @ApiResponse(code = 400, message = "Invalid mentor profile ID supplied."),
+            @ApiResponse(code = 404, message = "Invalid mentor profile ID supplied."),
     })
     public ResponseEntity<Availability> post(@RequestBody CreateAvailabilityRequest createAvailabilityRequest) {
         AvailabilityResource availabilityResource = new AvailabilityResource(createAvailabilityCommand.run(createAvailabilityRequest));

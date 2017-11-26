@@ -73,7 +73,8 @@ public class MenteeProfileController {
     @ApiOperation(value = "Create a new profile", notes = "Creates a new profile.")
     @ApiResponses({
             @ApiResponse(code = 201, message = "New profile successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
-            @ApiResponse(code = 400, message = "Invalid mentee user ID supplied or mentee already has a profile."),
+            @ApiResponse(code = 400, message = "Mentee already has a profile created."),
+            @ApiResponse(code = 404, message = "Invalid mentee user ID supplied."),
     })
     public ResponseEntity<MenteeProfile> post(@RequestBody CreateMenteeProfileRequest createMenteeProfileRequest) {
         MenteeProfileResource profileReource = new MenteeProfileResource(createMenteeProfileCommand.run(createMenteeProfileRequest));

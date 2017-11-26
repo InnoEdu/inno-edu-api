@@ -78,7 +78,7 @@ public class AppointmentController {
     @GetMapping("/mentor/{mentorId}")
     @ApiOperation(value = "Find all appointments by mentor and status", notes = "Return all appointments for the specific mentor and also optionally filtered by the appointment status. ", response = Appointment.class, responseContainer = "List")
     @ApiResponses({
-            @ApiResponse(code = 400, message = "Invalid mentor ID supplied."),
+            @ApiResponse(code = 404, message = "Invalid mentor ID supplied."),
     })
     public Resources<AppointmentResource> allByMentor(@PathVariable UUID mentorId,
                                                       @RequestParam(required = false) AppointmentStatus status) {
@@ -110,7 +110,7 @@ public class AppointmentController {
     @ApiOperation(value = "Create a new appointment", notes = "Creates a new appointment for a Mentee Profile, Mentor Profile and School combination.")
     @ApiResponses({
             @ApiResponse(code = 201, message = "New appointment successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
-            @ApiResponse(code = 400, message = "Invalid Mentor Profile or Mentee Profile supplied."),
+            @ApiResponse(code = 404, message = "Invalid Mentor Profile or Mentee Profile supplied."),
     })
     public ResponseEntity<Appointment> post(@RequestBody CreateAppointmentRequest createAppointmentRequest) {
         AppointmentResource appointmentResource = new AppointmentResource(createAppointmentCommand.run(createAppointmentRequest));
