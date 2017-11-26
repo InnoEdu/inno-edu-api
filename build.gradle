@@ -16,30 +16,7 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
-
-ext {
-    mapstructVersion = "1.2.0.CR1"
-    lombokVersion = "1.16.14"
-}
-
-jar {
-    baseName = 'inno-edu-api'
-    version =  '0.1.0'
-}
-
-compileJava {
-    options.compilerArgs = [
-            '-Amapstruct.defaultComponentModel=spring',
-            '-Amapstruct.unmappedTargetPolicy=IGNORE'
-    ]
-}
-repositories {
-    mavenCentral()
-}
-
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
-
+apply from: 'gradle/java.gradle'
 apply from: 'gradle/integration-test.gradle'
 apply from: 'gradle/dependencies.gradle'
 apply from: 'gradle/heroku.gradle'

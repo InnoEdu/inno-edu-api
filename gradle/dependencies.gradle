@@ -1,3 +1,7 @@
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web") {
         exclude module: "spring-boot-starter-tomcat"
@@ -24,10 +28,8 @@ dependencies {
     compile "org.apache.commons:commons-io:1.3.2"
     compile "org.apache.commons:commons-lang3:3.1"
 
-    compile "org.mapstruct:mapstruct-jdk8:${mapstructVersion}", "org.projectlombok:lombok:${lombokVersion}"
-    apt "org.mapstruct:mapstruct-processor:${mapstructVersion}", "org.projectlombok:lombok:${lombokVersion}"
+    compile "org.mapstruct:mapstruct-jdk8:1.2.0.CR1", "org.projectlombok:lombok:1.16.14"
+    apt "org.mapstruct:mapstruct-processor:1.2.0.CR1", "org.projectlombok:lombok:1.16.14"
 
     testCompile "org.springframework.boot:spring-boot-starter-test"
-
-    apt "org.mapstruct:mapstruct-processor:1.2.0.Final"
 }
