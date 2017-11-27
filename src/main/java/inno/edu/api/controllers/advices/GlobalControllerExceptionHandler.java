@@ -52,7 +52,7 @@ public class GlobalControllerExceptionHandler {
         if (ex.getCause() instanceof InvalidFormatException) {
             InvalidFormatException rootException = (InvalidFormatException) ex.getCause();
 
-            String typeMismatch = "unknown reason";
+            String typeMismatch = "unknown reason: " + ex.getRootCause().toString();
             if (ex.getRootCause() instanceof DateTimeException) {
                 typeMismatch = "invalid ISO datetime format";
             }
