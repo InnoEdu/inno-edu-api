@@ -92,7 +92,7 @@ public class UserFactory {
         return fei().toBuilder()
                 .firstName("UpdatedFei")
                 .lastName("UpdatedXiu")
-                .email("UpdatedEmail")
+                .email("UpdatedEmail@email.com")
                 .photoUrl("UpdatedProfileUrl")
                 .build();
     }

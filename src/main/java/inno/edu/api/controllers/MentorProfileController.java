@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 import static org.springframework.http.ResponseEntity.noContent;
@@ -81,7 +82,7 @@ public class MentorProfileController {
             @ApiResponse(code = 201, message = "New profile successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
             @ApiResponse(code = 404, message = "Invalid mentor user ID or school ID supplied."),
     })
-    public ResponseEntity<MentorProfile> post(@RequestBody CreateMentorProfileRequest createMentorProfileRequest) {
+    public ResponseEntity<MentorProfile> post(@Valid @RequestBody CreateMentorProfileRequest createMentorProfileRequest) {
         MentorProfileResource mentorProfileResource = new MentorProfileResource(createMentorProfileCommand.run(createMentorProfileRequest));
         return mentorProfileResource.toCreated();
     }
@@ -92,7 +93,7 @@ public class MentorProfileController {
             @ApiResponse(code = 201, message = "New profile successfully updated.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the updated resource.", response = String.class)),
             @ApiResponse(code = 404, message = "Profile not found."),
     })
-    public ResponseEntity<MentorProfile> put(@PathVariable UUID id, @RequestBody UpdateMentorProfileRequest updateMentorProfileRequest) {
+    public ResponseEntity<MentorProfile> put(@PathVariable UUID id, @Valid @RequestBody UpdateMentorProfileRequest updateMentorProfileRequest) {
         MentorProfileResource profileResource = new MentorProfileResource(updateMentorProfileCommand.run(id, updateMentorProfileRequest));
         return profileResource.toUpdated();
     }

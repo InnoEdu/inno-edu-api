@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 import static org.springframework.http.ResponseEntity.noContent;
@@ -88,7 +89,7 @@ public class SchoolController {
     @ApiResponses({
             @ApiResponse(code = 201, message = "New school successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
     })
-    public ResponseEntity<School> post(@RequestBody CreateSchoolRequest createSchoolRequest) {
+    public ResponseEntity<School> post(@Valid @RequestBody CreateSchoolRequest createSchoolRequest) {
         SchoolResource schoolResource = new SchoolResource(createSchoolCommand.run(createSchoolRequest));
         return schoolResource.toCreated();
     }
@@ -99,7 +100,7 @@ public class SchoolController {
             @ApiResponse(code = 201, message = "New school successfully updated.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the updated resource.", response = String.class)),
             @ApiResponse(code = 404, message = "School not found."),
     })
-    public ResponseEntity<School> put(@PathVariable UUID id, @RequestBody UpdateSchoolRequest updateSchoolRequest) {
+    public ResponseEntity<School> put(@PathVariable UUID id, @Valid @RequestBody UpdateSchoolRequest updateSchoolRequest) {
         SchoolResource schoolResource = new SchoolResource(updateSchoolCommand.run(id, updateSchoolRequest));
         return schoolResource.toUpdated();
     }

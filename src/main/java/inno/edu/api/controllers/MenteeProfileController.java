@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 import static org.springframework.http.ResponseEntity.noContent;
@@ -76,9 +77,9 @@ public class MenteeProfileController {
             @ApiResponse(code = 400, message = "Mentee already has a profile created."),
             @ApiResponse(code = 404, message = "Invalid mentee user ID supplied."),
     })
-    public ResponseEntity<MenteeProfile> post(@RequestBody CreateMenteeProfileRequest createMenteeProfileRequest) {
-        MenteeProfileResource profileReource = new MenteeProfileResource(createMenteeProfileCommand.run(createMenteeProfileRequest));
-        return profileReource.toCreated();
+    public ResponseEntity<MenteeProfile> post(@Valid @RequestBody CreateMenteeProfileRequest createMenteeProfileRequest) {
+        MenteeProfileResource profileResource = new MenteeProfileResource(createMenteeProfileCommand.run(createMenteeProfileRequest));
+        return profileResource.toCreated();
     }
 
     @PutMapping("/{id}")
@@ -87,7 +88,7 @@ public class MenteeProfileController {
             @ApiResponse(code = 201, message = "New profile successfully updated.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the updated resource.", response = String.class)),
             @ApiResponse(code = 404, message = "Profile not found."),
     })
-    public ResponseEntity<MenteeProfile> put(@PathVariable UUID id, @RequestBody UpdateMenteeProfileRequest updateMenteeProfileRequest) {
+    public ResponseEntity<MenteeProfile> put(@PathVariable UUID id, @Valid @RequestBody UpdateMenteeProfileRequest updateMenteeProfileRequest) {
         MenteeProfileResource profileResource = new MenteeProfileResource(updateMenteeProfileCommand.run(id, updateMenteeProfileRequest));
         return profileResource.toUpdated();
     }

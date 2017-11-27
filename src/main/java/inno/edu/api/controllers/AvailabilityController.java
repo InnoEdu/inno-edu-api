@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 import static org.springframework.http.ResponseEntity.noContent;
@@ -73,7 +74,7 @@ public class AvailabilityController {
             @ApiResponse(code = 201, message = "New availability successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
             @ApiResponse(code = 404, message = "Invalid mentor profile ID supplied."),
     })
-    public ResponseEntity<Availability> post(@RequestBody CreateAvailabilityRequest createAvailabilityRequest) {
+    public ResponseEntity<Availability> post(@Valid @RequestBody CreateAvailabilityRequest createAvailabilityRequest) {
         AvailabilityResource availabilityResource = new AvailabilityResource(createAvailabilityCommand.run(createAvailabilityRequest));
         return availabilityResource.toCreated();
     }
@@ -84,7 +85,7 @@ public class AvailabilityController {
             @ApiResponse(code = 201, message = "New availability successfully updated.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the updated resource.", response = String.class)),
             @ApiResponse(code = 404, message = "Availability not found."),
     })
-    public ResponseEntity<Availability> put(@PathVariable UUID id, @RequestBody UpdateAvailabilityRequest updateAvailabilityRequest) {
+    public ResponseEntity<Availability> put(@PathVariable UUID id, @Valid @RequestBody UpdateAvailabilityRequest updateAvailabilityRequest) {
         AvailabilityResource availabilityResource = new AvailabilityResource(updateAvailabilityCommand.run(id, updateAvailabilityRequest));
         return availabilityResource.toUpdated();
     }

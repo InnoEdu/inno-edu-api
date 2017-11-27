@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -112,7 +113,7 @@ public class AppointmentController {
             @ApiResponse(code = 201, message = "New appointment successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
             @ApiResponse(code = 404, message = "Invalid Mentor Profile or Mentee Profile supplied."),
     })
-    public ResponseEntity<Appointment> post(@RequestBody CreateAppointmentRequest createAppointmentRequest) {
+    public ResponseEntity<Appointment> post(@Valid @RequestBody CreateAppointmentRequest createAppointmentRequest) {
         AppointmentResource appointmentResource = new AppointmentResource(createAppointmentCommand.run(createAppointmentRequest));
         return appointmentResource.toCreated();
     }
@@ -123,7 +124,7 @@ public class AppointmentController {
             @ApiResponse(code = 201, message = "New appointment successfully updated.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the updated resource.", response = String.class)),
             @ApiResponse(code = 404, message = "Appointment not found."),
     })
-    public ResponseEntity<Appointment> put(@PathVariable UUID id, @RequestBody UpdateAppointmentRequest updateAppointmentRequest) {
+    public ResponseEntity<Appointment> put(@PathVariable UUID id, @Valid @RequestBody UpdateAppointmentRequest updateAppointmentRequest) {
         AppointmentResource appointmentResource = new AppointmentResource(updateAppointmentCommand.run(id, updateAppointmentRequest));
         return appointmentResource.toUpdated();
     }
@@ -135,7 +136,7 @@ public class AppointmentController {
             @ApiResponse(code = 400, message = "Reason not provided."),
             @ApiResponse(code = 404, message = "Appointment not found."),
     })
-    public ResponseEntity<?> cancel(@PathVariable UUID id, @RequestBody AppointmentReason reason) {
+    public ResponseEntity<?> cancel(@PathVariable UUID id, @Valid @RequestBody AppointmentReason reason) {
         updateAppointmentStatusCommand.run(id, reason, CANCELED);
         return noContent().build();
     }
@@ -147,7 +148,7 @@ public class AppointmentController {
             @ApiResponse(code = 400, message = "Reason not provided."),
             @ApiResponse(code = 404, message = "Appointment not found."),
     })
-    public ResponseEntity<?> decline(@PathVariable UUID id, @RequestBody AppointmentReason reason) {
+    public ResponseEntity<?> decline(@PathVariable UUID id, @Valid @RequestBody AppointmentReason reason) {
         updateAppointmentStatusCommand.run(id, reason, DECLINED);
         return noContent().build();
     }

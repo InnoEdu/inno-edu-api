@@ -127,7 +127,7 @@ public class UserController {
             @ApiResponse(code = 201, message = "New user successfully updated.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the updated resource.", response = String.class)),
             @ApiResponse(code = 404, message = "User not found."),
     })
-    public ResponseEntity<User> put(@PathVariable UUID id, @RequestBody UpdateUserRequest updateUserRequest) {
+    public ResponseEntity<User> put(@PathVariable UUID id, @Valid @RequestBody UpdateUserRequest updateUserRequest) {
         UserResource userResource = new UserResource(updateUserCommand.run(id, updateUserRequest));
         return userResource.toUpdated();
     }
