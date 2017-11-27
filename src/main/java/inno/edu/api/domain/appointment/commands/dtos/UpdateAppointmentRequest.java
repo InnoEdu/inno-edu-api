@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Data
@@ -12,8 +13,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateAppointmentRequest {
+    @NotNull
     private LocalDateTime fromDateTime;
+
+    @NotNull
     private LocalDateTime toDateTime;
 
+    @NotNull
     private String description;
 }

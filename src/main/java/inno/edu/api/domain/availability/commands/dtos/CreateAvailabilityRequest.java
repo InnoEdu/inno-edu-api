@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -13,8 +14,12 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateAvailabilityRequest {
+    @NotNull
     private UUID mentorProfileId;
 
+    @NotNull
     private LocalDateTime fromDateTime;
+
+    @NotNull
     private LocalDateTime toDateTime;
 }
