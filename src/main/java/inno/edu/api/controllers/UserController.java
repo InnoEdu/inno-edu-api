@@ -92,7 +92,7 @@ public class UserController {
     @ApiOperation(value = "Get user profile.", notes = "Get the Mentor or Mentee profile based on the user attributes.")
     @ApiResponses({
             @ApiResponse(code = 404, message = "User not found."),
-            @ApiResponse(code = 404, message = "User profile not found."),
+            @ApiResponse(code = 400, message = "User profile not found."),
     })
     public ResourceSupport getProfile(@PathVariable UUID id) {
         if (userRepository.existsByIdAndIsMentorIsTrue(id)) {

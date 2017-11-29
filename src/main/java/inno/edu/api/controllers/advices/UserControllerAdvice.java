@@ -35,7 +35,7 @@ public class UserControllerAdvice {
 
     @ResponseBody
     @ExceptionHandler(UserProfileNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     VndErrors userProfileNotFoundExceptionHandler(UserProfileNotFoundException ex) {
         return new VndErrors("error", ex.getMessage());
     }
