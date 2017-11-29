@@ -8,7 +8,6 @@ import inno.edu.api.domain.profile.commands.UpdateMentorProfileCommand;
 import inno.edu.api.domain.profile.commands.UpdateMentorProfileStatusCommand;
 import inno.edu.api.domain.profile.commands.dtos.CreateMentorProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.UpdateMentorProfileRequest;
-import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.profile.models.ProfileStatus;
 import inno.edu.api.domain.profile.queries.GetMentorProfileByIdQuery;
@@ -61,14 +60,14 @@ public class MentorProfileController {
     }
 
     @GetMapping
-    @ApiOperation(value = "Find all profiles", notes = "Return all profiles.", response = MenteeProfile.class, responseContainer = "List")
+    @ApiOperation(value = "Find all profiles", notes = "Return all profiles.", response = MentorProfile.class, responseContainer = "List")
     public Resources<MentorProfileResource> all() {
         Iterable<MentorProfile> profiles = mentorProfileRepository.findAll();
         return resourceBuilder.from(profiles, MentorProfileResource::new);
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "Get an profile", notes = "Get an profile by ID.", response = MenteeProfile.class)
+    @ApiOperation(value = "Get an profile", notes = "Get an profile by ID.", response = MentorProfile.class)
     @ApiResponses({
             @ApiResponse(code = 404, message = "Profile not found."),
     })
@@ -88,7 +87,7 @@ public class MentorProfileController {
     }
 
     @PutMapping("/{id}")
-    @ApiOperation(value = "Update an profile", notes = "Update an profile.", response = MenteeProfile.class)
+    @ApiOperation(value = "Update an profile", notes = "Update an profile.", response = MentorProfile.class)
     @ApiResponses({
             @ApiResponse(code = 201, message = "New profile successfully updated.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the updated resource.", response = String.class)),
             @ApiResponse(code = 404, message = "Profile not found."),
@@ -99,7 +98,7 @@ public class MentorProfileController {
     }
 
     @PutMapping("/{id}/approve")
-    @ApiOperation(value = "Approve an profile", notes = "Approve a new mentor profile. All other profiles will be inactivated.", response = MenteeProfile.class)
+    @ApiOperation(value = "Approve an profile", notes = "Approve a new mentor profile. All other profiles will be inactivated.", response = MentorProfile.class)
     @ApiResponses({
             @ApiResponse(code = 201, message = "Profile successfully approved."),
             @ApiResponse(code = 404, message = "Profile not found."),
@@ -110,7 +109,7 @@ public class MentorProfileController {
     }
 
     @PutMapping("/{id}/reject")
-    @ApiOperation(value = "Reject a profile", notes = "Reject a mentor profile.", response = MenteeProfile.class)
+    @ApiOperation(value = "Reject a profile", notes = "Reject a mentor profile.", response = MentorProfile.class)
     @ApiResponses({
             @ApiResponse(code = 201, message = "Profile successfully rejected."),
             @ApiResponse(code = 404, message = "Profile not found."),
