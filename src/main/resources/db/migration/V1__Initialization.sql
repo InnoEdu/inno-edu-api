@@ -97,7 +97,7 @@ VALUES ('e3495a43a0af42b7ab91a3801b1b56ab', 'Tuany', 'Di Domenico', 'tuany', 'tu
         'https://scontent-sea1-1.cdninstagram.com/t51.2885-15/s480x480/e15/c0.80.640.640/13129262_634106980078940_906222652_n.jpg?ig_cache_key=MTI0MDAxMzMyNzYzMDI1ODQyOQ%3D%3D.2.c');
 
 INSERT INTO User (id, first_name, last_name, username, email, password, is_mentor, photo_url)
-VALUES ('c5e6b39233e14255a249f777b6ab355d', 'Eluisete', 'Muller', 'eluisete', 'eluisete@inno.edu', 'password', 0,
+VALUES ('c5e6b39233e14255a249f777b6ab355d', 'Elisete', 'Muller', 'elisete', 'eluisete@inno.edu', 'password', 0,
         'http://www.observatoriodemarcas.com.br/images/IIcongresso/elizete_de_azevedokreutz.jpg');
 
 -- Schools
@@ -253,10 +253,10 @@ VALUES ('f192270f2dad4bcd96c3c3765df77ce2', '2744d1cbb25e4a61879dad3d15ffebe2',
 
 INSERT INTO Appointment (id, mentor_profile_id, mentee_profile_id, from_date_time, to_date_time, description, status)
 VALUES ('f192270f2dad4bcd96c3c3765df77ce3', 'e1b66612a94a4db386a104f3a102227b',
-        '71b31ec9207d4d469e33c4b4024db0ed', '2018-01-03 18:00:00.000',
-        '2018-01-03 19:00:00.000', 'My great first appointment.', 1);
+        '71b31ec9207d4d469e33c4b4024db0ed', '2018-01-03 14:00:00.000',
+        '2018-01-03 15:00:00.000', 'My great first appointment.', 1);
 
 INSERT INTO Appointment (id, mentor_profile_id, mentee_profile_id, from_date_time, to_date_time, description, status)
 VALUES ('f192270f2dad4bcd96c3c3765df77ce4', '2744d1cbb25e4a61879dad3d15ffebe2',
-        '71b31ec9207d4d469e33c4b4024db0ed', '2018-01-03 13:00:00.000',
-        '2018-01-03 14:00:00.000', 'My great second appointment.', 1);
+        '71b31ec9207d4d469e33c4b4024db0ed', '2018-01-03 15:00:00.000',
+        '2018-01-03 16:00:00.000', 'My great second appointment.', 1);
