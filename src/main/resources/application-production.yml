@@ -8,6 +8,8 @@ spring:
 
 flyway:
   cleanOnValidationError: true
+  placeholders:
+    map: unhex
 
 endpoints:
   sensitive: false
