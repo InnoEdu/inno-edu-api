@@ -132,6 +132,14 @@ INSERT INTO Mentor_Profile (id, mentor_id, school_id, email, description, status
 VALUES ('2744d1cbb25e4a61879dad3d15ffebe2', '8d6153fc83e54b3a90acd081ff789cef',
         'a10afaca201644b8940b5b88323901b9', 'alan@inno.edu', 'Alan is a great mentor.', 1);
 
+-- Mentee Profiles
 
+INSERT INTO Mentee_Profile (id, mentee_id, description)
+VALUES ('c5f473b4331140b18fb3f70357894754', 'e3495a43a0af42b7ab91a3801b1b56ab',
+        'Tuany is a great mentee.');
+
+INSERT INTO Mentee_Profile (id, mentee_id, description)
+VALUES ('71b31ec9207d4d469e33c4b4024db0ed', 'c5e6b39233e14255a249f777b6ab355d',
+        'Eluisete is a great mentee.');
 
 
