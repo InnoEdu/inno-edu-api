@@ -128,7 +128,7 @@ VALUES (UNHEX('0e9e40c0b44b438792a99d75d10e3d42'), UNHEX('ba7c650519fd47c387a6c6
 
 INSERT INTO Mentor_Profile (id, mentor_id, school_id, email, description, status)
 VALUES (UNHEX('e1b66612a94a4db386a104f3a102227b'), UNHEX('df54ff863caa4145b228284f5d4a908a'),
-              UNHEX('7f297cd9723b43c98021a8530129dedb'), 'gustavo@inno.edu', 'Gustavo is a great mentor.', 1);
+        UNHEX('7f297cd9723b43c98021a8530129dedb'), 'gustavo@inno.edu', 'Gustavo is a great mentor.', 1);
 
 INSERT INTO Mentor_Profile (id, mentor_id, school_id, email, description, status)
 VALUES (UNHEX('2744d1cbb25e4a61879dad3d15ffebe2'), UNHEX('8d6153fc83e54b3a90acd081ff789cef'),
@@ -150,31 +150,31 @@ VALUES (UNHEX('71b31ec9207d4d469e33c4b4024db0ed'), UNHEX('c5e6b39233e14255a249f7
 
 INSERT INTO Availability (id, mentor_profile_id, from_date_time, to_date_time)
 VALUES (UNHEX('0c55130c6e63420bb3aeb2485caadc24'), UNHEX('0e9e40c0b44b438792a99d75d10e3d42'),
-              '2018-01-01 18:00:00.000', '2018-01-01 23:00:00.000');
+        '2018-01-01 18:00:00.000', '2018-01-01 23:00:00.000');
 
 INSERT INTO Availability (id, mentor_profile_id, from_date_time, to_date_time)
 VALUES (UNHEX('0c55130c6e63420bb3aeb2485caadc25'), UNHEX('0e9e40c0b44b438792a99d75d10e3d42'),
-              '2018-01-02 18:00:00.000', '2018-01-02 23:00:00.000');
+        '2018-01-02 18:00:00.000', '2018-01-02 23:00:00.000');
 
 INSERT INTO Availability (id, mentor_profile_id, from_date_time, to_date_time)
 VALUES (UNHEX('0c55130c6e63420bb3aeb2485caadc26'), UNHEX('0e9e40c0b44b438792a99d75d10e3d42'),
-              '2018-01-03 18:00:00.000', '2018-01-03 23:00:00.000');
+        '2018-01-03 18:00:00.000', '2018-01-03 23:00:00.000');
 
 INSERT INTO Availability (id, mentor_profile_id, from_date_time, to_date_time)
 VALUES (UNHEX('0c55130c6e63420bb3aeb2485caadc27'), UNHEX('0e9e40c0b44b438792a99d75d10e3d42'),
-              '2018-01-04 18:00:00.000', '2018-01-04 23:00:00.000');
+        '2018-01-04 18:00:00.000', '2018-01-04 23:00:00.000');
 
 INSERT INTO Availability (id, mentor_profile_id, from_date_time, to_date_time)
 VALUES (UNHEX('0c55130c6e63420bb3aeb2485caadc28'), UNHEX('0e9e40c0b44b438792a99d75d10e3d42'),
-              '2018-01-05 18:00:00.000', '2018-01-05 23:00:00.000');
+        '2018-01-05 18:00:00.000', '2018-01-05 23:00:00.000');
 
 INSERT INTO Availability (id, mentor_profile_id, from_date_time, to_date_time)
 VALUES (UNHEX('0c55130c6e63420bb3aeb2485caadc29'), UNHEX('0e9e40c0b44b438792a99d75d10e3d42'),
-              '2018-01-06 18:00:00.000', '2018-01-06 23:00:00.000');
+        '2018-01-06 18:00:00.000', '2018-01-06 23:00:00.000');
 
 INSERT INTO Availability (id, mentor_profile_id, from_date_time, to_date_time)
 VALUES (UNHEX('0c55130c6e63420bb3aeb2485caadc10'), UNHEX('0e9e40c0b44b438792a99d75d10e3d42'),
-              '2018-01-07 18:00:00.000', '2018-01-07 23:00:00.000');
+        '2018-01-07 18:00:00.000', '2018-01-07 23:00:00.000');
 
 -- Alan
 
@@ -209,31 +209,31 @@ VALUES (UNHEX('0c55130c6e63420bb3aeb2485caadc17'), UNHEX('2744d1cbb25e4a61879dad
 -- Gustavo
 
 INSERT INTO Availability (id, mentor_profile_id, from_date_time, to_date_time)
-VALUES ('0c55130c6e63420bb3aeb2485caadc31', UNHEX('e1b66612a94a4db386a104f3a102227b'),
+VALUES (UNHEX('0c55130c6e63420bb3aeb2485caadc31'), UNHEX('e1b66612a94a4db386a104f3a102227b'),
         '2018-01-01 13:00:00.000', '2018-01-01 23:00:00.000');
 
 INSERT INTO Availability (id, mentor_profile_id, from_date_time, to_date_time)
-VALUES ('0c55130c6e63420bb3aeb2485caadc32', UNHEX('e1b66612a94a4db386a104f3a102227b'),
+VALUES (UNHEX('0c55130c6e63420bb3aeb2485caadc32'), UNHEX('e1b66612a94a4db386a104f3a102227b'),
         '2018-01-02 13:00:00.000', '2018-01-02 23:00:00.000');
 
 INSERT INTO Availability (id, mentor_profile_id, from_date_time, to_date_time)
-VALUES ('0c55130c6e63420bb3aeb2485caadc33', UNHEX('e1b66612a94a4db386a104f3a102227b'),
+VALUES (UNHEX('0c55130c6e63420bb3aeb2485caadc33'), UNHEX('e1b66612a94a4db386a104f3a102227b'),
         '2018-01-03 13:00:00.000', '2018-01-03 23:00:00.000');
 
 INSERT INTO Availability (id, mentor_profile_id, from_date_time, to_date_time)
-VALUES ('0c55130c6e63420bb3aeb2485caadc34', UNHEX('e1b66612a94a4db386a104f3a102227b'),
+VALUES (UNHEX('0c55130c6e63420bb3aeb2485caadc34'), UNHEX('e1b66612a94a4db386a104f3a102227b'),
         '2018-01-04 13:00:00.000', '2018-01-04 23:00:00.000');
 
 INSERT INTO Availability (id, mentor_profile_id, from_date_time, to_date_time)
-VALUES ('0c55130c6e63420bb3aeb2485caadc35', UNHEX('e1b66612a94a4db386a104f3a102227b'),
+VALUES (UNHEX('0c55130c6e63420bb3aeb2485caadc35'), UNHEX('e1b66612a94a4db386a104f3a102227b'),
         '2018-01-05 13:00:00.000', '2018-01-05 23:00:00.000');
 
 INSERT INTO Availability (id, mentor_profile_id, from_date_time, to_date_time)
-VALUES ('0c55130c6e63420bb3aeb2485caadc36', UNHEX('e1b66612a94a4db386a104f3a102227b'),
+VALUES (UNHEX('0c55130c6e63420bb3aeb2485caadc36'), UNHEX('e1b66612a94a4db386a104f3a102227b'),
         '2018-01-06 13:00:00.000', '2018-01-06 23:00:00.000');
 
 INSERT INTO Availability (id, mentor_profile_id, from_date_time, to_date_time)
-VALUES ('0c55130c6e63420bb3aeb2485caadc37', UNHEX('e1b66612a94a4db386a104f3a102227b'),
+VALUES (UNHEX('0c55130c6e63420bb3aeb2485caadc37'), UNHEX('e1b66612a94a4db386a104f3a102227b'),
         '2018-01-07 13:00:00.000', '2018-01-07 23:00:00.000');
 
 -- Appointments
