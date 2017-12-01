@@ -235,3 +235,28 @@ VALUES ('0c55130c6e63420bb3aeb2485caadc37', 'e1b66612a94a4db386a104f3a102227b',
         '2018-01-07 13:00:00.000', '2018-01-07 23:00:00.000');
 
 
+-- Appointments
+
+-- Tuany
+
+INSERT INTO Appointment (id, mentor_profile_id, mentee_profile_id, from_date_time, to_date_time, description, status)
+VALUES ('f192270f2dad4bcd96c3c3765df77ce1', '0e9e40c0b44b438792a99d75d10e3d42',
+        'c5f473b4331140b18fb3f70357894754', '2018-01-02 18:00:00.000',
+        '2018-01-02 19:00:00.000', 'My great first appointment.', 1);
+
+INSERT INTO Appointment (id, mentor_profile_id, mentee_profile_id, from_date_time, to_date_time, description, status)
+VALUES ('f192270f2dad4bcd96c3c3765df77ce2', '2744d1cbb25e4a61879dad3d15ffebe2',
+        'c5f473b4331140b18fb3f70357894754', '2018-01-02 13:00:00.000',
+        '2018-01-02 14:00:00.000', 'My great second appointment.', 1);
+
+-- Elisete
+
+INSERT INTO Appointment (id, mentor_profile_id, mentee_profile_id, from_date_time, to_date_time, description, status)
+VALUES ('f192270f2dad4bcd96c3c3765df77ce3', 'e1b66612a94a4db386a104f3a102227b',
+        '71b31ec9207d4d469e33c4b4024db0ed', '2018-01-03 18:00:00.000',
+        '2018-01-03 19:00:00.000', 'My great first appointment.', 1);
+
+INSERT INTO Appointment (id, mentor_profile_id, mentee_profile_id, from_date_time, to_date_time, description, status)
+VALUES ('f192270f2dad4bcd96c3c3765df77ce4', '2744d1cbb25e4a61879dad3d15ffebe2',
+        '71b31ec9207d4d469e33c4b4024db0ed', '2018-01-03 13:00:00.000',
+        '2018-01-03 14:00:00.000', 'My great second appointment.', 1);
