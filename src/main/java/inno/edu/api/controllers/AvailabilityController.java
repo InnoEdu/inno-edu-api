@@ -9,6 +9,7 @@ import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityRequest;
 import inno.edu.api.domain.availability.commands.dtos.UpdateAvailabilityRequest;
 import inno.edu.api.domain.availability.models.Availability;
 import inno.edu.api.domain.availability.queries.GetAvailabilityByIdQuery;
+import inno.edu.api.domain.availability.queries.GetAvailabilityByMentorId;
 import inno.edu.api.domain.availability.repositories.AvailabilityRepository;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 
 import static org.springframework.http.ResponseEntity.noContent;
@@ -42,14 +44,16 @@ public class AvailabilityController {
     private final DeleteAvailabilityCommand deleteAvailabilityCommand;
 
     private final GetAvailabilityByIdQuery getAvailabilityByIdQuery;
+    private final GetAvailabilityByMentorId getAvailabilityByMentorIdQuery;
 
-    public AvailabilityController(AvailabilityRepository availabilityRepository, ResourceBuilder resourceBuilder, CreateAvailabilityCommand createAvailabilityCommand, UpdateAvailabilityCommand updateAvailabilityCommand, DeleteAvailabilityCommand deleteAvailabilityCommand, GetAvailabilityByIdQuery getAvailabilityByIdQuery) {
+    public AvailabilityController(AvailabilityRepository availabilityRepository, ResourceBuilder resourceBuilder, CreateAvailabilityCommand createAvailabilityCommand, UpdateAvailabilityCommand updateAvailabilityCommand, DeleteAvailabilityCommand deleteAvailabilityCommand, GetAvailabilityByIdQuery getAvailabilityByIdQuery, GetAvailabilityByMentorId getAvailabilityByMentorIdQuery) {
         this.availabilityRepository = availabilityRepository;
         this.resourceBuilder = resourceBuilder;
         this.createAvailabilityCommand = createAvailabilityCommand;
         this.updateAvailabilityCommand = updateAvailabilityCommand;
         this.deleteAvailabilityCommand = deleteAvailabilityCommand;
         this.getAvailabilityByIdQuery = getAvailabilityByIdQuery;
+        this.getAvailabilityByMentorIdQuery = getAvailabilityByMentorIdQuery;
     }
 
     @GetMapping
@@ -100,4 +104,15 @@ public class AvailabilityController {
         deleteAvailabilityCommand.run(id);
         return noContent().build();
     }
+
+    @GetMapping("/mentor/{mentorId}")
+    @ApiOperation(value = "Find all availability by mentor", notes = "Return all availability for the specific mentor. ", response = Availability.class, responseContainer = "List")
+    @ApiResponses({
+            @ApiResponse(code = 404, message = "Invalid mentor ID supplied."),
+    })
+    public Resources<AvailabilityResource> allByMentor(@PathVariable UUID mentorId) {
+        List<Availability> availability = getAvailabilityByMentorIdQuery.run(mentorId);
+        return resourceBuilder.from(availability, AvailabilityResource::new);
+    }
+
 }

@@ -7,6 +7,7 @@ import inno.edu.api.domain.availability.commands.DeleteAvailabilityCommand;
 import inno.edu.api.domain.availability.commands.UpdateAvailabilityCommand;
 import inno.edu.api.domain.availability.models.Availability;
 import inno.edu.api.domain.availability.queries.GetAvailabilityByIdQuery;
+import inno.edu.api.domain.availability.queries.GetAvailabilityByMentorId;
 import inno.edu.api.domain.availability.repositories.AvailabilityRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,8 +22,10 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import static inno.edu.api.support.AvailabilityFactory.allAvailability;
 import static inno.edu.api.support.AvailabilityFactory.availability;
 import static inno.edu.api.support.AvailabilityFactory.createAvailabilityRequest;
+import static inno.edu.api.support.AvailabilityFactory.feiAvailability;
 import static inno.edu.api.support.AvailabilityFactory.updateAvailabilityRequest;
 import static inno.edu.api.support.AvailabilityFactory.updatedAvailability;
+import static inno.edu.api.support.UserFactory.fei;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
@@ -50,6 +53,9 @@ public class AvailabilityControllerTest {
 
     @Mock
     private GetAvailabilityByIdQuery getAvailabilityByIdQuery;
+
+    @Mock
+    private GetAvailabilityByMentorId getAvailabilityByMentorId;
 
     @InjectMocks
     private AvailabilityController availabilityController;
@@ -101,4 +107,14 @@ public class AvailabilityControllerTest {
 
         verify(deleteAvailabilityCommand).run(availability().getId());
     }
+
+    @Test
+    public void shouldListAvailabilityByMentor() {
+        when(getAvailabilityByMentorId.run(fei().getId())).thenReturn(feiAvailability());
+
+        availabilityController.allByMentor(fei().getId());
+
+        verify(resourceBuilder).from(eq(feiAvailability()), any());
+    }
+
 }
