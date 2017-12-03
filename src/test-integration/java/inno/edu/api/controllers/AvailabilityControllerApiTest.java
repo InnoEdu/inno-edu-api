@@ -11,6 +11,7 @@ import static inno.edu.api.support.AvailabilityFactory.updateAvailabilityRequest
 import static inno.edu.api.support.AvailabilityFactory.updatedAvailability;
 import static inno.edu.api.support.Payloads.postAvailabilityPayload;
 import static inno.edu.api.support.Payloads.putAvailabilityPayload;
+import static inno.edu.api.support.UserFactory.fei;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.Is.is;
@@ -77,5 +78,16 @@ public class AvailabilityControllerApiTest extends ApiTest {
                 delete("/api/availability/" + availability().getId()))
                 .andDo(print())
                 .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void shouldListAvailabilityByMentor() throws Exception {
+        this.mockMvc.perform(get("/api/availability/mentor/" + fei().getId()))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$._embedded.availabilityResourceList[*].id", containsInAnyOrder(availability().getId().toString(), otherAvailability().getId().toString())))
+                .andExpect(jsonPath("$._embedded.availabilityResourceList[*].mentorProfileId", containsInAnyOrder(availability().getMentorProfileId().toString(), otherAvailability().getMentorProfileId().toString())))
+                .andExpect(jsonPath("$._embedded.availabilityResourceList[*].fromDateTime", containsInAnyOrder(availability().getFromDateTime().toString(), otherAvailability().getFromDateTime().toString())))
+                .andExpect(jsonPath("$._embedded.availabilityResourceList[*].toDateTime", containsInAnyOrder(availability().getToDateTime().toString(), otherAvailability().getToDateTime().toString())));
     }
 }
