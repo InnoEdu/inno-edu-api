@@ -38,5 +38,4 @@ public class GetMenteeProfileByUserIdQueryTest {
 
         getMenteeProfileByUserIdQuery.run(alan().getId());
     }
-
 }

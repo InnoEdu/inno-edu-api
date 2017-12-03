@@ -7,7 +7,7 @@ import inno.edu.api.controllers.resources.UserResource;
 import inno.edu.api.domain.profile.commands.UpdateMentorProfileStatusByUserCommand;
 import inno.edu.api.domain.profile.models.ProfileStatus;
 import inno.edu.api.domain.profile.queries.GetMenteeProfileByUserIdQuery;
-import inno.edu.api.domain.profile.queries.GetMentorActiveProfileByUserIdQuery;
+import inno.edu.api.domain.profile.queries.GetMentorProfileByUserIdQuery;
 import inno.edu.api.domain.user.commands.CreateUserCommand;
 import inno.edu.api.domain.user.commands.DeleteUserCommand;
 import inno.edu.api.domain.user.commands.LoginCommand;
@@ -46,7 +46,7 @@ public class UserController {
 
     private final UserRepository userRepository;
 
-    private final GetMentorActiveProfileByUserIdQuery getMentorActiveProfileByUserIdQuery;
+    private final GetMentorProfileByUserIdQuery getMentorProfileByUserIdQuery;
     private final GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery;
     private final GetUserByIdQuery getUserByIdQuery;
 
@@ -59,9 +59,9 @@ public class UserController {
     private final UpdateMentorProfileStatusByUserCommand updateMentorProfileStatusByUserCommand;
 
     @Autowired
-    public UserController(UserRepository userRepository, GetMentorActiveProfileByUserIdQuery getMentorActiveProfileByUserIdQuery, GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery, GetUserByIdQuery getUserByIdQuery, LoginCommand loginCommand, CreateUserCommand createUserCommand, UpdateUserCommand updateUserCommand, DeleteUserCommand deleteUserCommand, ResourceBuilder resourceBuilder, UpdateMentorProfileStatusByUserCommand updateMentorProfileStatusByUserCommand) {
+    public UserController(UserRepository userRepository, GetMentorProfileByUserIdQuery getMentorProfileByUserIdQuery, GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery, GetUserByIdQuery getUserByIdQuery, LoginCommand loginCommand, CreateUserCommand createUserCommand, UpdateUserCommand updateUserCommand, DeleteUserCommand deleteUserCommand, ResourceBuilder resourceBuilder, UpdateMentorProfileStatusByUserCommand updateMentorProfileStatusByUserCommand) {
         this.userRepository = userRepository;
-        this.getMentorActiveProfileByUserIdQuery = getMentorActiveProfileByUserIdQuery;
+        this.getMentorProfileByUserIdQuery = getMentorProfileByUserIdQuery;
         this.getMenteeProfileByUserIdQuery = getMenteeProfileByUserIdQuery;
         this.getUserByIdQuery = getUserByIdQuery;
         this.loginCommand = loginCommand;
@@ -96,7 +96,7 @@ public class UserController {
     })
     public ResourceSupport getProfile(@PathVariable UUID id) {
         if (userRepository.existsByIdAndIsMentorIsTrue(id)) {
-            return new MentorProfileResource(getMentorActiveProfileByUserIdQuery.run(id));
+            return new MentorProfileResource(getMentorProfileByUserIdQuery.run(id));
         }
         return new MenteeProfileResource(getMenteeProfileByUserIdQuery.run(id));
     }

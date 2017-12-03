@@ -5,7 +5,7 @@ import inno.edu.api.controllers.resources.UserResource;
 import inno.edu.api.domain.profile.commands.UpdateMentorProfileStatusByUserCommand;
 import inno.edu.api.domain.profile.models.ProfileStatus;
 import inno.edu.api.domain.profile.queries.GetMenteeProfileByUserIdQuery;
-import inno.edu.api.domain.profile.queries.GetMentorActiveProfileByUserIdQuery;
+import inno.edu.api.domain.profile.queries.GetMentorProfileByUserIdQuery;
 import inno.edu.api.domain.user.commands.CreateUserCommand;
 import inno.edu.api.domain.user.commands.DeleteUserCommand;
 import inno.edu.api.domain.user.commands.LoginCommand;
@@ -52,7 +52,7 @@ public class UserControllerTest {
     private GetUserByIdQuery getUserByIdQuery;
 
     @Mock
-    private GetMentorActiveProfileByUserIdQuery getMentorActiveProfileByUserIdQuery;
+    private GetMentorProfileByUserIdQuery getMentorProfileByUserIdQuery;
 
     @Mock
     private GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery;
@@ -92,11 +92,11 @@ public class UserControllerTest {
     @Test
     public void shouldGetMentorProfileByUserId() {
         when(userRepository.existsByIdAndIsMentorIsTrue(fei().getId())).thenReturn(true);
-        when(getMentorActiveProfileByUserIdQuery.run(fei().getId())).thenReturn(feiProfile());
+        when(getMentorProfileByUserIdQuery.run(fei().getId())).thenReturn(feiProfile());
 
         userController.getProfile(fei().getId());
 
-        verify(getMentorActiveProfileByUserIdQuery).run(fei().getId());
+        verify(getMentorProfileByUserIdQuery).run(fei().getId());
     }
 
     @Test
