@@ -62,9 +62,9 @@ public class AvailabilityController {
 
     @GetMapping
     @ApiOperation(value = "Find all availability", notes = "Return all availability.", response = Availability.class, responseContainer = "List")
-    public Resources<AvailabilityResource> all() {
+    public Resources<Object> all() {
         Iterable<Availability> availability = availabilityRepository.findAll();
-        return resourceBuilder.from(availability, AvailabilityResource::new);
+        return resourceBuilder.wrappedFrom(availability, AvailabilityResource::new, AvailabilityResource.class);
     }
 
     @GetMapping("/{id}")
@@ -125,9 +125,9 @@ public class AvailabilityController {
     @ApiResponses({
             @ApiResponse(code = 404, message = "Invalid mentor ID supplied."),
     })
-    public Resources<AvailabilityResource> allByMentor(@PathVariable UUID mentorId) {
+    public Resources<Object> allByMentor(@PathVariable UUID mentorId) {
         List<Availability> availability = getAvailabilityByMentorIdQuery.run(mentorId);
-        return resourceBuilder.from(availability, AvailabilityResource::new);
+        return resourceBuilder.wrappedFrom(availability, AvailabilityResource::new, AvailabilityResource.class);
     }
 
 }

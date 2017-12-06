@@ -85,7 +85,7 @@ public class AvailabilityControllerTest {
 
         availabilityController.all();
 
-        verify(resourceBuilder).from(eq(allAvailability()), any());
+        verify(resourceBuilder).wrappedFrom(eq(allAvailability()), any(), eq(AvailabilityResource.class));
     }
 
     @Test
@@ -128,7 +128,7 @@ public class AvailabilityControllerTest {
 
         availabilityController.allByMentor(fei().getId());
 
-        verify(resourceBuilder).from(eq(feiAvailability()), any());
+        verify(resourceBuilder).wrappedFrom(eq(feiAvailability()), any(), eq(AvailabilityResource.class));
     }
 
 }
