@@ -74,9 +74,9 @@ public class UserController {
 
     @GetMapping
     @ApiOperation(value = "Find all users", notes = "Return all users.", response = User.class, responseContainer = "List")
-    public Resources<UserResource> all() {
+    public Resources<Object> all() {
         Iterable<User> users = userRepository.findAll();
-        return resourceBuilder.from(users, UserResource::new);
+        return resourceBuilder.wrappedFrom(users, UserResource::new, UserResource.class);
     }
 
     @GetMapping("/{id}")

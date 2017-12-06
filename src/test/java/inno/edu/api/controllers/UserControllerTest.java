@@ -115,7 +115,7 @@ public class UserControllerTest {
 
         userController.all();
 
-        verify(resourceBuilder).from(eq(users()), any());
+        verify(resourceBuilder).wrappedFrom(eq(users()), any(), eq(UserResource.class));
     }
 
     @Test
