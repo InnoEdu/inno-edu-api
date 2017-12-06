@@ -82,8 +82,8 @@ public class AvailabilityController {
             @ApiResponse(code = 201, message = "New availability successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
             @ApiResponse(code = 404, message = "Invalid mentor profile ID supplied."),
     })
-    public ResponseEntity<Availability> post(@Valid @RequestBody CreateAvailabilityRequest createAvailabilityRequest) {
-        AvailabilityResource availabilityResource = new AvailabilityResource(createAvailabilityCommand.run(createAvailabilityRequest));
+    public ResponseEntity<Availability> post(@Valid @RequestBody CreateAvailabilityRequest request) {
+        AvailabilityResource availabilityResource = new AvailabilityResource(createAvailabilityCommand.run(request));
         return availabilityResource.toCreated();
     }
 
@@ -93,8 +93,8 @@ public class AvailabilityController {
             @ApiResponse(code = 201, message = "New availability successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
             @ApiResponse(code = 404, message = "Invalid mentor profile ID supplied."),
     })
-    public ResponseEntity<Availability> postByMentor(@PathVariable UUID mentorId, @Valid @RequestBody CreateAvailabilityByMentorIdRequest createAvailabilityByMentorIdRequest) {
-        AvailabilityResource availabilityResource = new AvailabilityResource(createAvailabilityByMentorIdCommand.run(mentorId, createAvailabilityByMentorIdRequest));
+    public ResponseEntity<Availability> postByMentor(@PathVariable UUID mentorId, @Valid @RequestBody CreateAvailabilityByMentorIdRequest request) {
+        AvailabilityResource availabilityResource = new AvailabilityResource(createAvailabilityByMentorIdCommand.run(mentorId, request));
         return availabilityResource.toCreated();
     }
 
@@ -104,8 +104,8 @@ public class AvailabilityController {
             @ApiResponse(code = 201, message = "New availability successfully updated.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the updated resource.", response = String.class)),
             @ApiResponse(code = 404, message = "Availability not found."),
     })
-    public ResponseEntity<Availability> put(@PathVariable UUID id, @Valid @RequestBody UpdateAvailabilityRequest updateAvailabilityRequest) {
-        AvailabilityResource availabilityResource = new AvailabilityResource(updateAvailabilityCommand.run(id, updateAvailabilityRequest));
+    public ResponseEntity<Availability> put(@PathVariable UUID id, @Valid @RequestBody UpdateAvailabilityRequest request) {
+        AvailabilityResource availabilityResource = new AvailabilityResource(updateAvailabilityCommand.run(id, request));
         return availabilityResource.toUpdated();
     }
 
