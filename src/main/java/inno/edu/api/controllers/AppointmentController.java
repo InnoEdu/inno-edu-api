@@ -71,9 +71,9 @@ public class AppointmentController {
 
     @GetMapping
     @ApiOperation(value = "Find all appointments", notes = "Return all appointments.", response = Appointment.class, responseContainer = "List")
-    public Resources<AppointmentResource> all() {
+    public Resources<Object> all() {
         Iterable<Appointment> appointments = appointmentRepository.findAll();
-        return resourceBuilder.from(appointments, AppointmentResource::new);
+        return resourceBuilder.wrappedFrom(appointments, AppointmentResource::new, AppointmentResource.class);
     }
 
     @GetMapping("/mentor/{mentorId}")
@@ -81,10 +81,10 @@ public class AppointmentController {
     @ApiResponses({
             @ApiResponse(code = 404, message = "Invalid mentor ID supplied."),
     })
-    public Resources<AppointmentResource> allByMentor(@PathVariable UUID mentorId,
-                                                      @RequestParam(required = false) AppointmentStatus status) {
+    public Resources<Object> allByMentor(@PathVariable UUID mentorId,
+                                         @RequestParam(required = false) AppointmentStatus status) {
         List<Appointment> appointments = getAppointmentsByMentorIdQuery.run(mentorId, status);
-        return resourceBuilder.from(appointments, AppointmentResource::new);
+        return resourceBuilder.wrappedFrom(appointments, AppointmentResource::new, AppointmentResource.class);
     }
 
     @GetMapping("/mentee/{menteeId}")
@@ -92,10 +92,10 @@ public class AppointmentController {
     @ApiResponses({
             @ApiResponse(code = 400, message = "Invalid mentee ID supplied."),
     })
-    public Resources<AppointmentResource> allByMentee(@PathVariable UUID menteeId,
-                                                      @RequestParam(required = false) AppointmentStatus status) {
+    public Resources<Object> allByMentee(@PathVariable UUID menteeId,
+                                         @RequestParam(required = false) AppointmentStatus status) {
         List<Appointment> appointments = getAppointmentsByMenteeIdQuery.run(menteeId, status);
-        return resourceBuilder.from(appointments, AppointmentResource::new);
+        return resourceBuilder.wrappedFrom(appointments, AppointmentResource::new, AppointmentResource.class);
     }
 
     @GetMapping("/{id}")

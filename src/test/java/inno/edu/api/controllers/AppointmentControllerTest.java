@@ -95,7 +95,7 @@ public class AppointmentControllerTest {
 
         appointmentController.all();
 
-        verify(resourceBuilder).from(eq(appointments()), any());
+        verify(resourceBuilder).wrappedFrom(eq(appointments()), any(), eq(AppointmentResource.class));
     }
 
     @Test
@@ -104,7 +104,7 @@ public class AppointmentControllerTest {
 
         appointmentController.allByMentor(fei().getId(), null);
 
-        verify(resourceBuilder).from(eq(appointments()), any());
+        verify(resourceBuilder).wrappedFrom(eq(appointments()), any(), eq(AppointmentResource.class));
     }
 
     @Test
@@ -113,7 +113,7 @@ public class AppointmentControllerTest {
 
         appointmentController.allByMentor(fei().getId(), PROPOSED);
 
-        verify(resourceBuilder).from(eq(proposedAppointments()), any());
+        verify(resourceBuilder).wrappedFrom(eq(proposedAppointments()), any(), eq(AppointmentResource.class));
     }
 
     @Test
@@ -122,7 +122,7 @@ public class AppointmentControllerTest {
 
         appointmentController.allByMentee(alan().getId(), null);
 
-        verify(resourceBuilder).from(eq(appointments()), any());
+        verify(resourceBuilder).wrappedFrom(eq(appointments()), any(), eq(AppointmentResource.class));
     }
 
     @Test
@@ -131,7 +131,7 @@ public class AppointmentControllerTest {
 
         appointmentController.allByMentee(alan().getId(), PROPOSED);
 
-        verify(resourceBuilder).from(eq(proposedAppointments()), any());
+        verify(resourceBuilder).wrappedFrom(eq(proposedAppointments()), any(), eq(AppointmentResource.class));
     }
 
     @Test
