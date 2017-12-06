@@ -74,7 +74,7 @@ public class MenteeProfileControllerTest {
 
         menteeProfileController.all();
 
-        verify(resourceBuilder).from(eq(menteeProfiles()), any());
+        verify(resourceBuilder).wrappedFrom(eq(menteeProfiles()), any(), eq(MenteeProfileResource.class));
     }
 
     @Test

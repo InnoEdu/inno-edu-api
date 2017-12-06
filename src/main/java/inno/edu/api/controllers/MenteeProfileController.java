@@ -56,9 +56,9 @@ public class MenteeProfileController {
 
     @GetMapping
     @ApiOperation(value = "Find all profiles", notes = "Return all profiles.", response = MenteeProfile.class, responseContainer = "List")
-    public Resources<MenteeProfileResource> all() {
+    public Resources<Object> all() {
         Iterable<MenteeProfile> profiles = menteeProfileRepository.findAll();
-        return resourceBuilder.from(profiles, MenteeProfileResource::new);
+        return resourceBuilder.wrappedFrom(profiles, MenteeProfileResource::new, MenteeProfileResource.class);
     }
 
     @GetMapping("/{id}")
