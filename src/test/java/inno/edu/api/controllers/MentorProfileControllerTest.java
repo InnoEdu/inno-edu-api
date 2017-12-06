@@ -79,7 +79,7 @@ public class MentorProfileControllerTest {
 
         mentorProfileController.all();
 
-        verify(resourceBuilder).from(eq(mentorProfiles()), any());
+        verify(resourceBuilder).wrappedFrom(eq(mentorProfiles()), any(), eq(MentorProfileResource.class));
     }
 
     @Test
