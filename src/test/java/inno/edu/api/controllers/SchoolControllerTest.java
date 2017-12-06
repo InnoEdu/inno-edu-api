@@ -1,5 +1,6 @@
 package inno.edu.api.controllers;
 
+import inno.edu.api.controllers.resources.MentorProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.SchoolResource;
 import inno.edu.api.domain.profile.queries.GetMentorProfilesBySchoolIdQuery;
@@ -79,7 +80,7 @@ public class SchoolControllerTest {
 
         schoolController.all();
 
-        verify(resourceBuilder).from(eq(schools()), any());
+        verify(resourceBuilder).wrappedFrom(eq(schools()), any(), eq(SchoolResource.class));
     }
 
     @Test
@@ -89,7 +90,7 @@ public class SchoolControllerTest {
 
         schoolController.allMentorsProfile(stanford().getId());
 
-        verify(resourceBuilder).from(eq(mentorProfiles()), any());
+        verify(resourceBuilder).wrappedFrom(eq(mentorProfiles()), any(), eq(MentorProfileResource.class));
     }
 
     @Test

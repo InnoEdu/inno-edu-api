@@ -61,9 +61,9 @@ public class SchoolController {
 
     @GetMapping
     @ApiOperation(value = "Find all schools", notes = "Return all schools.", response = School.class, responseContainer = "List")
-    public Resources<SchoolResource> all() {
+    public Resources<Object> all() {
         Iterable<School> schools = schoolRepository.findAll();
-        return resourceBuilder.from(schools, SchoolResource::new);
+        return resourceBuilder.wrappedFrom(schools, SchoolResource::new, SchoolResource.class);
     }
 
     @GetMapping("/{id}")
@@ -80,8 +80,8 @@ public class SchoolController {
     @ApiResponses({
             @ApiResponse(code = 404, message = "School not found.")
     })
-    public Resources<MentorProfileResource> allMentorsProfile(@PathVariable UUID id) {
-        return resourceBuilder.from(getMentorProfilesBySchoolIdQuery.run(id), MentorProfileResource::new);
+    public Resources<Object> allMentorsProfile(@PathVariable UUID id) {
+        return resourceBuilder.wrappedFrom(getMentorProfilesBySchoolIdQuery.run(id), MentorProfileResource::new, MentorProfileResource.class);
     }
 
     @PostMapping
