@@ -77,8 +77,8 @@ public class MenteeProfileController {
             @ApiResponse(code = 400, message = "Mentee already has a profile created."),
             @ApiResponse(code = 404, message = "Invalid mentee user ID supplied."),
     })
-    public ResponseEntity<MenteeProfile> post(@Valid @RequestBody CreateMenteeProfileRequest createMenteeProfileRequest) {
-        MenteeProfileResource profileResource = new MenteeProfileResource(createMenteeProfileCommand.run(createMenteeProfileRequest));
+    public ResponseEntity<MenteeProfile> post(@Valid @RequestBody CreateMenteeProfileRequest request) {
+        MenteeProfileResource profileResource = new MenteeProfileResource(createMenteeProfileCommand.run(request));
         return profileResource.toCreated();
     }
 
@@ -88,8 +88,8 @@ public class MenteeProfileController {
             @ApiResponse(code = 201, message = "New profile successfully updated.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the updated resource.", response = String.class)),
             @ApiResponse(code = 404, message = "Profile not found."),
     })
-    public ResponseEntity<MenteeProfile> put(@PathVariable UUID id, @Valid @RequestBody UpdateMenteeProfileRequest updateMenteeProfileRequest) {
-        MenteeProfileResource profileResource = new MenteeProfileResource(updateMenteeProfileCommand.run(id, updateMenteeProfileRequest));
+    public ResponseEntity<MenteeProfile> put(@PathVariable UUID id, @Valid @RequestBody UpdateMenteeProfileRequest request) {
+        MenteeProfileResource profileResource = new MenteeProfileResource(updateMenteeProfileCommand.run(id, request));
         return profileResource.toUpdated();
     }
 
