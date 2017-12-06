@@ -3,6 +3,7 @@ package inno.edu.api.support;
 import inno.edu.api.domain.appointment.commands.dtos.CreateAppointmentRequest;
 import inno.edu.api.domain.appointment.commands.dtos.UpdateAppointmentRequest;
 import inno.edu.api.domain.appointment.commands.dtos.AppointmentReason;
+import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityByMentorIdRequest;
 import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityRequest;
 import inno.edu.api.domain.availability.commands.dtos.UpdateAvailabilityRequest;
 import inno.edu.api.domain.profile.commands.dtos.CreateMenteeProfileRequest;
@@ -71,6 +72,10 @@ public class Payloads {
 
     public static String postAvailabilityPayload(CreateAvailabilityRequest createAvailabilityRequest) {
         return format(loadPayload("payloads/availability/post-availability.json"), createAvailabilityRequest.getMentorProfileId(), createAvailabilityRequest.getFromDateTime(), createAvailabilityRequest.getToDateTime());
+    }
+
+    public static String postAvailabilityByMentorPayload(CreateAvailabilityByMentorIdRequest createAvailabilityByMentorIdRequest) {
+        return format(loadPayload("payloads/availability/post-availability-by-mentor.json"), createAvailabilityByMentorIdRequest.getFromDateTime(), createAvailabilityByMentorIdRequest.getToDateTime());
     }
 
     public static String putAvailabilityPayload(UpdateAvailabilityRequest updateAvailabilityRequest) {

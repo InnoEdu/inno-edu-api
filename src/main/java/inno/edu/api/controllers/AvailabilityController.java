@@ -2,9 +2,11 @@ package inno.edu.api.controllers;
 
 import inno.edu.api.controllers.resources.AvailabilityResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
+import inno.edu.api.domain.availability.commands.CreateAvailabilityByMentorIdCommand;
 import inno.edu.api.domain.availability.commands.CreateAvailabilityCommand;
 import inno.edu.api.domain.availability.commands.DeleteAvailabilityCommand;
 import inno.edu.api.domain.availability.commands.UpdateAvailabilityCommand;
+import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityByMentorIdRequest;
 import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityRequest;
 import inno.edu.api.domain.availability.commands.dtos.UpdateAvailabilityRequest;
 import inno.edu.api.domain.availability.models.Availability;
@@ -40,16 +42,18 @@ public class AvailabilityController {
     private final ResourceBuilder resourceBuilder;
 
     private final CreateAvailabilityCommand createAvailabilityCommand;
+    private final CreateAvailabilityByMentorIdCommand createAvailabilityByMentorIdCommand;
     private final UpdateAvailabilityCommand updateAvailabilityCommand;
     private final DeleteAvailabilityCommand deleteAvailabilityCommand;
 
     private final GetAvailabilityByIdQuery getAvailabilityByIdQuery;
     private final GetAvailabilityByMentorId getAvailabilityByMentorIdQuery;
 
-    public AvailabilityController(AvailabilityRepository availabilityRepository, ResourceBuilder resourceBuilder, CreateAvailabilityCommand createAvailabilityCommand, UpdateAvailabilityCommand updateAvailabilityCommand, DeleteAvailabilityCommand deleteAvailabilityCommand, GetAvailabilityByIdQuery getAvailabilityByIdQuery, GetAvailabilityByMentorId getAvailabilityByMentorIdQuery) {
+    public AvailabilityController(AvailabilityRepository availabilityRepository, ResourceBuilder resourceBuilder, CreateAvailabilityCommand createAvailabilityCommand, CreateAvailabilityByMentorIdCommand createAvailabilityByMentorIdCommand, UpdateAvailabilityCommand updateAvailabilityCommand, DeleteAvailabilityCommand deleteAvailabilityCommand, GetAvailabilityByIdQuery getAvailabilityByIdQuery, GetAvailabilityByMentorId getAvailabilityByMentorIdQuery) {
         this.availabilityRepository = availabilityRepository;
         this.resourceBuilder = resourceBuilder;
         this.createAvailabilityCommand = createAvailabilityCommand;
+        this.createAvailabilityByMentorIdCommand = createAvailabilityByMentorIdCommand;
         this.updateAvailabilityCommand = updateAvailabilityCommand;
         this.deleteAvailabilityCommand = deleteAvailabilityCommand;
         this.getAvailabilityByIdQuery = getAvailabilityByIdQuery;
@@ -80,6 +84,17 @@ public class AvailabilityController {
     })
     public ResponseEntity<Availability> post(@Valid @RequestBody CreateAvailabilityRequest createAvailabilityRequest) {
         AvailabilityResource availabilityResource = new AvailabilityResource(createAvailabilityCommand.run(createAvailabilityRequest));
+        return availabilityResource.toCreated();
+    }
+
+    @PostMapping("/mentor/{mentorId}")
+    @ApiOperation(value = "Create a new availability by mentor", notes = "Creates a new availability for the mentor active profile.")
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "New availability successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
+            @ApiResponse(code = 404, message = "Invalid mentor profile ID supplied."),
+    })
+    public ResponseEntity<Availability> postByMentor(@PathVariable UUID mentorId, @Valid @RequestBody CreateAvailabilityByMentorIdRequest createAvailabilityByMentorIdRequest) {
+        AvailabilityResource availabilityResource = new AvailabilityResource(createAvailabilityByMentorIdCommand.run(mentorId, createAvailabilityByMentorIdRequest));
         return availabilityResource.toCreated();
     }
 

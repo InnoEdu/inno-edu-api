@@ -5,10 +5,12 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 
 import static inno.edu.api.support.AvailabilityFactory.availability;
+import static inno.edu.api.support.AvailabilityFactory.createAvailabilityByMentorRequest;
 import static inno.edu.api.support.AvailabilityFactory.createAvailabilityRequest;
 import static inno.edu.api.support.AvailabilityFactory.otherAvailability;
 import static inno.edu.api.support.AvailabilityFactory.updateAvailabilityRequest;
 import static inno.edu.api.support.AvailabilityFactory.updatedAvailability;
+import static inno.edu.api.support.Payloads.postAvailabilityByMentorPayload;
 import static inno.edu.api.support.Payloads.postAvailabilityPayload;
 import static inno.edu.api.support.Payloads.putAvailabilityPayload;
 import static inno.edu.api.support.UserFactory.fei;
@@ -49,6 +51,20 @@ public class AvailabilityControllerApiTest extends ApiTest {
         this.mockMvc.perform(
                 post("/api/availability")
                         .content(postAvailabilityPayload(createAvailabilityRequest()))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id", not(availability().getId().toString())))
+                .andExpect(jsonPath("$.mentorProfileId", is(availability().getMentorProfileId().toString())))
+                .andExpect(jsonPath("$.toDateTime", is(availability().getToDateTime().toString())))
+                .andExpect(jsonPath("$.fromDateTime", is(availability().getFromDateTime().toString())));
+    }
+
+    @Test
+    public void shouldCreateNewAvailabilityByMentor() throws Exception {
+        this.mockMvc.perform(
+                post("/api/availability/mentor/" + fei().getId())
+                        .content(postAvailabilityByMentorPayload(createAvailabilityByMentorRequest()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())

@@ -2,6 +2,7 @@ package inno.edu.api.controllers;
 
 import inno.edu.api.controllers.resources.AvailabilityResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
+import inno.edu.api.domain.availability.commands.CreateAvailabilityByMentorIdCommand;
 import inno.edu.api.domain.availability.commands.CreateAvailabilityCommand;
 import inno.edu.api.domain.availability.commands.DeleteAvailabilityCommand;
 import inno.edu.api.domain.availability.commands.UpdateAvailabilityCommand;
@@ -21,6 +22,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static inno.edu.api.support.AvailabilityFactory.allAvailability;
 import static inno.edu.api.support.AvailabilityFactory.availability;
+import static inno.edu.api.support.AvailabilityFactory.createAvailabilityByMentorRequest;
 import static inno.edu.api.support.AvailabilityFactory.createAvailabilityRequest;
 import static inno.edu.api.support.AvailabilityFactory.feiAvailability;
 import static inno.edu.api.support.AvailabilityFactory.updateAvailabilityRequest;
@@ -44,6 +46,9 @@ public class AvailabilityControllerTest {
 
     @Mock
     private CreateAvailabilityCommand createAvailabilityCommand;
+
+    @Mock
+    private CreateAvailabilityByMentorIdCommand createAvailabilityByMentorIdCommand;
 
     @Mock
     private UpdateAvailabilityCommand updateAvailabilityCommand;
@@ -88,6 +93,15 @@ public class AvailabilityControllerTest {
         when(createAvailabilityCommand.run(createAvailabilityRequest())).thenReturn(availability());
 
         ResponseEntity<Availability> entity = availabilityController.post(createAvailabilityRequest());
+
+        assertThat(entity.getBody(), is(availability()));
+    }
+
+    @Test
+    public void shouldCreateNewAvailabilityByMentor() {
+        when(createAvailabilityByMentorIdCommand.run(fei().getId(), createAvailabilityByMentorRequest())).thenReturn(availability());
+
+        ResponseEntity<Availability> entity = availabilityController.postByMentor(fei().getId(), createAvailabilityByMentorRequest());
 
         assertThat(entity.getBody(), is(availability()));
     }

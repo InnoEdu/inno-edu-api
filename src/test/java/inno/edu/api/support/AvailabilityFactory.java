@@ -1,5 +1,6 @@
 package inno.edu.api.support;
 
+import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityByMentorIdRequest;
 import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityRequest;
 import inno.edu.api.domain.availability.commands.dtos.UpdateAvailabilityRequest;
 import inno.edu.api.domain.availability.models.Availability;
@@ -25,6 +26,13 @@ public class AvailabilityFactory {
     public static CreateAvailabilityRequest createAvailabilityRequest() {
         return CreateAvailabilityRequest.builder()
                 .mentorProfileId(feiProfile().getId())
+                .fromDateTime(LocalDateTime.of(2017, 11, 9, 12, 0, 1))
+                .toDateTime(LocalDateTime.of(2017, 11, 10, 12, 0, 1))
+                .build();
+    }
+
+    public static CreateAvailabilityByMentorIdRequest createAvailabilityByMentorRequest() {
+        return CreateAvailabilityByMentorIdRequest.builder()
                 .fromDateTime(LocalDateTime.of(2017, 11, 9, 12, 0, 1))
                 .toDateTime(LocalDateTime.of(2017, 11, 10, 12, 0, 1))
                 .build();
