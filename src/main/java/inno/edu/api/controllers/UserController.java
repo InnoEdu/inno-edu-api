@@ -106,8 +106,8 @@ public class UserController {
     @ApiResponses({
             @ApiResponse(code = 400, message = "Invalid credentials supplied."),
     })
-    public UserResource login(@RequestBody LoginRequest loginRequest) {
-        return new UserResource(loginCommand.run(loginRequest));
+    public UserResource login(@RequestBody LoginRequest request) {
+        return new UserResource(loginCommand.run(request));
     }
 
     @PostMapping
@@ -116,8 +116,8 @@ public class UserController {
             @ApiResponse(code = 201, message = "New user successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
             @ApiResponse(code = 400, message = "Username already exists or the passwords don't match."),
     })
-    public ResponseEntity<User> post(@Valid @RequestBody CreateUserRequest createUserRequest) {
-        UserResource userResource = new UserResource(createUserCommand.run(createUserRequest));
+    public ResponseEntity<User> post(@Valid @RequestBody CreateUserRequest request) {
+        UserResource userResource = new UserResource(createUserCommand.run(request));
         return userResource.toCreated();
     }
 
@@ -127,8 +127,8 @@ public class UserController {
             @ApiResponse(code = 201, message = "New user successfully updated.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the updated resource.", response = String.class)),
             @ApiResponse(code = 404, message = "User not found."),
     })
-    public ResponseEntity<User> put(@PathVariable UUID id, @Valid @RequestBody UpdateUserRequest updateUserRequest) {
-        UserResource userResource = new UserResource(updateUserCommand.run(id, updateUserRequest));
+    public ResponseEntity<User> put(@PathVariable UUID id, @Valid @RequestBody UpdateUserRequest request) {
+        UserResource userResource = new UserResource(updateUserCommand.run(id, request));
         return userResource.toUpdated();
     }
 
