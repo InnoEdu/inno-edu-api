@@ -113,8 +113,8 @@ public class AppointmentController {
             @ApiResponse(code = 201, message = "New appointment successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
             @ApiResponse(code = 404, message = "Invalid Mentor Profile or Mentee Profile supplied."),
     })
-    public ResponseEntity<Appointment> post(@Valid @RequestBody CreateAppointmentRequest createAppointmentRequest) {
-        AppointmentResource appointmentResource = new AppointmentResource(createAppointmentCommand.run(createAppointmentRequest));
+    public ResponseEntity<Appointment> post(@Valid @RequestBody CreateAppointmentRequest request) {
+        AppointmentResource appointmentResource = new AppointmentResource(createAppointmentCommand.run(request));
         return appointmentResource.toCreated();
     }
 
@@ -124,8 +124,8 @@ public class AppointmentController {
             @ApiResponse(code = 201, message = "New appointment successfully updated.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the updated resource.", response = String.class)),
             @ApiResponse(code = 404, message = "Appointment not found."),
     })
-    public ResponseEntity<Appointment> put(@PathVariable UUID id, @Valid @RequestBody UpdateAppointmentRequest updateAppointmentRequest) {
-        AppointmentResource appointmentResource = new AppointmentResource(updateAppointmentCommand.run(id, updateAppointmentRequest));
+    public ResponseEntity<Appointment> put(@PathVariable UUID id, @Valid @RequestBody UpdateAppointmentRequest request) {
+        AppointmentResource appointmentResource = new AppointmentResource(updateAppointmentCommand.run(id, request));
         return appointmentResource.toUpdated();
     }
 
