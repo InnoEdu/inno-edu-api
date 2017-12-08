@@ -4,6 +4,7 @@ import inno.edu.api.controllers.resources.MentorProfileUserResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.SchoolResource;
 import inno.edu.api.domain.profile.queries.GetMentorProfilesBySchoolIdQuery;
+import inno.edu.api.domain.profile.queries.dtos.MentorProfileUser;
 import inno.edu.api.domain.school.commands.CreateSchoolCommand;
 import inno.edu.api.domain.school.commands.DeleteSchoolCommand;
 import inno.edu.api.domain.school.commands.UpdateSchoolCommand;
@@ -76,7 +77,7 @@ public class SchoolController {
     }
 
     @GetMapping("/{id}/mentors")
-    @ApiOperation(value = "Get school mentors.", notes = "Get all mentors for a specific school.")
+    @ApiOperation(value = "Get school mentors.", notes = "Get all mentors for a specific school." , response = MentorProfileUser.class, responseContainer = "List")
     @ApiResponses({
             @ApiResponse(code = 404, message = "School not found.")
     })
