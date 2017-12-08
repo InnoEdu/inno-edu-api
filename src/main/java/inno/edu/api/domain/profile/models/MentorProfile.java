@@ -1,5 +1,7 @@
 package inno.edu.api.domain.profile.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import inno.edu.api.domain.user.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,7 +10,11 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.util.UUID;
+
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Data
@@ -26,4 +32,9 @@ public class MentorProfile {
 
     @Enumerated
     private ProfileStatus status;
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "mentorId", updatable = false, insertable = false)
+    @JsonIgnore
+    private User user;
 }

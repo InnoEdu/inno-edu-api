@@ -3,3 +3,7 @@ spring:
     name: inno-edu-api
   profiles:
     active: dev
+  jackson:
+    serialization-inclusion: NON_NULL
+    serialization:
+      fail-on-empty-beans: false

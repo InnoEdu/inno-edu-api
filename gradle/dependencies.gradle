@@ -16,6 +16,7 @@ dependencies {
     compile "io.springfox:springfox-swagger-ui:2.7.0"
 
     compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.8"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-hibernate4:2.9.2"
 
     compile "mysql:mysql-connector-java:5.1.13"
     compile "com.h2database:h2"
