@@ -6,6 +6,7 @@ import inno.edu.api.domain.profile.commands.dtos.UpdateMenteeProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.UpdateMentorProfileRequest;
 import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.profile.models.MentorProfile;
+import inno.edu.api.domain.profile.queries.dtos.MentorProfileUser;
 
 import java.util.List;
 
@@ -43,6 +44,17 @@ public class ProfileFactory {
                 .email("feixiu@inno.edu")
                 .description("Fei is a great mentor.")
                 .status(ACTIVE)
+                .build();
+    }
+
+    public static MentorProfileUser feiProfileUser() {
+        return MentorProfileUser.builder().id(fromString("0e9e40c0-b44b-4387-92a9-9d75d10e3d42"))
+                .mentorId(fei().getId())
+                .schoolId(stanford().getId())
+                .email("feixiu@inno.edu")
+                .description("Fei is a great mentor.")
+                .firstName(fei().getFirstName())
+                .lastName(fei().getLastName())
                 .build();
     }
 
@@ -106,4 +118,9 @@ public class ProfileFactory {
     public static List<MentorProfile> mentorProfiles() {
         return singletonList(feiProfile());
     }
+
+    public static List<MentorProfileUser> mentorProfileUsers() {
+        return singletonList(feiProfileUser());
+    }
+
 }

@@ -1,6 +1,6 @@
 package inno.edu.api.controllers;
 
-import inno.edu.api.controllers.resources.MentorProfileResource;
+import inno.edu.api.controllers.resources.MentorProfileUserResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.SchoolResource;
 import inno.edu.api.domain.profile.queries.GetMentorProfilesBySchoolIdQuery;
@@ -20,7 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import static inno.edu.api.support.ProfileFactory.mentorProfiles;
+import static inno.edu.api.support.ProfileFactory.mentorProfileUsers;
 import static inno.edu.api.support.SchoolFactory.createStanfordRequest;
 import static inno.edu.api.support.SchoolFactory.schools;
 import static inno.edu.api.support.SchoolFactory.stanford;
@@ -86,11 +86,11 @@ public class SchoolControllerTest {
     @Test
     public void shouldListMentorsBySchool() {
         when(schoolRepository.exists(stanford().getId())).thenReturn(true);
-        when(getMentorProfilesBySchoolIdQuery.run(stanford().getId())).thenReturn(mentorProfiles());
+        when(getMentorProfilesBySchoolIdQuery.run(stanford().getId())).thenReturn(mentorProfileUsers());
 
         schoolController.allMentorsProfile(stanford().getId());
 
-        verify(resourceBuilder).wrappedFrom(eq(mentorProfiles()), any(), eq(MentorProfileResource.class));
+        verify(resourceBuilder).wrappedFrom(eq(mentorProfileUsers()), any(), eq(MentorProfileUserResource.class));
     }
 
     @Test

@@ -6,12 +6,12 @@ import org.springframework.http.MediaType;
 
 import static inno.edu.api.support.Payloads.postSchoolPayload;
 import static inno.edu.api.support.Payloads.putSchoolPayload;
+import static inno.edu.api.support.ProfileFactory.feiProfileUser;
 import static inno.edu.api.support.SchoolFactory.berkeley;
 import static inno.edu.api.support.SchoolFactory.createStanfordRequest;
 import static inno.edu.api.support.SchoolFactory.stanford;
 import static inno.edu.api.support.SchoolFactory.updateStanfordRequest;
 import static inno.edu.api.support.SchoolFactory.updatedStanford;
-import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
@@ -38,11 +38,12 @@ public class SchoolControllerApiTest extends ApiTest {
     public void shouldListSchoolMentorsProfile() throws Exception {
         this.mockMvc.perform(get("/api/schools/" + stanford().getId() + "/mentors")).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].id", containsInAnyOrder(feiProfile().getId().toString())))
-                .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].mentorId", containsInAnyOrder(feiProfile().getMentorId().toString())))
-                .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].schoolId", containsInAnyOrder(feiProfile().getSchoolId().toString())))
-                .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].email", containsInAnyOrder(feiProfile().getEmail())))
-                .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].status", containsInAnyOrder(feiProfile().getStatus().toString())));
+                .andExpect(jsonPath("$._embedded.mentorProfileUserResourceList[*].id", containsInAnyOrder(feiProfileUser().getId().toString())))
+                .andExpect(jsonPath("$._embedded.mentorProfileUserResourceList[*].mentorId", containsInAnyOrder(feiProfileUser().getMentorId().toString())))
+                .andExpect(jsonPath("$._embedded.mentorProfileUserResourceList[*].schoolId", containsInAnyOrder(feiProfileUser().getSchoolId().toString())))
+                .andExpect(jsonPath("$._embedded.mentorProfileUserResourceList[*].email", containsInAnyOrder(feiProfileUser().getEmail())))
+                .andExpect(jsonPath("$._embedded.mentorProfileUserResourceList[*].firstName", containsInAnyOrder(feiProfileUser().getFirstName())))
+                .andExpect(jsonPath("$._embedded.mentorProfileUserResourceList[*].lastName", containsInAnyOrder(feiProfileUser().getLastName())));
     }
 
     @Test

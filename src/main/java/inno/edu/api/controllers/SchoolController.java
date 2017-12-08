@@ -1,6 +1,6 @@
 package inno.edu.api.controllers;
 
-import inno.edu.api.controllers.resources.MentorProfileResource;
+import inno.edu.api.controllers.resources.MentorProfileUserResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.SchoolResource;
 import inno.edu.api.domain.profile.queries.GetMentorProfilesBySchoolIdQuery;
@@ -81,7 +81,7 @@ public class SchoolController {
             @ApiResponse(code = 404, message = "School not found.")
     })
     public Resources<Object> allMentorsProfile(@PathVariable UUID id) {
-        return resourceBuilder.wrappedFrom(getMentorProfilesBySchoolIdQuery.run(id), MentorProfileResource::new, MentorProfileResource.class);
+        return resourceBuilder.wrappedFrom(getMentorProfilesBySchoolIdQuery.run(id), MentorProfileUserResource::new, MentorProfileUserResource.class);
     }
 
     @PostMapping
