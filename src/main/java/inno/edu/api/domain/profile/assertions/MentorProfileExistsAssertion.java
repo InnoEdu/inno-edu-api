@@ -16,7 +16,7 @@ public class MentorProfileExistsAssertion {
 
     public void run(UUID id) {
         if (!profileRepository.exists(id)) {
-                throw new ProfileNotFoundException(id);
+            throw new ProfileNotFoundException(id);
         }
     }
 }
