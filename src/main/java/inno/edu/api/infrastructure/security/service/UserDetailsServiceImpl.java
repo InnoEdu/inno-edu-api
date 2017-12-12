@@ -2,6 +2,7 @@ package inno.edu.api.infrastructure.security.service;
 
 import inno.edu.api.domain.user.models.ApplicationUser;
 import inno.edu.api.domain.user.repositories.UserRepository;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,6 +24,6 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         ApplicationUser applicationUser = ofNullable(userRepository.findOneByUsername(username))
                 .orElseThrow(() -> new UsernameNotFoundException(username));
 
-        return new org.springframework.security.core.userdetails.User(applicationUser.getUsername(), applicationUser.getPassword(), emptyList());
+        return new User(applicationUser.getUsername(), applicationUser.getPassword(), emptyList());
     }
 }
