@@ -10,7 +10,7 @@ import inno.edu.api.domain.user.commands.CreateUserCommand;
 import inno.edu.api.domain.user.commands.DeleteUserCommand;
 import inno.edu.api.domain.user.commands.LoginCommand;
 import inno.edu.api.domain.user.commands.UpdateUserCommand;
-import inno.edu.api.domain.user.models.User;
+import inno.edu.api.domain.user.models.ApplicationUser;
 import inno.edu.api.domain.user.queries.GetUserByIdQuery;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import org.junit.Before;
@@ -131,7 +131,7 @@ public class UserControllerTest {
     public void shouldCreateNewUser() {
         when(createUserCommand.run(createFeiRequest())).thenReturn(fei());
 
-        ResponseEntity<User> entity = userController.post(createFeiRequest());
+        ResponseEntity<ApplicationUser> entity = userController.post(createFeiRequest());
 
         assertThat(entity.getBody(), is(fei()));
     }
@@ -140,7 +140,7 @@ public class UserControllerTest {
     public void shouldUpdateUser() {
         when(updateUserCommand.run(fei().getId(), updateFeiRequest())).thenReturn(updatedFei());
 
-        ResponseEntity<User> entity = userController.put(fei().getId(), updateFeiRequest());
+        ResponseEntity<ApplicationUser> entity = userController.put(fei().getId(), updateFeiRequest());
 
         assertThat(entity.getBody(), is(updatedFei()));
     }

@@ -1,7 +1,7 @@
 package inno.edu.api.domain.user.queries;
 
 import inno.edu.api.domain.user.exceptions.UserNotFoundException;
-import inno.edu.api.domain.user.models.User;
+import inno.edu.api.domain.user.models.ApplicationUser;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import inno.edu.api.infrastructure.annotations.Query;
 
@@ -17,7 +17,7 @@ public class GetUserByIdQuery {
         this.userRepository = userRepository;
     }
 
-    public User run(UUID id) {
+    public ApplicationUser run(UUID id) {
         return ofNullable(userRepository.findOne(id))
                 .orElseThrow(() -> new UserNotFoundException(id));
     }

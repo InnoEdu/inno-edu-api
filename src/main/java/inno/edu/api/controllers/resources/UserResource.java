@@ -3,7 +3,7 @@ package inno.edu.api.controllers.resources;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import inno.edu.api.controllers.AppointmentController;
 import inno.edu.api.controllers.UserController;
-import inno.edu.api.domain.user.models.User;
+import inno.edu.api.domain.user.models.ApplicationUser;
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +20,11 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 public class UserResource extends ResourceSupport {
 
     @JsonUnwrapped
-    private final User user;
+    private final ApplicationUser user;
 
-    public UserResource(User user) {
+    public UserResource(ApplicationUser user) {
         this.user = user;
+
         add(linkTo(methodOn(UserController.class).get(user.getId())).withSelfRel());
         add(linkTo(methodOn(UserController.class).getProfile(user.getId())).withRel("profile"));
 
@@ -34,11 +35,11 @@ public class UserResource extends ResourceSupport {
         }
     }
 
-    public ResponseEntity<User> toCreated() {
+    public ResponseEntity<ApplicationUser> toCreated() {
         return created(URI.create(getLink("self").getHref())).body(user);
     }
 
-    public ResponseEntity<User> toUpdated() {
+    public ResponseEntity<ApplicationUser> toUpdated() {
         return created(fromCurrentRequest().build().toUri()).body(user);
     }
 }

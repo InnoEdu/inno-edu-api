@@ -1,7 +1,7 @@
 package inno.edu.api.infrastructure.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import inno.edu.api.domain.user.models.User;
+import inno.edu.api.domain.user.models.ApplicationUser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,13 +29,13 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest req,
                                                 HttpServletResponse res) throws AuthenticationException {
         try {
-            User userCredential = new ObjectMapper()
-                    .readValue(req.getInputStream(), User.class);
+            ApplicationUser applicationUserCredential = new ObjectMapper()
+                    .readValue(req.getInputStream(), ApplicationUser.class);
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            userCredential.getUsername(),
-                            userCredential.getPassword(),
+                            applicationUserCredential.getUsername(),
+                            applicationUserCredential.getPassword(),
                             new ArrayList<>())
             );
         } catch (IOException e) {

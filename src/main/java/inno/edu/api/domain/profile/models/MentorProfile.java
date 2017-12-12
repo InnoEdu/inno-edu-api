@@ -1,7 +1,7 @@
 package inno.edu.api.domain.profile.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import inno.edu.api.domain.user.models.User;
+import inno.edu.api.domain.user.models.ApplicationUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,5 +36,5 @@ public class MentorProfile {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "mentorId", updatable = false, insertable = false)
     @JsonIgnore
-    private User user;
+    private ApplicationUser user;
 }

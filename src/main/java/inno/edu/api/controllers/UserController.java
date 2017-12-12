@@ -15,7 +15,7 @@ import inno.edu.api.domain.user.commands.UpdateUserCommand;
 import inno.edu.api.domain.user.commands.dtos.CreateUserRequest;
 import inno.edu.api.domain.user.commands.dtos.LoginRequest;
 import inno.edu.api.domain.user.commands.dtos.UpdateUserRequest;
-import inno.edu.api.domain.user.models.User;
+import inno.edu.api.domain.user.models.ApplicationUser;
 import inno.edu.api.domain.user.queries.GetUserByIdQuery;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import io.swagger.annotations.ApiOperation;
@@ -73,16 +73,16 @@ public class UserController {
     }
 
     @GetMapping
-    @ApiOperation(value = "Find all users", notes = "Return all users.", response = User.class, responseContainer = "List")
+    @ApiOperation(value = "Find all users", notes = "Return all users.", response = ApplicationUser.class, responseContainer = "List")
     public Resources<Object> all() {
-        Iterable<User> users = userRepository.findAll();
+        Iterable<ApplicationUser> users = userRepository.findAll();
         return resourceBuilder.wrappedFrom(users, UserResource::new, UserResource.class);
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "Get an user", notes = "Get an user by ID.", response = User.class)
+    @ApiOperation(value = "Get an user", notes = "Get an user by ID.", response = ApplicationUser.class)
     @ApiResponses({
-            @ApiResponse(code = 404, message = "User not found."),
+            @ApiResponse(code = 404, message = "ApplicationUser not found."),
     })
     public UserResource get(@PathVariable UUID id) {
         return new UserResource(getUserByIdQuery.run(id));
@@ -91,8 +91,8 @@ public class UserController {
     @GetMapping("/{id}/profile")
     @ApiOperation(value = "Get user profile.", notes = "Get the Mentor or Mentee profile based on the user attributes.")
     @ApiResponses({
-            @ApiResponse(code = 404, message = "User not found."),
-            @ApiResponse(code = 400, message = "User profile not found."),
+            @ApiResponse(code = 404, message = "ApplicationUser not found."),
+            @ApiResponse(code = 400, message = "ApplicationUser profile not found."),
     })
     public ResourceSupport getProfile(@PathVariable UUID id) {
         if (userRepository.existsByIdAndIsMentorIsTrue(id)) {
@@ -116,18 +116,18 @@ public class UserController {
             @ApiResponse(code = 201, message = "New user successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
             @ApiResponse(code = 400, message = "Username already exists or the passwords don't match."),
     })
-    public ResponseEntity<User> post(@Valid @RequestBody CreateUserRequest request) {
+    public ResponseEntity<ApplicationUser> post(@Valid @RequestBody CreateUserRequest request) {
         UserResource userResource = new UserResource(createUserCommand.run(request));
         return userResource.toCreated();
     }
 
     @PutMapping("/{id}")
-    @ApiOperation(value = "Update an user", notes = "Update an user.", response = User.class)
+    @ApiOperation(value = "Update an user", notes = "Update an user.", response = ApplicationUser.class)
     @ApiResponses({
             @ApiResponse(code = 201, message = "New user successfully updated.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the updated resource.", response = String.class)),
-            @ApiResponse(code = 404, message = "User not found."),
+            @ApiResponse(code = 404, message = "ApplicationUser not found."),
     })
-    public ResponseEntity<User> put(@PathVariable UUID id, @Valid @RequestBody UpdateUserRequest request) {
+    public ResponseEntity<ApplicationUser> put(@PathVariable UUID id, @Valid @RequestBody UpdateUserRequest request) {
         UserResource userResource = new UserResource(updateUserCommand.run(id, request));
         return userResource.toUpdated();
     }
@@ -135,8 +135,8 @@ public class UserController {
     @DeleteMapping("/{id}")
     @ApiOperation(value = "Delete an user", notes = "Delete an user, this operation cannot be undone.")
     @ApiResponses({
-            @ApiResponse(code = 204, message = "User successfully deleted."),
-            @ApiResponse(code = 404, message = "User not found.")
+            @ApiResponse(code = 204, message = "ApplicationUser successfully deleted."),
+            @ApiResponse(code = 404, message = "ApplicationUser not found.")
     })
     public ResponseEntity<?> delete(@PathVariable UUID id) {
         deleteUserCommand.run(id);
@@ -144,11 +144,11 @@ public class UserController {
     }
 
     @PutMapping("/{id}/approve")
-    @ApiOperation(value = "Approve a mentor", notes = "Approve the current created mentor profile for the user.", response = User.class)
+    @ApiOperation(value = "Approve a mentor", notes = "Approve the current created mentor profile for the user.", response = ApplicationUser.class)
     @ApiResponses({
             @ApiResponse(code = 204, message = "Mentor is approved."),
-            @ApiResponse(code = 404, message = "User not found."),
-            @ApiResponse(code = 400, message = "User is not a mentor."),
+            @ApiResponse(code = 404, message = "ApplicationUser not found."),
+            @ApiResponse(code = 400, message = "ApplicationUser is not a mentor."),
     })
     public  ResponseEntity<?>  approve(@PathVariable UUID id) {
         updateMentorProfileStatusByUserCommand.run(id, ProfileStatus.ACTIVE);
@@ -156,11 +156,11 @@ public class UserController {
     }
 
     @PutMapping("/{id}/reject")
-    @ApiOperation(value = "Reject a mentor", notes = "Reject the current created mentor profile for the user.", response = User.class)
+    @ApiOperation(value = "Reject a mentor", notes = "Reject the current created mentor profile for the user.", response = ApplicationUser.class)
     @ApiResponses({
             @ApiResponse(code = 204, message = "Mentor is rejected."),
-            @ApiResponse(code = 404, message = "User not found."),
-            @ApiResponse(code = 400, message = "User is not a mentor."),
+            @ApiResponse(code = 404, message = "ApplicationUser not found."),
+            @ApiResponse(code = 400, message = "ApplicationUser is not a mentor."),
     })
     public  ResponseEntity<?>  reject(@PathVariable UUID id) {
         updateMentorProfileStatusByUserCommand.run(id, ProfileStatus.REJECTED);

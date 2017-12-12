@@ -1,7 +1,7 @@
 package inno.edu.api.domain.user.queries;
 
 import inno.edu.api.domain.user.exceptions.UserNotFoundException;
-import inno.edu.api.domain.user.models.User;
+import inno.edu.api.domain.user.models.ApplicationUser;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,8 +33,8 @@ public class GetUserByIdQueryTest {
     public void shouldReturnUser() {
         when(userRepository.findOne(fei().getId())).thenReturn(fei());
 
-        User user = getUserByIdQuery.run(fei().getId());
+        ApplicationUser applicationUser = getUserByIdQuery.run(fei().getId());
 
-        assertThat(user, is(fei()));
+        assertThat(applicationUser, is(fei()));
     }
 }

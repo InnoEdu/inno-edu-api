@@ -2,7 +2,7 @@ package inno.edu.api.domain.user.commands;
 
 import inno.edu.api.domain.user.commands.dtos.UpdateUserRequest;
 import inno.edu.api.domain.user.commands.mappers.UpdateUserRequestMapper;
-import inno.edu.api.domain.user.models.User;
+import inno.edu.api.domain.user.models.ApplicationUser;
 import inno.edu.api.domain.user.queries.GetUserByIdQuery;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import inno.edu.api.infrastructure.annotations.Command;
@@ -21,9 +21,9 @@ public class UpdateUserCommand {
         this.getUserByIdQuery = getUserByIdQuery;
     }
 
-    public User run(UUID id, UpdateUserRequest updateUserRequest) {
-        User currentUser = getUserByIdQuery.run(id);
-        updateUserRequestMapper.setUser(updateUserRequest, currentUser);
-        return userRepository.save(currentUser);
+    public ApplicationUser run(UUID id, UpdateUserRequest updateUserRequest) {
+        ApplicationUser currentApplicationUser = getUserByIdQuery.run(id);
+        updateUserRequestMapper.setUser(updateUserRequest, currentApplicationUser);
+        return userRepository.save(currentApplicationUser);
     }
 }

@@ -4,6 +4,6 @@ import java.util.UUID;
 
 public class UserIsNotMentorException extends RuntimeException {
     public UserIsNotMentorException(UUID userId) {
-        super("User '" + userId.toString() + "' is not a mentor.");
+        super("ApplicationUser '" + userId.toString() + "' is not a mentor.");
     }
 }

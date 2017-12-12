@@ -3,7 +3,7 @@ package inno.edu.api.support;
 import inno.edu.api.domain.user.commands.dtos.CreateUserRequest;
 import inno.edu.api.domain.user.commands.dtos.LoginRequest;
 import inno.edu.api.domain.user.commands.dtos.UpdateUserRequest;
-import inno.edu.api.domain.user.models.User;
+import inno.edu.api.domain.user.models.ApplicationUser;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ import static com.google.common.collect.Lists.newArrayList;
 import static java.util.UUID.fromString;
 
 public class UserFactory {
-    public static User gustavo() {
-        return User.builder()
+    public static ApplicationUser gustavo() {
+        return ApplicationUser.builder()
                 .id(fromString("df54ff86-3caa-4145-b228-284f5d4a908a"))
                 .firstName("Gustavo")
                 .lastName("Domenico")
@@ -23,8 +23,8 @@ public class UserFactory {
                 .build();
     }
 
-    public static User fei() {
-        return User.builder()
+    public static ApplicationUser fei() {
+        return ApplicationUser.builder()
                 .id(fromString("ba7c6505-19fd-47c3-87a6-c6af6e5322b7"))
                 .firstName("Fei")
                 .lastName("Xiu")
@@ -76,8 +76,8 @@ public class UserFactory {
                 .build();
     }
 
-    public static User alan() {
-        return User.builder().id(fromString("8d6153fc-83e5-4b3a-90ac-d081ff789cef"))
+    public static ApplicationUser alan() {
+        return ApplicationUser.builder().id(fromString("8d6153fc-83e5-4b3a-90ac-d081ff789cef"))
                 .firstName("Alan")
                 .lastName("Ly")
                 .username("alanly")
@@ -88,7 +88,7 @@ public class UserFactory {
                 .build();
     }
 
-    public static User updatedFei() {
+    public static ApplicationUser updatedFei() {
         return fei().toBuilder()
                 .firstName("UpdatedFei")
                 .lastName("UpdatedXiu")
@@ -97,7 +97,7 @@ public class UserFactory {
                 .build();
     }
 
-    public static List<User> users() {
+    public static List<ApplicationUser> users() {
         return newArrayList(fei(), alan());
     }
 }

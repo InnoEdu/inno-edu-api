@@ -1,7 +1,7 @@
 package inno.edu.api.domain.user.commands;
 
 import inno.edu.api.domain.user.commands.mappers.UpdateUserRequestMapper;
-import inno.edu.api.domain.user.models.User;
+import inno.edu.api.domain.user.models.ApplicationUser;
 import inno.edu.api.domain.user.queries.GetUserByIdQuery;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import org.junit.Test;
@@ -37,10 +37,10 @@ public class UpdateUserCommandTest {
         when(getUserByIdQuery.run(fei().getId())).thenReturn(fei());
         when(userRepository.save(fei())).thenReturn(updatedFei());
 
-        User user = updateUserCommand.run(fei().getId(), updateFeiRequest());
+        ApplicationUser applicationUser = updateUserCommand.run(fei().getId(), updateFeiRequest());
 
         verify(updateUserRequestMapper).setUser(updateFeiRequest(), fei());
 
-        assertThat(user, is(updatedFei()));
+        assertThat(applicationUser, is(updatedFei()));
     }
 }

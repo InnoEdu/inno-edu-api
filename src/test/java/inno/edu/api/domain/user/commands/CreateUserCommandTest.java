@@ -4,7 +4,7 @@ import inno.edu.api.domain.user.commands.dtos.CreateUserRequest;
 import inno.edu.api.domain.user.commands.mappers.CreateUserRequestMapper;
 import inno.edu.api.domain.user.exceptions.PasswordMismatchException;
 import inno.edu.api.domain.user.exceptions.UsernameAlreadyExistsException;
-import inno.edu.api.domain.user.models.User;
+import inno.edu.api.domain.user.models.ApplicationUser;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,19 +40,19 @@ public class CreateUserCommandTest {
 
     @Test
     public void shouldCallRepositoryToSaveUser() {
-        ArgumentCaptor<User> argumentCaptor = forClass(User.class);
+        ArgumentCaptor<ApplicationUser> argumentCaptor = forClass(ApplicationUser.class);
 
         when(userRepository.save(argumentCaptor.capture()))
                 .thenAnswer((invocation -> invocation.getArguments()[0]));
 
-        User user = createUserCommand.run(createFeiRequest());
+        ApplicationUser applicationUser = createUserCommand.run(createFeiRequest());
 
-        assertThat(user, is(argumentCaptor.getValue()));
+        assertThat(applicationUser, is(argumentCaptor.getValue()));
     }
 
     @Test
     public void shouldGenerateNewIdForUser() {
-        ArgumentCaptor<User> argumentCaptor = forClass(User.class);
+        ArgumentCaptor<ApplicationUser> argumentCaptor = forClass(ApplicationUser.class);
 
         when(userRepository.save(argumentCaptor.capture())).thenReturn(fei());
 
