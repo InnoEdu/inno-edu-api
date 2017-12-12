@@ -17,10 +17,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @EnableWebSecurity
 @Profile({"dev", "production"})
-public class SecureWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
+public class SecureWebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
 
-    public SecureWebSecurityConfigurer(UserDetailsService userDetailsService) {
+    public SecureWebSecurityConfiguration(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
