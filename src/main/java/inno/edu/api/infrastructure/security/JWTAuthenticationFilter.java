@@ -18,13 +18,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static inno.edu.api.infrastructure.security.SecurityConstants.EXPIRATION_TIME;
+import static inno.edu.api.infrastructure.security.SecurityConstants.HEADER_STRING;
+import static inno.edu.api.infrastructure.security.SecurityConstants.SECRET;
+import static inno.edu.api.infrastructure.security.SecurityConstants.TOKEN_PREFIX;
+
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-    private static final String SECRET = "InnoEduApiSecretToken";
-    private static final long EXPIRATION_TIME = 864_000_000;
-    private static final String TOKEN_PREFIX = "Inno ";
-    private static final String HEADER_STRING = "Authorization";
-
     private AuthenticationManager authenticationManager;
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
