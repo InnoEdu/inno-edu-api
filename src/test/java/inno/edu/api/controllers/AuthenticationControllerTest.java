@@ -39,4 +39,4 @@ public class AuthenticationControllerTest {
 
         assertThat(userResource.getUser(), is(fei()));
     }
-}   
+}
