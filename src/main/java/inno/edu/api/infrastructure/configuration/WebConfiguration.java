@@ -1,4 +1,4 @@
-package inno.edu.api.configuration;
+package inno.edu.api.infrastructure.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.hateoas.MediaTypes;
