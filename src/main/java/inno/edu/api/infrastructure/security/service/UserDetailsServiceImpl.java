@@ -1,4 +1,4 @@
-package inno.edu.api.infrastructure.security;
+package inno.edu.api.infrastructure.security.service;
 
 import inno.edu.api.domain.user.models.User;
 import inno.edu.api.domain.user.repositories.UserRepository;

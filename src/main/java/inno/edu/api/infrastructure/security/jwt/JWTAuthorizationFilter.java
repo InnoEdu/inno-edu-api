@@ -1,4 +1,4 @@
-package inno.edu.api.infrastructure.security;
+package inno.edu.api.infrastructure.security.jwt;
 
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,10 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static inno.edu.api.infrastructure.security.SecurityConstants.HEADER_STRING;
-import static inno.edu.api.infrastructure.security.SecurityConstants.SECRET;
-import static inno.edu.api.infrastructure.security.SecurityConstants.TOKEN_PREFIX;
-
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     public JWTAuthorizationFilter(AuthenticationManager authenticationManager) {
@@ -27,9 +23,9 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest httpServletRequest,
                                     HttpServletResponse httpServletResponse,
                                     FilterChain filterChain) throws IOException, ServletException {
-        String header = httpServletRequest.getHeader(HEADER_STRING);
+        String header = httpServletRequest.getHeader(SecurityConstants.HEADER_STRING);
 
-        if (header == null || !header.startsWith(TOKEN_PREFIX)) {
+        if (header == null || !header.startsWith(SecurityConstants.TOKEN_PREFIX)) {
             filterChain.doFilter(httpServletRequest, httpServletResponse);
             return;
         }
@@ -41,12 +37,12 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest httpServletRequest) {
-        String token = httpServletRequest.getHeader(HEADER_STRING);
+        String token = httpServletRequest.getHeader(SecurityConstants.HEADER_STRING);
 
         if (token != null) {
             String user = Jwts.parser()
-                    .setSigningKey(SECRET.getBytes())
-                    .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+                    .setSigningKey(SecurityConstants.SECRET.getBytes())
+                    .parseClaimsJws(token.replace(SecurityConstants.TOKEN_PREFIX, ""))
                     .getBody()
                     .getSubject();
 

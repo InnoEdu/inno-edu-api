@@ -1,6 +1,9 @@
-package inno.edu.api.infrastructure.security;
+package inno.edu.api.infrastructure.security.modules;
 
+import inno.edu.api.infrastructure.security.jwt.JWTAuthenticationFilter;
+import inno.edu.api.infrastructure.security.jwt.JWTAuthorizationFilter;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,10 +16,11 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @EnableWebSecurity
-public class WebSecurity extends WebSecurityConfigurerAdapter {
+@Profile({"dev", "production"})
+public class SecureWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
 
-    public WebSecurity(UserDetailsService userDetailsService) {
+    public SecureWebSecurityConfigurer(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
@@ -43,15 +47,4 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
         return source;
     }
-
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//                .antMatchers("/**").permitAll();
-//
-//        http.csrf().disable();
-//        http.cors();
-//    }
-
-
 }

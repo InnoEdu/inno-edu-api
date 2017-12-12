@@ -1,4 +1,4 @@
-package inno.edu.api.infrastructure.security;
+package inno.edu.api.infrastructure.security.jwt;
 
 class SecurityConstants {
     static final String SECRET = "Bearer ";

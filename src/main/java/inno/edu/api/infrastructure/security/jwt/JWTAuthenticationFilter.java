@@ -1,4 +1,4 @@
-package inno.edu.api.infrastructure.security;
+package inno.edu.api.infrastructure.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import inno.edu.api.domain.user.models.User;
@@ -17,11 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-
-import static inno.edu.api.infrastructure.security.SecurityConstants.EXPIRATION_TIME;
-import static inno.edu.api.infrastructure.security.SecurityConstants.HEADER_STRING;
-import static inno.edu.api.infrastructure.security.SecurityConstants.SECRET;
-import static inno.edu.api.infrastructure.security.SecurityConstants.TOKEN_PREFIX;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authenticationManager;
@@ -56,9 +51,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         String token = Jwts.builder()
                 .setSubject(((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getUsername())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS512, SECRET.getBytes())
+                .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
+                .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET.getBytes())
                 .compact();
-        res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+        res.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token);
     }
 }
