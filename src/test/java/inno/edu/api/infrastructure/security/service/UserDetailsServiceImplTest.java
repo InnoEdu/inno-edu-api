@@ -23,7 +23,7 @@ public class UserDetailsServiceImplTest {
     private UserDetailsServiceImpl userDetailsService;
 
     @Test(expected = UsernameNotFoundException.class)
-    public void shouldThrowExceptionIfUserNameNotFound() {
+    public void shouldThrowExceptionIfUsernameNotFound() {
         when(userRepository.findOneByUsername(fei().getUsername())).thenReturn(null);
 
         userDetailsService.loadUserByUsername(fei().getUsername());

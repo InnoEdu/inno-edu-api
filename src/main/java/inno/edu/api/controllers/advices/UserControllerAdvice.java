@@ -43,7 +43,7 @@ public class UserControllerAdvice {
     @ResponseBody
     @ExceptionHandler(InvalidUsernameOrPasswordException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    VndErrors invalidUserNameOrPasswordExceptionHandler(InvalidUsernameOrPasswordException ex) {
+    VndErrors invalidUsernameOrPasswordExceptionHandler(InvalidUsernameOrPasswordException ex) {
         return new VndErrors("error", ex.getMessage());
     }
 

@@ -102,7 +102,7 @@ public class UserControllerApiTest extends ApiTest {
     }
 
     @Test
-    public void shouldNotCreateNewUserIfUserNameAlreadyExists() throws Exception {
+    public void shouldNotCreateNewUserIfUsernameAlreadyExists() throws Exception {
         this.mockMvc.perform(
                 post("/api/users")
                         .content(postUserPayload(createFeiRequest()))
