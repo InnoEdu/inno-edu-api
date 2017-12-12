@@ -1,4 +1,4 @@
-package inno.edu.api.context;
+package inno.edu.api.infrastructure;
 
 import inno.edu.api.ApiTest;
 import inno.edu.api.controllers.UserController;
