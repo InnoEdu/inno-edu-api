@@ -23,7 +23,6 @@ import static inno.edu.api.infrastructure.security.SecurityConstants.HEADER_STRI
 import static inno.edu.api.infrastructure.security.SecurityConstants.SECRET;
 import static inno.edu.api.infrastructure.security.SecurityConstants.TOKEN_PREFIX;
 
-
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authenticationManager;
 
