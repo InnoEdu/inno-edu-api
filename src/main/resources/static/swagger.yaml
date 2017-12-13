@@ -1,0 +1,64 @@
+swagger: '2.0'
+info:
+  description: This the InnoEdu api.
+  version: 1.0.0
+  title: InnoEdu Api
+  contact:
+    email: apiteam@inno.edu
+host: innoedu-web.herokuapp.com
+basePath: /api
+tags:
+  - name: users
+    description: User management
+  - name: schools
+    description: School management
+  - name: mentor-profiles
+    description: Mentor profiles management
+  - name: mentee-profiles
+    description: Mentor profiles management
+  - name: availability
+    description: Mentor avaialbility management
+  - name: appointments
+    description: Appointments management
+schemes:
+  - http
+paths:
+  /users:
+    post:
+      tags:
+        - users
+      summary: Add a new user to the application
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: body
+          name: request
+          description: Create request object with the user information to be created
+          required: true
+          schema:
+            $ref: '#/definitions/CreateUserRequest'
+      responses:
+        '201':
+          description: New user successfully created
+        '404':
+          description: User not found
+definitions:
+  CreateUserRequest:
+    type: object
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+      username:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      confirmPassword:
+        type: string
+      isMentor:
+        type: boolean

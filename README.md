@@ -18,4 +18,4 @@ You may need to log into the team account.
 
 ## Swagger
 
-http://localhost:8080/swagger-ui.html 
+http://localhost:8080/swagger-ui.html
