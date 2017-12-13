@@ -111,11 +111,6 @@ public class UserController {
     }
 
     @PostMapping
-    @ApiOperation(value = "Create a new user", notes = "Creates a new user.")
-    @ApiResponses({
-            @ApiResponse(code = 201, message = "New user successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
-            @ApiResponse(code = 400, message = "Username already exists or the passwords don't match."),
-    })
     public ResponseEntity<ApplicationUser> post(@Valid @RequestBody CreateUserRequest request) {
         UserResource userResource = new UserResource(createUserCommand.run(request));
         return userResource.toCreated();
