@@ -284,7 +284,7 @@ paths:
           schema:
             $ref: '#/definitions/School'
         '404':
-          description: User not found
+          description: School not found
           schema:
             $ref: '#/definitions/VndErrors'
     delete:
@@ -576,6 +576,157 @@ paths:
           description: Mentee profile successfully removed
         '404':
           description: Mentee profile not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+  /availability:
+    get:
+      tags:
+        - availability
+      summary: Get all availability
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EmbeddedAvailabilityResourceList'
+    post:
+      tags:
+        - availability
+      summary: Add a new availability
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: body
+          name: request
+          description: Request object with the availability information to be created
+          required: true
+          schema:
+            $ref: '#/definitions/CreateAvailabilityRequest'
+      responses:
+        '201':
+          description: New availability successfully created
+          schema:
+            $ref: '#/definitions/Availability'
+          headers:
+            Location:
+              type: string
+              description: Link to the new resource created
+  /availability/{id}:
+    get:
+      tags:
+        - availability
+      summary: Get availability by id
+      parameters:
+        - in: path
+          name: id
+          description: Availability id
+          required: true
+          type: string
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/AvailabilityResource'
+        '404':
+          description: Availability not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+    put:
+      tags:
+        - availability
+      summary: Update availability by id
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: id
+          description: Availability id
+          required: true
+          type: string
+        - in: body
+          name: request
+          description: Request object with the availability information to be updated
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateAvailabilityRequest'
+      responses:
+        '201':
+          description: Availability successfully updated
+          schema:
+            $ref: '#/definitions/Availability'
+        '404':
+          description: Availability not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+    delete:
+      tags:
+        - availability
+      summary: Delete availability by id
+      parameters:
+        - in: path
+          name: id
+          description: Availability id
+          required: true
+          type: string
+      responses:
+        '204':
+          description: Availability successfully removed
+        '404':
+          description: Availability not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+  /availability/mentor/{mentorId}:
+    get:
+      tags:
+        - availability
+      summary: Get availability for a mentor
+      parameters:
+        - in: path
+          name: mentorId
+          description: Mentor id
+          required: true
+          type: string
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EmbeddedAvailabilityResourceList'
+    post:
+      tags:
+        - availability
+      summary: Create availability for the mentor
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: mentorId
+          description: Mentor id
+          required: true
+          type: string
+        - in: body
+          name: request
+          description: Request object with the availability information to be created
+          required: true
+          schema:
+            $ref: '#/definitions/CreateAvailabilityByMentorIdRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Availability'
+        '404':
+          description: Mentor not found
           schema:
             $ref: '#/definitions/VndErrors'
 definitions:
@@ -919,3 +1070,82 @@ definitions:
         $ref: '#/definitions/MenteeProfileResourceList'
       _links:
         type: object
+  CreateAvailabilityRequest:
+    type: object
+    properties:
+      mentorProfileId:
+        type: string
+      fromDateTime:
+        type: string
+        format: date-time
+      toDateTime:
+        type: string
+        format: date-time
+    required:
+      - mentorProfileId
+      - fromDateTime
+      - toDateTime
+  CreateAvailabilityByMentorIdRequest:
+    type: object
+    properties:
+      fromDateTime:
+        type: string
+        format: date-time
+      toDateTime:
+        type: string
+        format: date-time
+    required:
+      - fromDateTime
+      - toDateTime
+  UpdateAvailabilityRequest:
+    type: object
+    properties:
+      fromDateTime:
+        type: string
+        format: date-time
+      toDateTime:
+        type: string
+        format: date-time
+    required:
+      - fromDateTime
+      - toDateTime
+  Availability:
+    type: object
+    properties:
+      id:
+        type: string
+      mentorProfileId:
+        type: string
+      fromDateTime:
+        type: string
+        format: date-time
+      toDateTime:
+        type: string
+        format: date-time
+    required:
+      - id
+      - mentorProfileId
+      - fromDateTime
+      - toDateTime
+  AvailabilityResource:
+    allOf:
+        - $ref: '#/definitions/Availability'
+        - type: object
+          properties:
+            _links:
+              type: object
+  AvailabilityResourceList:
+    type: object
+    properties:
+      schoolResourceList:
+        type: array
+        items:
+          $ref: '#/definitions/AvailabilityResource'
+  EmbeddedAvailabilityResourceList:
+    type: object
+    properties:
+      _embedded:
+        $ref: '#/definitions/AvailabilityResourceList'
+      _links:
+        type: object
+

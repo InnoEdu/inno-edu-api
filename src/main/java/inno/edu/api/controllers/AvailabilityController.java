@@ -13,10 +13,6 @@ import inno.edu.api.domain.availability.models.Availability;
 import inno.edu.api.domain.availability.queries.GetAvailabilityByIdQuery;
 import inno.edu.api.domain.availability.queries.GetAvailabilityByMentorId;
 import inno.edu.api.domain.availability.repositories.AvailabilityRepository;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import io.swagger.annotations.ResponseHeader;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -61,73 +57,43 @@ public class AvailabilityController {
     }
 
     @GetMapping
-    @ApiOperation(value = "Find all availability", notes = "Return all availability.", response = Availability.class, responseContainer = "List")
     public Resources<Object> all() {
         Iterable<Availability> availability = availabilityRepository.findAll();
         return resourceBuilder.wrappedFrom(availability, AvailabilityResource::new, AvailabilityResource.class);
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "Get an availability", notes = "Get an availability by ID.", response = Availability.class)
-    @ApiResponses({
-            @ApiResponse(code = 404, message = "Availability not found."),
-    })
     public AvailabilityResource get(@PathVariable UUID id) {
         return new AvailabilityResource(getAvailabilityByIdQuery.run(id));
     }
 
     @PostMapping
-    @ApiOperation(value = "Create a new availability", notes = "Creates a new availability.")
-    @ApiResponses({
-            @ApiResponse(code = 201, message = "New availability successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
-            @ApiResponse(code = 404, message = "Invalid mentor profile ID supplied."),
-    })
     public ResponseEntity<Availability> post(@Valid @RequestBody CreateAvailabilityRequest request) {
         AvailabilityResource availabilityResource = new AvailabilityResource(createAvailabilityCommand.run(request));
         return availabilityResource.toCreated();
     }
 
-    @PostMapping("/mentor/{mentorId}")
-    @ApiOperation(value = "Create a new availability by mentor", notes = "Creates a new availability for the mentor active profile.")
-    @ApiResponses({
-            @ApiResponse(code = 201, message = "New availability successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
-            @ApiResponse(code = 404, message = "Invalid mentor profile ID supplied."),
-    })
-    public ResponseEntity<Availability> postByMentor(@PathVariable UUID mentorId, @Valid @RequestBody CreateAvailabilityByMentorIdRequest request) {
-        AvailabilityResource availabilityResource = new AvailabilityResource(createAvailabilityByMentorIdCommand.run(mentorId, request));
-        return availabilityResource.toCreated();
-    }
-
     @PutMapping("/{id}")
-    @ApiOperation(value = "Update an availability", notes = "Update an availability.", response = Availability.class)
-    @ApiResponses({
-            @ApiResponse(code = 201, message = "New availability successfully updated.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the updated resource.", response = String.class)),
-            @ApiResponse(code = 404, message = "Availability not found."),
-    })
     public ResponseEntity<Availability> put(@PathVariable UUID id, @Valid @RequestBody UpdateAvailabilityRequest request) {
         AvailabilityResource availabilityResource = new AvailabilityResource(updateAvailabilityCommand.run(id, request));
         return availabilityResource.toUpdated();
     }
 
     @DeleteMapping("/{id}")
-    @ApiOperation(value = "Delete an availability", notes = "Delete an availability, this operation cannot be undone.")
-    @ApiResponses({
-            @ApiResponse(code = 204, message = "Availability successfully deleted."),
-            @ApiResponse(code = 404, message = "Availability not found.")
-    })
     public ResponseEntity<?> delete(@PathVariable UUID id) {
         deleteAvailabilityCommand.run(id);
         return noContent().build();
     }
 
+    @PostMapping("/mentor/{mentorId}")
+    public ResponseEntity<Availability> postByMentor(@PathVariable UUID mentorId, @Valid @RequestBody CreateAvailabilityByMentorIdRequest request) {
+        AvailabilityResource availabilityResource = new AvailabilityResource(createAvailabilityByMentorIdCommand.run(mentorId, request));
+        return availabilityResource.toCreated();
+    }
+
     @GetMapping("/mentor/{mentorId}")
-    @ApiOperation(value = "Find all availability by mentor", notes = "Return all availability for the specific mentor. ", response = Availability.class, responseContainer = "List")
-    @ApiResponses({
-            @ApiResponse(code = 404, message = "Invalid mentor ID supplied."),
-    })
     public Resources<Object> allByMentor(@PathVariable UUID mentorId) {
         List<Availability> availability = getAvailabilityByMentorIdQuery.run(mentorId);
         return resourceBuilder.wrappedFrom(availability, AvailabilityResource::new, AvailabilityResource.class);
     }
-
 }
