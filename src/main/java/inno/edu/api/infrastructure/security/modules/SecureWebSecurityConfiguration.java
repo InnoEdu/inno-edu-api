@@ -30,6 +30,7 @@ public class SecureWebSecurityConfiguration extends WebSecurityConfigurerAdapter
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/api/users").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+                .antMatchers(HttpMethod.GET, "/swagger.yaml").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
