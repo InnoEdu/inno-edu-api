@@ -21,7 +21,6 @@ import inno.edu.api.domain.user.repositories.UserRepository;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import io.swagger.annotations.ResponseHeader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.Resources;
@@ -84,11 +83,6 @@ public class UserController {
     }
 
     @GetMapping("/{id}/profile")
-    @ApiOperation(value = "Get user profile.", notes = "Get the Mentor or Mentee profile based on the user attributes.")
-    @ApiResponses({
-            @ApiResponse(code = 404, message = "ApplicationUser not found."),
-            @ApiResponse(code = 400, message = "ApplicationUser profile not found."),
-    })
     public ResourceSupport getProfile(@PathVariable UUID id) {
         if (userRepository.existsByIdAndIsMentorIsTrue(id)) {
             return new MentorProfileResource(getMentorProfileByUserIdQuery.run(id));
@@ -97,10 +91,6 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    @ApiOperation(value = "Validate user credentials.", notes = "Validate the user name and user password supplied.")
-    @ApiResponses({
-            @ApiResponse(code = 400, message = "Invalid credentials supplied."),
-    })
     public UserResource login(@RequestBody LoginRequest request) {
         return new UserResource(loginCommand.run(request));
     }
@@ -112,11 +102,6 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    @ApiOperation(value = "Update an user", notes = "Update an user.", response = ApplicationUser.class)
-    @ApiResponses({
-            @ApiResponse(code = 201, message = "New user successfully updated.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the updated resource.", response = String.class)),
-            @ApiResponse(code = 404, message = "ApplicationUser not found."),
-    })
     public ResponseEntity<ApplicationUser> put(@PathVariable UUID id, @Valid @RequestBody UpdateUserRequest request) {
         UserResource userResource = new UserResource(updateUserCommand.run(id, request));
         return userResource.toUpdated();

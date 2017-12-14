@@ -45,6 +45,30 @@ paths:
           description: User not found
           schema:
             $ref: '#/definitions/VndErrors'
+  /users/{id}/profile:
+    get:
+      tags:
+        - users
+      summary: Get mentor or mentee profile by user by id
+      parameters:
+        - in: path
+          name: id
+          description: User id
+          required: true
+          type: string
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: User not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '400':
+          description: Profile not found
+          schema:
+            $ref: '#/definitions/VndErrors'
   /users:
     get:
       tags:
