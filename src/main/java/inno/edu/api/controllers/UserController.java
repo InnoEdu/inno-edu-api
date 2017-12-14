@@ -18,9 +18,6 @@ import inno.edu.api.domain.user.commands.dtos.UpdateUserRequest;
 import inno.edu.api.domain.user.models.ApplicationUser;
 import inno.edu.api.domain.user.queries.GetUserByIdQuery;
 import inno.edu.api.domain.user.repositories.UserRepository;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.Resources;
@@ -108,35 +105,18 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    @ApiOperation(value = "Delete an user", notes = "Delete an user, this operation cannot be undone.")
-    @ApiResponses({
-            @ApiResponse(code = 204, message = "ApplicationUser successfully deleted."),
-            @ApiResponse(code = 404, message = "ApplicationUser not found.")
-    })
     public ResponseEntity<?> delete(@PathVariable UUID id) {
         deleteUserCommand.run(id);
         return noContent().build();
     }
 
     @PutMapping("/{id}/approve")
-    @ApiOperation(value = "Approve a mentor", notes = "Approve the current created mentor profile for the user.", response = ApplicationUser.class)
-    @ApiResponses({
-            @ApiResponse(code = 204, message = "Mentor is approved."),
-            @ApiResponse(code = 404, message = "ApplicationUser not found."),
-            @ApiResponse(code = 400, message = "ApplicationUser is not a mentor."),
-    })
     public  ResponseEntity<?>  approve(@PathVariable UUID id) {
         updateMentorProfileStatusByUserCommand.run(id, ProfileStatus.ACTIVE);
         return noContent().build();
     }
 
     @PutMapping("/{id}/reject")
-    @ApiOperation(value = "Reject a mentor", notes = "Reject the current created mentor profile for the user.", response = ApplicationUser.class)
-    @ApiResponses({
-            @ApiResponse(code = 204, message = "Mentor is rejected."),
-            @ApiResponse(code = 404, message = "ApplicationUser not found."),
-            @ApiResponse(code = 400, message = "ApplicationUser is not a mentor."),
-    })
     public  ResponseEntity<?>  reject(@PathVariable UUID id) {
         updateMentorProfileStatusByUserCommand.run(id, ProfileStatus.REJECTED);
         return noContent().build();

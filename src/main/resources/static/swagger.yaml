@@ -23,52 +23,6 @@ tags:
 schemes:
   - http
 paths:
-  /users/{id}:
-    get:
-      tags:
-        - users
-      summary: Get user by id
-      parameters:
-        - in: path
-          name: id
-          description: User id
-          required: true
-          type: string
-      produces:
-        - application/hal+json
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/UserResource'
-        '404':
-          description: User not found
-          schema:
-            $ref: '#/definitions/VndErrors'
-  /users/{id}/profile:
-    get:
-      tags:
-        - users
-      summary: Get mentor or mentee profile by user by id
-      parameters:
-        - in: path
-          name: id
-          description: User id
-          required: true
-          type: string
-      produces:
-        - application/hal+json
-      responses:
-        '200':
-          description: OK
-        '404':
-          description: User not found
-          schema:
-            $ref: '#/definitions/VndErrors'
-        '400':
-          description: Profile not found
-          schema:
-            $ref: '#/definitions/VndErrors'
   /users:
     get:
       tags:
@@ -107,6 +61,142 @@ paths:
               description: Link to the new resource created
         '400':
           description: Bad request, additional info provided in the response body
+          schema:
+            $ref: '#/definitions/VndErrors'
+  /users/{id}:
+    get:
+      tags:
+        - users
+      summary: Get user by id
+      parameters:
+        - in: path
+          name: id
+          description: User id
+          required: true
+          type: string
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/UserResource'
+        '404':
+          description: User not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+    put:
+      tags:
+        - users
+      summary: Update user by id
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: id
+          description: User id
+          required: true
+          type: string
+        - in: body
+          name: request
+          description: Request object with the user information to be updated
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateUserRequest'
+      responses:
+        '201':
+          description: User successfully updated
+          schema:
+            $ref: '#/definitions/User'
+        '404':
+          description: User not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+    delete:
+      tags:
+        - users
+      summary: Delete user by id
+      parameters:
+        - in: path
+          name: id
+          description: User id
+          required: true
+          type: string
+      responses:
+        '204':
+          description: User successfully removed
+        '404':
+          description: User not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+  /users/{id}/approve:
+    put:
+      tags:
+        - users
+      summary: Approve the current created mentor profile by user id
+      parameters:
+        - in: path
+          name: id
+          description: User id
+          required: true
+          type: string
+      responses:
+        '204':
+          description: User profile successfully approved
+        '404':
+          description: User not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '400':
+          description: User is not a mentor
+          schema:
+            $ref: '#/definitions/VndErrors'
+  /users/{id}/reject:
+    put:
+      tags:
+        - users
+      summary: Reject the current created mentor profile by user id
+      parameters:
+        - in: path
+          name: id
+          description: User id
+          required: true
+          type: string
+      responses:
+        '204':
+          description: User profile successfully rejected
+        '404':
+          description: User not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '400':
+          description: User is not a mentor
+          schema:
+            $ref: '#/definitions/VndErrors'
+  /users/{id}/profile:
+    get:
+      tags:
+        - users
+      summary: Get mentor or mentee profile by user by id
+      parameters:
+        - in: path
+          name: id
+          description: User id
+          required: true
+          type: string
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: User not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '400':
+          description: Profile not found
           schema:
             $ref: '#/definitions/VndErrors'
 definitions:
@@ -156,6 +246,24 @@ definitions:
       - password
       - confirmPassword
       - isMentor
+  UpdateUserRequest:
+    type: object
+    properties:
+      firstName:
+        type: string
+        maximum: 50
+      lastName:
+        type: string
+        maximum: 50
+      email:
+        type: string
+        maximum: 255
+      photoUrl:
+        type: string
+    required:
+      - firstName
+      - lastName
+      - email
   User:
     type: object
     properties:
