@@ -729,6 +729,250 @@ paths:
           description: Mentor not found
           schema:
             $ref: '#/definitions/VndErrors'
+  /appointments:
+    get:
+      tags:
+        - appointments
+      summary: Get all appointments
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EmbeddedAppointmentResourceList'
+    post:
+      tags:
+        - appointments
+      summary: Add a new appointment
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: body
+          name: request
+          description: Request object with the appointment information to be created
+          required: true
+          schema:
+            $ref: '#/definitions/CreateAppointmentRequest'
+      responses:
+        '201':
+          description: New appointment successfully created
+          schema:
+            $ref: '#/definitions/Appointment'
+          headers:
+            Location:
+              type: string
+              description: Link to the new resource created
+        '404':
+          description: Invalid Mentor Profile or Mentee Profile supplied
+          schema:
+            $ref: '#/definitions/VndErrors'
+  /appointments/{id}:
+    get:
+      tags:
+        - appointments
+      summary: Get appointment by id
+      parameters:
+        - in: path
+          name: id
+          description: Appointment id
+          required: true
+          type: string
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/AppointmentResource'
+        '404':
+          description: Appointment not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+    put:
+      tags:
+        - appointments
+      summary: Update appointment by id
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: id
+          description: Appointment id
+          required: true
+          type: string
+        - in: body
+          name: request
+          description: Request object with the appointment information to be updated
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateAppointmentRequest'
+      responses:
+        '201':
+          description: Appointment successfully updated
+          schema:
+            $ref: '#/definitions/Appointment'
+        '404':
+          description: Appointment not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+    delete:
+      tags:
+        - appointments
+      summary: Delete appointment by id
+      parameters:
+        - in: path
+          name: id
+          description: Appointment id
+          required: true
+          type: string
+      responses:
+        '204':
+          description: Appointment successfully removed
+        '404':
+          description: Appointment not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+  /appointments/mentor/{mentorId}:
+    get:
+      tags:
+        - appointments
+      summary: Get all appointments by mentor and status
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: mentorId
+          description: Mentor id
+          required: true
+          type: string
+        - in: query
+          name: status
+          description: Appointment status
+          required: false
+          type: string
+          enum: [PROPOSED, ACCEPTED, DECLINED, CANCELED]
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EmbeddedAppointmentResourceList'
+        '404':
+          description: Mentor not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+  /appointments/mentee/{menteeId}:
+    get:
+      tags:
+        - appointments
+      summary: Get all appointments by mentee and status
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: menteeId
+          description: Mentee id
+          required: true
+          type: string
+        - in: query
+          name: status
+          description: Appointment status
+          required: false
+          type: string
+          enum: [PROPOSED, ACCEPTED, DECLINED, CANCELED]
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EmbeddedAppointmentResourceList'
+        '404':
+          description: Mentor not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+  /appointments/{id}/cancel:
+    put:
+      tags:
+        - appointments
+      summary: Cancel appointment by id
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: Appointment id
+          required: true
+          type: string
+        - in: body
+          name: reason
+          description: Reason for canceling the appointment
+          required: true
+          schema:
+            $ref: '#/definitions/AppointmentReason'
+      responses:
+        '204':
+          description: Appointment canceled
+        '404':
+          description: Appointment not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '400':
+          description: Reason not provided
+          schema:
+            $ref: '#/definitions/VndErrors'
+  /appointments/{id}/decline:
+    put:
+      tags:
+        - appointments
+      summary: Decline appointment by id
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: Appointment id
+          required: true
+          type: string
+        - in: body
+          name: reason
+          description: Reason for declining the appointment
+          required: true
+          schema:
+            $ref: '#/definitions/AppointmentReason'
+      responses:
+        '204':
+          description: Appointment declined
+        '404':
+          description: Appointment not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '400':
+          description: Reason not provided
+          schema:
+            $ref: '#/definitions/VndErrors'
+  /appointments/{id}/accept:
+    put:
+      tags:
+        - appointments
+      summary: Accept appointment by id
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: Appointment id
+          required: true
+          type: string
+      responses:
+        '204':
+          description: Appointment accepted
+        '404':
+          description: Appointment not found
+          schema:
+            $ref: '#/definitions/VndErrors'
 definitions:
   VndError:
     type: object
@@ -750,22 +994,22 @@ definitions:
     properties:
       firstName:
         type: string
-        maximum: 50
+        maxLength: 50
       lastName:
         type: string
-        maximum: 50
+        maxLength: 50
       username:
         type: string
-        maximum: 30
+        maxLength: 30
       email:
         type: string
-        maximum: 255
+        maxLength: 255
       password:
         type: string
-        maximum: 30
+        maxLength: 30
       confirmPassword:
         type: string
-        maximum: 30
+        maxLength: 30
       isMentor:
         type: boolean
     required:
@@ -781,13 +1025,13 @@ definitions:
     properties:
       firstName:
         type: string
-        maximum: 50
+        maxLength: 50
       lastName:
         type: string
-        maximum: 50
+        maxLength: 50
       email:
         type: string
-        maximum: 255
+        maxLength: 255
       photoUrl:
         type: string
     required:
@@ -801,27 +1045,20 @@ definitions:
         type: string
       firstName:
         type: string
-        maximum: 50
+        maxLength: 50
       lastName:
         type: string
-        maximum: 50
+        maxLength: 50
       username:
         type: string
-        maximum: 30
+        maxLength: 30
       email:
         type: string
-        maximum: 255
+        maxLength: 255
       photoUrl:
         type: string
       isMentor:
         type: boolean
-    required:
-      - id
-      - firstName
-      - lastName
-      - username
-      - email
-      - isMentor
   UserResource:
     allOf:
         - $ref: '#/definitions/User'
@@ -848,12 +1085,12 @@ definitions:
     properties:
       name:
         type: string
-        maximum: 255
+        maxLength: 255
       description:
         type: string
       photoUrl:
         type: string
-        maximum: 255
+        maxLength: 255
     required:
       - name
       - description
@@ -863,12 +1100,12 @@ definitions:
     properties:
       name:
         type: string
-        maximum: 255
+        maxLength: 255
       description:
         type: string
       photoUrl:
         type: string
-        maximum: 255
+        maxLength: 255
     required:
       - name
       - description
@@ -880,17 +1117,12 @@ definitions:
         type: string
       name:
         type: string
-        maximum: 255
+        maxLength: 255
       description:
         type: string
       photoUrl:
         type: string
-        maximum: 255
-    required:
-      - id
-      - name
-      - description
-      - photoUrl
+        maxLength: 255
   SchoolResource:
     allOf:
         - $ref: '#/definitions/School'
@@ -959,7 +1191,7 @@ definitions:
         type: string
       email:
         type: string
-        maximum: 255
+        maxLength: 255
       description:
         type: string
     required:
@@ -985,19 +1217,12 @@ definitions:
         type: string
       email:
         type: string
-        maximum: 255
+        maxLength: 255
       description:
         type: string
       status:
         type: string
         enum: [CREATED, ACTIVE, INACTIVE, REJECTED]
-    required:
-      - id
-      - mentorId
-      - schoolId
-      - email
-      - description
-      - status
   MentorProfileResource:
     allOf:
         - $ref: '#/definitions/MentorProfile'
@@ -1045,10 +1270,6 @@ definitions:
         type: string
       description:
         type: string
-    required:
-      - id
-      - menteeId
-      - description
   MenteeProfileResource:
     allOf:
         - $ref: '#/definitions/MenteeProfile'
@@ -1122,11 +1343,6 @@ definitions:
       toDateTime:
         type: string
         format: date-time
-    required:
-      - id
-      - mentorProfileId
-      - fromDateTime
-      - toDateTime
   AvailabilityResource:
     allOf:
         - $ref: '#/definitions/Availability'
@@ -1137,7 +1353,7 @@ definitions:
   AvailabilityResourceList:
     type: object
     properties:
-      schoolResourceList:
+      availabilityResourceList:
         type: array
         items:
           $ref: '#/definitions/AvailabilityResource'
@@ -1148,4 +1364,88 @@ definitions:
         $ref: '#/definitions/AvailabilityResourceList'
       _links:
         type: object
-
+  CreateAppointmentRequest:
+    type: object
+    properties:
+      mentorProfileId:
+        type: string
+      menteeProfileId:
+        type: string
+      fromDateTime:
+        type: string
+        format: date-time
+      toDateTime:
+        type: string
+        format: date-time
+      description:
+        type: string
+    required:
+      - mentorProfileId
+      - menteeProfileId
+      - fromDateTime
+      - toDateTime
+      - description
+  UpdateAppointmentRequest:
+    type: object
+    properties:
+      fromDateTime:
+        type: string
+        format: date-time
+      toDateTime:
+        type: string
+        format: date-time
+      description:
+        type: string
+    required:
+      - fromDateTime
+      - toDateTime
+      - description
+  Appointment:
+    type: object
+    properties:
+      id:
+        type: string
+      mentorProfileId:
+        type: string
+      menteeProfileId:
+        type: string
+      fromDateTime:
+        type: string
+        format: date-time
+      toDateTime:
+        type: string
+        format: date-time
+      description:
+        type: string
+      status:
+        type: string
+        enum: [PROPOSED, ACCEPTED, DECLINED, CANCELED]
+      reason:
+        type: string
+  AppointmentReason:
+    type: object
+    properties:
+      reason:
+        type: string
+        maxLength: 255
+  AppointmentResource:
+    allOf:
+        - $ref: '#/definitions/Appointment'
+        - type: object
+          properties:
+            _links:
+              type: object
+  AppointmentResourceList:
+    type: object
+    properties:
+      appointmentResourceList:
+        type: array
+        items:
+          $ref: '#/definitions/AppointmentResource'
+  EmbeddedAppointmentResourceList:
+    type: object
+    properties:
+      _embedded:
+        $ref: '#/definitions/AppointmentResourceList'
+      _links:
+        type: object
