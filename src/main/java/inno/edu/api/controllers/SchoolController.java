@@ -4,7 +4,6 @@ import inno.edu.api.controllers.resources.MentorProfileUserResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.SchoolResource;
 import inno.edu.api.domain.profile.queries.GetMentorProfilesBySchoolIdQuery;
-import inno.edu.api.domain.profile.queries.dtos.MentorProfileUser;
 import inno.edu.api.domain.school.commands.CreateSchoolCommand;
 import inno.edu.api.domain.school.commands.DeleteSchoolCommand;
 import inno.edu.api.domain.school.commands.UpdateSchoolCommand;
@@ -13,10 +12,6 @@ import inno.edu.api.domain.school.commands.dtos.UpdateSchoolRequest;
 import inno.edu.api.domain.school.models.School;
 import inno.edu.api.domain.school.queries.GetSchoolByIdQuery;
 import inno.edu.api.domain.school.repositories.SchoolRepository;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import io.swagger.annotations.ResponseHeader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
@@ -61,57 +56,34 @@ public class SchoolController {
     }
 
     @GetMapping
-    @ApiOperation(value = "Find all schools", notes = "Return all schools.", response = School.class, responseContainer = "List")
     public Resources<Object> all() {
         Iterable<School> schools = schoolRepository.findAll();
         return resourceBuilder.wrappedFrom(schools, SchoolResource::new, SchoolResource.class);
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "Get an school", notes = "Get an school by ID.", response = School.class)
-    @ApiResponses({
-            @ApiResponse(code = 404, message = "School not found."),
-    })
     public SchoolResource get(@PathVariable UUID id) {
         return new SchoolResource(getSchoolByIdQuery.run(id));
     }
 
     @GetMapping("/{id}/mentors")
-    @ApiOperation(value = "Get school mentors.", notes = "Get all mentors for a specific school." , response = MentorProfileUser.class, responseContainer = "List")
-    @ApiResponses({
-            @ApiResponse(code = 404, message = "School not found.")
-    })
     public Resources<Object> allMentorsProfile(@PathVariable UUID id) {
         return resourceBuilder.wrappedFrom(getMentorProfilesBySchoolIdQuery.run(id), MentorProfileUserResource::new, MentorProfileUserResource.class);
     }
 
     @PostMapping
-    @ApiOperation(value = "Create a new school", notes = "Creates a new school.")
-    @ApiResponses({
-            @ApiResponse(code = 201, message = "New school successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
-    })
     public ResponseEntity<School> post(@Valid @RequestBody CreateSchoolRequest request) {
         SchoolResource schoolResource = new SchoolResource(createSchoolCommand.run(request));
         return schoolResource.toCreated();
     }
 
     @PutMapping("/{id}")
-    @ApiOperation(value = "Update an school", notes = "Update an school.", response = School.class)
-    @ApiResponses({
-            @ApiResponse(code = 201, message = "New school successfully updated.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the updated resource.", response = String.class)),
-            @ApiResponse(code = 404, message = "School not found."),
-    })
     public ResponseEntity<School> put(@PathVariable UUID id, @Valid @RequestBody UpdateSchoolRequest request) {
         SchoolResource schoolResource = new SchoolResource(updateSchoolCommand.run(id, request));
         return schoolResource.toUpdated();
     }
 
     @DeleteMapping("/{id}")
-    @ApiOperation(value = "Delete an school", notes = "Delete an school, this operation cannot be undone.")
-    @ApiResponses({
-            @ApiResponse(code = 204, message = "School successfully deleted."),
-            @ApiResponse(code = 404, message = "School not found.")
-    })
     public ResponseEntity<?> delete(@PathVariable UUID id) {
         deleteSchoolCommand.run(id);
         return noContent().build();

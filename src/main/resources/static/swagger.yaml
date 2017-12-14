@@ -5,7 +5,7 @@ info:
   title: InnoEdu Api
   contact:
     email: apiteam@inno.edu
-host: inno-edu-api.herokuapp.com
+host: innoedu-web.herokuapp.com
 basePath: /api
 tags:
   - name: users
@@ -21,7 +21,6 @@ tags:
   - name: appointments
     description: Appointments management
 schemes:
-  - https
   - http
 paths:
   /users:
@@ -200,6 +199,133 @@ paths:
           description: Profile not found
           schema:
             $ref: '#/definitions/VndErrors'
+  /schools:
+    get:
+      tags:
+        - schools
+      summary: Get all schools
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EmbeddedSchoolResourceList'
+    post:
+      tags:
+        - schools
+      summary: Add a new school
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: body
+          name: request
+          description: Request object with the school information to be created
+          required: true
+          schema:
+            $ref: '#/definitions/CreateSchoolRequest'
+      responses:
+        '201':
+          description: New school successfully created
+          schema:
+            $ref: '#/definitions/School'
+          headers:
+            Location:
+              type: string
+              description: Link to the new resource created
+  /schools/{id}:
+    get:
+      tags:
+        - schools
+      summary: Get school by id
+      parameters:
+        - in: path
+          name: id
+          description: School id
+          required: true
+          type: string
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/SchoolResource'
+        '404':
+          description: School not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+    put:
+      tags:
+        - schools
+      summary: Update school by id
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: id
+          description: School id
+          required: true
+          type: string
+        - in: body
+          name: request
+          description: Request object with the school information to be updated
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateSchoolRequest'
+      responses:
+        '201':
+          description: School successfully updated
+          schema:
+            $ref: '#/definitions/School'
+        '404':
+          description: User not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+    delete:
+      tags:
+        - schools
+      summary: Delete school by id
+      parameters:
+        - in: path
+          name: id
+          description: School id
+          required: true
+          type: string
+      responses:
+        '204':
+          description: School successfully removed
+        '404':
+          description: School not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+  /schools/{id}/mentors:
+    get:
+      tags:
+        - schools
+      summary: Get school mentors
+      parameters:
+        - in: path
+          name: id
+          description: School id
+          required: true
+          type: string
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EmbeddedMentorProfileUserResourceList'
+        '404':
+          description: School not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+
 definitions:
   VndError:
     type: object
@@ -312,5 +438,112 @@ definitions:
     properties:
       _embedded:
         $ref: '#/definitions/UserResourceList'
+      _links:
+        type: object
+  CreateSchoolRequest:
+    type: object
+    properties:
+      name:
+        type: string
+        maximum: 255
+      description:
+        type: string
+      photoUrl:
+        type: string
+        maximum: 255
+    required:
+      - name
+      - description
+      - photoUrl
+  UpdateSchoolRequest:
+    type: object
+    properties:
+      name:
+        type: string
+        maximum: 255
+      description:
+        type: string
+      photoUrl:
+        type: string
+        maximum: 255
+    required:
+      - name
+      - description
+      - photoUrl
+  School:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+        maximum: 255
+      description:
+        type: string
+      photoUrl:
+        type: string
+        maximum: 255
+    required:
+      - id
+      - name
+      - description
+      - photoUrl
+  SchoolResource:
+    allOf:
+        - $ref: '#/definitions/School'
+        - type: object
+          properties:
+            _links:
+              type: object
+  SchoolResourceList:
+    type: object
+    properties:
+      schoolResourceList:
+        type: array
+        items:
+          $ref: '#/definitions/SchoolResource'
+  EmbeddedSchoolResourceList:
+    type: object
+    properties:
+      _embedded:
+        $ref: '#/definitions/SchoolResourceList'
+      _links:
+        type: object
+  MentorProfileUser:
+    type: object
+    properties:
+      id:
+        type: string
+      mentorId:
+        type: string
+      schoolId:
+        type: string
+      email:
+        type: string
+      description:
+        type: string
+      firstName:
+        type: string
+      secondName:
+        type: string
+  MentorProfileUserResource:
+    allOf:
+        - $ref: '#/definitions/MentorProfileUser'
+        - type: object
+          properties:
+            _links:
+              type: object
+  MentorProfileUserResourceList:
+    type: object
+    properties:
+      mentorProfileUserResourceList:
+        type: array
+        items:
+          $ref: '#/definitions/MentorProfileUserResource'
+  EmbeddedMentorProfileUserResourceList:
+    type: object
+    properties:
+      _embedded:
+        $ref: '#/definitions/MentorProfileUserResourceList'
       _links:
         type: object
