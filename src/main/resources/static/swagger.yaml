@@ -326,7 +326,150 @@ paths:
           description: School not found
           schema:
             $ref: '#/definitions/VndErrors'
-
+  /mentor-profiles:
+    get:
+      tags:
+        - mentor-profiles
+      summary: Get all mentor profiles
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EmbeddedMentorProfileResourceList'
+    post:
+      tags:
+        - mentor-profiles
+      summary: Add a new mentor profile
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: body
+          name: request
+          description: Request object with the mentor profile information to be created
+          required: true
+          schema:
+            $ref: '#/definitions/CreateMentorProfileRequest'
+      responses:
+        '201':
+          description: New mentor profile successfully created
+          schema:
+            $ref: '#/definitions/MentorProfile'
+          headers:
+            Location:
+              type: string
+              description: Link to the new resource created
+        '400':
+          description: Bad request, additional info provided in the response body
+          schema:
+            $ref: '#/definitions/VndErrors'
+  /mentor-profiles/{id}:
+    get:
+      tags:
+        - mentor-profiles
+      summary: Get mentor profile by id
+      parameters:
+        - in: path
+          name: id
+          description: Mentor profile id
+          required: true
+          type: string
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/MentorProfileResource'
+        '404':
+          description: Profile not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+    put:
+      tags:
+        - mentor-profiles
+      summary: Update mentor profile by id
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: id
+          description: Mentor profile id
+          required: true
+          type: string
+        - in: body
+          name: request
+          description: Request object with the mentor profile information to be updated
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateMentorProfileRequest'
+      responses:
+        '201':
+          description: Mentor profile successfully updated
+          schema:
+            $ref: '#/definitions/MentorProfile'
+        '404':
+          description: Profile not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+    delete:
+      tags:
+        - mentor-profiles
+      summary: Delete mentor profile by id
+      parameters:
+        - in: path
+          name: id
+          description: Mentor profile id
+          required: true
+          type: string
+      responses:
+        '204':
+          description: Mentor profile successfully removed
+        '404':
+          description: Mentor profile not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+  /mentor-profiles/{id}/approve:
+    put:
+      tags:
+        - mentor-profiles
+      summary: Approve a new mentor profile. All other profiles will be inactivated
+      parameters:
+        - in: path
+          name: id
+          description: User id
+          required: true
+          type: string
+      responses:
+        '204':
+          description: Mentor profile successfully approved
+        '404':
+          description: Profile not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+  /mentor-profiles/{id}/reject:
+    put:
+      tags:
+        - mentor-profiles
+      summary: Reject the mentor profile
+      parameters:
+        - in: path
+          name: id
+          description: Mentor profile id
+          required: true
+          type: string
+      responses:
+        '204':
+          description: Mentor profile profile successfully rejected
+        '404':
+          description: Profile not found
+          schema:
+            $ref: '#/definitions/VndErrors'
 definitions:
   VndError:
     type: object
@@ -546,6 +689,75 @@ definitions:
     properties:
       _embedded:
         $ref: '#/definitions/MentorProfileUserResourceList'
+      _links:
+        type: object
+  CreateMentorProfileRequest:
+    type: object
+    properties:
+      mentorId:
+        type: string
+      schoolId:
+        type: string
+      email:
+        type: string
+        maximum: 255
+      description:
+        type: string
+    required:
+      - mentorId
+      - schoolId
+      - email
+      - description
+  UpdateMentorProfileRequest:
+    type: object
+    properties:
+      description:
+        type: string
+    required:
+      - description
+  MentorProfile:
+    type: object
+    properties:
+      id:
+        type: string
+      mentorId:
+        type: string
+      schoolId:
+        type: string
+      email:
+        type: string
+        maximum: 255
+      description:
+        type: string
+      status:
+        type: string
+        enum: [CREATED, ACTIVE, INACTIVE, REJECTED]
+    required:
+      - id
+      - mentorId
+      - schoolId
+      - email
+      - description
+      - status
+  MentorProfileResource:
+    allOf:
+        - $ref: '#/definitions/MentorProfile'
+        - type: object
+          properties:
+            _links:
+              type: object
+  MentorProfileResourceList:
+    type: object
+    properties:
+      mentorProfileResourceList:
+        type: array
+        items:
+          $ref: '#/definitions/MentorProfileResource'
+  EmbeddedMentorProfileResourceList:
+    type: object
+    properties:
+      _embedded:
+        $ref: '#/definitions/MentorProfileResourceList'
       _links:
         type: object
 

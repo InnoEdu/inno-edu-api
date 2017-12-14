@@ -12,10 +12,6 @@ import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.profile.models.ProfileStatus;
 import inno.edu.api.domain.profile.queries.GetMentorProfileByIdQuery;
 import inno.edu.api.domain.profile.repositories.MentorProfileRepository;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import io.swagger.annotations.ResponseHeader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
@@ -60,71 +56,41 @@ public class MentorProfileController {
     }
 
     @GetMapping
-    @ApiOperation(value = "Find all profiles", notes = "Return all profiles.", response = MentorProfile.class, responseContainer = "List")
     public Resources<Object> all() {
         Iterable<MentorProfile> profiles = mentorProfileRepository.findAll();
         return resourceBuilder.wrappedFrom(profiles, MentorProfileResource::new, MentorProfileResource.class);
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "Get an profile", notes = "Get an profile by ID.", response = MentorProfile.class)
-    @ApiResponses({
-            @ApiResponse(code = 404, message = "Profile not found."),
-    })
     public MentorProfileResource get(@PathVariable UUID id) {
         return new MentorProfileResource(getMentorProfileByIdQuery.run(id));
     }
 
     @PostMapping
-    @ApiOperation(value = "Create a new profile", notes = "Creates a new profile.")
-    @ApiResponses({
-            @ApiResponse(code = 201, message = "New profile successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
-            @ApiResponse(code = 404, message = "Invalid mentor user ID or school ID supplied."),
-    })
     public ResponseEntity<MentorProfile> post(@Valid @RequestBody CreateMentorProfileRequest request) {
         MentorProfileResource mentorProfileResource = new MentorProfileResource(createMentorProfileCommand.run(request));
         return mentorProfileResource.toCreated();
     }
 
     @PutMapping("/{id}")
-    @ApiOperation(value = "Update an profile", notes = "Update an profile.", response = MentorProfile.class)
-    @ApiResponses({
-            @ApiResponse(code = 201, message = "New profile successfully updated.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the updated resource.", response = String.class)),
-            @ApiResponse(code = 404, message = "Profile not found."),
-    })
     public ResponseEntity<MentorProfile> put(@PathVariable UUID id, @Valid @RequestBody UpdateMentorProfileRequest request) {
         MentorProfileResource profileResource = new MentorProfileResource(updateMentorProfileCommand.run(id, request));
         return profileResource.toUpdated();
     }
 
     @PutMapping("/{id}/approve")
-    @ApiOperation(value = "Approve an profile", notes = "Approve a new mentor profile. All other profiles will be inactivated.", response = MentorProfile.class)
-    @ApiResponses({
-            @ApiResponse(code = 201, message = "Profile successfully approved."),
-            @ApiResponse(code = 404, message = "Profile not found."),
-    })
     public ResponseEntity<?> approve(@PathVariable UUID id) {
         updateMentorProfileStatusCommand.run(id, ProfileStatus.ACTIVE);
         return noContent().build();
     }
 
     @PutMapping("/{id}/reject")
-    @ApiOperation(value = "Reject a profile", notes = "Reject a mentor profile.", response = MentorProfile.class)
-    @ApiResponses({
-            @ApiResponse(code = 201, message = "Profile successfully rejected."),
-            @ApiResponse(code = 404, message = "Profile not found."),
-    })
     public ResponseEntity<?> reject(@PathVariable UUID id) {
         updateMentorProfileStatusCommand.run(id, ProfileStatus.REJECTED);
         return noContent().build();
     }
 
     @DeleteMapping("/{id}")
-    @ApiOperation(value = "Delete an profile", notes = "Delete an profile, this operation cannot be undone.")
-    @ApiResponses({
-            @ApiResponse(code = 204, message = "Profile successfully deleted."),
-            @ApiResponse(code = 404, message = "Profile not found.")
-    })
     public ResponseEntity<?> delete(@PathVariable UUID id) {
         deleteMentorProfileCommand.run(id);
         return noContent().build();
