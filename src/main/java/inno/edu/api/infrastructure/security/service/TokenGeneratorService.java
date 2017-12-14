@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
-import static inno.edu.api.infrastructure.security.jwt.SecurityConstants.EXPIRATION_TIME;
-import static inno.edu.api.infrastructure.security.jwt.SecurityConstants.SCOPE_ACCESS;
-import static inno.edu.api.infrastructure.security.jwt.SecurityConstants.SECRET;
+import static inno.edu.api.infrastructure.security.SecurityConstants.EXPIRATION_TIME;
+import static inno.edu.api.infrastructure.security.SecurityConstants.SCOPE_ACCESS;
+import static inno.edu.api.infrastructure.security.SecurityConstants.SECRET;
 import static io.jsonwebtoken.SignatureAlgorithm.HS256;
 import static java.lang.String.join;
 

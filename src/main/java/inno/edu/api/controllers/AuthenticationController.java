@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static inno.edu.api.infrastructure.security.jwt.SecurityConstants.HEADER_STRING;
+import static inno.edu.api.infrastructure.security.SecurityConstants.HEADER_STRING;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController

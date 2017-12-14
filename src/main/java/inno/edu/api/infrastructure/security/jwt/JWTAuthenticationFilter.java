@@ -2,6 +2,7 @@ package inno.edu.api.infrastructure.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import inno.edu.api.domain.user.models.ApplicationUser;
+import inno.edu.api.infrastructure.security.SecurityConstants;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,7 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static inno.edu.api.infrastructure.security.jwt.SecurityConstants.AUTH_URL;
+import static inno.edu.api.infrastructure.security.SecurityConstants.AUTH_URL;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;

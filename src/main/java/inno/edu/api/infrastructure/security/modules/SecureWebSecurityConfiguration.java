@@ -15,7 +15,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import static inno.edu.api.infrastructure.security.jwt.SecurityConstants.AUTH_URL;
+import static inno.edu.api.infrastructure.security.SecurityConstants.AUTH_URL;
 
 @EnableWebSecurity
 @Profile({"dev", "production"})

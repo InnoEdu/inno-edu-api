@@ -6,7 +6,7 @@ import inno.edu.api.domain.user.exceptions.InvalidUsernameOrPasswordException;
 import inno.edu.api.domain.user.models.ApplicationUser;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import inno.edu.api.infrastructure.annotations.Command;
-import inno.edu.api.infrastructure.security.jwt.SecurityConstants;
+import inno.edu.api.infrastructure.security.SecurityConstants;
 import inno.edu.api.infrastructure.security.service.TokenGeneratorService;
 
 import static java.util.Collections.emptyList;

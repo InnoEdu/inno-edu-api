@@ -14,7 +14,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.List;
 
-import static inno.edu.api.infrastructure.security.jwt.SecurityConstants.HEADER_STRING;
+import static inno.edu.api.infrastructure.security.SecurityConstants.HEADER_STRING;
 import static inno.edu.api.support.UserFactory.fei;
 import static inno.edu.api.support.UserFactory.feiCredentials;
 import static inno.edu.api.support.UserFactory.feiLoginResponse;
