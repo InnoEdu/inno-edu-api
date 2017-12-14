@@ -2,7 +2,6 @@ package inno.edu.api.controllers;
 
 import inno.edu.api.controllers.resources.UserResource;
 import inno.edu.api.domain.user.commands.LoginCommand;
-import inno.edu.api.infrastructure.security.service.TokenGeneratorService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,10 +12,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import java.util.List;
+
+import static inno.edu.api.infrastructure.security.jwt.SecurityConstants.HEADER_STRING;
 import static inno.edu.api.support.UserFactory.fei;
 import static inno.edu.api.support.UserFactory.feiCredentials;
 import static inno.edu.api.support.UserFactory.feiLoginResponse;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 import static org.springframework.web.context.request.RequestContextHolder.setRequestAttributes;
@@ -40,6 +43,12 @@ public class AuthenticationControllerTest {
 
         ResponseEntity<UserResource> responseEntity = authenticationController.login(feiCredentials());
 
+        List<String> authorizationHeader = responseEntity
+                .getHeaders()
+                .get(HEADER_STRING);
+
         assertThat(responseEntity.getBody().getUser(), is(fei()));
+        assertThat(authorizationHeader,  is(notNullValue()));
+        assertThat(authorizationHeader.get(0), is(feiLoginResponse().getPrefixedToken()));
     }
 }
