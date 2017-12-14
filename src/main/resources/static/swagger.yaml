@@ -23,7 +23,28 @@ tags:
 schemes:
   - http
 paths:
-  /users:
+  /users/{id}:
+    get:
+      tags:
+        - users
+      summary: Get user by id
+      parameters:
+        - in: path
+          name: id
+          description: User id
+          required: true
+          type: string
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/UserResource'
+        '404':
+          description: User not found
+          schema:
+            $ref: '#/definitions/VndErrors'
     post:
       tags:
         - users
@@ -35,30 +56,103 @@ paths:
       parameters:
         - in: body
           name: request
-          description: Create request object with the user information to be created
+          description: Request object with the user information to be created
           required: true
           schema:
             $ref: '#/definitions/CreateUserRequest'
       responses:
         '201':
           description: New user successfully created
-        '404':
-          description: User not found
+          schema:
+            $ref: '#/definitions/User'
+          headers:
+            Location:
+              type: string
+              description: Link to the new resource created
+        '400':
+          description: Bad request, additional info provided in the response body
+          schema:
+            $ref: '#/definitions/VndErrors'
 definitions:
+  VndError:
+    type: object
+    properties:
+      logref:
+        type: string
+      message:
+        type: string
+      links:
+        type: array
+        items:
+          type: object
+  VndErrors:
+    type: array
+    items:
+      $ref: '#/definitions/VndError'
   CreateUserRequest:
     type: object
     properties:
       firstName:
         type: string
+        maximum: 50
       lastName:
         type: string
+        maximum: 50
       username:
         type: string
+        maximum: 30
       email:
         type: string
+        maximum: 255
       password:
         type: string
+        maximum: 30
       confirmPassword:
+        type: string
+        maximum: 30
+      isMentor:
+        type: boolean
+    required:
+      - firstName
+      - lastName
+      - username
+      - email
+      - password
+      - confirmPassword
+      - isMentor
+  User:
+    type: object
+    properties:
+      id:
+        type: string
+      firstName:
+        type: string
+        maximum: 50
+      lastName:
+        type: string
+        maximum: 50
+      username:
+        type: string
+        maximum: 30
+      email:
+        type: string
+        maximum: 255
+      photoUrl:
         type: string
       isMentor:
         type: boolean
+    required:
+      - id
+      - firstName
+      - lastName
+      - username
+      - email
+      - isMentor
+  UserResource:
+    allOf:
+        - $ref: '#/definitions/User'
+        - type: object
+          properties:
+            _links:
+              type: object
+
