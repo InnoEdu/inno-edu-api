@@ -13,6 +13,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import static inno.edu.api.support.UserFactory.fei;
 import static inno.edu.api.support.UserFactory.feiCredentials;
 import static inno.edu.api.support.UserFactory.feiLoginResponse;
+import static java.util.Collections.emptyList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
@@ -42,9 +43,11 @@ public class LoginCommandTest {
         when(userRepository.findOneByUsernameAndPassword(fei().getUsername(), fei().getPassword()))
                 .thenReturn(fei());
 
-        when(tokenGeneratorService.generate(fei().getUsername())).thenReturn(feiLoginResponse().getToken());
+        when(tokenGeneratorService.generate(fei().getUsername(), emptyList()))
+                .thenReturn(feiLoginResponse().getToken());
 
         LoginResponse loginResponse = loginCommand.run(feiCredentials());
+
         assertThat(loginResponse.getToken(), is(feiLoginResponse().getToken()));
         assertThat(loginResponse.getPrefixedToken(), is(feiLoginResponse().getPrefixedToken()));
     }

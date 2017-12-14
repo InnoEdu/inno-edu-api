@@ -9,6 +9,7 @@ import inno.edu.api.infrastructure.annotations.Command;
 import inno.edu.api.infrastructure.security.jwt.SecurityConstants;
 import inno.edu.api.infrastructure.security.service.TokenGeneratorService;
 
+import static java.util.Collections.emptyList;
 import static java.util.Optional.ofNullable;
 
 @Command
@@ -25,11 +26,13 @@ public class LoginCommand {
         ApplicationUser user = ofNullable(userRepository.findOneByUsernameAndPassword(credentials.getUsername(), credentials.getPassword()))
                 .orElseThrow(InvalidUsernameOrPasswordException::new);
 
-        String token = tokenGeneratorService.generate(user.getUsername());
+        String token = tokenGeneratorService.generate(user.getUsername(), emptyList());
         return LoginResponse.builder()
                 .user(user)
                 .token(token)
                 .prefixedToken(SecurityConstants.TOKEN_PREFIX + token)
                 .build();
     }
+
+
 }
