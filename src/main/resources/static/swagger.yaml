@@ -5,7 +5,7 @@ info:
   title: InnoEdu Api
   contact:
     email: apiteam@inno.edu
-host: innoedu-web.herokuapp.com
+host: inno-edu-api.herokuapp.com
 basePath: /api
 tags:
   - name: users
@@ -21,6 +21,7 @@ tags:
   - name: appointments
     description: Appointments management
 schemes:
+  - https
   - http
 paths:
   /users:
@@ -547,3 +548,6 @@ definitions:
         $ref: '#/definitions/MentorProfileUserResourceList'
       _links:
         type: object
+
+
+
