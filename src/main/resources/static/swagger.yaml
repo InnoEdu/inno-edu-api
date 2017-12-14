@@ -29,6 +29,8 @@ responses:
       $ref: '#/definitions/VndErrors'
   401:
     description: Unauthorized
+    schema:
+      $ref: '#/definitions/VndErrors'
   403:
     description: Forbidden
   500:
@@ -67,8 +69,8 @@ paths:
             Authorization:
               type: string
               description: Authorization token
-        '403':
-          $ref: '#/responses/403'
+        '401':
+          $ref: '#/responses/401'
   /users:
     get:
       tags:
