@@ -1,7 +1,7 @@
 package inno.edu.api.domain.user.commands;
 
+import inno.edu.api.domain.user.commands.dtos.LoginResponse;
 import inno.edu.api.domain.user.exceptions.InvalidUsernameOrPasswordException;
-import inno.edu.api.domain.user.models.ApplicationUser;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,9 +28,9 @@ public class LoginCommandTest {
         when(userRepository.findOneByUsernameAndPassword(fei().getUsername(), fei().getPassword()))
                 .thenReturn(fei());
 
-        ApplicationUser applicationUser = loginCommand.run(feiCredentials());
+        LoginResponse loginResponse = loginCommand.run(feiCredentials());
 
-        assertThat(applicationUser, is(fei()));
+        assertThat(loginResponse.getUser(), is(fei()));
     }
 
     @Test(expected = InvalidUsernameOrPasswordException.class)

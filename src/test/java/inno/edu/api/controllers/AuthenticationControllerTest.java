@@ -15,6 +15,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static inno.edu.api.support.UserFactory.fei;
 import static inno.edu.api.support.UserFactory.feiCredentials;
+import static inno.edu.api.support.UserFactory.feiLoginResponse;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
@@ -38,7 +39,7 @@ public class AuthenticationControllerTest {
 
     @Test
     public void shouldSignInUser() {
-        when(loginCommand.run(feiCredentials())).thenReturn(fei());
+        when(loginCommand.run(feiCredentials())).thenReturn(feiLoginResponse());
 
         ResponseEntity<UserResource> responseEntity = authenticationController.login(feiCredentials());
 

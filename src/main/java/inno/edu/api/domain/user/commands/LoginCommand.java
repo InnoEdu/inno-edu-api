@@ -1,6 +1,7 @@
 package inno.edu.api.domain.user.commands;
 
 import inno.edu.api.domain.user.commands.dtos.LoginRequest;
+import inno.edu.api.domain.user.commands.dtos.LoginResponse;
 import inno.edu.api.domain.user.exceptions.InvalidUsernameOrPasswordException;
 import inno.edu.api.domain.user.models.ApplicationUser;
 import inno.edu.api.domain.user.repositories.UserRepository;
@@ -16,8 +17,12 @@ public class LoginCommand {
         this.userRepository = userRepository;
     }
 
-    public ApplicationUser run(LoginRequest credentials) {
-        ApplicationUser applicationUser = userRepository.findOneByUsernameAndPassword(credentials.getUsername(), credentials.getPassword());
-        return ofNullable(applicationUser).orElseThrow(InvalidUsernameOrPasswordException::new);
+    public LoginResponse run(LoginRequest credentials) {
+        ApplicationUser applicationUser = ofNullable(userRepository.findOneByUsernameAndPassword(credentials.getUsername(), credentials.getPassword()))
+                .orElseThrow(InvalidUsernameOrPasswordException::new);
+
+        return LoginResponse.builder()
+                .user(applicationUser)
+                .build();
     }
 }

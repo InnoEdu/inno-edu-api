@@ -3,7 +3,7 @@ package inno.edu.api.controllers;
 import inno.edu.api.controllers.resources.UserResource;
 import inno.edu.api.domain.user.commands.LoginCommand;
 import inno.edu.api.domain.user.commands.dtos.LoginRequest;
-import inno.edu.api.domain.user.models.ApplicationUser;
+import inno.edu.api.domain.user.commands.dtos.LoginResponse;
 import inno.edu.api.infrastructure.security.jwt.SecurityConstants;
 import inno.edu.api.infrastructure.security.service.TokenGeneratorService;
 import org.springframework.http.ResponseEntity;
@@ -27,11 +27,11 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<UserResource> login(@RequestBody LoginRequest request) {
-        ApplicationUser user = loginCommand.run(request);
+        LoginResponse loginResponse = loginCommand.run(request);
 
-        String token = tokenGeneratorService.generate(user.getUsername());
+        String token = tokenGeneratorService.generate(loginResponse.getUser().getUsername());
         return ok()
                 .header(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token)
-                .body(new UserResource(user));
+                .body(new UserResource(loginResponse.getUser()));
     }
 }

@@ -2,6 +2,7 @@ package inno.edu.api.support;
 
 import inno.edu.api.domain.user.commands.dtos.CreateUserRequest;
 import inno.edu.api.domain.user.commands.dtos.LoginRequest;
+import inno.edu.api.domain.user.commands.dtos.LoginResponse;
 import inno.edu.api.domain.user.commands.dtos.UpdateUserRequest;
 import inno.edu.api.domain.user.models.ApplicationUser;
 
@@ -73,6 +74,12 @@ public class UserFactory {
         return LoginRequest.builder()
                 .username(fei().getUsername())
                 .password(fei().getPassword())
+                .build();
+    }
+
+    public static LoginResponse feiLoginResponse() {
+        return LoginResponse.builder()
+                .user(fei())
                 .build();
     }
 
