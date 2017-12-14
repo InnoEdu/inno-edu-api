@@ -8,7 +8,6 @@ import inno.edu.api.domain.profile.queries.GetMenteeProfileByUserIdQuery;
 import inno.edu.api.domain.profile.queries.GetMentorProfileByUserIdQuery;
 import inno.edu.api.domain.user.commands.CreateUserCommand;
 import inno.edu.api.domain.user.commands.DeleteUserCommand;
-import inno.edu.api.domain.user.commands.LoginCommand;
 import inno.edu.api.domain.user.commands.UpdateUserCommand;
 import inno.edu.api.domain.user.models.ApplicationUser;
 import inno.edu.api.domain.user.queries.GetUserByIdQuery;
@@ -28,7 +27,6 @@ import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.createFeiRequest;
 import static inno.edu.api.support.UserFactory.fei;
-import static inno.edu.api.support.UserFactory.feiCredentials;
 import static inno.edu.api.support.UserFactory.updateFeiRequest;
 import static inno.edu.api.support.UserFactory.updatedFei;
 import static inno.edu.api.support.UserFactory.users;
@@ -56,9 +54,6 @@ public class UserControllerTest {
 
     @Mock
     private GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery;
-
-    @Mock
-    private LoginCommand loginCommand;
 
     @Mock
     private CreateUserCommand createUserCommand;
@@ -116,15 +111,6 @@ public class UserControllerTest {
         userController.all();
 
         verify(resourceBuilder).wrappedFrom(eq(users()), any(), eq(UserResource.class));
-    }
-
-    @Test
-    public void shouldSignInUser() {
-        when(loginCommand.run(feiCredentials())).thenReturn(fei());
-
-        UserResource userResource = userController.login(feiCredentials());
-
-        assertThat(userResource.getUser(), is(fei()));
     }
 
     @Test

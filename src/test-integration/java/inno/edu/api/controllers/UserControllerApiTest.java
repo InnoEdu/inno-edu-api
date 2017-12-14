@@ -75,16 +75,6 @@ public class UserControllerApiTest extends ApiTest {
     }
 
     @Test
-    public void shouldLoginUser() throws Exception {
-        this.mockMvc.perform(
-                post("/api/users/login")
-                        .content(loginUserPayload(feiCredentials()))
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isOk());
-    }
-
-    @Test
     public void shouldCreateNewUser() throws Exception {
         this.mockMvc.perform(
                 post("/api/users")

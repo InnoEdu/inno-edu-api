@@ -14,7 +14,7 @@ public class AuthenticationControllerApiTest extends ApiTest {
     @Test
     public void shouldLoginUser() throws Exception {
         this.mockMvc.perform(
-                post("/login")
+                post("/api/auth/login")
                         .content(loginUserPayload(feiCredentials()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())

@@ -10,7 +10,6 @@ import inno.edu.api.domain.profile.queries.GetMenteeProfileByUserIdQuery;
 import inno.edu.api.domain.profile.queries.GetMentorProfileByUserIdQuery;
 import inno.edu.api.domain.user.commands.CreateUserCommand;
 import inno.edu.api.domain.user.commands.DeleteUserCommand;
-import inno.edu.api.domain.user.commands.LoginCommand;
 import inno.edu.api.domain.user.commands.UpdateUserCommand;
 import inno.edu.api.domain.user.commands.dtos.CreateUserRequest;
 import inno.edu.api.domain.user.commands.dtos.UpdateUserRequest;
@@ -45,7 +44,6 @@ public class UserController {
     private final GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery;
     private final GetUserByIdQuery getUserByIdQuery;
 
-    private final LoginCommand loginCommand;
     private final CreateUserCommand createUserCommand;
     private final UpdateUserCommand updateUserCommand;
     private final DeleteUserCommand deleteUserCommand;
@@ -54,12 +52,11 @@ public class UserController {
     private final UpdateMentorProfileStatusByUserCommand updateMentorProfileStatusByUserCommand;
 
     @Autowired
-    public UserController(UserRepository userRepository, GetMentorProfileByUserIdQuery getMentorProfileByUserIdQuery, GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery, GetUserByIdQuery getUserByIdQuery, LoginCommand loginCommand, CreateUserCommand createUserCommand, UpdateUserCommand updateUserCommand, DeleteUserCommand deleteUserCommand, ResourceBuilder resourceBuilder, UpdateMentorProfileStatusByUserCommand updateMentorProfileStatusByUserCommand) {
+    public UserController(UserRepository userRepository, GetMentorProfileByUserIdQuery getMentorProfileByUserIdQuery, GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery, GetUserByIdQuery getUserByIdQuery, CreateUserCommand createUserCommand, UpdateUserCommand updateUserCommand, DeleteUserCommand deleteUserCommand, ResourceBuilder resourceBuilder, UpdateMentorProfileStatusByUserCommand updateMentorProfileStatusByUserCommand) {
         this.userRepository = userRepository;
         this.getMentorProfileByUserIdQuery = getMentorProfileByUserIdQuery;
         this.getMenteeProfileByUserIdQuery = getMenteeProfileByUserIdQuery;
         this.getUserByIdQuery = getUserByIdQuery;
-        this.loginCommand = loginCommand;
         this.createUserCommand = createUserCommand;
         this.updateUserCommand = updateUserCommand;
         this.deleteUserCommand = deleteUserCommand;
