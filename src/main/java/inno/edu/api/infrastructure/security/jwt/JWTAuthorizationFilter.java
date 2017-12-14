@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static inno.edu.api.infrastructure.security.jwt.SecurityConstants.HEADER_STRING;
+import static inno.edu.api.infrastructure.security.jwt.SecurityConstants.SCOPE_ACCESS;
 import static inno.edu.api.infrastructure.security.jwt.SecurityConstants.SECRET;
 import static inno.edu.api.infrastructure.security.jwt.SecurityConstants.TOKEN_PREFIX;
 import static org.springframework.security.core.authority.AuthorityUtils.commaSeparatedStringToAuthorityList;
@@ -55,7 +56,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
             String username = jwtClaims.getSubject();
             if (username != null) {
-                String roles = (String) jwtClaims.getOrDefault("roles", "");
+                String roles = (String) jwtClaims.getOrDefault(SCOPE_ACCESS, "");
 
                 List<GrantedAuthority> authorityList = roles.equals("") ?
                         Collections.emptyList() :

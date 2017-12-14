@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import static inno.edu.api.infrastructure.security.jwt.SecurityConstants.EXPIRATION_TIME;
+import static inno.edu.api.infrastructure.security.jwt.SecurityConstants.SCOPE_ACCESS;
 import static inno.edu.api.infrastructure.security.jwt.SecurityConstants.SECRET;
 import static io.jsonwebtoken.SignatureAlgorithm.HS256;
 import static java.lang.String.join;
@@ -15,7 +16,7 @@ import static java.lang.String.join;
 public class TokenGeneratorService {
     public String generate(String username, List<String> roles) {
         return Jwts.builder()
-                .claim("roles", join(",", roles))
+                .claim(SCOPE_ACCESS, join(",", roles))
                 .setSubject(username)
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(HS256, SECRET.getBytes())
