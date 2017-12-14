@@ -73,17 +73,12 @@ public class UserController {
     }
 
     @GetMapping
-    @ApiOperation(value = "Find all users", notes = "Return all users.", response = ApplicationUser.class, responseContainer = "List")
     public Resources<Object> all() {
         Iterable<ApplicationUser> users = userRepository.findAll();
         return resourceBuilder.wrappedFrom(users, UserResource::new, UserResource.class);
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "Get an user", notes = "Get an user by ID.", response = ApplicationUser.class)
-    @ApiResponses({
-            @ApiResponse(code = 404, message = "ApplicationUser not found."),
-    })
     public UserResource get(@PathVariable UUID id) {
         return new UserResource(getUserByIdQuery.run(id));
     }

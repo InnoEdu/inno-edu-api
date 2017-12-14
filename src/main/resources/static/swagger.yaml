@@ -45,10 +45,22 @@ paths:
           description: User not found
           schema:
             $ref: '#/definitions/VndErrors'
+  /users:
+    get:
+      tags:
+        - users
+      summary: Get all users
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EmbeddedUserResourceList'
     post:
       tags:
         - users
-      summary: Add a new user to the application
+      summary: Add a new user
       consumes:
         - application/json
       produces:
@@ -155,4 +167,17 @@ definitions:
           properties:
             _links:
               type: object
-
+  UserResourceList:
+    type: object
+    properties:
+      userResourceList:
+        type: array
+        items:
+          $ref: '#/definitions/UserResource'
+  EmbeddedUserResourceList:
+    type: object
+    properties:
+      _embedded:
+        $ref: '#/definitions/UserResourceList'
+      _links:
+        type: object
