@@ -26,9 +26,6 @@ public class AuthenticationControllerTest {
     @Mock
     private LoginCommand loginCommand;
 
-    @Mock
-    private TokenGeneratorService tokenGeneratorService;
-
     @InjectMocks
     private AuthenticationController authenticationController;
 

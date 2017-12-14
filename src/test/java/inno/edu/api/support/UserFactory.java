@@ -5,6 +5,7 @@ import inno.edu.api.domain.user.commands.dtos.LoginRequest;
 import inno.edu.api.domain.user.commands.dtos.LoginResponse;
 import inno.edu.api.domain.user.commands.dtos.UpdateUserRequest;
 import inno.edu.api.domain.user.models.ApplicationUser;
+import inno.edu.api.infrastructure.security.jwt.SecurityConstants;
 
 import java.util.List;
 
@@ -80,6 +81,8 @@ public class UserFactory {
     public static LoginResponse feiLoginResponse() {
         return LoginResponse.builder()
                 .user(fei())
+                .token("TOKEN")
+                .prefixedToken(SecurityConstants.TOKEN_PREFIX + "TOKEN")
                 .build();
     }
 

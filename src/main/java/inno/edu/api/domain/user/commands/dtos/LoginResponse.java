@@ -9,4 +9,5 @@ import lombok.Value;
 public class LoginResponse {
     private ApplicationUser user;
     private String token;
+    private String prefixedToken;
 }

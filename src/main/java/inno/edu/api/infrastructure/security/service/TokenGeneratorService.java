@@ -10,11 +10,10 @@ import java.util.Date;
 @Service
 public class TokenGeneratorService {
     public String generate(String username) {
-        String token = Jwts.builder()
+        return Jwts.builder()
                 .setSubject(username)
                 .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET.getBytes())
                 .compact();
-        return token;
     }
 }
