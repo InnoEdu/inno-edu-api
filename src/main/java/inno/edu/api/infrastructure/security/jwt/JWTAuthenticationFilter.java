@@ -19,12 +19,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static inno.edu.api.infrastructure.security.jwt.SecurityConstants.AUTH_URL;
+
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
-        this.setFilterProcessesUrl("/api/auth/login");
+        this.setFilterProcessesUrl(AUTH_URL);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package inno.edu.api.infrastructure.security.modules;
 
 import inno.edu.api.infrastructure.security.jwt.JWTAuthorizationFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
@@ -14,21 +15,20 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import static inno.edu.api.infrastructure.security.jwt.SecurityConstants.AUTH_URL;
+
 @EnableWebSecurity
 @Profile({"dev", "production"})
 public class SecureWebSecurityConfiguration extends WebSecurityConfigurerAdapter {
-    private final UserDetailsService userDetailsService;
-
-    public SecureWebSecurityConfiguration(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/api/users").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+                .antMatchers(HttpMethod.POST, AUTH_URL).permitAll()
                 .antMatchers(HttpMethod.GET, "/swagger.yaml").permitAll()
                 .anyRequest().authenticated()
                 .and()
