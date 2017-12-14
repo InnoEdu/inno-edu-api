@@ -25,6 +25,7 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<UserResource> login(@RequestBody LoginRequest request) {
         LoginResponse loginResponse = loginCommand.run(request);
+        
         return ok()
                 .header(HEADER_STRING, loginResponse.getPrefixedToken())
                 .body(new UserResource(loginResponse.getUser()));
