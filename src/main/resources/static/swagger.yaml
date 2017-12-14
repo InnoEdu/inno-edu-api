@@ -470,6 +470,114 @@ paths:
           description: Profile not found
           schema:
             $ref: '#/definitions/VndErrors'
+  /mentee-profiles:
+    get:
+      tags:
+        - mentee-profiles
+      summary: Get all mentee profiles
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EmbeddedMenteeProfileResourceList'
+    post:
+      tags:
+        - mentee-profiles
+      summary: Add a new mentee profile
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: body
+          name: request
+          description: Request object with the mentee profile information to be created
+          required: true
+          schema:
+            $ref: '#/definitions/CreateMenteeProfileRequest'
+      responses:
+        '201':
+          description: New mentee profile successfully created
+          schema:
+            $ref: '#/definitions/MenteeProfile'
+          headers:
+            Location:
+              type: string
+              description: Link to the new resource created
+        '400':
+          description: Bad request, additional info provided in the response body
+          schema:
+            $ref: '#/definitions/VndErrors'
+  /mentee-profiles/{id}:
+    get:
+      tags:
+        - mentee-profiles
+      summary: Get mentee profile by id
+      parameters:
+        - in: path
+          name: id
+          description: Mentee profile id
+          required: true
+          type: string
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/MenteeProfileResource'
+        '404':
+          description: Profile not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+    put:
+      tags:
+        - mentee-profiles
+      summary: Update mentee profile by id
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: id
+          description: Mentee profile id
+          required: true
+          type: string
+        - in: body
+          name: request
+          description: Request object with the mentee profile information to be updated
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateMenteeProfileRequest'
+      responses:
+        '201':
+          description: Mentee profile successfully updated
+          schema:
+            $ref: '#/definitions/MenteeProfile'
+        '404':
+          description: Profile not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+    delete:
+      tags:
+        - mentee-profiles
+      summary: Delete mentee profile by id
+      parameters:
+        - in: path
+          name: id
+          description: Mentee profile id
+          required: true
+          type: string
+      responses:
+        '204':
+          description: Mentee profile successfully removed
+        '404':
+          description: Mentee profile not found
+          schema:
+            $ref: '#/definitions/VndErrors'
 definitions:
   VndError:
     type: object
@@ -760,6 +868,54 @@ definitions:
         $ref: '#/definitions/MentorProfileResourceList'
       _links:
         type: object
-
-
-
+  CreateMenteeProfileRequest:
+    type: object
+    properties:
+      menteeId:
+        type: string
+      description:
+        type: string
+    required:
+      - menteeId
+      - description
+  UpdateMenteeProfileRequest:
+    type: object
+    properties:
+      description:
+        type: string
+    required:
+      - description
+  MenteeProfile:
+    type: object
+    properties:
+      id:
+        type: string
+      menteeId:
+        type: string
+      description:
+        type: string
+    required:
+      - id
+      - menteeId
+      - description
+  MenteeProfileResource:
+    allOf:
+        - $ref: '#/definitions/MenteeProfile'
+        - type: object
+          properties:
+            _links:
+              type: object
+  MenteeProfileResourceList:
+    type: object
+    properties:
+      menteeProfileResourceList:
+        type: array
+        items:
+          $ref: '#/definitions/MenteeProfileResource'
+  EmbeddedMenteeProfileResourceList:
+    type: object
+    properties:
+      _embedded:
+        $ref: '#/definitions/MenteeProfileResourceList'
+      _links:
+        type: object

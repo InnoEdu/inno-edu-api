@@ -10,10 +10,6 @@ import inno.edu.api.domain.profile.commands.dtos.UpdateMenteeProfileRequest;
 import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.profile.queries.GetMenteeProfileByIdQuery;
 import inno.edu.api.domain.profile.repositories.MenteeProfileRepository;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import io.swagger.annotations.ResponseHeader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
@@ -55,53 +51,31 @@ public class MenteeProfileController {
     }
 
     @GetMapping
-    @ApiOperation(value = "Find all profiles", notes = "Return all profiles.", response = MenteeProfile.class, responseContainer = "List")
     public Resources<Object> all() {
         Iterable<MenteeProfile> profiles = menteeProfileRepository.findAll();
         return resourceBuilder.wrappedFrom(profiles, MenteeProfileResource::new, MenteeProfileResource.class);
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "Get an profile", notes = "Get an profile by ID.", response = MenteeProfile.class)
-    @ApiResponses({
-            @ApiResponse(code = 404, message = "Profile not found."),
-    })
     public MenteeProfileResource get(@PathVariable UUID id) {
         return new MenteeProfileResource(getMenteeProfileByIdQuery.run(id));
     }
 
     @PostMapping
-    @ApiOperation(value = "Create a new profile", notes = "Creates a new profile.")
-    @ApiResponses({
-            @ApiResponse(code = 201, message = "New profile successfully created.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the new resource created.", response = String.class)),
-            @ApiResponse(code = 400, message = "Mentee already has a profile created."),
-            @ApiResponse(code = 404, message = "Invalid mentee user ID supplied."),
-    })
     public ResponseEntity<MenteeProfile> post(@Valid @RequestBody CreateMenteeProfileRequest request) {
         MenteeProfileResource profileResource = new MenteeProfileResource(createMenteeProfileCommand.run(request));
         return profileResource.toCreated();
     }
 
     @PutMapping("/{id}")
-    @ApiOperation(value = "Update an profile", notes = "Update an profile.", response = MenteeProfile.class)
-    @ApiResponses({
-            @ApiResponse(code = 201, message = "New profile successfully updated.", responseHeaders = @ResponseHeader(name = "Location", description = "Link to the updated resource.", response = String.class)),
-            @ApiResponse(code = 404, message = "Profile not found."),
-    })
     public ResponseEntity<MenteeProfile> put(@PathVariable UUID id, @Valid @RequestBody UpdateMenteeProfileRequest request) {
         MenteeProfileResource profileResource = new MenteeProfileResource(updateMenteeProfileCommand.run(id, request));
         return profileResource.toUpdated();
     }
 
     @DeleteMapping("/{id}")
-    @ApiOperation(value = "Delete an profile", notes = "Delete an profile, this operation cannot be undone.")
-    @ApiResponses({
-            @ApiResponse(code = 204, message = "Profile successfully deleted."),
-            @ApiResponse(code = 404, message = "Profile not found.")
-    })
     public ResponseEntity<?> delete(@PathVariable UUID id) {
         deleteMenteeProfileCommand.run(id);
-
         return noContent().build();
     }
 }
