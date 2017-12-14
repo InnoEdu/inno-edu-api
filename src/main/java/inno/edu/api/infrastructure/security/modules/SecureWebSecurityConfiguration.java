@@ -1,6 +1,5 @@
 package inno.edu.api.infrastructure.security.modules;
 
-import inno.edu.api.infrastructure.security.jwt.JWTAuthenticationFilter;
 import inno.edu.api.infrastructure.security.jwt.JWTAuthorizationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
@@ -33,7 +32,6 @@ public class SecureWebSecurityConfiguration extends WebSecurityConfigurerAdapter
                 .antMatchers(HttpMethod.GET, "/swagger.yaml").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }

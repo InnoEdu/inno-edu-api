@@ -22,6 +22,22 @@ tags:
     description: Mentor avaialbility management
   - name: appointments
     description: Appointments management
+responses:
+  400:
+    description: Bad Request
+    schema:
+      $ref: '#/definitions/VndErrors'
+  401:
+    description: Unauthorized
+  403:
+    description: Forbidden
+  500:
+    description: Internal Server Error
+securityDefinitions:
+  forwarded:
+    name: authorization
+    type: apiKey
+    in: header
 schemes:
   - https
   - http
@@ -43,18 +59,16 @@ paths:
           schema:
             $ref: '#/definitions/LoginRequest'
       responses:
-        '201':
-          description: New user successfully created
+        '200':
+          description: User authenticated
           schema:
             $ref: '#/definitions/UserResource'
           headers:
             Authorization:
               type: string
               description: Authorization token
-        '401':
-          description: Authentication failed
-          schema:
-            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
   /users:
     get:
       tags:
@@ -67,6 +81,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/EmbeddedUserResourceList'
+        '401':
+          $ref: '#/responses/401'
     post:
       tags:
         - users

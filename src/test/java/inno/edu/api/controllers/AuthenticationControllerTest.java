@@ -2,12 +2,14 @@ package inno.edu.api.controllers;
 
 import inno.edu.api.controllers.resources.UserResource;
 import inno.edu.api.domain.user.commands.LoginCommand;
+import inno.edu.api.infrastructure.security.service.TokenGeneratorService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -23,6 +25,9 @@ public class AuthenticationControllerTest {
     @Mock
     private LoginCommand loginCommand;
 
+    @Mock
+    private TokenGeneratorService tokenGeneratorService;
+
     @InjectMocks
     private AuthenticationController authenticationController;
 
@@ -35,8 +40,8 @@ public class AuthenticationControllerTest {
     public void shouldSignInUser() {
         when(loginCommand.run(feiCredentials())).thenReturn(fei());
 
-        UserResource userResource = authenticationController.login(feiCredentials());
+        ResponseEntity<UserResource> responseEntity = authenticationController.login(feiCredentials());
 
-        assertThat(userResource.getUser(), is(fei()));
+        assertThat(responseEntity.getBody().getUser(), is(fei()));
     }
 }

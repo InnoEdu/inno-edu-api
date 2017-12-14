@@ -3,23 +3,35 @@ package inno.edu.api.controllers;
 import inno.edu.api.controllers.resources.UserResource;
 import inno.edu.api.domain.user.commands.LoginCommand;
 import inno.edu.api.domain.user.commands.dtos.LoginRequest;
+import inno.edu.api.domain.user.models.ApplicationUser;
+import inno.edu.api.infrastructure.security.jwt.SecurityConstants;
+import inno.edu.api.infrastructure.security.service.TokenGeneratorService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static org.springframework.http.ResponseEntity.ok;
+
 @RestController
 @RequestMapping(value = "/api/auth", produces = "application/hal+json")
 public class AuthenticationController {
     private final LoginCommand loginCommand;
+    private final TokenGeneratorService tokenGeneratorService;
 
-    public AuthenticationController(LoginCommand loginCommand) {
+    public AuthenticationController(LoginCommand loginCommand, TokenGeneratorService tokenGeneratorService) {
         this.loginCommand = loginCommand;
+        this.tokenGeneratorService = tokenGeneratorService;
     }
 
     @PostMapping("/login")
-    public UserResource login(@RequestBody LoginRequest request) {
-        return new UserResource(loginCommand.run(request));
-    }
+    public ResponseEntity<UserResource> login(@RequestBody LoginRequest request) {
+        ApplicationUser user = loginCommand.run(request);
 
+        String token = tokenGeneratorService.generate(user.getUsername());
+        return ok()
+                .header(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token)
+                .body(new UserResource(user));
+    }
 }
