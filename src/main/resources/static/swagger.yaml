@@ -8,6 +8,8 @@ info:
 host: inno-edu-api.herokuapp.com
 basePath: /api
 tags:
+  - name: auth
+    description: Login management
   - name: users
     description: User management
   - name: schools
@@ -24,6 +26,35 @@ schemes:
   - https
   - http
 paths:
+  /auth/login:
+    post:
+      tags:
+        - auth
+      summary: Sign in using the user crendentials
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: body
+          name: request
+          description: Request object with the credentials
+          required: true
+          schema:
+            $ref: '#/definitions/LoginRequest'
+      responses:
+        '201':
+          description: New user successfully created
+          schema:
+            $ref: '#/definitions/UserResource'
+          headers:
+            Authorization:
+              type: string
+              description: Authorization token
+        '401':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/VndErrors'
   /users:
     get:
       tags:
@@ -989,6 +1020,18 @@ definitions:
     type: array
     items:
       $ref: '#/definitions/VndError'
+  LoginRequest:
+    type: object
+    properties:
+      username:
+        type: string
+        maxLength: 30
+      password:
+        type: string
+        maxLength: 30
+    required:
+      - username
+      - password
   CreateUserRequest:
     type: object
     properties:

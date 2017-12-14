@@ -13,7 +13,6 @@ import inno.edu.api.domain.user.commands.DeleteUserCommand;
 import inno.edu.api.domain.user.commands.LoginCommand;
 import inno.edu.api.domain.user.commands.UpdateUserCommand;
 import inno.edu.api.domain.user.commands.dtos.CreateUserRequest;
-import inno.edu.api.domain.user.commands.dtos.LoginRequest;
 import inno.edu.api.domain.user.commands.dtos.UpdateUserRequest;
 import inno.edu.api.domain.user.models.ApplicationUser;
 import inno.edu.api.domain.user.queries.GetUserByIdQuery;
@@ -85,11 +84,6 @@ public class UserController {
             return new MentorProfileResource(getMentorProfileByUserIdQuery.run(id));
         }
         return new MenteeProfileResource(getMenteeProfileByUserIdQuery.run(id));
-    }
-
-    @PostMapping("/login")
-    public UserResource login(@RequestBody LoginRequest request) {
-        return new UserResource(loginCommand.run(request));
     }
 
     @PostMapping
