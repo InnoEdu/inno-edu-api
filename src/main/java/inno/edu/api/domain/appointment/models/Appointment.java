@@ -28,7 +28,7 @@ public class Appointment {
     private LocalDateTime toDateTime;
 
     private String description;
-    private BigDecimal cost;
+    private BigDecimal fee;
 
     @Enumerated
     private AppointmentStatus status;

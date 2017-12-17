@@ -38,10 +38,10 @@ public class CreateAppointmentCommand {
         appointment.setId(randomUUID());
         appointment.setStatus(PROPOSED);
 
-        if (appointment.getCost() == null) {
-            appointment.setCost(BigDecimal.ONE);
+        if (appointment.getFee() == null) {
+            appointment.setFee(BigDecimal.ONE);
         }
-        
+
         return appointmentRepository.save(appointment);
     }
 }
