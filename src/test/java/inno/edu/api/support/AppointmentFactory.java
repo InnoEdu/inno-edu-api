@@ -48,7 +48,7 @@ public class AppointmentFactory {
                 .fromDateTime(LocalDateTime.of(2017, 11, 10, 10, 0, 1))
                 .toDateTime(LocalDateTime.of(2017, 11, 10, 11, 0, 1))
                 .description("My great second appointment.")
-                .fee(new BigDecimal(10.5))
+                .fee(new BigDecimal(20.5))
                 .status(ACCEPTED)
                 .build();
     }
