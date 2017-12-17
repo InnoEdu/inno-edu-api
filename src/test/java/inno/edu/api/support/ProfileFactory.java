@@ -98,7 +98,7 @@ public class ProfileFactory {
     }
     public static UpdateMenteeProfileRequest updateAlanProfileRequest() {
         return UpdateMenteeProfileRequest.builder()
-                .description("Updated description")
+                .description(updatedAlanProfile().getDescription())
                 .build();
     }
 

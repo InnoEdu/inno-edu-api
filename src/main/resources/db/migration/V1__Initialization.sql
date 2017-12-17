@@ -33,7 +33,7 @@ CREATE TABLE Mentor_Profile (
   email       VARCHAR(255)   NOT NULL,
   description TEXT           NOT NULL,
   status      SMALLINT       NOT NULL,
-  rate        DECIMAL(15, 2) NOT NULL DEFAULT 10,
+  rate        DECIMAL(15, 2) NOT NULL,
 
   FOREIGN KEY (mentor_id)
   REFERENCES User (id)
