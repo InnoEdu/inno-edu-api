@@ -1,0 +1,5 @@
+<root>
+  <item name='java.math.BigDecimal'>
+    <annotation name='java.lang.annotation.Deprecated'/>
+  </item>
+</root>

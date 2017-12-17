@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 
 import static inno.edu.api.domain.profile.models.ProfileStatus.CREATED;
+import static inno.edu.api.support.Matchers.closeTo;
 import static inno.edu.api.support.Payloads.postMentorProfilePayload;
 import static inno.edu.api.support.Payloads.putMentorProfilePayload;
 import static inno.edu.api.support.ProfileFactory.createFeiProfileRequest;
@@ -15,6 +16,7 @@ import static inno.edu.api.support.ProfileFactory.updatedFeiProfile;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -33,6 +35,7 @@ public class MentorProfileControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].schoolId", hasItems(feiProfile().getSchoolId().toString())))
                 .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].email", hasItems(feiProfile().getEmail())))
                 .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].description", hasItems(feiProfile().getDescription())))
+                .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].rate", hasItem(closeTo(feiProfile().getRate()))))
                 .andExpect(jsonPath("$._embedded.mentorProfileResourceList[*].status", hasItems(feiProfile().getStatus().toString())));
     }
 
@@ -45,6 +48,7 @@ public class MentorProfileControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.schoolId", is(feiProfile().getSchoolId().toString())))
                 .andExpect(jsonPath("$.email", is(feiProfile().getEmail())))
                 .andExpect(jsonPath("$.description", is(feiProfile().getDescription())))
+                .andExpect(jsonPath("$.rate", closeTo(feiProfile().getRate())))
                 .andExpect(jsonPath("$.status", is(feiProfile().getStatus().toString())));
     }
 

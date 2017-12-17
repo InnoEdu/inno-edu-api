@@ -12,6 +12,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 import static javax.persistence.FetchType.LAZY;
@@ -29,6 +30,7 @@ public class MentorProfile {
     private UUID schoolId;
     private String email;
     private String description;
+    private BigDecimal rate;
 
     @Enumerated
     private ProfileStatus status;

@@ -8,6 +8,7 @@ import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.profile.queries.dtos.MentorProfileUser;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static inno.edu.api.domain.profile.models.ProfileStatus.ACTIVE;
@@ -44,6 +45,7 @@ public class ProfileFactory {
                 .email("feixiu@inno.edu")
                 .description("Fei is a great mentor.")
                 .status(ACTIVE)
+                .rate(new BigDecimal(5.5))
                 .build();
     }
 
