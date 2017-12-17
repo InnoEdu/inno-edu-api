@@ -8,6 +8,8 @@ import inno.edu.api.domain.school.assertions.SchoolExistsAssertion;
 import inno.edu.api.domain.user.assertions.UserIsMentorAssertion;
 import inno.edu.api.infrastructure.annotations.Command;
 
+import java.math.BigDecimal;
+
 import static inno.edu.api.domain.profile.models.ProfileStatus.CREATED;
 import static java.util.UUID.randomUUID;
 
@@ -37,6 +39,10 @@ public class CreateMentorProfileCommand {
 
         profile.setId(randomUUID());
         profile.setStatus(CREATED);
+
+        if (profile.getRate() == null) {
+            profile.setRate(new BigDecimal(5));
+        }
 
         return profileRepository.save(profile);
     }
