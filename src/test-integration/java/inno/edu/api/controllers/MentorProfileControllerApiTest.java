@@ -65,6 +65,7 @@ public class MentorProfileControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.schoolId", is(feiProfile().getSchoolId().toString())))
                 .andExpect(jsonPath("$.email", is(feiProfile().getEmail())))
                 .andExpect(jsonPath("$.description", is(feiProfile().getDescription())))
+                .andExpect(jsonPath("$.rate", closeTo(feiProfile().getRate())))
                 .andExpect(jsonPath("$.status", is(CREATED.toString())));
     }
 
@@ -81,6 +82,7 @@ public class MentorProfileControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.schoolId", is(feiProfile().getSchoolId().toString())))
                 .andExpect(jsonPath("$.email", is(feiProfile().getEmail())))
                 .andExpect(jsonPath("$.description", is(updatedFeiProfile().getDescription())))
+                .andExpect(jsonPath("$.rate", closeTo(updatedFeiProfile().getRate())))
                 .andExpect(jsonPath("$.status", is(feiProfile().getStatus().toString())));
     }
 

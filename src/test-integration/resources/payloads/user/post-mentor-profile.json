@@ -2,5 +2,6 @@
   "mentorId": "%s",
   "schoolId": "%s",
   "email": "%s",
-  "description": "%s"
+  "description": "%s",
+  "rate": %s
 }

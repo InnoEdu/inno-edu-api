@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
@@ -25,6 +26,9 @@ public class CreateMentorProfileRequest {
     @Email
     @Size(max = 255)
     private String email;
+
+    @NotNull
+    private BigDecimal rate;
 
     @NotNull
     private String description;

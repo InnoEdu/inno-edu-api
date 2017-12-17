@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Data
 @Builder(toBuilder = true)
@@ -14,4 +15,7 @@ import javax.validation.constraints.NotNull;
 public class UpdateMentorProfileRequest {
     @NotNull
     private String description;
+
+    @NotNull
+    private BigDecimal rate;
 }

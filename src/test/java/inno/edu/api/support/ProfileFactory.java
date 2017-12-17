@@ -72,6 +72,7 @@ public class ProfileFactory {
                 .mentorId(fei().getId())
                 .schoolId(stanford().getId())
                 .email("feixiu@inno.edu")
+                .rate(new BigDecimal(5.5))
                 .description("Fei is a great mentor.")
                 .build();
     }
@@ -104,12 +105,14 @@ public class ProfileFactory {
     public static MentorProfile updatedFeiProfile() {
         return feiProfile().toBuilder()
                 .description("Updated description")
+                .rate(new BigDecimal(10.5))
                 .build();
     }
 
     public static UpdateMentorProfileRequest updateFeiProfileRequest() {
         return UpdateMentorProfileRequest.builder()
-                .description("Updated description")
+                .description(updatedFeiProfile().getDescription())
+                .rate(updatedFeiProfile().getRate())
                 .build();
     }
 

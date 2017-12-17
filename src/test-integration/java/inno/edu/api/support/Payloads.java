@@ -47,11 +47,11 @@ public class Payloads {
     }
 
     public static String postMentorProfilePayload(CreateMentorProfileRequest createMentorProfileRequest) {
-        return format(loadPayload("payloads/user/post-mentor-profile.json"), createMentorProfileRequest.getMentorId(), createMentorProfileRequest.getSchoolId(), createMentorProfileRequest.getEmail(), createMentorProfileRequest.getDescription());
+        return format(loadPayload("payloads/user/post-mentor-profile.json"), createMentorProfileRequest.getMentorId(), createMentorProfileRequest.getSchoolId(), createMentorProfileRequest.getEmail(), createMentorProfileRequest.getDescription(), createMentorProfileRequest.getRate());
     }
 
     public static String putMentorProfilePayload(UpdateMentorProfileRequest updateMentorProfileRequest) {
-        return format(loadPayload("payloads/user/put-mentor-profile.json"), updateMentorProfileRequest.getDescription());
+        return format(loadPayload("payloads/user/put-mentor-profile.json"), updateMentorProfileRequest.getDescription(), updateMentorProfileRequest.getRate());
     }
 
     public static String postMenteeProfilePayload(CreateMenteeProfileRequest createMenteeProfileRequest) {
