@@ -4,16 +4,14 @@ import inno.edu.api.ApiTest;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
-import static inno.edu.api.support.Payloads.loginUserPayload;
 import static inno.edu.api.support.Payloads.postUserPayload;
 import static inno.edu.api.support.Payloads.putUserPayload;
-import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.ProfileFactory.alanProfile;
+import static inno.edu.api.support.ProfileFactory.feiProfile;
+import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.createFeiRequest;
 import static inno.edu.api.support.UserFactory.createGustavoRequest;
 import static inno.edu.api.support.UserFactory.fei;
-import static inno.edu.api.support.UserFactory.feiCredentials;
-import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static inno.edu.api.support.UserFactory.gustavo;
 import static inno.edu.api.support.UserFactory.updateFeiRequest;
 import static inno.edu.api.support.UserFactory.updatedFei;
