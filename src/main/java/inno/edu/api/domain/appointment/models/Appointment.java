@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -27,6 +28,7 @@ public class Appointment {
     private LocalDateTime toDateTime;
 
     private String description;
+    private BigDecimal cost;
 
     @Enumerated
     private AppointmentStatus status;

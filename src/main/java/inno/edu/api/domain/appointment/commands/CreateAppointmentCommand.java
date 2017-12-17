@@ -8,6 +8,8 @@ import inno.edu.api.domain.profile.assertions.MenteeProfileExistsAssertion;
 import inno.edu.api.domain.profile.assertions.MentorProfileExistsAssertion;
 import inno.edu.api.infrastructure.annotations.Command;
 
+import java.math.BigDecimal;
+
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
 import static java.util.UUID.randomUUID;
 
@@ -36,6 +38,10 @@ public class CreateAppointmentCommand {
         appointment.setId(randomUUID());
         appointment.setStatus(PROPOSED);
 
+        if (appointment.getCost() == null) {
+            appointment.setCost(BigDecimal.ONE);
+        }
+        
         return appointmentRepository.save(appointment);
     }
 }
