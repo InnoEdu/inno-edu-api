@@ -1276,18 +1276,24 @@ definitions:
         maxLength: 255
       description:
         type: string
+      rate:
+        type: number
     required:
       - mentorId
       - schoolId
       - email
       - description
+      - rate
   UpdateMentorProfileRequest:
     type: object
     properties:
       description:
         type: string
+      rate:
+        type: number
     required:
       - description
+      - rate
   MentorProfile:
     type: object
     properties:
@@ -1302,6 +1308,8 @@ definitions:
         maxLength: 255
       description:
         type: string
+      rate:
+        type: number
       status:
         type: string
         enum: [CREATED, ACTIVE, INACTIVE, REJECTED]
@@ -1499,6 +1507,8 @@ definitions:
         format: date-time
       description:
         type: string
+      fee:
+        type: number
       status:
         type: string
         enum: [PROPOSED, ACCEPTED, DECLINED, CANCELED]
