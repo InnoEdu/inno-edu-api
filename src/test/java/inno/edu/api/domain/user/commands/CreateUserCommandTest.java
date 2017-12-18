@@ -6,24 +6,26 @@ import inno.edu.api.domain.user.exceptions.PasswordMismatchException;
 import inno.edu.api.domain.user.exceptions.UsernameAlreadyExistsException;
 import inno.edu.api.domain.user.models.ApplicationUser;
 import inno.edu.api.domain.user.repositories.UserRepository;
+import inno.edu.api.infrastructure.services.UUIDGeneratorService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static inno.edu.api.support.UserFactory.createFeiRequest;
-import static inno.edu.api.support.UserFactory.fei;
+import static inno.edu.api.support.UserFactory.newFei;
+import static java.util.UUID.randomUUID;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
-import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CreateUserCommandTest {
+    @Mock
+    private UUIDGeneratorService uuidGeneratorService;
+
     @Mock
     private CreateUserRequestMapper createUserRequestMapper;
 
@@ -35,30 +37,17 @@ public class CreateUserCommandTest {
 
     @Before
     public void setUp() {
-        when(createUserRequestMapper.toUser(createFeiRequest())).thenReturn(fei());
+        when(uuidGeneratorService.generate()).thenReturn(randomUUID());
+        when(createUserRequestMapper.toUser(createFeiRequest())).thenReturn(newFei(null));
     }
 
     @Test
     public void shouldCallRepositoryToSaveUser() {
-        ArgumentCaptor<ApplicationUser> argumentCaptor = forClass(ApplicationUser.class);
+        ApplicationUser newUser = newFei(uuidGeneratorService.generate());
+        when(userRepository.save(newUser)).thenReturn(newUser);
 
-        when(userRepository.save(argumentCaptor.capture()))
-                .thenAnswer((invocation -> invocation.getArguments()[0]));
-
-        ApplicationUser applicationUser = createUserCommand.run(createFeiRequest());
-
-        assertThat(applicationUser, is(argumentCaptor.getValue()));
-    }
-
-    @Test
-    public void shouldGenerateNewIdForUser() {
-        ArgumentCaptor<ApplicationUser> argumentCaptor = forClass(ApplicationUser.class);
-
-        when(userRepository.save(argumentCaptor.capture())).thenReturn(fei());
-
-        createUserCommand.run(createFeiRequest());
-
-        assertThat(argumentCaptor.getValue().getId(), not(fei().getId()));
+        ApplicationUser savedUser = createUserCommand.run(createFeiRequest());
+        assertThat(savedUser, is(newUser));
     }
 
     @Test(expected = UsernameAlreadyExistsException.class)

@@ -3,24 +3,26 @@ package inno.edu.api.domain.school.commands;
 import inno.edu.api.domain.school.commands.mappers.CreateSchoolRequestMapper;
 import inno.edu.api.domain.school.models.School;
 import inno.edu.api.domain.school.repositories.SchoolRepository;
+import inno.edu.api.infrastructure.services.UUIDGeneratorService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static inno.edu.api.support.SchoolFactory.createStanfordRequest;
-import static inno.edu.api.support.SchoolFactory.stanford;
+import static inno.edu.api.support.SchoolFactory.newStanford;
+import static java.util.UUID.randomUUID;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
-import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CreateSchoolCommandTest {
+    @Mock
+    private UUIDGeneratorService uuidGeneratorService;
+
     @Mock
     private CreateSchoolRequestMapper createSchoolRequestMapper;
 
@@ -32,30 +34,17 @@ public class CreateSchoolCommandTest {
 
     @Before
     public void setUp() {
-        when(createSchoolRequestMapper.toSchool(createStanfordRequest()))
-                .thenReturn(stanford());
+        when(uuidGeneratorService.generate()).thenReturn(randomUUID());
+        when(createSchoolRequestMapper.toSchool(createStanfordRequest())).thenReturn(newStanford(null));
     }
 
     @Test
     public void shouldCallRepositoryToSaveSchool() {
-        ArgumentCaptor<School> argumentCaptor = forClass(School.class);
+        School newSchool = newStanford(uuidGeneratorService.generate());
 
-        when(schoolRepository.save(argumentCaptor.capture()))
-                .thenAnswer((invocation -> invocation.getArguments()[0]));
+        when(schoolRepository.save(newSchool)).thenReturn(newSchool);
 
-        School school = createSchoolCommand.run(createStanfordRequest());
-
-        assertThat(school, is(argumentCaptor.getValue()));
-    }
-
-    @Test
-    public void shouldGenerateNewIdForSchool() {
-        ArgumentCaptor<School> argumentCaptor = forClass(School.class);
-
-        when(schoolRepository.save(argumentCaptor.capture())).thenReturn(stanford());
-
-        createSchoolCommand.run(createStanfordRequest());
-
-        assertThat(argumentCaptor.getValue().getId(), not(stanford().getId()));
+        School savedSchool = createSchoolCommand.run(createStanfordRequest());
+        assertThat(savedSchool, is(newSchool));
     }
 }

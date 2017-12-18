@@ -7,12 +7,14 @@ import inno.edu.api.domain.profile.repositories.MentorProfileRepository;
 import inno.edu.api.domain.school.assertions.SchoolExistsAssertion;
 import inno.edu.api.domain.user.assertions.UserIsMentorAssertion;
 import inno.edu.api.infrastructure.annotations.Command;
+import inno.edu.api.infrastructure.services.UUIDGeneratorService;
 
 import static inno.edu.api.domain.profile.models.ProfileStatus.CREATED;
-import static java.util.UUID.randomUUID;
 
 @Command
 public class CreateMentorProfileCommand {
+    private final UUIDGeneratorService uuidGeneratorService;
+
     private final CreateMentorProfileRequestMapper createMentorProfileRequestMapper;
     private final UserIsMentorAssertion userIsMentorAssertion;
     private final SchoolExistsAssertion schoolExistsAssertion;
@@ -20,7 +22,8 @@ public class CreateMentorProfileCommand {
     private final MentorProfileRepository profileRepository;
     private final DeactivateMentorProfilesCommand deactivateMentorProfilesCommand;
 
-    public CreateMentorProfileCommand(CreateMentorProfileRequestMapper createMentorProfileRequestMapper, UserIsMentorAssertion userIsMentorAssertion, SchoolExistsAssertion schoolExistsAssertion, MentorProfileRepository profileRepository, DeactivateMentorProfilesCommand deactivateMentorProfilesCommand) {
+    public CreateMentorProfileCommand(UUIDGeneratorService uuidGeneratorService, CreateMentorProfileRequestMapper createMentorProfileRequestMapper, UserIsMentorAssertion userIsMentorAssertion, SchoolExistsAssertion schoolExistsAssertion, MentorProfileRepository profileRepository, DeactivateMentorProfilesCommand deactivateMentorProfilesCommand) {
+        this.uuidGeneratorService = uuidGeneratorService;
         this.createMentorProfileRequestMapper = createMentorProfileRequestMapper;
         this.userIsMentorAssertion = userIsMentorAssertion;
         this.schoolExistsAssertion = schoolExistsAssertion;
@@ -35,7 +38,7 @@ public class CreateMentorProfileCommand {
 
         MentorProfile profile = createMentorProfileRequestMapper.toMentorProfile(createMentorProfileRequest);
 
-        profile.setId(randomUUID());
+        profile.setId(uuidGeneratorService.generate());
         profile.setStatus(CREATED);
 
         return profileRepository.save(profile);

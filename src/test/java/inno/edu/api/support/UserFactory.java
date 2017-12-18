@@ -8,6 +8,7 @@ import inno.edu.api.domain.user.models.ApplicationUser;
 import inno.edu.api.infrastructure.security.SecurityConstants;
 
 import java.util.List;
+import java.util.UUID;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static java.util.UUID.fromString;
@@ -35,6 +36,12 @@ public class UserFactory {
                 .password("password")
                 .photoUrl("https://i1.rgstatic.net/ii/profile.image/AS%3A278674336174081%401443452547142_xl/Peng_Fei_Xu.png")
                 .isMentor(true)
+                .build();
+    }
+
+    public static ApplicationUser newFei(UUID id) {
+        return fei().toBuilder()
+                .id(id)
                 .build();
     }
 

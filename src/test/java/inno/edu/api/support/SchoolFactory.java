@@ -5,6 +5,7 @@ import inno.edu.api.domain.school.commands.dtos.UpdateSchoolRequest;
 import inno.edu.api.domain.school.models.School;
 
 import java.util.List;
+import java.util.UUID;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static java.util.UUID.fromString;
@@ -16,6 +17,12 @@ public class SchoolFactory {
                 .name("Stanford")
                 .description("Stanford is an amazing university.")
                 .photoUrl("https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2013/07/26/100917787-Stanford_Oval_May_2011_panorama_r.jpg?v=1374868882")
+                .build();
+    }
+
+    public static School newStanford(UUID id) {
+        return stanford().toBuilder()
+                .id(id)
                 .build();
     }
 

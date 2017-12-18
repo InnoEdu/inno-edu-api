@@ -7,6 +7,7 @@ import inno.edu.api.domain.availability.models.Availability;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
@@ -20,6 +21,13 @@ public class AvailabilityFactory {
                 .mentorProfileId(feiProfile().getId())
                 .fromDateTime(LocalDateTime.of(2017, 11, 9, 12, 0, 1))
                 .toDateTime(LocalDateTime.of(2017, 11, 10, 12, 0, 1))
+                .build();
+    }
+
+    public static Availability newAvailability(UUID id, UUID mentorProfileId) {
+        return availability().toBuilder()
+                .id(id)
+                .mentorProfileId(mentorProfileId)
                 .build();
     }
 

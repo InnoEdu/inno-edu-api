@@ -6,10 +6,12 @@ import inno.edu.api.domain.profile.commands.dtos.UpdateMenteeProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.UpdateMentorProfileRequest;
 import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.profile.models.MentorProfile;
+import inno.edu.api.domain.profile.models.ProfileStatus;
 import inno.edu.api.domain.profile.queries.dtos.MentorProfileUser;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 import static inno.edu.api.domain.profile.models.ProfileStatus.ACTIVE;
 import static inno.edu.api.domain.profile.models.ProfileStatus.CREATED;
@@ -38,6 +40,12 @@ public class ProfileFactory {
                 .build();
     }
 
+    public static MenteeProfile newAlanProfile(UUID id) {
+        return alanProfile().toBuilder()
+                .id(id)
+                .build();
+    }
+
     public static MentorProfile feiProfile() {
         return MentorProfile.builder().id(fromString("0e9e40c0-b44b-4387-92a9-9d75d10e3d42"))
                 .mentorId(fei().getId())
@@ -46,6 +54,13 @@ public class ProfileFactory {
                 .description("Fei is a great mentor.")
                 .status(ACTIVE)
                 .rate(new BigDecimal(5.5))
+                .build();
+    }
+
+    public static MentorProfile newFeiProfile(UUID id, ProfileStatus status) {
+        return feiProfile().toBuilder()
+                .id(id)
+                .status(status)
                 .build();
     }
 

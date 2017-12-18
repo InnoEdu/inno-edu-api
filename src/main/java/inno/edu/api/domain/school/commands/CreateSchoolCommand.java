@@ -5,22 +5,24 @@ import inno.edu.api.domain.school.commands.mappers.CreateSchoolRequestMapper;
 import inno.edu.api.domain.school.models.School;
 import inno.edu.api.domain.school.repositories.SchoolRepository;
 import inno.edu.api.infrastructure.annotations.Command;
-
-import static java.util.UUID.randomUUID;
+import inno.edu.api.infrastructure.services.UUIDGeneratorService;
 
 @Command
 public class CreateSchoolCommand {
+    private final UUIDGeneratorService uuidGeneratorService;
+
     private final CreateSchoolRequestMapper createSchoolRequestMapper;
     private final SchoolRepository schoolRepository;
 
-    public CreateSchoolCommand(CreateSchoolRequestMapper createSchoolRequestMapper, SchoolRepository schoolRepository) {
+    public CreateSchoolCommand(UUIDGeneratorService uuidGeneratorService, CreateSchoolRequestMapper createSchoolRequestMapper, SchoolRepository schoolRepository) {
+        this.uuidGeneratorService = uuidGeneratorService;
         this.createSchoolRequestMapper = createSchoolRequestMapper;
         this.schoolRepository = schoolRepository;
     }
 
     public School run(CreateSchoolRequest createSchoolRequest) {
         School school = createSchoolRequestMapper.toSchool(createSchoolRequest);
-        school.setId(randomUUID());
+        school.setId(uuidGeneratorService.generate());
         return schoolRepository.save(school);
     }
 }

@@ -7,16 +7,18 @@ import inno.edu.api.domain.user.exceptions.UsernameAlreadyExistsException;
 import inno.edu.api.domain.user.models.ApplicationUser;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import inno.edu.api.infrastructure.annotations.Command;
+import inno.edu.api.infrastructure.services.UUIDGeneratorService;
 import org.apache.commons.lang3.StringUtils;
-
-import static java.util.UUID.randomUUID;
 
 @Command
 public class CreateUserCommand {
+    private final UUIDGeneratorService uuidGeneratorService;
+
     private final CreateUserRequestMapper createUserRequestMapper;
     private final UserRepository userRepository;
 
-    public CreateUserCommand(CreateUserRequestMapper createUserRequestMapper, UserRepository userRepository) {
+    public CreateUserCommand(UUIDGeneratorService uuidGeneratorService, CreateUserRequestMapper createUserRequestMapper, UserRepository userRepository) {
+        this.uuidGeneratorService = uuidGeneratorService;
         this.createUserRequestMapper = createUserRequestMapper;
         this.userRepository = userRepository;
     }
@@ -32,7 +34,7 @@ public class CreateUserCommand {
             throw new UsernameAlreadyExistsException(applicationUser.getUsername());
         }
 
-        applicationUser.setId(randomUUID());
+        applicationUser.setId(uuidGeneratorService.generate());
         return userRepository.save(applicationUser);
     }
 }
