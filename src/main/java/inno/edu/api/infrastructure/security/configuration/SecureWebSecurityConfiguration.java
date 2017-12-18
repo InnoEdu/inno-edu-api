@@ -1,4 +1,4 @@
-package inno.edu.api.infrastructure.security.modules;
+package inno.edu.api.infrastructure.security.configuration;
 
 import inno.edu.api.infrastructure.security.jwt.JWTAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;

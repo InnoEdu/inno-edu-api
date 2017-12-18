@@ -9,14 +9,16 @@ import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
 import inno.edu.api.domain.profile.assertions.MenteeProfileExistsAssertion;
 import inno.edu.api.domain.profile.assertions.MentorProfileExistsAssertion;
 import inno.edu.api.infrastructure.annotations.Command;
+import inno.edu.api.infrastructure.services.UUIDGeneratorService;
 
 import java.math.BigDecimal;
 
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
-import static java.util.UUID.randomUUID;
 
 @Command
 public class CreateAppointmentCommand {
+    private final UUIDGeneratorService uuidGeneratorService;
+
     private final CreateAppointmentRequestMapper createAppointmentRequestMapper;
     private final CalculateAppointmentFeeRequestMapper calculateAppointmentFeeRequestMapper;
 
@@ -27,7 +29,8 @@ public class CreateAppointmentCommand {
 
     private final CalculateAppointmentFeeCommand calculateAppointmentFeeCommand;
 
-    public CreateAppointmentCommand(CreateAppointmentRequestMapper createAppointmentRequestMapper, CalculateAppointmentFeeRequestMapper calculateAppointmentFeeRequestMapper, AppointmentRepository appointmentRepository, MenteeProfileExistsAssertion menteeProfileExistsAssertion, MentorProfileExistsAssertion mentorProfileExistsAssertion, CalculateAppointmentFeeCommand calculateAppointmentFeeCommand) {
+    public CreateAppointmentCommand(UUIDGeneratorService uuidGeneratorService, CreateAppointmentRequestMapper createAppointmentRequestMapper, CalculateAppointmentFeeRequestMapper calculateAppointmentFeeRequestMapper, AppointmentRepository appointmentRepository, MenteeProfileExistsAssertion menteeProfileExistsAssertion, MentorProfileExistsAssertion mentorProfileExistsAssertion, CalculateAppointmentFeeCommand calculateAppointmentFeeCommand) {
+        this.uuidGeneratorService = uuidGeneratorService;
         this.createAppointmentRequestMapper = createAppointmentRequestMapper;
         this.calculateAppointmentFeeRequestMapper = calculateAppointmentFeeRequestMapper;
         this.appointmentRepository = appointmentRepository;
@@ -42,7 +45,7 @@ public class CreateAppointmentCommand {
 
         Appointment appointment = createAppointmentRequestMapper.toAppointment(createAppointmentRequest);
 
-        appointment.setId(randomUUID());
+        appointment.setId(uuidGeneratorService.generate());
         appointment.setStatus(PROPOSED);
         appointment.setFee(getAppointmentFee(appointment));
 

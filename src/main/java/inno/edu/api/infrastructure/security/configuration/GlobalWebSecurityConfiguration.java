@@ -1,4 +1,4 @@
-package inno.edu.api.infrastructure.security.modules;
+package inno.edu.api.infrastructure.security.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;

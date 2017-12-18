@@ -43,9 +43,9 @@ public class AppointmentFactory {
 
     public static CalculateAppointmentFeeRequest calculateAppointmentFeeRequest() {
         return CalculateAppointmentFeeRequest.builder()
-                .mentorProfileId(appointment().getMentorProfileId())
-                .fromDateTime(appointment().getFromDateTime())
-                .toDateTime(appointment().getToDateTime())
+                .mentorProfileId(otherAppointment().getMentorProfileId())
+                .fromDateTime(otherAppointment().getFromDateTime())
+                .toDateTime(otherAppointment().getToDateTime())
                 .build();
     }
 
@@ -59,6 +59,16 @@ public class AppointmentFactory {
                 .description("My great second appointment.")
                 .fee(new BigDecimal(20.5))
                 .status(ACCEPTED)
+                .build();
+    }
+
+    public static Appointment newAppointment() {
+        return Appointment.builder()
+                .mentorProfileId(feiProfile().getId())
+                .menteeProfileId(alanProfile().getId())
+                .fromDateTime(LocalDateTime.of(2017, 11, 10, 10, 0, 1))
+                .toDateTime(LocalDateTime.of(2017, 11, 10, 11, 0, 1))
+                .description("My new appointment.")
                 .build();
     }
 

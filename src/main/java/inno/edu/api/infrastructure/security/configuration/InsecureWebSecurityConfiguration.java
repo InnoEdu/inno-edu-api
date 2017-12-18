@@ -1,4 +1,4 @@
-package inno.edu.api.infrastructure.security.modules;
+package inno.edu.api.infrastructure.security.configuration;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
