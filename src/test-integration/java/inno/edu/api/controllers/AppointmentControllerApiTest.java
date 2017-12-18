@@ -103,6 +103,7 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.fromDateTime", is(appointment().getFromDateTime().toString())))
                 .andExpect(jsonPath("$.toDateTime", is(appointment().getToDateTime().toString())))
                 .andExpect(jsonPath("$.description", is(appointment().getDescription())))
+                .andExpect(jsonPath("$.fee", is(appointment().getFee().doubleValue())))
                 .andExpect(jsonPath("$.status", is(PROPOSED.toString())));
     }
 
@@ -120,6 +121,7 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.fromDateTime", is(updatedAppointment().getFromDateTime().toString())))
                 .andExpect(jsonPath("$.toDateTime", is(updatedAppointment().getToDateTime().toString())))
                 .andExpect(jsonPath("$.description", is(updatedAppointment().getDescription())))
+                .andExpect(jsonPath("$.fee", is(updatedAppointment().getFee().doubleValue())))
                 .andExpect(jsonPath("$.status", is(appointment().getStatus().toString())));
     }
 

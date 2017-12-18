@@ -53,7 +53,7 @@ public class ProfileFactory {
                 .email("feixiu@inno.edu")
                 .description("Fei is a great mentor.")
                 .status(ACTIVE)
-                .rate(new BigDecimal(5.5))
+                .rate(new BigDecimal(10.5))
                 .build();
     }
 
@@ -87,7 +87,7 @@ public class ProfileFactory {
                 .mentorId(fei().getId())
                 .schoolId(stanford().getId())
                 .email("feixiu@inno.edu")
-                .rate(new BigDecimal(5.5))
+                .rate(new BigDecimal(10.5))
                 .description("Fei is a great mentor.")
                 .build();
     }
@@ -120,7 +120,7 @@ public class ProfileFactory {
     public static MentorProfile updatedFeiProfile() {
         return feiProfile().toBuilder()
                 .description("Updated description")
-                .rate(new BigDecimal(10.5))
+                .rate(new BigDecimal(20.5))
                 .build();
     }
 

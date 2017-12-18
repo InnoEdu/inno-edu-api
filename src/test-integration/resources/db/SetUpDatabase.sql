@@ -32,11 +32,11 @@ DELETE FROM Mentor_Profile;
 
 INSERT INTO Mentor_Profile (id, mentor_id, school_id, email, description, rate, status)
 VALUES ('0e9e40c0b44b438792a99d75d10e3d42', 'ba7c650519fd47c387a6c6af6e5322b7',
-        '0a58153cc15f4e5b802cbbf5d6c1c55c', 'feixiu@inno.edu', 'Fei is a great mentor.', 5.5, 1);
+        '0a58153cc15f4e5b802cbbf5d6c1c55c', 'feixiu@inno.edu', 'Fei is a great mentor.', 10.5, 1);
 
 INSERT INTO Mentor_Profile (id, mentor_id, school_id, email, description, rate, status)
 VALUES ('e1b66612a94a4db386a104f3a102227b', 'df54ff863caa4145b228284f5d4a908a',
-        '0a58153cc15f4e5b802cbbf5d6c1c55c', 'gustavo@inno.edu', 'Gustavo is a great mentor.', 10.5, 0);
+        '0a58153cc15f4e5b802cbbf5d6c1c55c', 'gustavo@inno.edu', 'Gustavo is a great mentor.', 20.5, 0);
 
 DELETE FROM Availability;
 
@@ -58,4 +58,4 @@ VALUES ('f192270f2dad4bcd96c3c3765df77ce8', '0e9e40c0b44b438792a99d75d10e3d42',
 INSERT INTO Appointment (id, mentor_profile_id, mentee_profile_id, from_date_time, to_date_time, description, status, fee)
 VALUES ('42f2431a0216416eb79529292b637ec4', '0e9e40c0b44b438792a99d75d10e3d42',
         'c5f473b4331140b18fb3f70357894754', '2017-11-10 10:00:01.000',
-        '2017-11-10 11:00:01.000', 'My great second appointment.', 1, 20.5);
+        '2017-11-10 11:00:01.000', 'My great second appointment.', 1, 10.5);

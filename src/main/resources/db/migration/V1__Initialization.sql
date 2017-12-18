@@ -247,23 +247,23 @@ VALUES (${map}('f192270f2dad4bcd96c3c3765df77ce1'), ${map}('0e9e40c0b44b438792a9
         ${map}('c5f473b4331140b18fb3f70357894754'),
         '2018-01-02 18:00:00.000',
         '2018-01-02 19:00:00.000', 'My great first appointment.',
-        1, 10);
+        1, 5);
 
 INSERT INTO Appointment (id, mentor_profile_id, mentee_profile_id, from_date_time, to_date_time, description, status, fee)
 VALUES (${map}('f192270f2dad4bcd96c3c3765df77ce2'), ${map}('2744d1cbb25e4a61879dad3d15ffebe2'),
         ${map}('c5f473b4331140b18fb3f70357894754'),
         '2018-01-02 13:00:00.000',
         '2018-01-02 14:00:00.000', 'My great second appointment.',
-        1, 20);
+        1, 15);
 
 -- Elisete
 
 INSERT INTO Appointment (id, mentor_profile_id, mentee_profile_id, from_date_time, to_date_time, description, status, fee)
 VALUES (${map}('f192270f2dad4bcd96c3c3765df77ce3'), ${map}('e1b66612a94a4db386a104f3a102227b'),
         ${map}('71b31ec9207d4d469e33c4b4024db0ed'), '2018-01-03 14:00:00.000',
-        '2018-01-03 15:00:00.000', 'My great first appointment.', 1, 30);
+        '2018-01-03 15:00:00.000', 'My great first appointment.', 1, 10);
 
 INSERT INTO Appointment (id, mentor_profile_id, mentee_profile_id, from_date_time, to_date_time, description, status, fee)
 VALUES (${map}('f192270f2dad4bcd96c3c3765df77ce4'), ${map}('2744d1cbb25e4a61879dad3d15ffebe2'),
         ${map}('71b31ec9207d4d469e33c4b4024db0ed'), '2018-01-03 15:00:00.000',
-        '2018-01-03 16:00:00.000', 'My great second appointment.', 1, 40);
+        '2018-01-03 16:00:00.000', 'My great second appointment.', 1, 15);
