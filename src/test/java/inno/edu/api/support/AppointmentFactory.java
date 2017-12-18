@@ -1,5 +1,6 @@
 package inno.edu.api.support;
 
+import inno.edu.api.domain.appointment.commands.dtos.CalculateAppointmentFeeRequest;
 import inno.edu.api.domain.appointment.commands.dtos.CreateAppointmentRequest;
 import inno.edu.api.domain.appointment.commands.dtos.UpdateAppointmentRequest;
 import inno.edu.api.domain.appointment.models.Appointment;
@@ -37,6 +38,14 @@ public class AppointmentFactory {
                 .fromDateTime(LocalDateTime.of(2017, 11, 10, 9, 0, 1))
                 .toDateTime(LocalDateTime.of(2017, 11, 10, 10, 0, 1))
                 .description("My great first appointment.")
+                .build();
+    }
+
+    public static CalculateAppointmentFeeRequest calculateAppointmentFeeRequest() {
+        return CalculateAppointmentFeeRequest.builder()
+                .mentorProfileId(appointment().getMentorProfileId())
+                .fromDateTime(appointment().getFromDateTime())
+                .toDateTime(appointment().getToDateTime())
                 .build();
     }
 

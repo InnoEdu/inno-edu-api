@@ -1,5 +1,6 @@
 package inno.edu.api.domain.appointment.commands;
 
+import inno.edu.api.domain.appointment.commands.mappers.CalculateAppointmentFeeRequestMapper;
 import inno.edu.api.domain.appointment.commands.mappers.CreateAppointmentRequestMapper;
 import inno.edu.api.domain.appointment.models.Appointment;
 import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
@@ -13,7 +14,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.math.BigDecimal;
+
 import static inno.edu.api.support.AppointmentFactory.appointment;
+import static inno.edu.api.support.AppointmentFactory.calculateAppointmentFeeRequest;
 import static inno.edu.api.support.AppointmentFactory.createAppointmentRequest;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -28,6 +32,9 @@ public class CreateAppointmentCommandTest {
     private CreateAppointmentRequestMapper createAppointmentRequestMapper;
 
     @Mock
+    private CalculateAppointmentFeeRequestMapper calculateAppointmentFeeRequestMapper;
+
+    @Mock
     private AppointmentRepository appointmentRepository;
 
     @Mock
@@ -36,6 +43,9 @@ public class CreateAppointmentCommandTest {
     @Mock
     private MentorProfileExistsAssertion mentorProfileExistsAssertion;
 
+    @Mock
+    private CalculateAppointmentFeeCommand calculateAppointmentFeeCommand;
+
     @InjectMocks
     private CreateAppointmentCommand createAppointmentCommand;
 
@@ -43,6 +53,12 @@ public class CreateAppointmentCommandTest {
     public void setUp() {
         when(createAppointmentRequestMapper.toAppointment(createAppointmentRequest()))
                 .thenReturn(appointment());
+
+        when(calculateAppointmentFeeRequestMapper.toAppointmentFeeRequest(appointment()))
+                .thenReturn(calculateAppointmentFeeRequest());
+
+        when(calculateAppointmentFeeCommand.run(calculateAppointmentFeeRequest()))
+                .thenReturn(BigDecimal.ONE);
     }
     @Test
     public void shouldCallRepositoryToSaveAppointment() {
