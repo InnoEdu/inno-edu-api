@@ -88,7 +88,7 @@ paths:
     post:
       tags:
         - users
-      summary: Add a new user
+      summary: Add a new user and also return the login token
       consumes:
         - application/json
       produces:
@@ -101,10 +101,10 @@ paths:
           schema:
             $ref: '#/definitions/CreateUserRequest'
       responses:
-        '201':
+        '200':
           description: New user successfully created
           schema:
-            $ref: '#/definitions/User'
+            $ref: '#/definitions/LoginResponse'
           headers:
             Location:
               type: string
