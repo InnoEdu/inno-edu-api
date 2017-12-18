@@ -8,7 +8,9 @@ import inno.edu.api.domain.profile.queries.GetMenteeProfileByUserIdQuery;
 import inno.edu.api.domain.profile.queries.GetMentorProfileByUserIdQuery;
 import inno.edu.api.domain.user.commands.CreateUserCommand;
 import inno.edu.api.domain.user.commands.DeleteUserCommand;
+import inno.edu.api.domain.user.commands.LoginCommand;
 import inno.edu.api.domain.user.commands.UpdateUserCommand;
+import inno.edu.api.domain.user.commands.dtos.LoginResponse;
 import inno.edu.api.domain.user.models.ApplicationUser;
 import inno.edu.api.domain.user.queries.GetUserByIdQuery;
 import inno.edu.api.domain.user.repositories.UserRepository;
@@ -27,6 +29,8 @@ import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.createFeiRequest;
 import static inno.edu.api.support.UserFactory.fei;
+import static inno.edu.api.support.UserFactory.feiCredentials;
+import static inno.edu.api.support.UserFactory.feiLoginResponse;
 import static inno.edu.api.support.UserFactory.updateFeiRequest;
 import static inno.edu.api.support.UserFactory.updatedFei;
 import static inno.edu.api.support.UserFactory.users;
@@ -63,6 +67,9 @@ public class UserControllerTest {
 
     @Mock
     private DeleteUserCommand deleteUserCommand;
+
+    @Mock
+    private LoginCommand loginCommand;
 
     @Mock
     private UpdateMentorProfileStatusByUserCommand updateMentorProfileStatusByUserCommand;
@@ -116,10 +123,10 @@ public class UserControllerTest {
     @Test
     public void shouldCreateNewUser() {
         when(createUserCommand.run(createFeiRequest())).thenReturn(fei());
+        when(loginCommand.run(feiCredentials())).thenReturn(feiLoginResponse());
 
-        ResponseEntity<ApplicationUser> entity = userController.post(createFeiRequest());
-
-        assertThat(entity.getBody(), is(fei()));
+        ResponseEntity<LoginResponse> entity = userController.post(createFeiRequest());
+        assertThat(entity.getBody(), is(feiLoginResponse()));
     }
 
     @Test

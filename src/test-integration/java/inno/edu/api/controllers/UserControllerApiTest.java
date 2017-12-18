@@ -17,6 +17,7 @@ import static inno.edu.api.support.UserFactory.updateFeiRequest;
 import static inno.edu.api.support.UserFactory.updatedFei;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -79,14 +80,15 @@ public class UserControllerApiTest extends ApiTest {
                         .content(postUserPayload(createGustavoRequest()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", not(fei().getId().toString())))
-                .andExpect(jsonPath("$.firstName", is(gustavo().getFirstName())))
-                .andExpect(jsonPath("$.lastName", is(gustavo().getLastName())))
-                .andExpect(jsonPath("$.username", is(gustavo().getUsername())))
-                .andExpect(jsonPath("$.email", is(gustavo().getEmail())))
-                .andExpect(jsonPath("$.photoUrl", is(gustavo().getPhotoUrl())))
-                .andExpect(jsonPath("$.isMentor", is(gustavo().getIsMentor())));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.token", not(nullValue())))
+                .andExpect(jsonPath("$.user.id", not(fei().getId().toString())))
+                .andExpect(jsonPath("$.user.firstName", is(gustavo().getFirstName())))
+                .andExpect(jsonPath("$.user.lastName", is(gustavo().getLastName())))
+                .andExpect(jsonPath("$.user.username", is(gustavo().getUsername())))
+                .andExpect(jsonPath("$.user.email", is(gustavo().getEmail())))
+                .andExpect(jsonPath("$.user.photoUrl", is(gustavo().getPhotoUrl())))
+                .andExpect(jsonPath("$.user.isMentor", is(gustavo().getIsMentor())));
     }
 
     @Test

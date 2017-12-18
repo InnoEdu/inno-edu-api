@@ -10,8 +10,11 @@ import inno.edu.api.domain.profile.queries.GetMenteeProfileByUserIdQuery;
 import inno.edu.api.domain.profile.queries.GetMentorProfileByUserIdQuery;
 import inno.edu.api.domain.user.commands.CreateUserCommand;
 import inno.edu.api.domain.user.commands.DeleteUserCommand;
+import inno.edu.api.domain.user.commands.LoginCommand;
 import inno.edu.api.domain.user.commands.UpdateUserCommand;
 import inno.edu.api.domain.user.commands.dtos.CreateUserRequest;
+import inno.edu.api.domain.user.commands.dtos.LoginRequest;
+import inno.edu.api.domain.user.commands.dtos.LoginResponse;
 import inno.edu.api.domain.user.commands.dtos.UpdateUserRequest;
 import inno.edu.api.domain.user.models.ApplicationUser;
 import inno.edu.api.domain.user.queries.GetUserByIdQuery;
@@ -33,6 +36,7 @@ import javax.validation.Valid;
 import java.util.UUID;
 
 import static org.springframework.http.ResponseEntity.noContent;
+import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping(value = "/api/users", produces = "application/hal+json")
@@ -47,12 +51,13 @@ public class UserController {
     private final CreateUserCommand createUserCommand;
     private final UpdateUserCommand updateUserCommand;
     private final DeleteUserCommand deleteUserCommand;
+    private final LoginCommand loginCommand;
 
     private final ResourceBuilder resourceBuilder;
     private final UpdateMentorProfileStatusByUserCommand updateMentorProfileStatusByUserCommand;
 
     @Autowired
-    public UserController(UserRepository userRepository, GetMentorProfileByUserIdQuery getMentorProfileByUserIdQuery, GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery, GetUserByIdQuery getUserByIdQuery, CreateUserCommand createUserCommand, UpdateUserCommand updateUserCommand, DeleteUserCommand deleteUserCommand, ResourceBuilder resourceBuilder, UpdateMentorProfileStatusByUserCommand updateMentorProfileStatusByUserCommand) {
+    public UserController(UserRepository userRepository, GetMentorProfileByUserIdQuery getMentorProfileByUserIdQuery, GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery, GetUserByIdQuery getUserByIdQuery, CreateUserCommand createUserCommand, UpdateUserCommand updateUserCommand, DeleteUserCommand deleteUserCommand, LoginCommand loginCommand, ResourceBuilder resourceBuilder, UpdateMentorProfileStatusByUserCommand updateMentorProfileStatusByUserCommand) {
         this.userRepository = userRepository;
         this.getMentorProfileByUserIdQuery = getMentorProfileByUserIdQuery;
         this.getMenteeProfileByUserIdQuery = getMenteeProfileByUserIdQuery;
@@ -60,6 +65,7 @@ public class UserController {
         this.createUserCommand = createUserCommand;
         this.updateUserCommand = updateUserCommand;
         this.deleteUserCommand = deleteUserCommand;
+        this.loginCommand = loginCommand;
         this.resourceBuilder = resourceBuilder;
         this.updateMentorProfileStatusByUserCommand = updateMentorProfileStatusByUserCommand;
     }
@@ -84,9 +90,15 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<ApplicationUser> post(@Valid @RequestBody CreateUserRequest request) {
-        UserResource userResource = new UserResource(createUserCommand.run(request));
-        return userResource.toCreated();
+    public ResponseEntity<LoginResponse> post(@Valid @RequestBody CreateUserRequest request) {
+        ApplicationUser user = createUserCommand.run(request);
+
+        LoginRequest loginRequest = LoginRequest.builder()
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .build();
+
+        return ok().body(loginCommand.run(loginRequest));
     }
 
     @PutMapping("/{id}")
