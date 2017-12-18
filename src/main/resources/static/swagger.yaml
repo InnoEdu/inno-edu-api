@@ -24,7 +24,7 @@ tags:
     description: Appointments management
 responses:
   400:
-    description: Bad Request
+    description: Bad request, additional info provided in the response body
     schema:
       $ref: '#/definitions/VndErrors'
   401:
@@ -110,9 +110,7 @@ paths:
               type: string
               description: Link to the new resource created
         '400':
-          description: Bad request, additional info provided in the response body
-          schema:
-            $ref: '#/definitions/VndErrors'
+          $ref: '#/responses/400'
   /users/{id}:
     get:
       tags:
@@ -164,6 +162,8 @@ paths:
           description: User not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '400':
+          $ref: '#/responses/400'
     delete:
       tags:
         - users
@@ -285,6 +285,8 @@ paths:
             Location:
               type: string
               description: Link to the new resource created
+        '400':
+          $ref: '#/responses/400'
   /schools/{id}:
     get:
       tags:
@@ -336,6 +338,8 @@ paths:
           description: School not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '400':
+          $ref: '#/responses/400'
     delete:
       tags:
         - schools
@@ -412,9 +416,7 @@ paths:
               type: string
               description: Link to the new resource created
         '400':
-          description: Bad request, additional info provided in the response body
-          schema:
-            $ref: '#/definitions/VndErrors'
+          $ref: '#/responses/400'
   /mentor-profiles/{id}:
     get:
       tags:
@@ -466,6 +468,8 @@ paths:
           description: Profile not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '400':
+          $ref: '#/responses/400'
     delete:
       tags:
         - mentor-profiles
@@ -556,9 +560,7 @@ paths:
               type: string
               description: Link to the new resource created
         '400':
-          description: Bad request, additional info provided in the response body
-          schema:
-            $ref: '#/definitions/VndErrors'
+          $ref: '#/responses/400'
   /mentee-profiles/{id}:
     get:
       tags:
@@ -610,6 +612,8 @@ paths:
           description: Profile not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '400':
+          $ref: '#/responses/400'
     delete:
       tags:
         - mentee-profiles
@@ -663,6 +667,8 @@ paths:
             Location:
               type: string
               description: Link to the new resource created
+        '400':
+          $ref: '#/responses/400'
   /availability/{id}:
     get:
       tags:
@@ -714,6 +720,8 @@ paths:
           description: Availability not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '400':
+          $ref: '#/responses/400'
     delete:
       tags:
         - availability
@@ -778,6 +786,8 @@ paths:
           description: Mentor not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '400':
+          $ref: '#/responses/400'
   /appointments:
     get:
       tags:
@@ -818,6 +828,8 @@ paths:
           description: Invalid Mentor Profile or Mentee Profile supplied
           schema:
             $ref: '#/definitions/VndErrors'
+        '400':
+          $ref: '#/responses/400'
   /appointments/{id}:
     get:
       tags:
@@ -869,6 +881,8 @@ paths:
           description: Appointment not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '400':
+          $ref: '#/responses/400'
     delete:
       tags:
         - appointments
@@ -1510,3 +1524,4 @@ definitions:
         $ref: '#/definitions/AppointmentResourceList'
       _links:
         type: object
+        
