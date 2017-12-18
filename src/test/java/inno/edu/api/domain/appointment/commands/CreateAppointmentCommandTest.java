@@ -60,6 +60,7 @@ public class CreateAppointmentCommandTest {
         when(calculateAppointmentFeeCommand.run(calculateAppointmentFeeRequest()))
                 .thenReturn(BigDecimal.ONE);
     }
+
     @Test
     public void shouldCallRepositoryToSaveAppointment() {
         ArgumentCaptor<Appointment> argumentCaptor = forClass(Appointment.class);
