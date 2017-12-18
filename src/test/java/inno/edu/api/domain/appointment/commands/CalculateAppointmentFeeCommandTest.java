@@ -1,5 +1,6 @@
 package inno.edu.api.domain.appointment.commands;
 
+import inno.edu.api.domain.common.assertions.DateTimeRangeAssertion;
 import inno.edu.api.domain.profile.queries.GetMentorProfileByIdQuery;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,10 +15,14 @@ import static inno.edu.api.support.AppointmentFactory.calculateAppointmentFeeReq
 import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static org.hamcrest.number.BigDecimalCloseTo.closeTo;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CalculateAppointmentFeeCommandTest {
+    @Mock
+    private DateTimeRangeAssertion dateTimeRangeAssertion;
+
     @Mock
     private GetMentorProfileByIdQuery getMentorProfileByIdQuery;
 
@@ -33,5 +38,13 @@ public class CalculateAppointmentFeeCommandTest {
     public void shouldCalculateFeeForAppointment() {
         BigDecimal fee = calculateAppointmentFeeCommand.run(calculateAppointmentFeeRequest());
         assertThat(fee, closeTo(feiProfile().getRate(), new BigDecimal(0.001)));
+    }
+
+    @Test
+    public void shouldRunAllAssertions() {
+        calculateAppointmentFeeCommand.run(calculateAppointmentFeeRequest());
+
+        verify(dateTimeRangeAssertion).run(calculateAppointmentFeeRequest().getFromDateTime(),
+                calculateAppointmentFeeRequest().getToDateTime());
     }
 }

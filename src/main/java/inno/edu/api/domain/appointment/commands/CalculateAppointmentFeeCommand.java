@@ -1,6 +1,7 @@
 package inno.edu.api.domain.appointment.commands;
 
 import inno.edu.api.domain.appointment.commands.dtos.CalculateAppointmentFeeRequest;
+import inno.edu.api.domain.common.assertions.DateTimeRangeAssertion;
 import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.profile.queries.GetMentorProfileByIdQuery;
 import inno.edu.api.infrastructure.annotations.Command;
@@ -16,13 +17,17 @@ public class CalculateAppointmentFeeCommand {
     private static final int CURRENCY_SCALE = 2;
     private static final BigDecimal MINUTES_IN_HOUR = new BigDecimal(60);
 
+    private final DateTimeRangeAssertion dateTimeRangeAssertion;
     private final GetMentorProfileByIdQuery getMentorProfileByIdQuery;
 
-    public CalculateAppointmentFeeCommand(GetMentorProfileByIdQuery getMentorProfileByIdQuery) {
+    public CalculateAppointmentFeeCommand(DateTimeRangeAssertion dateTimeRangeAssertion, GetMentorProfileByIdQuery getMentorProfileByIdQuery) {
+        this.dateTimeRangeAssertion = dateTimeRangeAssertion;
         this.getMentorProfileByIdQuery = getMentorProfileByIdQuery;
     }
 
     public BigDecimal run(CalculateAppointmentFeeRequest request) {
+        dateTimeRangeAssertion.run(request.getFromDateTime(), request.getToDateTime());
+
         MentorProfile mentorProfile = getMentorProfileByIdQuery.run(request.mentorProfileId);
 
         BigDecimal minutes =

@@ -81,7 +81,7 @@ public class CreateAppointmentCommandTest {
     }
 
     @Test
-    public void shouldRunAllConstraints() {
+    public void shouldRunAllAssertions() {
         createAppointmentCommand.run(createAppointmentRequest());
 
         verify(menteeProfileExistsAssertion).run(appointment().getMenteeProfileId());
