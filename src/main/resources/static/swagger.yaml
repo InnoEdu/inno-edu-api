@@ -64,7 +64,7 @@ paths:
         '200':
           description: User authenticated
           schema:
-            $ref: '#/definitions/UserResource'
+            $ref: '#/definitions/LoginResponse'
           headers:
             Authorization:
               type: string
@@ -1064,6 +1064,13 @@ definitions:
     required:
       - username
       - password
+  LoginResponse:
+    type: object
+    properties:
+      user:
+          $ref: '#/definitions/User'
+      token:
+        type: string
   CreateUserRequest:
     type: object
     properties:
