@@ -5,12 +5,12 @@ import inno.edu.api.domain.user.commands.dtos.LoginRequest;
 import inno.edu.api.domain.user.commands.dtos.LoginResponse;
 import inno.edu.api.domain.user.commands.dtos.UpdateUserRequest;
 import inno.edu.api.domain.user.models.ApplicationUser;
-import inno.edu.api.infrastructure.security.SecurityConstants;
 
 import java.util.List;
 import java.util.UUID;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static inno.edu.api.infrastructure.security.SecurityConstants.TOKEN_PREFIX;
 import static java.util.UUID.fromString;
 
 public class UserFactory {
@@ -88,8 +88,7 @@ public class UserFactory {
     public static LoginResponse feiLoginResponse() {
         return LoginResponse.builder()
                 .user(fei())
-                .token("TOKEN")
-                .prefixedToken(SecurityConstants.TOKEN_PREFIX + "TOKEN")
+                .token(TOKEN_PREFIX + "TOKEN")
                 .build();
     }
 

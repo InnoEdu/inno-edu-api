@@ -48,8 +48,7 @@ public class LoginCommandTest {
 
         LoginResponse loginResponse = loginCommand.run(feiCredentials());
 
-        assertThat(loginResponse.getToken(), is(feiLoginResponse().getToken()));
-        assertThat(loginResponse.getPrefixedToken(), is(feiLoginResponse().getPrefixedToken()));
+        assertThat(loginResponse, is(feiLoginResponse()));
     }
 
     @Test(expected = InvalidUsernameOrPasswordException.class)
