@@ -12,7 +12,7 @@ import javax.persistence.Enumerated;
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateAppointmentFeedbackRequest {
+public class CreateFeedbackRequest {
     @Enumerated
     private FeedbackSource source;
 

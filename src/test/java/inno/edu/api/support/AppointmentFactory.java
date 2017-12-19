@@ -2,7 +2,7 @@ package inno.edu.api.support;
 
 import inno.edu.api.domain.appointment.commands.dtos.AppointmentReason;
 import inno.edu.api.domain.appointment.commands.dtos.CalculateAppointmentFeeRequest;
-import inno.edu.api.domain.appointment.commands.dtos.CreateAppointmentFeedbackRequest;
+import inno.edu.api.domain.appointment.commands.dtos.CreateFeedbackRequest;
 import inno.edu.api.domain.appointment.commands.dtos.CreateAppointmentRequest;
 import inno.edu.api.domain.appointment.commands.dtos.UpdateAppointmentRequest;
 import inno.edu.api.domain.appointment.models.Appointment;
@@ -114,8 +114,8 @@ public class AppointmentFactory {
                 .build();
     }
 
-    public static CreateAppointmentFeedbackRequest createAppointmentFeedbackRequest() {
-        return CreateAppointmentFeedbackRequest.builder()
+    public static CreateFeedbackRequest createAppointmentFeedbackRequest() {
+        return CreateFeedbackRequest.builder()
                 .description(feedback().getDescription())
                 .rating(feedback().getRating())
                 .source(feedback().getSource())

@@ -1,7 +1,7 @@
 package inno.edu.api.domain.appointment.commands;
 
 import inno.edu.api.domain.appointment.assertions.AppointmentExistsAssertion;
-import inno.edu.api.domain.appointment.commands.mappers.CreateAppointmentFeedbackRequestMapper;
+import inno.edu.api.domain.appointment.commands.mappers.CreateFeedbackRequestMapper;
 import inno.edu.api.domain.appointment.models.Feedback;
 import inno.edu.api.domain.appointment.repositories.FeedbackRepository;
 import inno.edu.api.infrastructure.services.UUIDGeneratorService;
@@ -22,12 +22,12 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CreateAppointmentFeedbackCommandTest {
+public class CreateFeedbackCommandTest {
     @Mock
     private UUIDGeneratorService uuidGeneratorService;
 
     @Mock
-    private CreateAppointmentFeedbackRequestMapper createAppointmentFeedbackRequestMapper;
+    private CreateFeedbackRequestMapper createFeedbackRequestMapper;
 
     @Mock
     private FeedbackRepository feedbackRepository;
@@ -36,13 +36,13 @@ public class CreateAppointmentFeedbackCommandTest {
     private AppointmentExistsAssertion appointmentExistsAssertion;
 
     @InjectMocks
-    private CreateAppointmentFeedbackCommand createAppointmentFeedbackCommand;
+    private CreateFeedbackCommand createFeedbackCommand;
 
     @Before
     public void setUp() {
         when(uuidGeneratorService.generate()).thenReturn(randomUUID());
 
-        when(createAppointmentFeedbackRequestMapper.toFeedback(createAppointmentFeedbackRequest()))
+        when(createFeedbackRequestMapper.toFeedback(createAppointmentFeedbackRequest()))
           .thenReturn(newFeedback(null, appointment().getId()));
     }
 
@@ -52,13 +52,13 @@ public class CreateAppointmentFeedbackCommandTest {
 
         when(feedbackRepository.save(newFeedback)).thenReturn(newFeedback);
 
-        Feedback feedback = createAppointmentFeedbackCommand.run(appointment().getId(), createAppointmentFeedbackRequest());
+        Feedback feedback = createFeedbackCommand.run(appointment().getId(), createAppointmentFeedbackRequest());
         assertThat(feedback, is(newFeedback));
     }
 
     @Test
     public void shouldRunAllAssertions() {
-        createAppointmentFeedbackCommand.run(appointment().getId(), createAppointmentFeedbackRequest());
+        createFeedbackCommand.run(appointment().getId(), createAppointmentFeedbackRequest());
         verify(appointmentExistsAssertion).run(appointment().getId());
     }
 }
