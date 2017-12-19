@@ -830,6 +830,42 @@ paths:
             $ref: '#/definitions/VndErrors'
         '400':
           $ref: '#/responses/400'
+  /appointments/estimate:
+    get:
+      tags:
+        - appointments
+      summary: Estimate an appointment fee
+      produces:
+        - application/hal+json
+      parameters:
+        - in: query
+          name: mentorProfileId
+          type: string
+          description: Mentor profile id with the hourly rate
+          required: true
+        - in: query
+          name: fromDateTime
+          type: string
+          format: date-time
+          description: Appointment start date time
+          required: true
+        - in: query
+          name: toDateTime
+          type: string
+          format: date-time
+          description: Appointment end date time
+          required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EstimationResource'
+        '404':
+          description: Profile not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '400':
+          $ref: '#/responses/400'
   /appointments/{id}:
     get:
       tags:
@@ -1541,3 +1577,8 @@ definitions:
         $ref: '#/definitions/AppointmentResourceList'
       _links:
         type: object
+  EstimationResource:
+    type: object
+    properties:
+      fee:
+        type: number
