@@ -1072,6 +1072,59 @@ paths:
           description: Appointment not found
           schema:
             $ref: '#/definitions/VndErrors'
+  /appointments/{id}/feedbacks:
+    get:
+      tags:
+        - appointments
+      summary: Get all feedbacks for appointment
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: id
+          description: Appointment id
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EmbeddedFeedbackResourceList'
+    post:
+      tags:
+        - appointments
+      summary: Add a feedback for the appointment
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: id
+          description: Appointment id
+          required: true
+          type: string
+        - in: body
+          name: request
+          description: Request object with the feedback information to be created
+          required: true
+          schema:
+            $ref: '#/definitions/CreateFeedbackRequest'
+      responses:
+        '201':
+          description: New appointment successfully created
+          schema:
+            $ref: '#/definitions/Feedback'
+          headers:
+            Location:
+              type: string
+              description: Link to the new resource created
+        '404':
+          description: Invalid appointment suplied
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '400':
+          $ref: '#/responses/400'
 definitions:
   VndError:
     type: object
@@ -1582,3 +1635,53 @@ definitions:
     properties:
       fee:
         type: number
+  CreateFeedbackRequest:
+    type: object
+    properties:
+      source:
+        type: string
+        enum: [MENTEE, MENTOR]
+      rating:
+        type: number
+      description:
+        type: string
+    required:
+      - source
+      - rating
+      - description
+  Feedback:
+    type: object
+    properties:
+      id:
+        type: string
+      appointmentId:
+        type: string
+      source:
+        type: string
+        enum: [MENTEE, MENTOR]
+      rating:
+        type: number
+      description:
+        type: string
+  FeedbackResource:
+    allOf:
+        - $ref: '#/definitions/Feedback'
+        - type: object
+          properties:
+            _links:
+              type: object
+  FeedbackResourceList:
+    type: object
+    properties:
+      feedbackResourceList:
+        type: array
+        items:
+          $ref: '#/definitions/FeedbackResource'
+  EmbeddedFeedbackResourceList:
+    type: object
+    properties:
+      _embedded:
+        $ref: '#/definitions/FeedbackResourceList'
+      _links:
+        type: object
+        
