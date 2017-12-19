@@ -3,10 +3,12 @@ package inno.edu.api.controllers;
 import inno.edu.api.controllers.resources.AppointmentResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.appointment.commands.CreateAppointmentCommand;
+import inno.edu.api.domain.appointment.commands.CreateFeedbackCommand;
 import inno.edu.api.domain.appointment.commands.DeleteAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentStatusCommand;
 import inno.edu.api.domain.appointment.models.Appointment;
+import inno.edu.api.domain.appointment.models.Feedback;
 import inno.edu.api.domain.appointment.queries.GetAppointmentByIdQuery;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByMenteeIdQuery;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByMentorIdQuery;
@@ -27,8 +29,10 @@ import static inno.edu.api.domain.appointment.models.AppointmentStatus.DECLINED;
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.support.AppointmentFactory.appointment;
 import static inno.edu.api.support.AppointmentFactory.appointments;
+import static inno.edu.api.support.AppointmentFactory.createAppointmentFeedbackRequest;
 import static inno.edu.api.support.AppointmentFactory.createAppointmentRequest;
 import static inno.edu.api.support.AppointmentFactory.emptyReason;
+import static inno.edu.api.support.AppointmentFactory.feedback;
 import static inno.edu.api.support.AppointmentFactory.proposedAppointments;
 import static inno.edu.api.support.AppointmentFactory.reason;
 import static inno.edu.api.support.AppointmentFactory.updateAppointmentRequest;
@@ -71,6 +75,9 @@ public class AppointmentControllerTest {
 
     @Mock
     private UpdateAppointmentStatusCommand updateAppointmentStatusCommand;
+
+    @Mock
+    private CreateFeedbackCommand createFeedbackCommand;
 
     @InjectMocks
     private AppointmentController appointmentController;
@@ -179,4 +186,14 @@ public class AppointmentControllerTest {
 
         verify(updateAppointmentStatusCommand).run(appointment().getId(), emptyReason(), ACCEPTED);
     }
+
+    @Test
+    public void shouldCreateFeedback() {
+        when(createFeedbackCommand.run(appointment().getId(), createAppointmentFeedbackRequest())).thenReturn(feedback());
+
+        ResponseEntity<Feedback> entity = appointmentController.postFeedback(appointment().getId(), createAppointmentFeedbackRequest());
+
+        assertThat(entity.getBody(), is(feedback()));
+    }
+
 }

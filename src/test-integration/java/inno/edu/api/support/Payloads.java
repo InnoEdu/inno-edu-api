@@ -1,6 +1,7 @@
 package inno.edu.api.support;
 
 import inno.edu.api.domain.appointment.commands.dtos.CreateAppointmentRequest;
+import inno.edu.api.domain.appointment.commands.dtos.CreateFeedbackRequest;
 import inno.edu.api.domain.appointment.commands.dtos.UpdateAppointmentRequest;
 import inno.edu.api.domain.appointment.commands.dtos.AppointmentReason;
 import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityByMentorIdRequest;
@@ -93,4 +94,9 @@ public class Payloads {
     public static String putAppointmentReasonPayload(AppointmentReason reason) {
         return format(loadPayload("payloads/appointment/put-appointment-reason.json"), reason.getReason());
     }
+
+    public static String postFeedbackPayload(CreateFeedbackRequest createFeedbackRequest) {
+        return format(loadPayload("payloads/appointment/post-feedback.json"), createFeedbackRequest.getSource(), createFeedbackRequest.getRating(), createFeedbackRequest.getDescription());
+    }
+
 }

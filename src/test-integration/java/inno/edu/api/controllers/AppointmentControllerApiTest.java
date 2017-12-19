@@ -6,12 +6,15 @@ import org.springframework.http.MediaType;
 
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.support.AppointmentFactory.appointment;
+import static inno.edu.api.support.AppointmentFactory.createAppointmentFeedbackRequest;
 import static inno.edu.api.support.AppointmentFactory.createAppointmentRequest;
+import static inno.edu.api.support.AppointmentFactory.feedback;
 import static inno.edu.api.support.AppointmentFactory.otherAppointment;
 import static inno.edu.api.support.AppointmentFactory.reason;
 import static inno.edu.api.support.AppointmentFactory.updateAppointmentRequest;
 import static inno.edu.api.support.AppointmentFactory.updatedAppointment;
 import static inno.edu.api.support.Payloads.postAppointmentPayload;
+import static inno.edu.api.support.Payloads.postFeedbackPayload;
 import static inno.edu.api.support.Payloads.putAppointmentPayload;
 import static inno.edu.api.support.Payloads.putAppointmentReasonPayload;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
@@ -171,5 +174,20 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.fee", is(appointment().getFee().doubleValue())));
+    }
+
+    @Test
+    public void shouldCreateNewFeedback() throws Exception {
+        this.mockMvc.perform(
+                post("/api/appointments/" + appointment().getId() + "/feedbacks")
+                        .content(postFeedbackPayload(createAppointmentFeedbackRequest()))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id", not(feedback().getId().toString())))
+                .andExpect(jsonPath("$.appointmentId", is(feedback().getAppointmentId().toString())))
+                .andExpect(jsonPath("$.source", is(feedback().getSource().toString())))
+                .andExpect(jsonPath("$.rating", is(feedback().getRating())))
+                .andExpect(jsonPath("$.description", is(feedback().getDescription())));
     }
 }

@@ -2,18 +2,22 @@ package inno.edu.api.controllers;
 
 import inno.edu.api.controllers.resources.AppointmentResource;
 import inno.edu.api.controllers.resources.EstimationResource;
+import inno.edu.api.controllers.resources.FeedbackResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.appointment.commands.CalculateAppointmentFeeCommand;
 import inno.edu.api.domain.appointment.commands.CreateAppointmentCommand;
+import inno.edu.api.domain.appointment.commands.CreateFeedbackCommand;
 import inno.edu.api.domain.appointment.commands.DeleteAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentStatusCommand;
 import inno.edu.api.domain.appointment.commands.dtos.AppointmentReason;
 import inno.edu.api.domain.appointment.commands.dtos.CalculateAppointmentFeeRequest;
 import inno.edu.api.domain.appointment.commands.dtos.CreateAppointmentRequest;
+import inno.edu.api.domain.appointment.commands.dtos.CreateFeedbackRequest;
 import inno.edu.api.domain.appointment.commands.dtos.UpdateAppointmentRequest;
 import inno.edu.api.domain.appointment.models.Appointment;
 import inno.edu.api.domain.appointment.models.AppointmentStatus;
+import inno.edu.api.domain.appointment.models.Feedback;
 import inno.edu.api.domain.appointment.queries.GetAppointmentByIdQuery;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByMenteeIdQuery;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByMentorIdQuery;
@@ -57,8 +61,9 @@ public class AppointmentController {
     private final GetAppointmentsByMentorIdQuery getAppointmentsByMentorIdQuery;
     private final GetAppointmentsByMenteeIdQuery getAppointmentsByMenteeIdQuery;
 
+    private final CreateFeedbackCommand createFeedbackCommand;
 
-    public AppointmentController(AppointmentRepository appointmentRepository, ResourceBuilder resourceBuilder, CreateAppointmentCommand createAppointmentCommand, UpdateAppointmentCommand updateAppointmentCommand, DeleteAppointmentCommand deleteAppointmentCommand, GetAppointmentByIdQuery getAppointmentByIdQuery, GetAppointmentsByMentorIdQuery getAppointmentsByMentorIdQuery, GetAppointmentsByMenteeIdQuery getAppointmentsByMenteeIdQuery, UpdateAppointmentStatusCommand updateAppointmentStatusCommand, CalculateAppointmentFeeCommand calculateAppointmentFeeCommand) {
+    public AppointmentController(AppointmentRepository appointmentRepository, ResourceBuilder resourceBuilder, CreateAppointmentCommand createAppointmentCommand, UpdateAppointmentCommand updateAppointmentCommand, DeleteAppointmentCommand deleteAppointmentCommand, GetAppointmentByIdQuery getAppointmentByIdQuery, GetAppointmentsByMentorIdQuery getAppointmentsByMentorIdQuery, GetAppointmentsByMenteeIdQuery getAppointmentsByMenteeIdQuery, UpdateAppointmentStatusCommand updateAppointmentStatusCommand, CalculateAppointmentFeeCommand calculateAppointmentFeeCommand, CreateFeedbackCommand createFeedbackCommand) {
         this.appointmentRepository = appointmentRepository;
         this.resourceBuilder = resourceBuilder;
         this.createAppointmentCommand = createAppointmentCommand;
@@ -69,6 +74,7 @@ public class AppointmentController {
         this.getAppointmentsByMenteeIdQuery = getAppointmentsByMenteeIdQuery;
         this.updateAppointmentStatusCommand = updateAppointmentStatusCommand;
         this.calculateAppointmentFeeCommand = calculateAppointmentFeeCommand;
+        this.createFeedbackCommand = createFeedbackCommand;
     }
 
     @GetMapping
@@ -136,5 +142,11 @@ public class AppointmentController {
     public EstimationResource estimate(CalculateAppointmentFeeRequest request) {
         BigDecimal fee = calculateAppointmentFeeCommand.run(request);
         return new EstimationResource(fee);
+    }
+
+    @PostMapping("/{id}/feedbacks")
+    public ResponseEntity<Feedback> postFeedback(@PathVariable UUID id, @Valid @RequestBody CreateFeedbackRequest request) {
+        FeedbackResource feedbackResource = new FeedbackResource(createFeedbackCommand.run(id, request));
+        return feedbackResource.toCreated();
     }
 }
