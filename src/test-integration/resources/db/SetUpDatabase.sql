@@ -59,3 +59,8 @@ INSERT INTO Appointment (id, mentor_profile_id, mentee_profile_id, from_date_tim
 VALUES ('42f2431a0216416eb79529292b637ec4', '0e9e40c0b44b438792a99d75d10e3d42',
         'c5f473b4331140b18fb3f70357894754', '2017-11-10 10:00:01.000',
         '2017-11-10 11:00:01.000', 'My great second appointment.', 1, 10.5);
+
+DELETE FROM Feedback;
+
+INSERT INTO Feedback (id, appointment_id, source, rating, description)
+VALUES ('bd06f884b1264be8b637758519dea5a5', 'f192270f2dad4bcd96c3c3765df77ce8', 0, 5, 'Great session');

@@ -190,4 +190,16 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.rating", is(feedback().getRating())))
                 .andExpect(jsonPath("$.description", is(feedback().getDescription())));
     }
+
+    @Test
+    public void shouldListFeedbacks() throws Exception {
+        this.mockMvc.perform(get("/api/appointments/" + appointment().getId() + "/feedbacks"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$._embedded.feedbackResourceList[*].id", containsInAnyOrder(feedback().getId().toString())))
+                .andExpect(jsonPath("$._embedded.feedbackResourceList[*].appointmentId", containsInAnyOrder(feedback().getAppointmentId().toString())))
+                .andExpect(jsonPath("$._embedded.feedbackResourceList[*].source", containsInAnyOrder(feedback().getSource().toString())))
+                .andExpect(jsonPath("$._embedded.feedbackResourceList[*].rating", containsInAnyOrder(feedback().getRating())))
+                .andExpect(jsonPath("$._embedded.feedbackResourceList[*].description", containsInAnyOrder(feedback().getDescription())));
+    }
 }

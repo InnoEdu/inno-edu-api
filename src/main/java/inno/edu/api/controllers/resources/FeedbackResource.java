@@ -21,10 +21,10 @@ public class FeedbackResource extends ResourceSupport {
     public FeedbackResource(Feedback feedback) {
         this.feedback = feedback;
 
-        add(linkTo(methodOn(AppointmentController.class).get(feedback.getId())).withSelfRel());
+        add(linkTo(methodOn(AppointmentController.class).allFeedbacks(feedback.getAppointmentId())).withRel("feedbacks"));
     }
 
     public ResponseEntity<Feedback> toCreated() {
-        return created(URI.create(getLink("self").getHref())).body(feedback);
+        return created(URI.create(getLink("feedbacks").getHref())).body(feedback);
     }
 }

@@ -1,6 +1,7 @@
 package inno.edu.api.controllers;
 
 import inno.edu.api.controllers.resources.AppointmentResource;
+import inno.edu.api.controllers.resources.FeedbackResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.appointment.commands.CreateAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.CreateFeedbackCommand;
@@ -12,6 +13,7 @@ import inno.edu.api.domain.appointment.models.Feedback;
 import inno.edu.api.domain.appointment.queries.GetAppointmentByIdQuery;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByMenteeIdQuery;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByMentorIdQuery;
+import inno.edu.api.domain.appointment.queries.GetFeedbacksByAppointmentByIdQuery;
 import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,6 +35,7 @@ import static inno.edu.api.support.AppointmentFactory.createAppointmentFeedbackR
 import static inno.edu.api.support.AppointmentFactory.createAppointmentRequest;
 import static inno.edu.api.support.AppointmentFactory.emptyReason;
 import static inno.edu.api.support.AppointmentFactory.feedback;
+import static inno.edu.api.support.AppointmentFactory.feedbacks;
 import static inno.edu.api.support.AppointmentFactory.proposedAppointments;
 import static inno.edu.api.support.AppointmentFactory.reason;
 import static inno.edu.api.support.AppointmentFactory.updateAppointmentRequest;
@@ -78,6 +81,9 @@ public class AppointmentControllerTest {
 
     @Mock
     private CreateFeedbackCommand createFeedbackCommand;
+
+    @Mock
+    private GetFeedbacksByAppointmentByIdQuery getFeedbacksByAppointmentByIdQuery;
 
     @InjectMocks
     private AppointmentController appointmentController;
@@ -194,6 +200,16 @@ public class AppointmentControllerTest {
         ResponseEntity<Feedback> entity = appointmentController.postFeedback(appointment().getId(), createAppointmentFeedbackRequest());
 
         assertThat(entity.getBody(), is(feedback()));
+    }
+
+    @Test
+    public void shouldListFeedbacks() {
+        when(getFeedbacksByAppointmentByIdQuery.run(appointment().getId()))
+                .thenReturn(feedbacks());
+
+        appointmentController.allFeedbacks(appointment().getId());
+
+        verify(resourceBuilder).wrappedFrom(eq(feedbacks()), any(), eq(FeedbackResource.class));
     }
 
 }
