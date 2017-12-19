@@ -278,3 +278,8 @@ INSERT INTO Appointment (id, mentor_profile_id, mentee_profile_id, from_date_tim
 VALUES (${map}('f192270f2dad4bcd96c3c3765df77ce4'), ${map}('2744d1cbb25e4a61879dad3d15ffebe2'),
         ${map}('71b31ec9207d4d469e33c4b4024db0ed'), '2018-01-03 15:00:00.000',
         '2018-01-03 16:00:00.000', 'My great second appointment.', 1, 15);
+
+-- Feedbacks
+
+INSERT INTO Feedback (id, appointment_id, source, rating, description)
+VALUES (${map}('bd06f884b1264be8b637758519dea5a5'), ${map}('f192270f2dad4bcd96c3c3765df77ce3'), 0, 5, 'Great session');

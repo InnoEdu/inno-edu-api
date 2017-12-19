@@ -25,6 +25,7 @@ public class AppointmentResource extends ResourceSupport {
         this.appointment = appointment;
 
         add(linkTo(methodOn(AppointmentController.class).get(appointment.getId())).withSelfRel());
+        add(linkTo(methodOn(AppointmentController.class).allFeedbacks(appointment.getId())).withRel("feedbacks"));
         add(linkTo(methodOn(MentorProfileController.class).get(appointment.getMentorProfileId())).withRel("mentor-profile"));
         add(linkTo(methodOn(UserController.class).get(appointment.getMenteeProfileId())).withRel("mentee"));
     }
