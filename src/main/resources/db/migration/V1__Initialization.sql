@@ -84,7 +84,7 @@ CREATE TABLE Feedback (
   description    VARCHAR(255) NULL,
   FOREIGN KEY (appointment_id)
   REFERENCES Appointment (id)
-    ON DELETE CASCADE,
+    ON DELETE CASCADE
 );
 
 -- Stub data
