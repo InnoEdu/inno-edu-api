@@ -2,12 +2,16 @@ package inno.edu.api.support;
 
 import inno.edu.api.domain.appointment.commands.dtos.AppointmentReason;
 import inno.edu.api.domain.appointment.commands.dtos.CalculateAppointmentFeeRequest;
+import inno.edu.api.domain.appointment.commands.dtos.CreateAppointmentFeedbackRequest;
 import inno.edu.api.domain.appointment.commands.dtos.CreateAppointmentRequest;
 import inno.edu.api.domain.appointment.commands.dtos.UpdateAppointmentRequest;
 import inno.edu.api.domain.appointment.models.Appointment;
+import inno.edu.api.domain.appointment.models.Feedback;
+import inno.edu.api.domain.appointment.models.FeedbackSource;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.ACCEPTED;
@@ -91,6 +95,31 @@ public class AppointmentFactory {
 
     public static AppointmentReason reason() {
         return AppointmentReason.builder().reason("Reason for appointment.").build();
+    }
+
+    public static Feedback feedback() {
+        return Feedback.builder()
+                .id(fromString("bd06f884-b126-4be8-b637-758519dea5a5"))
+                .appointmentId(appointment().getId())
+                .description("Great session")
+                .rating(5)
+                .source(FeedbackSource.MENTEE)
+                .build();
+    }
+
+    public static Feedback newFeedback(UUID id, UUID appointmentId) {
+        return feedback().toBuilder()
+                .id(id)
+                .appointmentId(appointmentId)
+                .build();
+    }
+
+    public static CreateAppointmentFeedbackRequest createAppointmentFeedbackRequest() {
+        return CreateAppointmentFeedbackRequest.builder()
+                .description(feedback().getDescription())
+                .rating(feedback().getRating())
+                .source(feedback().getSource())
+                .build();
     }
 
     public static AppointmentReason emptyReason() {

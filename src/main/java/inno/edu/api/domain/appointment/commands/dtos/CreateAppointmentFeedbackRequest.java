@@ -1,26 +1,18 @@
-package inno.edu.api.domain.appointment.models;
+package inno.edu.api.domain.appointment.commands.dtos;
 
+import inno.edu.api.domain.appointment.models.FeedbackSource;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
 import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import java.util.UUID;
 
-@Entity
 @Data
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Feedback {
-    @Id
-    private UUID id;
-
-    private UUID appointmentId;
-
+public class CreateAppointmentFeedbackRequest {
     @Enumerated
     private FeedbackSource source;
 
