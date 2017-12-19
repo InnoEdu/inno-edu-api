@@ -10,6 +10,7 @@ import inno.edu.api.domain.appointment.models.Feedback;
 import inno.edu.api.domain.appointment.models.FeedbackSource;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,6 +20,7 @@ import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.support.ProfileFactory.alanProfile;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static java.time.LocalDateTime.of;
+import static java.util.Collections.singletonList;
 import static java.util.UUID.fromString;
 
 public class AppointmentFactory {
@@ -132,5 +134,9 @@ public class AppointmentFactory {
 
     public static List<Appointment> proposedAppointments() {
         return newArrayList(appointment());
+    }
+
+    public static List<Feedback> feedbacks() {
+        return singletonList(feedback());
     }
 }

@@ -12,8 +12,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.List;
 
 import static inno.edu.api.support.AppointmentFactory.appointment;
-import static inno.edu.api.support.AppointmentFactory.feedback;
-import static java.util.Collections.singletonList;
+import static inno.edu.api.support.AppointmentFactory.feedbacks;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
@@ -33,11 +32,11 @@ public class GetFeedbacksByAppointmentByIdQueryTest {
     @Test
     public void shouldReturnFeedbacksForAppointment() {
         when(feedbackRepository.findByAppointmentId(appointment().getId()))
-                .thenReturn(singletonList(feedback()));
+                .thenReturn(feedbacks());
 
         List<Feedback> feedbacks = getFeedbacksByAppointmentByIdQuery.run(appointment().getId());
 
-        assertThat(feedbacks, is(singletonList(feedback())));
+        assertThat(feedbacks, is(feedbacks()));
     }
 
     @Test
