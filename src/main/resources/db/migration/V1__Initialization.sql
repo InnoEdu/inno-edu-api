@@ -76,6 +76,17 @@ CREATE TABLE Appointment (
     ON DELETE CASCADE
 );
 
+CREATE TABLE Feedback (
+  id             BINARY(16) PRIMARY KEY,
+  appointment_id BINARY(16)   NOT NULL,
+  source         SMALLINT     NOT NULL,
+  rating         SMALLINT     NOT NULL,
+  description    VARCHAR(255) NULL,
+  FOREIGN KEY (appointment_id)
+  REFERENCES Appointment (id)
+    ON DELETE CASCADE,
+);
+
 -- Stub data
 
 -- Mentors
