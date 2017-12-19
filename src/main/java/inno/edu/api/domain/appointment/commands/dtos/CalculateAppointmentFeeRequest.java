@@ -4,9 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+
+import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME;
 
 @Data
 @Builder(toBuilder = true)
@@ -14,6 +17,10 @@ import java.util.UUID;
 @AllArgsConstructor
 public class CalculateAppointmentFeeRequest {
     public UUID mentorProfileId;
+
+    @DateTimeFormat(iso = DATE_TIME)
     private LocalDateTime fromDateTime;
+
+    @DateTimeFormat(iso = DATE_TIME)
     private LocalDateTime toDateTime;
 }

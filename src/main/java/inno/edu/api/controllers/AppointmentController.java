@@ -1,12 +1,15 @@
 package inno.edu.api.controllers;
 
 import inno.edu.api.controllers.resources.AppointmentResource;
+import inno.edu.api.controllers.resources.EstimationResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
+import inno.edu.api.domain.appointment.commands.CalculateAppointmentFeeCommand;
 import inno.edu.api.domain.appointment.commands.CreateAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.DeleteAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentStatusCommand;
 import inno.edu.api.domain.appointment.commands.dtos.AppointmentReason;
+import inno.edu.api.domain.appointment.commands.dtos.CalculateAppointmentFeeRequest;
 import inno.edu.api.domain.appointment.commands.dtos.CreateAppointmentRequest;
 import inno.edu.api.domain.appointment.commands.dtos.UpdateAppointmentRequest;
 import inno.edu.api.domain.appointment.models.Appointment;
@@ -28,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -46,14 +50,15 @@ public class AppointmentController {
     private final CreateAppointmentCommand createAppointmentCommand;
     private final UpdateAppointmentCommand updateAppointmentCommand;
     private final DeleteAppointmentCommand deleteAppointmentCommand;
+    private final UpdateAppointmentStatusCommand updateAppointmentStatusCommand;
+    private final CalculateAppointmentFeeCommand calculateAppointmentFeeCommand;
 
     private final GetAppointmentByIdQuery getAppointmentByIdQuery;
     private final GetAppointmentsByMentorIdQuery getAppointmentsByMentorIdQuery;
     private final GetAppointmentsByMenteeIdQuery getAppointmentsByMenteeIdQuery;
 
-    private final UpdateAppointmentStatusCommand updateAppointmentStatusCommand;
 
-    public AppointmentController(AppointmentRepository appointmentRepository, ResourceBuilder resourceBuilder, CreateAppointmentCommand createAppointmentCommand, UpdateAppointmentCommand updateAppointmentCommand, DeleteAppointmentCommand deleteAppointmentCommand, GetAppointmentByIdQuery getAppointmentByIdQuery, GetAppointmentsByMentorIdQuery getAppointmentsByMentorIdQuery, GetAppointmentsByMenteeIdQuery getAppointmentsByMenteeIdQuery, UpdateAppointmentStatusCommand updateAppointmentStatusCommand) {
+    public AppointmentController(AppointmentRepository appointmentRepository, ResourceBuilder resourceBuilder, CreateAppointmentCommand createAppointmentCommand, UpdateAppointmentCommand updateAppointmentCommand, DeleteAppointmentCommand deleteAppointmentCommand, GetAppointmentByIdQuery getAppointmentByIdQuery, GetAppointmentsByMentorIdQuery getAppointmentsByMentorIdQuery, GetAppointmentsByMenteeIdQuery getAppointmentsByMenteeIdQuery, UpdateAppointmentStatusCommand updateAppointmentStatusCommand, CalculateAppointmentFeeCommand calculateAppointmentFeeCommand) {
         this.appointmentRepository = appointmentRepository;
         this.resourceBuilder = resourceBuilder;
         this.createAppointmentCommand = createAppointmentCommand;
@@ -63,6 +68,7 @@ public class AppointmentController {
         this.getAppointmentsByMentorIdQuery = getAppointmentsByMentorIdQuery;
         this.getAppointmentsByMenteeIdQuery = getAppointmentsByMenteeIdQuery;
         this.updateAppointmentStatusCommand = updateAppointmentStatusCommand;
+        this.calculateAppointmentFeeCommand = calculateAppointmentFeeCommand;
     }
 
     @GetMapping
@@ -124,5 +130,11 @@ public class AppointmentController {
     public ResponseEntity<?> accept(@PathVariable UUID id) {
         updateAppointmentStatusCommand.run(id, new AppointmentReason(), ACCEPTED);
         return noContent().build();
+    }
+
+    @GetMapping("/estimate")
+    public EstimationResource estimate(CalculateAppointmentFeeRequest request) {
+        BigDecimal fee = calculateAppointmentFeeCommand.run(request);
+        return new EstimationResource(fee);
     }
 }

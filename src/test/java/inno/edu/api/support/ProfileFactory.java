@@ -29,6 +29,7 @@ public class ProfileFactory {
                 .schoolId(stanford().getId())
                 .email("gustavo@inno.edu")
                 .description("Gustavo is a great mentee.")
+                .rate(new BigDecimal(5))
                 .status(CREATED)
                 .build();
     }

@@ -9,6 +9,7 @@ import inno.edu.api.infrastructure.annotations.Command;
 import java.math.BigDecimal;
 
 import static java.math.RoundingMode.CEILING;
+import static java.math.RoundingMode.HALF_EVEN;
 import static java.time.temporal.ChronoUnit.MINUTES;
 
 @Command
@@ -33,9 +34,9 @@ public class CalculateAppointmentFeeCommand {
         BigDecimal minutes =
                 new BigDecimal(request.getFromDateTime().until(request.getToDateTime(), MINUTES));
 
-        return mentorProfile.getRate()
-                .divide(MINUTES_IN_HOUR, SCALE, CEILING)
-                .multiply(minutes)
-                .setScale(CURRENCY_SCALE, CEILING);
+        BigDecimal divide = mentorProfile.getRate().divide(MINUTES_IN_HOUR, SCALE, CEILING);
+        BigDecimal multiply = divide.multiply(minutes);
+
+        return multiply.setScale(CURRENCY_SCALE, HALF_EVEN);
     }
 }

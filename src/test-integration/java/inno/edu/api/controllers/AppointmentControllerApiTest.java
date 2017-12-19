@@ -14,6 +14,7 @@ import static inno.edu.api.support.AppointmentFactory.updatedAppointment;
 import static inno.edu.api.support.Payloads.postAppointmentPayload;
 import static inno.edu.api.support.Payloads.putAppointmentPayload;
 import static inno.edu.api.support.Payloads.putAppointmentReasonPayload;
+import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.fei;
 import static org.hamcrest.Matchers.contains;
@@ -159,5 +160,16 @@ public class AppointmentControllerApiTest extends ApiTest {
                 put("/api/appointments/" + appointment().getId() + "/accept"))
                 .andDo(print())
                 .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void shouldEstimateAppointment() throws Exception {
+        this.mockMvc.perform(get("/api/appointments/estimate")
+                .param("mentorProfileId", feiProfile().getId().toString())
+                .param("fromDateTime", appointment().getFromDateTime().toString())
+                .param("toDateTime", appointment().getToDateTime().toString()))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.fee", is(appointment().getFee().doubleValue())));
     }
 }
