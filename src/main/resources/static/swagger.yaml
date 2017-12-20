@@ -122,6 +122,7 @@ paths:
           description: User id
           required: true
           type: string
+          format: uuid
       produces:
         - application/hal+json
       responses:
@@ -149,6 +150,7 @@ paths:
           description: User id
           required: true
           type: string
+          format: uuid
         - in: body
           name: request
           description: Request object with the user information to be updated
@@ -178,6 +180,7 @@ paths:
           description: User id
           required: true
           type: string
+          format: uuid
       responses:
         '204':
           description: User successfully removed
@@ -198,6 +201,7 @@ paths:
           description: User id
           required: true
           type: string
+          format: uuid
       responses:
         '204':
           description: User profile successfully approved
@@ -222,6 +226,7 @@ paths:
           description: User id
           required: true
           type: string
+          format: uuid
       responses:
         '204':
           description: User profile successfully rejected
@@ -246,6 +251,7 @@ paths:
           description: User id
           required: true
           type: string
+          format: uuid
       produces:
         - application/hal+json
       responses:
@@ -314,6 +320,7 @@ paths:
           description: School id
           required: true
           type: string
+          format: uuid
       produces:
         - application/hal+json
       responses:
@@ -341,6 +348,7 @@ paths:
           description: School id
           required: true
           type: string
+          format: uuid
         - in: body
           name: request
           description: Request object with the school information to be updated
@@ -370,6 +378,7 @@ paths:
           description: School id
           required: true
           type: string
+          format: uuid
       responses:
         '204':
           description: School successfully removed
@@ -390,6 +399,7 @@ paths:
           description: School id
           required: true
           type: string
+          format: uuid
       produces:
         - application/hal+json
       responses:
@@ -456,6 +466,7 @@ paths:
           description: Mentor profile id
           required: true
           type: string
+          format: uuid
       produces:
         - application/hal+json
       responses:
@@ -483,6 +494,7 @@ paths:
           description: Mentor profile id
           required: true
           type: string
+          format: uuid
         - in: body
           name: request
           description: Request object with the mentor profile information to be updated
@@ -512,6 +524,7 @@ paths:
           description: Mentor profile id
           required: true
           type: string
+          format: uuid
       responses:
         '204':
           description: Mentor profile successfully removed
@@ -532,6 +545,7 @@ paths:
           description: User id
           required: true
           type: string
+          format: uuid
       responses:
         '204':
           description: Mentor profile successfully approved
@@ -552,6 +566,7 @@ paths:
           description: Mentor profile id
           required: true
           type: string
+          format: uuid
       responses:
         '204':
           description: Mentor profile profile successfully rejected
@@ -614,6 +629,7 @@ paths:
           description: Mentee profile id
           required: true
           type: string
+          format: uuid
       produces:
         - application/hal+json
       responses:
@@ -641,6 +657,7 @@ paths:
           description: Mentee profile id
           required: true
           type: string
+          format: uuid
         - in: body
           name: request
           description: Request object with the mentee profile information to be updated
@@ -670,6 +687,7 @@ paths:
           description: Mentee profile id
           required: true
           type: string
+          format: uuid
       responses:
         '204':
           description: Mentee profile successfully removed
@@ -732,6 +750,7 @@ paths:
           description: Availability id
           required: true
           type: string
+          format: uuid
       produces:
         - application/hal+json
       responses:
@@ -759,6 +778,7 @@ paths:
           description: Availability id
           required: true
           type: string
+          format: uuid
         - in: body
           name: request
           description: Request object with the availability information to be updated
@@ -788,6 +808,7 @@ paths:
           description: Availability id
           required: true
           type: string
+          format: uuid
       responses:
         '204':
           description: Availability successfully removed
@@ -808,6 +829,7 @@ paths:
           description: Mentor id
           required: true
           type: string
+          format: uuid
       produces:
         - application/hal+json
       responses:
@@ -831,6 +853,7 @@ paths:
           description: Mentor id
           required: true
           type: string
+          format: uuid
         - in: body
           name: request
           description: Request object with the availability information to be created
@@ -909,6 +932,7 @@ paths:
           type: string
           description: Mentor profile id with the hourly rate
           required: true
+          format: uuid
         - in: query
           name: fromDateTime
           type: string
@@ -945,6 +969,7 @@ paths:
           description: Appointment id
           required: true
           type: string
+          format: uuid
       produces:
         - application/hal+json
       responses:
@@ -972,6 +997,7 @@ paths:
           description: Appointment id
           required: true
           type: string
+          format: uuid
         - in: body
           name: request
           description: Request object with the appointment information to be updated
@@ -1001,6 +1027,7 @@ paths:
           description: Appointment id
           required: true
           type: string
+          format: uuid
       responses:
         '204':
           description: Appointment successfully removed
@@ -1023,6 +1050,7 @@ paths:
           description: Mentor id
           required: true
           type: string
+          format: uuid
         - in: query
           name: status
           description: Appointment status
@@ -1053,6 +1081,7 @@ paths:
           description: Mentee id
           required: true
           type: string
+          format: uuid
         - in: query
           name: status
           description: Appointment status
@@ -1083,6 +1112,7 @@ paths:
           description: Appointment id
           required: true
           type: string
+          format: uuid
         - in: body
           name: reason
           description: Reason for canceling the appointment
@@ -1115,6 +1145,7 @@ paths:
           description: Appointment id
           required: true
           type: string
+          format: uuid
         - in: body
           name: reason
           description: Reason for declining the appointment
@@ -1147,6 +1178,7 @@ paths:
           description: Appointment id
           required: true
           type: string
+          format: uuid
       responses:
         '204':
           description: Appointment accepted
@@ -1169,6 +1201,7 @@ paths:
           description: Appointment id
           required: true
           type: string
+          format: uuid
       responses:
         '200':
           description: OK
@@ -1190,6 +1223,7 @@ paths:
           description: Appointment id
           required: true
           type: string
+          format: uuid
         - in: body
           name: request
           description: Request object with the feedback information to be created
@@ -1302,6 +1336,7 @@ definitions:
     properties:
       id:
         type: string
+        format: uuid
       firstName:
         type: string
         maxLength: 50
@@ -1374,6 +1409,7 @@ definitions:
     properties:
       id:
         type: string
+        format: uuid
       name:
         type: string
         maxLength: 255
@@ -1408,10 +1444,13 @@ definitions:
     properties:
       id:
         type: string
+        format: uuid
       mentorId:
         type: string
+        format: uuid
       schoolId:
         type: string
+        format: uuid
       email:
         type: string
       description:
@@ -1446,8 +1485,10 @@ definitions:
     properties:
       mentorId:
         type: string
+        format: uuid
       schoolId:
         type: string
+        format: uuid
       email:
         type: string
         maxLength: 255
@@ -1476,10 +1517,13 @@ definitions:
     properties:
       id:
         type: string
+        format: uuid
       mentorId:
         type: string
+        format: uuid
       schoolId:
         type: string
+        format: uuid
       email:
         type: string
         maxLength: 255
@@ -1516,6 +1560,7 @@ definitions:
     properties:
       menteeId:
         type: string
+        format: uuid
       description:
         type: string
     required:
@@ -1533,8 +1578,10 @@ definitions:
     properties:
       id:
         type: string
+        format: uuid
       menteeId:
         type: string
+        format: uuid
       description:
         type: string
   MenteeProfileResource:
@@ -1563,6 +1610,7 @@ definitions:
     properties:
       mentorProfileId:
         type: string
+        format: uuid
       fromDateTime:
         type: string
         format: date-time
@@ -1602,8 +1650,10 @@ definitions:
     properties:
       id:
         type: string
+        format: uuid
       mentorProfileId:
         type: string
+        format: uuid
       fromDateTime:
         type: string
         format: date-time
@@ -1636,8 +1686,10 @@ definitions:
     properties:
       mentorProfileId:
         type: string
+        format: uuid
       menteeProfileId:
         type: string
+        format: uuid
       fromDateTime:
         type: string
         format: date-time
@@ -1672,10 +1724,13 @@ definitions:
     properties:
       id:
         type: string
+        format: uuid
       mentorProfileId:
         type: string
+        format: uuid
       menteeProfileId:
         type: string
+        format: uuid
       fromDateTime:
         type: string
         format: date-time
@@ -1742,8 +1797,10 @@ definitions:
     properties:
       id:
         type: string
+        format: uuid
       appointmentId:
         type: string
+        format: uuid
       source:
         type: string
         enum: [MENTEE, MENTOR]
@@ -1772,4 +1829,3 @@ definitions:
         $ref: '#/definitions/FeedbackResourceList'
       _links:
         type: object
-        
