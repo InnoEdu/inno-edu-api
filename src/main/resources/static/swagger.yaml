@@ -32,7 +32,7 @@ responses:
     schema:
       $ref: '#/definitions/VndErrors'
   403:
-    description: Forbidden
+    description: Forbidden, access is denied
   500:
     description: Internal Server Error
 securityDefinitions:
@@ -83,8 +83,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/EmbeddedUserResourceList'
-        '401':
-          $ref: '#/responses/401'
+        '403':
+          $ref: '#/responses/403'
     post:
       tags:
         - users
@@ -133,6 +133,8 @@ paths:
           description: User not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
     put:
       tags:
         - users
@@ -164,6 +166,8 @@ paths:
             $ref: '#/definitions/VndErrors'
         '400':
           $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
     delete:
       tags:
         - users
@@ -181,6 +185,8 @@ paths:
           description: User not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
   /users/{id}/approve:
     put:
       tags:
@@ -203,6 +209,8 @@ paths:
           description: User is not a mentor
           schema:
             $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
   /users/{id}/reject:
     put:
       tags:
@@ -225,6 +233,8 @@ paths:
           description: User is not a mentor
           schema:
             $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
   /users/{id}/profile:
     get:
       tags:
@@ -249,6 +259,8 @@ paths:
           description: Profile not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
   /schools:
     get:
       tags:
@@ -261,6 +273,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/EmbeddedSchoolResourceList'
+        '403':
+          $ref: '#/responses/403'
     post:
       tags:
         - schools
@@ -287,6 +301,8 @@ paths:
               description: Link to the new resource created
         '400':
           $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
   /schools/{id}:
     get:
       tags:
@@ -309,6 +325,8 @@ paths:
           description: School not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
     put:
       tags:
         - schools
@@ -340,6 +358,8 @@ paths:
             $ref: '#/definitions/VndErrors'
         '400':
           $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
     delete:
       tags:
         - schools
@@ -357,6 +377,8 @@ paths:
           description: School not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
   /schools/{id}/mentors:
     get:
       tags:
@@ -379,6 +401,8 @@ paths:
           description: School not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
   /mentor-profiles:
     get:
       tags:
@@ -391,6 +415,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/EmbeddedMentorProfileResourceList'
+        '403':
+          $ref: '#/responses/403'
     post:
       tags:
         - mentor-profiles
@@ -417,6 +443,8 @@ paths:
               description: Link to the new resource created
         '400':
           $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
   /mentor-profiles/{id}:
     get:
       tags:
@@ -439,6 +467,8 @@ paths:
           description: Profile not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
     put:
       tags:
         - mentor-profiles
@@ -470,6 +500,8 @@ paths:
             $ref: '#/definitions/VndErrors'
         '400':
           $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
     delete:
       tags:
         - mentor-profiles
@@ -487,6 +519,8 @@ paths:
           description: Mentor profile not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
   /mentor-profiles/{id}/approve:
     put:
       tags:
@@ -505,6 +539,8 @@ paths:
           description: Profile not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
   /mentor-profiles/{id}/reject:
     put:
       tags:
@@ -523,6 +559,8 @@ paths:
           description: Profile not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
   /mentee-profiles:
     get:
       tags:
@@ -535,6 +573,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/EmbeddedMenteeProfileResourceList'
+        '403':
+          $ref: '#/responses/403'
     post:
       tags:
         - mentee-profiles
@@ -561,6 +601,8 @@ paths:
               description: Link to the new resource created
         '400':
           $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
   /mentee-profiles/{id}:
     get:
       tags:
@@ -583,6 +625,8 @@ paths:
           description: Profile not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
     put:
       tags:
         - mentee-profiles
@@ -614,6 +658,8 @@ paths:
             $ref: '#/definitions/VndErrors'
         '400':
           $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
     delete:
       tags:
         - mentee-profiles
@@ -631,6 +677,8 @@ paths:
           description: Mentee profile not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
   /availability:
     get:
       tags:
@@ -643,6 +691,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/EmbeddedAvailabilityResourceList'
+        '403':
+          $ref: '#/responses/403'
     post:
       tags:
         - availability
@@ -669,6 +719,8 @@ paths:
               description: Link to the new resource created
         '400':
           $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
   /availability/{id}:
     get:
       tags:
@@ -691,6 +743,8 @@ paths:
           description: Availability not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
     put:
       tags:
         - availability
@@ -722,6 +776,8 @@ paths:
             $ref: '#/definitions/VndErrors'
         '400':
           $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
     delete:
       tags:
         - availability
@@ -739,6 +795,8 @@ paths:
           description: Availability not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
   /availability/mentor/{mentorId}:
     get:
       tags:
@@ -757,6 +815,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/EmbeddedAvailabilityResourceList'
+        '403':
+          $ref: '#/responses/403'
     post:
       tags:
         - availability
@@ -788,6 +848,8 @@ paths:
             $ref: '#/definitions/VndErrors'
         '400':
           $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
   /appointments:
     get:
       tags:
@@ -800,6 +862,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/EmbeddedAppointmentResourceList'
+        '403':
+          $ref: '#/responses/403'
     post:
       tags:
         - appointments
@@ -830,6 +894,8 @@ paths:
             $ref: '#/definitions/VndErrors'
         '400':
           $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
   /appointments/estimate:
     get:
       tags:
@@ -866,6 +932,8 @@ paths:
             $ref: '#/definitions/VndErrors'
         '400':
           $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
   /appointments/{id}:
     get:
       tags:
@@ -888,6 +956,8 @@ paths:
           description: Appointment not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
     put:
       tags:
         - appointments
@@ -919,6 +989,8 @@ paths:
             $ref: '#/definitions/VndErrors'
         '400':
           $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
     delete:
       tags:
         - appointments
@@ -936,6 +1008,8 @@ paths:
           description: Appointment not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
   /appointments/mentor/{mentorId}:
     get:
       tags:
@@ -964,6 +1038,8 @@ paths:
           description: Mentor not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
   /appointments/mentee/{menteeId}:
     get:
       tags:
@@ -992,6 +1068,8 @@ paths:
           description: Mentor not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
   /appointments/{id}/cancel:
     put:
       tags:
@@ -1022,6 +1100,8 @@ paths:
           description: Reason not provided
           schema:
             $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
   /appointments/{id}/decline:
     put:
       tags:
@@ -1052,6 +1132,8 @@ paths:
           description: Reason not provided
           schema:
             $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
   /appointments/{id}/accept:
     put:
       tags:
@@ -1072,6 +1154,8 @@ paths:
           description: Appointment not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
   /appointments/{id}/feedbacks:
     get:
       tags:
@@ -1090,6 +1174,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/EmbeddedFeedbackResourceList'
+        '403':
+          $ref: '#/responses/403'
     post:
       tags:
         - appointments
@@ -1125,6 +1211,8 @@ paths:
             $ref: '#/definitions/VndErrors'
         '400':
           $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
 definitions:
   VndError:
     type: object
