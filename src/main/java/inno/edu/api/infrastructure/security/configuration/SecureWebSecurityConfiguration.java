@@ -28,6 +28,7 @@ public class SecureWebSecurityConfiguration extends WebSecurityConfigurerAdapter
         httpSecurity.cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/api/users").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/schools").permitAll()
                 .antMatchers(HttpMethod.POST, AUTH_URL).permitAll()
                 .antMatchers(HttpMethod.GET, "/swagger.yaml").permitAll()
                 .anyRequest().authenticated()
