@@ -6,6 +6,7 @@ import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.appointment.commands.CreateAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.CreateFeedbackCommand;
 import inno.edu.api.domain.appointment.commands.DeleteAppointmentCommand;
+import inno.edu.api.domain.appointment.commands.DeleteFeedbackCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentStatusCommand;
 import inno.edu.api.domain.appointment.models.Appointment;
@@ -84,6 +85,9 @@ public class AppointmentControllerTest {
 
     @Mock
     private GetFeedbacksByAppointmentByIdQuery getFeedbacksByAppointmentByIdQuery;
+
+    @Mock
+    private DeleteFeedbackCommand deleteFeedbackCommand;
 
     @InjectMocks
     private AppointmentController appointmentController;
@@ -212,4 +216,10 @@ public class AppointmentControllerTest {
         verify(resourceBuilder).wrappedFrom(eq(feedbacks()), any(), eq(FeedbackResource.class));
     }
 
+    @Test
+    public void shouldDeleteFeedback() {
+        appointmentController.deleteFeedback(feedback().getId());
+
+        verify(deleteFeedbackCommand).run(feedback().getId());
+    }
 }

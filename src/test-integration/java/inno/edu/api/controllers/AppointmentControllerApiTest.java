@@ -202,4 +202,12 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$._embedded.feedbackResourceList[*].rating", containsInAnyOrder(feedback().getRating())))
                 .andExpect(jsonPath("$._embedded.feedbackResourceList[*].description", containsInAnyOrder(feedback().getDescription())));
     }
+
+    @Test
+    public void shouldDeleteFeedback() throws Exception {
+        this.mockMvc.perform(
+                delete("/api/appointments/feedbacks/" + feedback().getId()))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+    }
 }

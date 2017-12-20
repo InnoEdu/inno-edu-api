@@ -32,5 +32,4 @@ public class AppointmentExistsAssertionTest {
 
         appointmentExistsAssertion.run(appointment().getId());
     }
-
 }

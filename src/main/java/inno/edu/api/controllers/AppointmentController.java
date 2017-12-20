@@ -8,6 +8,7 @@ import inno.edu.api.domain.appointment.commands.CalculateAppointmentFeeCommand;
 import inno.edu.api.domain.appointment.commands.CreateAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.CreateFeedbackCommand;
 import inno.edu.api.domain.appointment.commands.DeleteAppointmentCommand;
+import inno.edu.api.domain.appointment.commands.DeleteFeedbackCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentStatusCommand;
 import inno.edu.api.domain.appointment.commands.dtos.AppointmentReason;
@@ -63,9 +64,10 @@ public class AppointmentController {
     private final GetAppointmentsByMenteeIdQuery getAppointmentsByMenteeIdQuery;
 
     private final CreateFeedbackCommand createFeedbackCommand;
+    private final DeleteFeedbackCommand deleteFeedbackCommand;
     private final GetFeedbacksByAppointmentByIdQuery getFeedbacksByAppointmentByIdQuery;
 
-    public AppointmentController(AppointmentRepository appointmentRepository, ResourceBuilder resourceBuilder, CreateAppointmentCommand createAppointmentCommand, UpdateAppointmentCommand updateAppointmentCommand, DeleteAppointmentCommand deleteAppointmentCommand, GetAppointmentByIdQuery getAppointmentByIdQuery, GetAppointmentsByMentorIdQuery getAppointmentsByMentorIdQuery, GetAppointmentsByMenteeIdQuery getAppointmentsByMenteeIdQuery, UpdateAppointmentStatusCommand updateAppointmentStatusCommand, CalculateAppointmentFeeCommand calculateAppointmentFeeCommand, CreateFeedbackCommand createFeedbackCommand, GetFeedbacksByAppointmentByIdQuery getFeedbacksByAppointmentByIdQuery) {
+    public AppointmentController(AppointmentRepository appointmentRepository, ResourceBuilder resourceBuilder, CreateAppointmentCommand createAppointmentCommand, UpdateAppointmentCommand updateAppointmentCommand, DeleteAppointmentCommand deleteAppointmentCommand, GetAppointmentByIdQuery getAppointmentByIdQuery, GetAppointmentsByMentorIdQuery getAppointmentsByMentorIdQuery, GetAppointmentsByMenteeIdQuery getAppointmentsByMenteeIdQuery, UpdateAppointmentStatusCommand updateAppointmentStatusCommand, CalculateAppointmentFeeCommand calculateAppointmentFeeCommand, CreateFeedbackCommand createFeedbackCommand, DeleteFeedbackCommand deleteFeedbackCommand, GetFeedbacksByAppointmentByIdQuery getFeedbacksByAppointmentByIdQuery) {
         this.appointmentRepository = appointmentRepository;
         this.resourceBuilder = resourceBuilder;
         this.createAppointmentCommand = createAppointmentCommand;
@@ -77,6 +79,7 @@ public class AppointmentController {
         this.updateAppointmentStatusCommand = updateAppointmentStatusCommand;
         this.calculateAppointmentFeeCommand = calculateAppointmentFeeCommand;
         this.createFeedbackCommand = createFeedbackCommand;
+        this.deleteFeedbackCommand = deleteFeedbackCommand;
         this.getFeedbacksByAppointmentByIdQuery = getFeedbacksByAppointmentByIdQuery;
     }
 
@@ -158,4 +161,11 @@ public class AppointmentController {
         List<Feedback> feedbacks = getFeedbacksByAppointmentByIdQuery.run(id);
         return resourceBuilder.wrappedFrom(feedbacks, FeedbackResource::new, FeedbackResource.class);
     }
+
+    @DeleteMapping("/feedbacks/{id}")
+    public ResponseEntity<?> deleteFeedback(@PathVariable UUID id) {
+        deleteFeedbackCommand.run(id);
+        return noContent().build();
+    }
+
 }
