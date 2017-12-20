@@ -6,8 +6,8 @@ import org.springframework.http.MediaType;
 
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.support.AppointmentFactory.appointment;
-import static inno.edu.api.support.AppointmentFactory.createAppointmentFeedbackRequest;
 import static inno.edu.api.support.AppointmentFactory.createAppointmentRequest;
+import static inno.edu.api.support.AppointmentFactory.createFeedbackRequest;
 import static inno.edu.api.support.AppointmentFactory.feedback;
 import static inno.edu.api.support.AppointmentFactory.otherAppointment;
 import static inno.edu.api.support.AppointmentFactory.reason;
@@ -180,7 +180,7 @@ public class AppointmentControllerApiTest extends ApiTest {
     public void shouldCreateNewFeedback() throws Exception {
         this.mockMvc.perform(
                 post("/api/appointments/" + appointment().getId() + "/feedbacks")
-                        .content(postFeedbackPayload(createAppointmentFeedbackRequest()))
+                        .content(postFeedbackPayload(createFeedbackRequest()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())

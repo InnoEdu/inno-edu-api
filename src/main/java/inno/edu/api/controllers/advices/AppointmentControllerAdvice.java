@@ -1,6 +1,7 @@
 package inno.edu.api.controllers.advices;
 
 import inno.edu.api.domain.appointment.exceptions.AppointmentNotFoundException;
+import inno.edu.api.domain.appointment.exceptions.InvalidRatingRangeException;
 import org.springframework.core.annotation.Order;
 import org.springframework.hateoas.VndErrors;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,13 @@ public class AppointmentControllerAdvice {
     @ExceptionHandler(AppointmentNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     VndErrors appointmentNotFoundExceptionHandler(AppointmentNotFoundException ex) {
+        return new VndErrors("error", ex.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(InvalidRatingRangeException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    VndErrors invalidRatingRangeExceptionHandler(InvalidRatingRangeException ex) {
         return new VndErrors("error", ex.getMessage());
     }
 }

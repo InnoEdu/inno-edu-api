@@ -31,7 +31,7 @@ import static inno.edu.api.domain.appointment.models.AppointmentStatus.DECLINED;
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.support.AppointmentFactory.appointment;
 import static inno.edu.api.support.AppointmentFactory.appointments;
-import static inno.edu.api.support.AppointmentFactory.createAppointmentFeedbackRequest;
+import static inno.edu.api.support.AppointmentFactory.createFeedbackRequest;
 import static inno.edu.api.support.AppointmentFactory.createAppointmentRequest;
 import static inno.edu.api.support.AppointmentFactory.emptyReason;
 import static inno.edu.api.support.AppointmentFactory.feedback;
@@ -195,9 +195,9 @@ public class AppointmentControllerTest {
 
     @Test
     public void shouldCreateFeedback() {
-        when(createFeedbackCommand.run(appointment().getId(), createAppointmentFeedbackRequest())).thenReturn(feedback());
+        when(createFeedbackCommand.run(appointment().getId(), createFeedbackRequest())).thenReturn(feedback());
 
-        ResponseEntity<Feedback> entity = appointmentController.postFeedback(appointment().getId(), createAppointmentFeedbackRequest());
+        ResponseEntity<Feedback> entity = appointmentController.postFeedback(appointment().getId(), createFeedbackRequest());
 
         assertThat(entity.getBody(), is(feedback()));
     }

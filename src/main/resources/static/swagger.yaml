@@ -1786,6 +1786,8 @@ definitions:
         enum: [MENTEE, MENTOR]
       rating:
         type: number
+        minimum: 0
+        maximum: 5
       description:
         type: string
     required:

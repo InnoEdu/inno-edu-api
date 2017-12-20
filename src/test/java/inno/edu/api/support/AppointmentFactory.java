@@ -2,15 +2,14 @@ package inno.edu.api.support;
 
 import inno.edu.api.domain.appointment.commands.dtos.AppointmentReason;
 import inno.edu.api.domain.appointment.commands.dtos.CalculateAppointmentFeeRequest;
-import inno.edu.api.domain.appointment.commands.dtos.CreateFeedbackRequest;
 import inno.edu.api.domain.appointment.commands.dtos.CreateAppointmentRequest;
+import inno.edu.api.domain.appointment.commands.dtos.CreateFeedbackRequest;
 import inno.edu.api.domain.appointment.commands.dtos.UpdateAppointmentRequest;
 import inno.edu.api.domain.appointment.models.Appointment;
 import inno.edu.api.domain.appointment.models.Feedback;
 import inno.edu.api.domain.appointment.models.FeedbackSource;
 
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -116,7 +115,7 @@ public class AppointmentFactory {
                 .build();
     }
 
-    public static CreateFeedbackRequest createAppointmentFeedbackRequest() {
+    public static CreateFeedbackRequest createFeedbackRequest() {
         return CreateFeedbackRequest.builder()
                 .description(feedback().getDescription())
                 .rating(feedback().getRating())

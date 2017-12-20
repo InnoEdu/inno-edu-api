@@ -1,6 +1,7 @@
 package inno.edu.api.domain.appointment.commands;
 
 import inno.edu.api.domain.appointment.assertions.AppointmentExistsAssertion;
+import inno.edu.api.domain.appointment.assertions.RatingInRangeAssertion;
 import inno.edu.api.domain.appointment.commands.dtos.CreateFeedbackRequest;
 import inno.edu.api.domain.appointment.commands.mappers.CreateFeedbackRequestMapper;
 import inno.edu.api.domain.appointment.models.Feedback;
@@ -17,16 +18,19 @@ public class CreateFeedbackCommand {
     private final FeedbackRepository feedbackRepository;
 
     private final AppointmentExistsAssertion appointmentExistsAssertion;
+    private final RatingInRangeAssertion ratingInRangeAssertion;
 
-    public CreateFeedbackCommand(UUIDGeneratorService uuidGeneratorService, CreateFeedbackRequestMapper createFeedbackRequestMapper, FeedbackRepository feedbackRepository, AppointmentExistsAssertion appointmentExistsAssertion) {
+    public CreateFeedbackCommand(UUIDGeneratorService uuidGeneratorService, CreateFeedbackRequestMapper createFeedbackRequestMapper, FeedbackRepository feedbackRepository, AppointmentExistsAssertion appointmentExistsAssertion, RatingInRangeAssertion ratingInRangeAssertion) {
         this.uuidGeneratorService = uuidGeneratorService;
         this.createFeedbackRequestMapper = createFeedbackRequestMapper;
         this.feedbackRepository = feedbackRepository;
         this.appointmentExistsAssertion = appointmentExistsAssertion;
+        this.ratingInRangeAssertion = ratingInRangeAssertion;
     }
 
     public Feedback run(UUID appointmentId, CreateFeedbackRequest request) {
         appointmentExistsAssertion.run(appointmentId);
+        ratingInRangeAssertion.run(request.getRating());
 
         Feedback feedback = createFeedbackRequestMapper.toFeedback(request);
 
