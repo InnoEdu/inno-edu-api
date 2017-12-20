@@ -22,6 +22,8 @@ tags:
     description: Mentor avaialbility management
   - name: appointments
     description: Appointments management
+  - name: feedbacks
+    description: Apointment feedbacks
 responses:
   400:
     description: Bad request, additional info provided in the response body
@@ -1192,6 +1194,7 @@ paths:
     get:
       tags:
         - appointments
+        - feedbacks
       summary: Get all feedbacks for appointment
       produces:
         - application/hal+json
@@ -1212,6 +1215,7 @@ paths:
     post:
       tags:
         - appointments
+        - feedbacks
       summary: Add a feedback for the appointment
       consumes:
         - application/json
@@ -1247,6 +1251,29 @@ paths:
           $ref: '#/responses/400'
         '403':
           $ref: '#/responses/403'
+  /appointments/feedbacks/{id}:
+    delete:
+      tags:
+        - appointments
+        - feedbacks
+      summary: Delete feedback by id
+      parameters:
+        - in: path
+          name: id
+          description: Feedback id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: Feedback successfully removed
+        '404':
+          description: Feedback not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
+
 definitions:
   VndError:
     type: object
@@ -1831,3 +1858,4 @@ definitions:
         $ref: '#/definitions/FeedbackResourceList'
       _links:
         type: object
+        
