@@ -531,7 +531,7 @@ paths:
         '204':
           description: Mentor profile successfully removed
         '404':
-          description: Mentor profile not found
+          description: Profile not found
           schema:
             $ref: '#/definitions/VndErrors'
         '403':
@@ -694,7 +694,7 @@ paths:
         '204':
           description: Mentee profile successfully removed
         '404':
-          description: Mentee profile not found
+          description: Profile not found
           schema:
             $ref: '#/definitions/VndErrors'
         '403':
@@ -913,10 +913,6 @@ paths:
             Location:
               type: string
               description: Link to the new resource created
-        '404':
-          description: Invalid Mentor Profile or Mentee Profile supplied
-          schema:
-            $ref: '#/definitions/VndErrors'
         '400':
           $ref: '#/responses/400'
         '403':
@@ -1243,10 +1239,6 @@ paths:
             Location:
               type: string
               description: Link to the new resource created
-        '404':
-          description: Invalid appointment suplied
-          schema:
-            $ref: '#/definitions/VndErrors'
         '400':
           $ref: '#/responses/400'
         '403':
