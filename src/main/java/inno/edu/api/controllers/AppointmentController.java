@@ -22,6 +22,7 @@ import inno.edu.api.domain.appointment.models.Feedback;
 import inno.edu.api.domain.appointment.queries.GetAppointmentByIdQuery;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByMenteeIdQuery;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByMentorIdQuery;
+import inno.edu.api.domain.appointment.queries.GetFeedbackByIdQuery;
 import inno.edu.api.domain.appointment.queries.GetFeedbacksByAppointmentByIdQuery;
 import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
 import org.springframework.hateoas.Resources;
@@ -66,8 +67,9 @@ public class AppointmentController {
     private final CreateFeedbackCommand createFeedbackCommand;
     private final DeleteFeedbackCommand deleteFeedbackCommand;
     private final GetFeedbacksByAppointmentByIdQuery getFeedbacksByAppointmentByIdQuery;
+    private final GetFeedbackByIdQuery getFeedbackByIdQuery;
 
-    public AppointmentController(AppointmentRepository appointmentRepository, ResourceBuilder resourceBuilder, CreateAppointmentCommand createAppointmentCommand, UpdateAppointmentCommand updateAppointmentCommand, DeleteAppointmentCommand deleteAppointmentCommand, GetAppointmentByIdQuery getAppointmentByIdQuery, GetAppointmentsByMentorIdQuery getAppointmentsByMentorIdQuery, GetAppointmentsByMenteeIdQuery getAppointmentsByMenteeIdQuery, UpdateAppointmentStatusCommand updateAppointmentStatusCommand, CalculateAppointmentFeeCommand calculateAppointmentFeeCommand, CreateFeedbackCommand createFeedbackCommand, DeleteFeedbackCommand deleteFeedbackCommand, GetFeedbacksByAppointmentByIdQuery getFeedbacksByAppointmentByIdQuery) {
+    public AppointmentController(AppointmentRepository appointmentRepository, ResourceBuilder resourceBuilder, CreateAppointmentCommand createAppointmentCommand, UpdateAppointmentCommand updateAppointmentCommand, DeleteAppointmentCommand deleteAppointmentCommand, GetAppointmentByIdQuery getAppointmentByIdQuery, GetAppointmentsByMentorIdQuery getAppointmentsByMentorIdQuery, GetAppointmentsByMenteeIdQuery getAppointmentsByMenteeIdQuery, UpdateAppointmentStatusCommand updateAppointmentStatusCommand, CalculateAppointmentFeeCommand calculateAppointmentFeeCommand, CreateFeedbackCommand createFeedbackCommand, DeleteFeedbackCommand deleteFeedbackCommand, GetFeedbacksByAppointmentByIdQuery getFeedbacksByAppointmentByIdQuery, GetFeedbackByIdQuery getFeedbackByIdQuery) {
         this.appointmentRepository = appointmentRepository;
         this.resourceBuilder = resourceBuilder;
         this.createAppointmentCommand = createAppointmentCommand;
@@ -81,6 +83,7 @@ public class AppointmentController {
         this.createFeedbackCommand = createFeedbackCommand;
         this.deleteFeedbackCommand = deleteFeedbackCommand;
         this.getFeedbacksByAppointmentByIdQuery = getFeedbacksByAppointmentByIdQuery;
+        this.getFeedbackByIdQuery = getFeedbackByIdQuery;
     }
 
     @GetMapping
@@ -168,4 +171,8 @@ public class AppointmentController {
         return noContent().build();
     }
 
+    @GetMapping("/feedbacks/{id}")
+    public FeedbackResource getFeedback(@PathVariable UUID id) {
+        return new FeedbackResource(getFeedbackByIdQuery.run(id));
+    }
 }

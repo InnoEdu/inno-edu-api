@@ -1252,6 +1252,31 @@ paths:
         '403':
           $ref: '#/responses/403'
   /appointments/feedbacks/{id}:
+    get:
+      tags:
+        - appointments
+        - feedbacks
+      summary: Get feedback by id
+      parameters:
+        - in: path
+          name: id
+          description: Feedback id
+          required: true
+          type: string
+          format: uuid
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/FeedbackResource'
+        '404':
+          description: Feedback not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
     delete:
       tags:
         - appointments
@@ -1273,7 +1298,6 @@ paths:
             $ref: '#/definitions/VndErrors'
         '403':
           $ref: '#/responses/403'
-
 definitions:
   VndError:
     type: object
@@ -1858,4 +1882,3 @@ definitions:
         $ref: '#/definitions/FeedbackResourceList'
       _links:
         type: object
-        

@@ -14,6 +14,7 @@ import inno.edu.api.domain.appointment.models.Feedback;
 import inno.edu.api.domain.appointment.queries.GetAppointmentByIdQuery;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByMenteeIdQuery;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByMentorIdQuery;
+import inno.edu.api.domain.appointment.queries.GetFeedbackByIdQuery;
 import inno.edu.api.domain.appointment.queries.GetFeedbacksByAppointmentByIdQuery;
 import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
 import org.junit.Before;
@@ -88,6 +89,9 @@ public class AppointmentControllerTest {
 
     @Mock
     private DeleteFeedbackCommand deleteFeedbackCommand;
+
+    @Mock
+    private GetFeedbackByIdQuery getFeedbackByIdQuery;
 
     @InjectMocks
     private AppointmentController appointmentController;
@@ -221,5 +225,14 @@ public class AppointmentControllerTest {
         appointmentController.deleteFeedback(feedback().getId());
 
         verify(deleteFeedbackCommand).run(feedback().getId());
+    }
+
+    @Test
+    public void shouldGetFeedbackById() {
+        when(getFeedbackByIdQuery.run(eq(feedback().getId()))).thenReturn(feedback());
+
+        FeedbackResource feedbackResource = appointmentController.getFeedback(feedback().getId());
+
+        assertThat(feedbackResource.getFeedback(), is(feedback()));
     }
 }

@@ -210,4 +210,16 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }
+
+    @Test
+    public void shouldGetFeedbackById() throws Exception {
+        this.mockMvc.perform(get("/api/appointments/feedbacks/" + feedback().getId().toString()))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(feedback().getId().toString())))
+                .andExpect(jsonPath("$.appointmentId", is(feedback().getAppointmentId().toString())))
+                .andExpect(jsonPath("$.source", is(feedback().getSource().toString())))
+                .andExpect(jsonPath("$.rating", is(feedback().getRating())))
+                .andExpect(jsonPath("$.description", is(feedback().getDescription())));
+    }
 }
