@@ -4,7 +4,6 @@ import inno.edu.api.infrastructure.security.jwt.JWTAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,6 +14,9 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import static inno.edu.api.infrastructure.security.SecurityConstants.AUTH_URL;
+import static inno.edu.api.infrastructure.security.SecurityConstants.SWAGGER_ENDPOINT;
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @EnableWebSecurity
@@ -27,10 +29,10 @@ public class SecureWebSecurityConfiguration extends WebSecurityConfigurerAdapter
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, AUTH_URL).permitAll()
-                .antMatchers(HttpMethod.POST, "/api/users").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/schools").permitAll()
-                .antMatchers(HttpMethod.GET, "/swagger.yaml").permitAll()
+                .antMatchers(POST, AUTH_URL).permitAll()
+                .antMatchers(GET, SWAGGER_ENDPOINT).permitAll()
+                .antMatchers(POST, "/api/users").permitAll()
+                .antMatchers(GET, "/api/schools").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
