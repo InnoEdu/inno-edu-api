@@ -4,7 +4,6 @@ import inno.edu.api.infrastructure.configuration.properties.ApplicationConfigura
 import inno.edu.api.infrastructure.security.jwt.JWTAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,7 +17,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @EnableWebSecurity
-@Profile({"dev", "production"})
 public class SecureWebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;

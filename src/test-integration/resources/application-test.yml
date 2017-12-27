@@ -7,14 +7,20 @@ spring:
   h2:
     console:
       enabled: true
-  jackson:
-    serialization:
-      write_dates_as_timestamps: false
 
 flyway:
   cleanOnValidationError: true
   placeholders:
     map: lower
 
-endpoints:
-  sensitive: false
+application:
+  security:
+    unsecured:
+      - method: GET
+        path: /**
+      - method: POST
+        path: /api/**
+      - method: PUT
+        path: /api/**
+      - method: DELETE
+        path: /api/**
