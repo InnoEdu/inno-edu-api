@@ -4,11 +4,9 @@ spring:
   h2:
     console:
       enabled: true
-
 flyway:
   cleanOnValidationError: true
   placeholders:
     map: lower
-
 endpoints:
   sensitive: false

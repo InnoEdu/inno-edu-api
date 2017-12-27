@@ -27,9 +27,9 @@ public class SecureWebSecurityConfiguration extends WebSecurityConfigurerAdapter
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().and().csrf().disable()
                 .authorizeRequests()
+                .antMatchers(HttpMethod.POST, AUTH_URL).permitAll()
                 .antMatchers(HttpMethod.POST, "/api/users").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/schools").permitAll()
-                .antMatchers(HttpMethod.POST, AUTH_URL).permitAll()
                 .antMatchers(HttpMethod.GET, "/swagger.yaml").permitAll()
                 .anyRequest().authenticated()
                 .and()
