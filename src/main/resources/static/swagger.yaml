@@ -281,8 +281,6 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/EmbeddedSchoolResourceList'
-        '403':
-          $ref: '#/responses/403'
     post:
       tags:
         - schools
@@ -334,8 +332,6 @@ paths:
           description: School not found
           schema:
             $ref: '#/definitions/VndErrors'
-        '403':
-          $ref: '#/responses/403'
     put:
       tags:
         - schools
@@ -413,8 +409,6 @@ paths:
           description: School not found
           schema:
             $ref: '#/definitions/VndErrors'
-        '403':
-          $ref: '#/responses/403'
   /mentor-profiles:
     get:
       tags:
@@ -480,8 +474,6 @@ paths:
           description: Profile not found
           schema:
             $ref: '#/definitions/VndErrors'
-        '403':
-          $ref: '#/responses/403'
     put:
       tags:
         - mentor-profiles
@@ -839,8 +831,6 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/EmbeddedAvailabilityResourceList'
-        '403':
-          $ref: '#/responses/403'
     post:
       tags:
         - availability
