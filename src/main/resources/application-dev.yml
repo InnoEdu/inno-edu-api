@@ -4,9 +4,17 @@ spring:
   h2:
     console:
       enabled: true
+
 flyway:
   cleanOnValidationError: true
   placeholders:
     map: lower
+
 endpoints:
   sensitive: false
+
+application:
+  security:
+    unsecured:
+      - method: GET
+        path: /swagger.yaml
