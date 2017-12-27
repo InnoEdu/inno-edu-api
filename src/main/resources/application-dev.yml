@@ -16,19 +16,11 @@ endpoints:
 application:
   security:
     unsecured:
+      - method: GET
+        path: /**
       - method: POST
-        path: /api/auth/login
-      - method: POST
-        path: /api/users
-      - method: GET
-        path: /swagger.yaml
-      - method: GET
-        path: /api/schools
-      - method: GET
-        path: /api/schools/{[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}}
-      - method: GET
-        path: /api/schools/{[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}}/mentors
-      - method: GET
-        path: /api/mentor-profiles/{[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}}
-      - method: GET
-        path: /api/availability/mentor/{[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}}
+        path: /api/**
+      - method: PUT
+        path: /api/**
+      - method: DELETE
+        path: /api/**
