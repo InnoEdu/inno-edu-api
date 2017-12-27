@@ -1,7 +1,6 @@
 package inno.edu.api.infrastructure.security.configuration;
 
 import inno.edu.api.infrastructure.configuration.properties.ApplicationConfiguration;
-import inno.edu.api.infrastructure.configuration.properties.SecurityConfiguration.EndpointConfiguration;
 import inno.edu.api.infrastructure.security.jwt.JWTAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,8 +15,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import static inno.edu.api.infrastructure.security.SecurityConstants.AUTH_URL;
-import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @EnableWebSecurity
@@ -35,21 +32,18 @@ public class SecureWebSecurityConfiguration extends WebSecurityConfigurerAdapter
                 httpSecurity.cors().and().csrf().disable()
                         .authorizeRequests();
 
-        registry = registry.antMatchers(POST, AUTH_URL).permitAll();
-
-        for (EndpointConfiguration endpointConfiguration : configuration.getSecurity().getUnsecured()) {
-            registry = registry
-                    .antMatchers(endpointConfiguration.getMethod(), endpointConfiguration.getPath())
-                    .permitAll();
-        }
-
-        registry
+        configuration
+                .getSecurity()
+                .getUnsecured()
+                .stream()
+                .reduce(registry,
+                        (registryAccumulator, endpoint) -> registryAccumulator.antMatchers(endpoint.getMethod(), endpoint.getPath()).permitAll(),
+                        (registryAccumulator, endpoint) -> registryAccumulator)
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 .sessionManagement().sessionCreationPolicy(STATELESS);
     }
-
 
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
