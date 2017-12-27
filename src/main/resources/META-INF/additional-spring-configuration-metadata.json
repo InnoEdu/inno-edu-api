@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "application.security.unsecured.method",
+      "type": "java.lang.String",
+      "description": "HttpMethod of the unsecured endpoint."
+    },
+    {
+      "name": "application.security.unsecured.path",
+      "type": "java.lang.String",
+      "description": "Path to the unsecured endpoint."
+    }
+  ]
+}
