@@ -1,7 +1,7 @@
 package inno.edu.api.controllers.resources;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import inno.edu.api.controllers.MenteeProfileController;
+import inno.edu.api.controllers.ProfileController;
 import inno.edu.api.controllers.UserController;
 import inno.edu.api.domain.profile.models.Profile;
 import lombok.Getter;
@@ -23,7 +23,7 @@ public class ProfileResource extends ResourceSupport {
     public ProfileResource(Profile profile) {
         this.profile = profile;
 
-        add(linkTo(methodOn(MenteeProfileController.class).get(profile.getId())).withSelfRel());
+        add(linkTo(methodOn(ProfileController.class).get(profile.getId())).withSelfRel());
         add(linkTo(methodOn(UserController.class).get(profile.getUserId())).withRel("user"));
     }
 
