@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static inno.edu.api.domain.profile.models.ProfileStatus.CREATED;
 import static inno.edu.api.support.ProfileFactory.createNewAlanProfileRequest;
 import static inno.edu.api.support.ProfileFactory.newAlanProfile;
 import static inno.edu.api.support.ProfileFactory.newNewAlanProfile;
@@ -44,12 +45,12 @@ public class CreateProfileCommandTest {
         when(uuidGeneratorService.generate()).thenReturn(randomUUID());
 
         when(createProfileRequestMapper.toProfile(createNewAlanProfileRequest()))
-                .thenReturn(newNewAlanProfile(null));
+                .thenReturn(newNewAlanProfile(null, null));
     }
 
     @Test
     public void shouldSaveNewProfile() {
-        Profile newProfile = newNewAlanProfile(uuidGeneratorService.generate());
+        Profile newProfile = newNewAlanProfile(uuidGeneratorService.generate(), CREATED);
         when(profileRepository.save(newProfile)).thenReturn(newProfile);
 
         Profile savedProfile = createProfileCommand.run(createNewAlanProfileRequest());

@@ -9,6 +9,8 @@ import inno.edu.api.domain.user.assertions.UserExistsAssertion;
 import inno.edu.api.infrastructure.annotations.Command;
 import inno.edu.api.infrastructure.services.UUIDGeneratorService;
 
+import static inno.edu.api.domain.profile.models.ProfileStatus.CREATED;
+
 @Command
 public class CreateProfileCommand {
     private final UUIDGeneratorService uuidGeneratorService;
@@ -28,13 +30,15 @@ public class CreateProfileCommand {
     public Profile run(CreateProfileRequest createProfileRequest) {
         userExistsAssertion.run(createProfileRequest.getUserId());
 
-        Profile Profile = createProfileRequestMapper.toProfile(createProfileRequest);
+        Profile profile = createProfileRequestMapper.toProfile(createProfileRequest);
 
         if (profileRepository.existsByUserId(createProfileRequest.getUserId())) {
             throw new ProfileAlreadyCreatedException(createProfileRequest.getUserId());
         }
 
-        Profile.setId(uuidGeneratorService.generate());
-        return profileRepository.save(Profile);
+        profile.setId(uuidGeneratorService.generate());
+        profile.setStatus(CREATED);
+
+        return profileRepository.save(profile);
     }
 }

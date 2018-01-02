@@ -26,9 +26,10 @@ import static java.util.UUID.fromString;
 public class ProfileFactory {
     // New
 
-    public static Profile newNewAlanProfile(UUID id) {
+    public static Profile newNewAlanProfile(UUID id, ProfileStatus status) {
         return newAlanProfile().toBuilder()
                 .id(id)
+                .status(status)
                 .build();
     }
 
@@ -38,6 +39,7 @@ public class ProfileFactory {
                 .schoolId(stanford().getId())
                 .rate(new BigDecimal(20.5))
                 .description("Gustavo is a great mentor.")
+                .status(CREATED)
                 .build();
     }
 
@@ -46,6 +48,7 @@ public class ProfileFactory {
         return Profile.builder().id(fromString("c5f473b4-3311-40b1-8fb3-f70357894754"))
                 .userId(alan().getId())
                 .description("Alan is a great mentee.")
+                .status(CREATED)
                 .build();
     }
 
@@ -53,6 +56,7 @@ public class ProfileFactory {
         return Profile.builder().id(fromString("c96ae800-fd93-48c2-bbf3-91a6658c8079"))
                 .userId(tuany().getId())
                 .description("Tuany is a great mentee.")
+                .status(CREATED)
                 .build();
     }
 

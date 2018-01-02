@@ -33,6 +33,7 @@ public class ProfileControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$._embedded.profileResourceList[*].userId", hasItems(newAlanProfile().getUserId().toString(), newGustavoProfile().getUserId().toString())))
                 .andExpect(jsonPath("$._embedded.profileResourceList[*].schoolId", hasItems(newAlanProfile().getSchoolId(), newGustavoProfile().getSchoolId().toString())))
                 .andExpect(jsonPath("$._embedded.profileResourceList[*].description", hasItems(newAlanProfile().getDescription(), newGustavoProfile().getDescription())))
+                .andExpect(jsonPath("$._embedded.profileResourceList[*].status", hasItems(newAlanProfile().getStatus().toString(), newGustavoProfile().getStatus().toString())))
                 .andExpect(jsonPath("$._embedded.profileResourceList[*].rate", hasItems(newAlanProfile().getRate(), newGustavoProfile().getRate().doubleValue())));
     }
 
@@ -44,6 +45,7 @@ public class ProfileControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.userId", is(newGustavoProfile().getUserId().toString())))
                 .andExpect(jsonPath("$.schoolId", is(newGustavoProfile().getSchoolId().toString())))
                 .andExpect(jsonPath("$.description", is(newGustavoProfile().getDescription())))
+                .andExpect(jsonPath("$.status", is(newGustavoProfile().getStatus().toString())))
                 .andExpect(jsonPath("$.rate", is(newGustavoProfile().getRate().doubleValue())));
     }
 
@@ -57,7 +59,8 @@ public class ProfileControllerApiTest extends ApiTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", not(newTuanyProfile().getId().toString())))
                 .andExpect(jsonPath("$.userId", is(newTuanyProfile().getUserId().toString())))
-                .andExpect(jsonPath("$.description", is(newTuanyProfile().getDescription())));
+                .andExpect(jsonPath("$.description", is(newTuanyProfile().getDescription())))
+                .andExpect(jsonPath("$.status", is(newTuanyProfile().getStatus().toString())));
     }
 
     @Test

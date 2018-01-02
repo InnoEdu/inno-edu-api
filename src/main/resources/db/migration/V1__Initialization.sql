@@ -22,6 +22,7 @@ CREATE TABLE Profile (
   user_id     BINARY(16)     NOT NULL,
   school_id   BINARY(16)     NULL,
   description TEXT           NOT NULL,
+  status      SMALLINT       NOT NULL,
   rate        DECIMAL(15, 2) NULL,
 
   FOREIGN KEY (user_id)
@@ -156,13 +157,13 @@ VALUES (${map}('2744d1cbb25e4a61879dad3d15ffebe2'), ${map}('8d6153fc83e54b3a90ac
 
 -- Profiles
 
-INSERT INTO Profile (id, user_id, description)
+INSERT INTO Profile (id, user_id, description, status)
 VALUES (${map}('c5f473b4331140b18fb3f70357894754'), ${map}('e3495a43a0af42b7ab91a3801b1b56ab'),
-        'Tuany is a great mentee.');
+        'Tuany is a great mentee.', 0);
 
-INSERT INTO Profile (id, user_id, description)
+INSERT INTO Profile (id, user_id, description, status)
 VALUES (${map}('71b31ec9207d4d469e33c4b4024db0ed'), ${map}('c5e6b39233e14255a249f777b6ab355d'),
-        'Eluisete is a great mentee.');
+        'Eluisete is a great mentee.', 0);
 
 -- Availability
 
