@@ -60,21 +60,21 @@ public class MenteeProfileControllerTest {
     }
 
     @Test
-    public void shouldGetProfileById() {
-        when(getMenteeProfileByIdQuery.run(eq(alanProfile().getId()))).thenReturn(alanProfile());
-
-        MenteeProfileResource profileResource = menteeProfileController.get(alanProfile().getId());
-
-        assertThat(profileResource.getMenteeProfile(), is(alanProfile()));
-    }
-
-    @Test
     public void shouldListProfiles() {
         when(menteeProfileRepository.findAll()).thenReturn(menteeProfiles());
 
         menteeProfileController.all();
 
         verify(resourceBuilder).wrappedFrom(eq(menteeProfiles()), any(), eq(MenteeProfileResource.class));
+    }
+
+    @Test
+    public void shouldGetProfileById() {
+        when(getMenteeProfileByIdQuery.run(eq(alanProfile().getId()))).thenReturn(alanProfile());
+
+        MenteeProfileResource profileResource = menteeProfileController.get(alanProfile().getId());
+
+        assertThat(profileResource.getMenteeProfile(), is(alanProfile()));
     }
 
     @Test

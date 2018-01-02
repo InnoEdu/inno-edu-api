@@ -8,5 +8,4 @@ import java.util.UUID;
 public interface MenteeProfileRepository extends CrudRepository<MenteeProfile, UUID> {
     MenteeProfile findOneByMenteeId(UUID menteeId);
     boolean existsByMenteeId(UUID menteeId);
-
 }

@@ -13,7 +13,6 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DeleteMenteeProfileCommandTest {
-
     @Mock
     private MenteeProfileExistsAssertion menteeProfileExistsAssertion;
 

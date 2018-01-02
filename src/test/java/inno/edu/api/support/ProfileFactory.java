@@ -2,8 +2,10 @@ package inno.edu.api.support;
 
 import inno.edu.api.domain.profile.commands.dtos.CreateMenteeProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.CreateMentorProfileRequest;
+import inno.edu.api.domain.profile.commands.dtos.CreateProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.UpdateMenteeProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.UpdateMentorProfileRequest;
+import inno.edu.api.domain.profile.commands.dtos.UpdateProfileRequest;
 import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.profile.models.Profile;
@@ -26,6 +28,12 @@ import static java.util.UUID.fromString;
 public class ProfileFactory {
     // New
 
+    public static Profile newNewAlanProfile(UUID id) {
+        return newAlanProfile().toBuilder()
+                .id(id)
+                .build();
+    }
+
     public static Profile newAlanProfile() {
         return Profile.builder().id(fromString("c5f473b4-3311-40b1-8fb3-f70357894754"))
                 .userId(alan().getId())
@@ -33,9 +41,30 @@ public class ProfileFactory {
                 .build();
     }
 
+    public static Profile updatedNewAlanProfile() {
+        return newAlanProfile().toBuilder()
+                .description("Updated description")
+                .build();
+    }
+
+
     public static List<Profile> profiles() {
         return singletonList(newAlanProfile());
     }
+
+    public static CreateProfileRequest createNewAlanProfileRequest() {
+        return CreateProfileRequest.builder()
+                .userId(alan().getId())
+                .description("Alan is a great mentee.")
+                .build();
+    }
+
+    public static UpdateProfileRequest updateNewAlanProfileRequest() {
+        return UpdateProfileRequest.builder()
+                .description(updatedNewAlanProfile().getDescription())
+                .build();
+    }
+
 
     ///
 
@@ -128,6 +157,7 @@ public class ProfileFactory {
                 .description("Updated description")
                 .build();
     }
+
     public static UpdateMenteeProfileRequest updateAlanProfileRequest() {
         return UpdateMenteeProfileRequest.builder()
                 .description(updatedAlanProfile().getDescription())
