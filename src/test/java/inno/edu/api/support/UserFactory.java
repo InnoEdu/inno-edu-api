@@ -104,6 +104,12 @@ public class UserFactory {
                 .build();
     }
 
+    public static ApplicationUser tuany() {
+        return ApplicationUser.builder()
+                .id(fromString("1e4cc51c-767f-4524-b4e0-4f2e4bd249da"))
+                .build();
+    }
+
     public static ApplicationUser updatedFei() {
         return fei().toBuilder()
                 .firstName("UpdatedFei")

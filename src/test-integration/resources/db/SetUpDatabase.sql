@@ -12,11 +12,9 @@ INSERT INTO User (id, first_name, last_name, username, email, password, is_mento
 VALUES ('df54ff863caa4145b228284f5d4a908a', 'Gustavo', 'Di Domenico', 'gdomenico', 'gustavo@inno.edu', 'password', 1,
         'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAANPAAAAJGMwMjU0ZWJlLTBjZmEtNDNiNC1hZWVlLTQzNDRjZDM1MDZjZQ.jpg');
 
-DELETE FROM Profile;
-
-INSERT INTO Profile (id, user_id, description)
-VALUES ('c5f473b4331140b18fb3f70357894754', '8d6153fc83e54b3a90acd081ff789cef',
-        'Alan is a great mentee.');
+INSERT INTO User (id, first_name, last_name, username, email, password, is_mentor, photo_url)
+VALUES ('1e4cc51c767f4524b4e04f2e4bd249da', 'Tuany', 'Di Domenico', 'tdomenico', 'tuany@inno.edu', 'password', 1,
+        'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAANPAAAAJGMwMjU0ZWJlLTBjZmEtNDNiNC1hZWVlLTQzNDRjZDM1MDZjZQ.jpg');
 
 DELETE FROM School;
 
@@ -27,6 +25,21 @@ VALUES ('0a58153cc15f4e5b802cbbf5d6c1c55c', 'Stanford', 'Stanford is an amazing 
 INSERT INTO School (id, name, description, photo_url)
 VALUES ('a10afaca201644b8940b5b88323901b9', 'Berkeley', 'Berkeley is an outstanding university.',
         'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/UCBerkeleyCampus.jpg/220px-UCBerkeleyCampus.jpg');
+
+DELETE FROM Profile;
+
+INSERT INTO Profile (id, user_id, description)
+VALUES ('c5f473b4331140b18fb3f70357894754', '8d6153fc83e54b3a90acd081ff789cef',
+        'Alan is a great mentee.');
+
+INSERT INTO Profile (id, user_id, school_id, description, rate)
+VALUES ('0e9e40c0b44b438792a99d75d10e3d42', 'ba7c650519fd47c387a6c6af6e5322b7',
+        '0a58153cc15f4e5b802cbbf5d6c1c55c', 'Fei is a great mentor.', 10.5);
+
+INSERT INTO Profile (id, user_id, school_id, description, rate)
+VALUES ('e1b66612a94a4db386a104f3a102227b', 'df54ff863caa4145b228284f5d4a908a',
+        '0a58153cc15f4e5b802cbbf5d6c1c55c', 'Gustavo is a great mentor.', 20.5);
+
 
 DELETE FROM Mentor_Profile;
 

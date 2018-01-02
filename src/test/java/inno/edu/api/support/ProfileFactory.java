@@ -19,6 +19,7 @@ import static inno.edu.api.support.SchoolFactory.stanford;
 import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.fei;
 import static inno.edu.api.support.UserFactory.gustavo;
+import static inno.edu.api.support.UserFactory.tuany;
 import static java.util.Collections.singletonList;
 import static java.util.UUID.fromString;
 
@@ -32,9 +33,11 @@ public class ProfileFactory {
     }
 
     public static Profile newGustavoProfile() {
-        return Profile.builder().id(fromString("4fbee407-5ab3-4d4b-9ef0-39840e939d5e"))
+        return Profile.builder().id(fromString("e1b66612-a94a-4db3-86a1-04f3a102227b"))
                 .userId(gustavo().getId())
-                .description("Gustavo is a great mentee.")
+                .schoolId(stanford().getId())
+                .rate(new BigDecimal(20.5))
+                .description("Gustavo is a great mentor.")
                 .build();
     }
 
@@ -43,6 +46,13 @@ public class ProfileFactory {
         return Profile.builder().id(fromString("c5f473b4-3311-40b1-8fb3-f70357894754"))
                 .userId(alan().getId())
                 .description("Alan is a great mentee.")
+                .build();
+    }
+
+    public static Profile newTuanyProfile() {
+        return Profile.builder().id(fromString("c96ae800-fd93-48c2-bbf3-91a6658c8079"))
+                .userId(tuany().getId())
+                .description("Tuany is a great mentee.")
                 .build();
     }
 
@@ -55,7 +65,14 @@ public class ProfileFactory {
     public static CreateProfileRequest createNewGustavoProfileRequest() {
         return CreateProfileRequest.builder()
                 .userId(gustavo().getId())
-                .description("Gustavo is a great mentee.")
+                .description("Gustavo is a great mentor.")
+                .build();
+    }
+
+    public static CreateProfileRequest createNewTuanyProfileRequest() {
+        return CreateProfileRequest.builder()
+                .userId(newTuanyProfile().getUserId())
+                .description(newTuanyProfile().getDescription())
                 .build();
     }
 
