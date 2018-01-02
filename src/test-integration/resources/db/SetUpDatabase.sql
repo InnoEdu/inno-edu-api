@@ -12,6 +12,12 @@ INSERT INTO User (id, first_name, last_name, username, email, password, is_mento
 VALUES ('df54ff863caa4145b228284f5d4a908a', 'Gustavo', 'Di Domenico', 'gdomenico', 'gustavo@inno.edu', 'password', 1,
         'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAANPAAAAJGMwMjU0ZWJlLTBjZmEtNDNiNC1hZWVlLTQzNDRjZDM1MDZjZQ.jpg');
 
+DELETE FROM Profile;
+
+INSERT INTO Profile (id, user_id, description)
+VALUES ('c5f473b4331140b18fb3f70357894754', '8d6153fc83e54b3a90acd081ff789cef',
+        'Alan is a great mentee.');
+
 DELETE FROM Mentee_Profile;
 
 INSERT INTO Mentee_Profile (id, mentee_id, description)

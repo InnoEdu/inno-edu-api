@@ -9,6 +9,17 @@ CREATE TABLE User (
   is_mentor  BOOLEAN      NOT NULL
 );
 
+CREATE TABLE Profile (
+  id          BINARY(16) PRIMARY KEY,
+  user_id     BINARY(16) NOT NULL,
+  description TEXT       NOT NULL,
+
+  FOREIGN KEY (user_id)
+  REFERENCES User (id)
+  ON DELETE CASCADE
+);
+
+
 CREATE TABLE Mentee_Profile (
   id          BINARY(16) PRIMARY KEY,
   mentee_id   BINARY(16) NOT NULL,

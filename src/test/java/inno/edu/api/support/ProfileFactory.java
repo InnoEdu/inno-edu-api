@@ -6,6 +6,7 @@ import inno.edu.api.domain.profile.commands.dtos.UpdateMenteeProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.UpdateMentorProfileRequest;
 import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.profile.models.MentorProfile;
+import inno.edu.api.domain.profile.models.Profile;
 import inno.edu.api.domain.profile.models.ProfileStatus;
 import inno.edu.api.domain.profile.queries.dtos.MentorProfileUser;
 
@@ -23,6 +24,21 @@ import static java.util.Collections.singletonList;
 import static java.util.UUID.fromString;
 
 public class ProfileFactory {
+    // New
+
+    public static Profile newAlanProfile() {
+        return Profile.builder().id(fromString("c5f473b4-3311-40b1-8fb3-f70357894754"))
+                .userId(alan().getId())
+                .description("Alan is a great mentee.")
+                .build();
+    }
+
+    public static List<Profile> profiles() {
+        return singletonList(newAlanProfile());
+    }
+
+    ///
+
     public static MentorProfile gustavoProfile() {
         return MentorProfile.builder().id(fromString("e1b66612-a94a-4db3-86a1-04f3a102227b"))
                 .mentorId(gustavo().getId())
