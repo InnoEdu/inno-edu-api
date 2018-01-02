@@ -48,19 +48,19 @@ public class Payloads {
     }
 
     public static String postProfilePayload(CreateProfileRequest createProfileRequest) {
-        return format(loadPayload("payloads/user/post-profile.json"), createProfileRequest.getUserId(), createProfileRequest.getDescription());
+        return format(loadPayload("payloads/profile/post-profile.json"), createProfileRequest.getUserId(), createProfileRequest.getDescription());
     }
 
     public static String putProfilePayload(UpdateProfileRequest updateProfileRequest) {
-        return format(loadPayload("payloads/user/put-profile.json"), updateProfileRequest.getDescription());
+        return format(loadPayload("payloads/profile/put-profile.json"), updateProfileRequest.getDescription());
     }
 
     public static String postMentorProfilePayload(CreateMentorProfileRequest createMentorProfileRequest) {
-        return format(loadPayload("payloads/user/post-mentor-profile.json"), createMentorProfileRequest.getMentorId(), createMentorProfileRequest.getSchoolId(), createMentorProfileRequest.getEmail(), createMentorProfileRequest.getDescription(), createMentorProfileRequest.getRate());
+        return format(loadPayload("payloads/profile/post-mentor-profile.json"), createMentorProfileRequest.getMentorId(), createMentorProfileRequest.getSchoolId(), createMentorProfileRequest.getEmail(), createMentorProfileRequest.getDescription(), createMentorProfileRequest.getRate());
     }
 
     public static String putMentorProfilePayload(UpdateMentorProfileRequest updateMentorProfileRequest) {
-        return format(loadPayload("payloads/user/put-mentor-profile.json"), updateMentorProfileRequest.getDescription(), updateMentorProfileRequest.getRate());
+        return format(loadPayload("payloads/profile/put-mentor-profile.json"), updateMentorProfileRequest.getDescription(), updateMentorProfileRequest.getRate());
     }
 
     public static String postSchoolPayload(CreateSchoolRequest createSchoolRequest) {
