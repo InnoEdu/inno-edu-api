@@ -34,6 +34,14 @@ public class ProfileFactory {
                 .build();
     }
 
+    public static Profile newGustavoProfile() {
+        return Profile.builder().id(fromString("4fbee407-5ab3-4d4b-9ef0-39840e939d5e"))
+                .userId(gustavo().getId())
+                .description("Gustavo is a great mentee.")
+                .build();
+    }
+
+
     public static Profile newAlanProfile() {
         return Profile.builder().id(fromString("c5f473b4-3311-40b1-8fb3-f70357894754"))
                 .userId(alan().getId())
@@ -47,6 +55,12 @@ public class ProfileFactory {
                 .build();
     }
 
+    public static CreateProfileRequest createNewGustavoProfileRequest() {
+        return CreateProfileRequest.builder()
+                .userId(gustavo().getId())
+                .description("Gustavo is a great mentee.")
+                .build();
+    }
 
     public static List<Profile> profiles() {
         return singletonList(newAlanProfile());

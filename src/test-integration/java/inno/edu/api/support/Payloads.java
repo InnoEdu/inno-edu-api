@@ -1,16 +1,18 @@
 package inno.edu.api.support;
 
+import inno.edu.api.domain.appointment.commands.dtos.AppointmentReason;
 import inno.edu.api.domain.appointment.commands.dtos.CreateAppointmentRequest;
 import inno.edu.api.domain.appointment.commands.dtos.CreateFeedbackRequest;
 import inno.edu.api.domain.appointment.commands.dtos.UpdateAppointmentRequest;
-import inno.edu.api.domain.appointment.commands.dtos.AppointmentReason;
 import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityByMentorIdRequest;
 import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityRequest;
 import inno.edu.api.domain.availability.commands.dtos.UpdateAvailabilityRequest;
 import inno.edu.api.domain.profile.commands.dtos.CreateMenteeProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.CreateMentorProfileRequest;
+import inno.edu.api.domain.profile.commands.dtos.CreateProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.UpdateMenteeProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.UpdateMentorProfileRequest;
+import inno.edu.api.domain.profile.commands.dtos.UpdateProfileRequest;
 import inno.edu.api.domain.school.commands.dtos.CreateSchoolRequest;
 import inno.edu.api.domain.school.commands.dtos.UpdateSchoolRequest;
 import inno.edu.api.domain.user.commands.dtos.CreateUserRequest;
@@ -45,6 +47,14 @@ public class Payloads {
 
     public static String putUserPayload(UpdateUserRequest updateUserRequest) {
         return format(loadPayload("payloads/user/put-user.json"), updateUserRequest.getFirstName(), updateUserRequest.getLastName(), updateUserRequest.getEmail(), updateUserRequest.getPhotoUrl());
+    }
+
+    public static String postProfilePayload(CreateProfileRequest createProfileRequest) {
+        return format(loadPayload("payloads/user/post-profile.json"), createProfileRequest.getUserId(), createProfileRequest.getDescription());
+    }
+
+    public static String putProfilePayload(UpdateProfileRequest updateProfileRequest) {
+        return format(loadPayload("payloads/user/put-profile.json"), updateProfileRequest.getDescription());
     }
 
     public static String postMentorProfilePayload(CreateMentorProfileRequest createMentorProfileRequest) {
