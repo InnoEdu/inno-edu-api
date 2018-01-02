@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
@@ -17,7 +18,9 @@ import java.util.UUID;
 public class Profile {
     @Id
     private UUID id;
-
     private UUID userId;
     private String description;
+
+    private UUID schoolId;
+    private BigDecimal rate;
 }

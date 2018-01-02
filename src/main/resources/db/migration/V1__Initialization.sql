@@ -9,22 +9,28 @@ CREATE TABLE User (
   is_mentor  BOOLEAN      NOT NULL
 );
 
-CREATE TABLE Profile (
-  id          BINARY(16) PRIMARY KEY,
-  user_id     BINARY(16) NOT NULL,
-  description TEXT       NOT NULL,
-
-  FOREIGN KEY (user_id)
-  REFERENCES User (id)
-  ON DELETE CASCADE
-);
-
 
 CREATE TABLE School (
   id          BINARY(16) PRIMARY KEY,
   name        VARCHAR(255) NOT NULL,
   description TEXT         NOT NULL,
   photo_url   VARCHAR(255)
+);
+
+CREATE TABLE Profile (
+  id          BINARY(16) PRIMARY KEY,
+  user_id     BINARY(16)     NOT NULL,
+  school_id   BINARY(16)     NULL,
+  description TEXT           NOT NULL,
+  rate        DECIMAL(15, 2) NULL,
+
+  FOREIGN KEY (user_id)
+  REFERENCES User (id)
+    ON DELETE CASCADE,
+
+  FOREIGN KEY (school_id)
+  REFERENCES School (id)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE Mentor_Profile (
