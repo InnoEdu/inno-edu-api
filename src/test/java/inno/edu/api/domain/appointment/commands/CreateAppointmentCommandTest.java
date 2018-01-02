@@ -4,8 +4,8 @@ import inno.edu.api.domain.appointment.commands.mappers.CalculateAppointmentFeeR
 import inno.edu.api.domain.appointment.commands.mappers.CreateAppointmentRequestMapper;
 import inno.edu.api.domain.appointment.models.Appointment;
 import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
-import inno.edu.api.domain.profile.assertions.MenteeProfileExistsAssertion;
 import inno.edu.api.domain.profile.assertions.MentorProfileExistsAssertion;
+import inno.edu.api.domain.profile.assertions.ProfileExistsAssertion;
 import inno.edu.api.infrastructure.services.UUIDGeneratorService;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,7 +41,7 @@ public class CreateAppointmentCommandTest {
     private AppointmentRepository appointmentRepository;
 
     @Mock
-    private MenteeProfileExistsAssertion menteeProfileExistsAssertion;
+    private ProfileExistsAssertion profileExistsAssertion;
 
     @Mock
     private MentorProfileExistsAssertion mentorProfileExistsAssertion;
@@ -84,7 +84,7 @@ public class CreateAppointmentCommandTest {
     public void shouldRunAllAssertions() {
         createAppointmentCommand.run(createAppointmentRequest());
 
-        verify(menteeProfileExistsAssertion).run(appointment().getMenteeProfileId());
+        verify(profileExistsAssertion).run(appointment().getMenteeProfileId());
         verify(mentorProfileExistsAssertion).run(appointment().getMentorProfileId());
     }
 }

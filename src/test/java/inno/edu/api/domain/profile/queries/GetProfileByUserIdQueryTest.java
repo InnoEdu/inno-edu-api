@@ -1,6 +1,6 @@
 package inno.edu.api.domain.profile.queries;
 
-import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
+import inno.edu.api.domain.profile.exceptions.UserProfileNotFoundException;
 import inno.edu.api.domain.profile.models.Profile;
 import inno.edu.api.domain.profile.repositories.ProfileRepository;
 import org.junit.Test;
@@ -10,31 +10,32 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static inno.edu.api.support.ProfileFactory.newAlanProfile;
+import static inno.edu.api.support.UserFactory.alan;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class GetProfileByIdQueryTest {
+public class GetProfileByUserIdQueryTest {
     @Mock
     private ProfileRepository profileRepository;
 
     @InjectMocks
-    private GetProfileByIdQuery getProfileByIdQuery;
-
-    @Test(expected = ProfileNotFoundException.class)
-    public void shouldThrowExceptionIfProfileDoesNotExist() {
-        when(profileRepository.findOne(newAlanProfile().getId())).thenReturn(null);
-
-        getProfileByIdQuery.run(newAlanProfile().getId());
-    }
+    private GetProfileByUserIdQuery getProfileByUserIdQuery;
 
     @Test
-    public void shouldReturnProfile() {
-        when(profileRepository.findOne(newAlanProfile().getId())).thenReturn(newAlanProfile());
+    public void shouldGetProfile() {
+        when(profileRepository.findOneByUserId(alan().getId())).thenReturn(newAlanProfile());
 
-        Profile profile = getProfileByIdQuery.run(newAlanProfile().getId());
+        Profile profile = getProfileByUserIdQuery.run(alan().getId());
 
         assertThat(profile, is(newAlanProfile()));
+    }
+
+    @Test(expected = UserProfileNotFoundException.class)
+    public void shouldRaiseExceptionIsProfileNotFound() {
+        when(profileRepository.findOneByUserId(alan().getId())).thenReturn(null);
+
+        getProfileByUserIdQuery.run(alan().getId());
     }
 }

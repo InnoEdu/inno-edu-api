@@ -10,7 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static inno.edu.api.support.ProfileFactory.alanProfile;
 import static inno.edu.api.support.ProfileFactory.newAlanProfile;
 import static inno.edu.api.support.ProfileFactory.updateNewAlanProfileRequest;
 import static inno.edu.api.support.ProfileFactory.updatedNewAlanProfile;
@@ -38,7 +37,7 @@ public class UpdateProfileCommandTest {
         when(getProfileByIdQuery.run(newAlanProfile().getId())).thenReturn(newAlanProfile());
         when(profileRepository.save(newAlanProfile())).thenReturn(updatedNewAlanProfile());
 
-        Profile Profile = updateProfileCommand.run(alanProfile().getId(), updateNewAlanProfileRequest());
+        Profile Profile = updateProfileCommand.run(newAlanProfile().getId(), updateNewAlanProfileRequest());
 
         verify(updateProfileRequestMapper).setProfile(updateNewAlanProfileRequest(), newAlanProfile());
 

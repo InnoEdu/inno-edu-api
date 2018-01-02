@@ -18,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import static inno.edu.api.support.ProfileFactory.alanProfile;
 import static inno.edu.api.support.ProfileFactory.createNewAlanProfileRequest;
 import static inno.edu.api.support.ProfileFactory.newAlanProfile;
 import static inno.edu.api.support.ProfileFactory.profiles;
@@ -71,7 +70,7 @@ public class ProfileControllerTest {
 
     @Test
     public void shouldGetProfileById() {
-        when(getProfileByIdQuery.run(eq(alanProfile().getId()))).thenReturn(newAlanProfile());
+        when(getProfileByIdQuery.run(eq(newAlanProfile().getId()))).thenReturn(newAlanProfile());
 
         ProfileResource profileResource = profileController.get(newAlanProfile().getId());
 
@@ -79,7 +78,7 @@ public class ProfileControllerTest {
     }
 
     @Test
-    public void shouldCreateNewProfiles() {
+    public void shouldCreateNewProfile() {
         when(createProfileCommand.run(createNewAlanProfileRequest())).thenReturn(newAlanProfile());
 
         ResponseEntity<Profile> entity = profileController.post(createNewAlanProfileRequest());
@@ -88,16 +87,16 @@ public class ProfileControllerTest {
     }
 
     @Test
-    public void shouldUpdateUser() {
-        when(updateProfileCommand.run(alanProfile().getId(), updateNewAlanProfileRequest())).thenReturn(updatedNewAlanProfile());
+    public void shouldUpdateProfile() {
+        when(updateProfileCommand.run(newAlanProfile().getId(), updateNewAlanProfileRequest())).thenReturn(updatedNewAlanProfile());
 
-        ResponseEntity<Profile> entity = profileController.put(alanProfile().getId(), updateNewAlanProfileRequest());
+        ResponseEntity<Profile> entity = profileController.put(newAlanProfile().getId(), updateNewAlanProfileRequest());
 
         assertThat(entity.getBody(), is(updatedNewAlanProfile()));
     }
 
     @Test
-    public void shouldDeleteUser() {
+    public void shouldDeleteProfile() {
         profileController.delete(newAlanProfile().getId());
 
         verify(deleteProfileCommand).run(newAlanProfile().getId());

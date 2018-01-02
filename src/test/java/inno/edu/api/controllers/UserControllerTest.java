@@ -4,8 +4,8 @@ import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.UserResource;
 import inno.edu.api.domain.profile.commands.UpdateMentorProfileStatusByUserCommand;
 import inno.edu.api.domain.profile.models.ProfileStatus;
-import inno.edu.api.domain.profile.queries.GetMenteeProfileByUserIdQuery;
 import inno.edu.api.domain.profile.queries.GetMentorProfileByUserIdQuery;
+import inno.edu.api.domain.profile.queries.GetProfileByUserIdQuery;
 import inno.edu.api.domain.user.commands.CreateUserCommand;
 import inno.edu.api.domain.user.commands.DeleteUserCommand;
 import inno.edu.api.domain.user.commands.LoginCommand;
@@ -24,8 +24,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import static inno.edu.api.support.ProfileFactory.alanProfile;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
+import static inno.edu.api.support.ProfileFactory.newAlanProfile;
 import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.createFeiRequest;
 import static inno.edu.api.support.UserFactory.fei;
@@ -57,7 +57,7 @@ public class UserControllerTest {
     private GetMentorProfileByUserIdQuery getMentorProfileByUserIdQuery;
 
     @Mock
-    private GetMenteeProfileByUserIdQuery getMenteeProfileByUserIdQuery;
+    private GetProfileByUserIdQuery getProfileByUserIdQuery;
 
     @Mock
     private CreateUserCommand createUserCommand;
@@ -104,11 +104,11 @@ public class UserControllerTest {
     @Test
     public void shouldGetMenteeProfileByUserId() {
         when(userRepository.existsByIdAndIsMentorIsTrue(eq(alan().getId()))).thenReturn(false);
-        when(getMenteeProfileByUserIdQuery.run(alan().getId())).thenReturn(alanProfile());
+        when(getProfileByUserIdQuery.run(alan().getId())).thenReturn(newAlanProfile());
 
         userController.getProfile(alan().getId());
 
-        verify(getMenteeProfileByUserIdQuery).run(alan().getId());
+        verify(getProfileByUserIdQuery).run(alan().getId());
     }
 
     @Test

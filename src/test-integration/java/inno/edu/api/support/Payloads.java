@@ -7,10 +7,8 @@ import inno.edu.api.domain.appointment.commands.dtos.UpdateAppointmentRequest;
 import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityByMentorIdRequest;
 import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityRequest;
 import inno.edu.api.domain.availability.commands.dtos.UpdateAvailabilityRequest;
-import inno.edu.api.domain.profile.commands.dtos.CreateMenteeProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.CreateMentorProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.CreateProfileRequest;
-import inno.edu.api.domain.profile.commands.dtos.UpdateMenteeProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.UpdateMentorProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.UpdateProfileRequest;
 import inno.edu.api.domain.school.commands.dtos.CreateSchoolRequest;
@@ -63,14 +61,6 @@ public class Payloads {
 
     public static String putMentorProfilePayload(UpdateMentorProfileRequest updateMentorProfileRequest) {
         return format(loadPayload("payloads/user/put-mentor-profile.json"), updateMentorProfileRequest.getDescription(), updateMentorProfileRequest.getRate());
-    }
-
-    public static String postMenteeProfilePayload(CreateMenteeProfileRequest createMenteeProfileRequest) {
-        return format(loadPayload("payloads/user/post-mentee-profile.json"), createMenteeProfileRequest.getMenteeId(), createMenteeProfileRequest.getDescription());
-    }
-
-    public static String putMenteeProfilePayload(UpdateMenteeProfileRequest updateMenteeProfileRequest) {
-        return format(loadPayload("payloads/user/put-mentee-profile.json"), updateMenteeProfileRequest.getDescription());
     }
 
     public static String postSchoolPayload(CreateSchoolRequest createSchoolRequest) {

@@ -20,16 +20,6 @@ CREATE TABLE Profile (
 );
 
 
-CREATE TABLE Mentee_Profile (
-  id          BINARY(16) PRIMARY KEY,
-  mentee_id   BINARY(16) NOT NULL,
-  description TEXT       NOT NULL,
-
-  FOREIGN KEY (mentee_id)
-  REFERENCES User (id)
-    ON DELETE CASCADE
-);
-
 CREATE TABLE School (
   id          BINARY(16) PRIMARY KEY,
   name        VARCHAR(255) NOT NULL,
@@ -83,7 +73,7 @@ CREATE TABLE Appointment (
     ON DELETE CASCADE,
 
   FOREIGN KEY (mentee_profile_id)
-  REFERENCES Mentee_Profile (id)
+  REFERENCES Profile (id)
     ON DELETE CASCADE
 );
 
@@ -158,13 +148,13 @@ INSERT INTO Mentor_Profile (id, mentor_id, school_id, email, description, rate, 
 VALUES (${map}('2744d1cbb25e4a61879dad3d15ffebe2'), ${map}('8d6153fc83e54b3a90acd081ff789cef'),
         ${map}('a10afaca201644b8940b5b88323901b9'), 'alan@inno.edu', 'Alan is a great mentor.', 15.0, 1);
 
--- Mentee Profiles
+-- Profiles
 
-INSERT INTO Mentee_Profile (id, mentee_id, description)
+INSERT INTO Profile (id, user_id, description)
 VALUES (${map}('c5f473b4331140b18fb3f70357894754'), ${map}('e3495a43a0af42b7ab91a3801b1b56ab'),
         'Tuany is a great mentee.');
 
-INSERT INTO Mentee_Profile (id, mentee_id, description)
+INSERT INTO Profile (id, user_id, description)
 VALUES (${map}('71b31ec9207d4d469e33c4b4024db0ed'), ${map}('c5e6b39233e14255a249f777b6ab355d'),
         'Eluisete is a great mentee.');
 

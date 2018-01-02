@@ -18,12 +18,6 @@ INSERT INTO Profile (id, user_id, description)
 VALUES ('c5f473b4331140b18fb3f70357894754', '8d6153fc83e54b3a90acd081ff789cef',
         'Alan is a great mentee.');
 
-DELETE FROM Mentee_Profile;
-
-INSERT INTO Mentee_Profile (id, mentee_id, description)
-VALUES ('c5f473b4331140b18fb3f70357894754', '8d6153fc83e54b3a90acd081ff789cef',
-        'Alan is a great mentee.');
-
 DELETE FROM School;
 
 INSERT INTO School (id, name, description, photo_url)

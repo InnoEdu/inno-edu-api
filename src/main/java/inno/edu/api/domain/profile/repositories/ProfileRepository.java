@@ -6,5 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.UUID;
 
 public interface ProfileRepository  extends CrudRepository<Profile, UUID> {
-    boolean existsByUserId(UUID menteeId);
+    boolean existsByUserId(UUID userId);
+    Profile findOneByUserId(UUID userId);
 }

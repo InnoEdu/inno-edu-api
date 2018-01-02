@@ -6,8 +6,8 @@ import org.springframework.http.MediaType;
 
 import static inno.edu.api.support.Payloads.postUserPayload;
 import static inno.edu.api.support.Payloads.putUserPayload;
-import static inno.edu.api.support.ProfileFactory.alanProfile;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
+import static inno.edu.api.support.ProfileFactory.newAlanProfile;
 import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.createFeiRequest;
 import static inno.edu.api.support.UserFactory.createGustavoRequest;
@@ -69,8 +69,8 @@ public class UserControllerApiTest extends ApiTest {
     public void shouldGetMenteeProfileByUserId() throws Exception {
         this.mockMvc.perform(get("/api/users/" + alan().getId().toString() + "/profile")).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(alanProfile().getId().toString())))
-                .andExpect(jsonPath("$.menteeId", is(alanProfile().getMenteeId().toString())));
+                .andExpect(jsonPath("$.id", is(newAlanProfile().getId().toString())))
+                .andExpect(jsonPath("$.userId", is(newAlanProfile().getUserId().toString())));
     }
 
     @Test

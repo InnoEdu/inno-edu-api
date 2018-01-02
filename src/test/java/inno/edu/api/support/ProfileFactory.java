@@ -1,12 +1,9 @@
 package inno.edu.api.support;
 
-import inno.edu.api.domain.profile.commands.dtos.CreateMenteeProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.CreateMentorProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.CreateProfileRequest;
-import inno.edu.api.domain.profile.commands.dtos.UpdateMenteeProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.UpdateMentorProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.UpdateProfileRequest;
-import inno.edu.api.domain.profile.models.MenteeProfile;
 import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.profile.models.Profile;
 import inno.edu.api.domain.profile.models.ProfileStatus;
@@ -93,19 +90,6 @@ public class ProfileFactory {
                 .build();
     }
 
-    public static MenteeProfile alanProfile() {
-        return MenteeProfile.builder().id(fromString("c5f473b4-3311-40b1-8fb3-f70357894754"))
-                .menteeId(alan().getId())
-                .description("Alan is a great mentee.")
-                .build();
-    }
-
-    public static MenteeProfile newAlanProfile(UUID id) {
-        return alanProfile().toBuilder()
-                .id(id)
-                .build();
-    }
-
     public static MentorProfile feiProfile() {
         return MentorProfile.builder().id(fromString("0e9e40c0-b44b-4387-92a9-9d75d10e3d42"))
                 .mentorId(fei().getId())
@@ -135,13 +119,6 @@ public class ProfileFactory {
                 .build();
     }
 
-    public static MenteeProfile tuanyProfile() {
-        return MenteeProfile.builder().id(fromString("4fbee407-5ab3-4d4b-9ef0-39840e939d5e"))
-                .menteeId(gustavo().getId())
-                .description("Tuany is a great mentee.")
-                .build();
-    }
-
     public static CreateMentorProfileRequest createFeiProfileRequest() {
         return CreateMentorProfileRequest.builder()
                 .mentorId(fei().getId())
@@ -149,32 +126,6 @@ public class ProfileFactory {
                 .email("feixiu@inno.edu")
                 .rate(new BigDecimal(10.5))
                 .description("Fei is a great mentor.")
-                .build();
-    }
-
-    public static CreateMenteeProfileRequest createTuanyProfileRequest() {
-        return CreateMenteeProfileRequest.builder()
-                .menteeId(gustavo().getId())
-                .description("Tuany is a great mentee.")
-                .build();
-    }
-
-    public static CreateMenteeProfileRequest createAlanProfileRequest() {
-        return CreateMenteeProfileRequest.builder()
-                .menteeId(alan().getId())
-                .description("Alan is a great mentee.")
-                .build();
-    }
-
-    public static MenteeProfile updatedAlanProfile() {
-        return alanProfile().toBuilder()
-                .description("Updated description")
-                .build();
-    }
-
-    public static UpdateMenteeProfileRequest updateAlanProfileRequest() {
-        return UpdateMenteeProfileRequest.builder()
-                .description(updatedAlanProfile().getDescription())
                 .build();
     }
 
@@ -190,10 +141,6 @@ public class ProfileFactory {
                 .description(updatedFeiProfile().getDescription())
                 .rate(updatedFeiProfile().getRate())
                 .build();
-    }
-
-    public static List<MenteeProfile> menteeProfiles() {
-        return singletonList(alanProfile());
     }
 
     public static List<MentorProfile> mentorProfiles() {

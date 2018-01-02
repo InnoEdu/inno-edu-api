@@ -1,6 +1,6 @@
 package inno.edu.api.controllers.advices;
 
-import inno.edu.api.domain.profile.exceptions.MenteeProfileAlreadyCreatedException;
+import inno.edu.api.domain.profile.exceptions.ProfileAlreadyCreatedException;
 import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
 import org.springframework.core.annotation.Order;
 import org.springframework.hateoas.VndErrors;
@@ -14,7 +14,7 @@ import static org.springframework.core.Ordered.HIGHEST_PRECEDENCE;
 
 @ControllerAdvice
 @Order(HIGHEST_PRECEDENCE)
-public class MenteeProfileControllerAdvice {
+public class ProfileControllerAdvice {
 
     @ResponseBody
     @ExceptionHandler(ProfileNotFoundException.class)
@@ -24,9 +24,9 @@ public class MenteeProfileControllerAdvice {
     }
 
     @ResponseBody
-    @ExceptionHandler(MenteeProfileAlreadyCreatedException.class)
+    @ExceptionHandler(ProfileAlreadyCreatedException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    VndErrors menteeProfileAlreadyCreatedExceptionHandler(MenteeProfileAlreadyCreatedException ex) {
+    VndErrors profileAlreadyCreatedExceptionHandler(ProfileAlreadyCreatedException ex) {
         return new VndErrors("error", ex.getMessage());
     }
 }

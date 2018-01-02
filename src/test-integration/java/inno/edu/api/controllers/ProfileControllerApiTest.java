@@ -6,7 +6,6 @@ import org.springframework.http.MediaType;
 
 import static inno.edu.api.support.Payloads.postProfilePayload;
 import static inno.edu.api.support.Payloads.putProfilePayload;
-import static inno.edu.api.support.ProfileFactory.alanProfile;
 import static inno.edu.api.support.ProfileFactory.createNewAlanProfileRequest;
 import static inno.edu.api.support.ProfileFactory.createNewGustavoProfileRequest;
 import static inno.edu.api.support.ProfileFactory.newAlanProfile;
@@ -69,7 +68,7 @@ public class ProfileControllerApiTest extends ApiTest {
     @Test
     public void shouldUpdateProfile() throws Exception {
         this.mockMvc.perform(
-                put("/api/profiles/" + alanProfile().getId())
+                put("/api/profiles/" + newAlanProfile().getId())
                         .content(putProfilePayload(updateNewAlanProfileRequest()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
