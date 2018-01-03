@@ -1,9 +1,9 @@
 package inno.edu.api.controllers;
 
-import inno.edu.api.controllers.resources.MentorProfileUserResource;
+import inno.edu.api.controllers.resources.ProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.SchoolResource;
-import inno.edu.api.domain.profile.queries.GetMentorProfilesBySchoolIdQuery;
+import inno.edu.api.domain.profile.queries.GetProfilesBySchoolIdQuery;
 import inno.edu.api.domain.school.commands.CreateSchoolCommand;
 import inno.edu.api.domain.school.commands.DeleteSchoolCommand;
 import inno.edu.api.domain.school.commands.UpdateSchoolCommand;
@@ -40,18 +40,18 @@ public class SchoolController {
     private final DeleteSchoolCommand deleteSchoolCommand;
 
     private final GetSchoolByIdQuery getSchoolByIdQuery;
-    private final GetMentorProfilesBySchoolIdQuery getMentorProfilesBySchoolIdQuery;
+    private final GetProfilesBySchoolIdQuery getProfilesBySchoolIdQuery;
 
     private final ResourceBuilder resourceBuilder;
 
     @Autowired
-    public SchoolController(SchoolRepository schoolRepository, CreateSchoolCommand createSchoolCommand, UpdateSchoolCommand updateSchoolCommand, DeleteSchoolCommand deleteSchoolCommand, GetSchoolByIdQuery getSchoolByIdQuery, GetMentorProfilesBySchoolIdQuery getMentorProfilesBySchoolIdQuery, ResourceBuilder resourceBuilder) {
+    public SchoolController(SchoolRepository schoolRepository, CreateSchoolCommand createSchoolCommand, UpdateSchoolCommand updateSchoolCommand, DeleteSchoolCommand deleteSchoolCommand, GetSchoolByIdQuery getSchoolByIdQuery, GetProfilesBySchoolIdQuery getProfilesBySchoolIdQuery, ResourceBuilder resourceBuilder) {
         this.schoolRepository = schoolRepository;
         this.createSchoolCommand = createSchoolCommand;
         this.updateSchoolCommand = updateSchoolCommand;
         this.deleteSchoolCommand = deleteSchoolCommand;
         this.getSchoolByIdQuery = getSchoolByIdQuery;
-        this.getMentorProfilesBySchoolIdQuery = getMentorProfilesBySchoolIdQuery;
+        this.getProfilesBySchoolIdQuery = getProfilesBySchoolIdQuery;
         this.resourceBuilder = resourceBuilder;
     }
 
@@ -68,7 +68,7 @@ public class SchoolController {
 
     @GetMapping("/{id}/mentors")
     public Resources<Object> allMentorsProfile(@PathVariable UUID id) {
-        return resourceBuilder.wrappedFrom(getMentorProfilesBySchoolIdQuery.run(id), MentorProfileUserResource::new, MentorProfileUserResource.class);
+        return resourceBuilder.wrappedFrom(getProfilesBySchoolIdQuery.run(id), ProfileResource::new, ProfileResource.class);
     }
 
     @PostMapping

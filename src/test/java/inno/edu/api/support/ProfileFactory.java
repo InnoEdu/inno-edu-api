@@ -37,7 +37,7 @@ public class ProfileFactory {
                 .schoolId(stanford().getId())
                 .rate(new BigDecimal(20.5))
                 .description("Gustavo is a great mentor.")
-                .status(CREATED)
+                .status(ACTIVE)
                 .build();
     }
 
@@ -50,8 +50,6 @@ public class ProfileFactory {
                 .rate(new BigDecimal(10.5))
                 .build();
     }
-
-
 
     public static Profile newAlanProfile() {
         return Profile.builder().id(fromString("c5f473b4-3311-40b1-8fb3-f70357894754"))

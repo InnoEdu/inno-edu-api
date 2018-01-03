@@ -1,9 +1,9 @@
 package inno.edu.api.controllers;
 
-import inno.edu.api.controllers.resources.MentorProfileUserResource;
+import inno.edu.api.controllers.resources.ProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.SchoolResource;
-import inno.edu.api.domain.profile.queries.GetMentorProfilesBySchoolIdQuery;
+import inno.edu.api.domain.profile.queries.GetProfilesBySchoolIdQuery;
 import inno.edu.api.domain.school.commands.CreateSchoolCommand;
 import inno.edu.api.domain.school.commands.DeleteSchoolCommand;
 import inno.edu.api.domain.school.commands.UpdateSchoolCommand;
@@ -20,7 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import static inno.edu.api.support.ProfileFactory.mentorProfileUsers;
+import static inno.edu.api.support.ProfileFactory.profiles;
 import static inno.edu.api.support.SchoolFactory.createStanfordRequest;
 import static inno.edu.api.support.SchoolFactory.schools;
 import static inno.edu.api.support.SchoolFactory.stanford;
@@ -52,7 +52,7 @@ public class SchoolControllerTest {
     private DeleteSchoolCommand deleteSchoolCommand;
 
     @Mock
-    private GetMentorProfilesBySchoolIdQuery getMentorProfilesBySchoolIdQuery;
+    private GetProfilesBySchoolIdQuery getProfilesBySchoolIdQuery;
 
     @Mock
     private GetSchoolByIdQuery getSchoolByIdQuery;
@@ -86,11 +86,11 @@ public class SchoolControllerTest {
     @Test
     public void shouldListMentorsBySchool() {
         when(schoolRepository.exists(stanford().getId())).thenReturn(true);
-        when(getMentorProfilesBySchoolIdQuery.run(stanford().getId())).thenReturn(mentorProfileUsers());
+        when(getProfilesBySchoolIdQuery.run(stanford().getId())).thenReturn(profiles());
 
         schoolController.allMentorsProfile(stanford().getId());
 
-        verify(resourceBuilder).wrappedFrom(eq(mentorProfileUsers()), any(), eq(MentorProfileUserResource.class));
+        verify(resourceBuilder).wrappedFrom(eq(profiles()), any(), eq(ProfileResource.class));
     }
 
     @Test

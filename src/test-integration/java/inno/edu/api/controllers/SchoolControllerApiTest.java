@@ -6,7 +6,7 @@ import org.springframework.http.MediaType;
 
 import static inno.edu.api.support.Payloads.postSchoolPayload;
 import static inno.edu.api.support.Payloads.putSchoolPayload;
-import static inno.edu.api.support.ProfileFactory.feiProfileUser;
+import static inno.edu.api.support.ProfileFactory.newGustavoProfile;
 import static inno.edu.api.support.SchoolFactory.berkeley;
 import static inno.edu.api.support.SchoolFactory.createStanfordRequest;
 import static inno.edu.api.support.SchoolFactory.stanford;
@@ -38,12 +38,12 @@ public class SchoolControllerApiTest extends ApiTest {
     public void shouldListSchoolMentorsProfile() throws Exception {
         this.mockMvc.perform(get("/api/schools/" + stanford().getId() + "/mentors")).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.mentorProfileUserResourceList[*].id", containsInAnyOrder(feiProfileUser().getId().toString())))
-                .andExpect(jsonPath("$._embedded.mentorProfileUserResourceList[*].mentorId", containsInAnyOrder(feiProfileUser().getMentorId().toString())))
-                .andExpect(jsonPath("$._embedded.mentorProfileUserResourceList[*].schoolId", containsInAnyOrder(feiProfileUser().getSchoolId().toString())))
-                .andExpect(jsonPath("$._embedded.mentorProfileUserResourceList[*].email", containsInAnyOrder(feiProfileUser().getEmail())))
-                .andExpect(jsonPath("$._embedded.mentorProfileUserResourceList[*].firstName", containsInAnyOrder(feiProfileUser().getFirstName())))
-                .andExpect(jsonPath("$._embedded.mentorProfileUserResourceList[*].lastName", containsInAnyOrder(feiProfileUser().getLastName())));
+                .andExpect(jsonPath("$._embedded.profileResourceList[*].id", containsInAnyOrder(newGustavoProfile().getId().toString())))
+                .andExpect(jsonPath("$._embedded.profileResourceList[*].userId", containsInAnyOrder(newGustavoProfile().getUserId().toString())))
+                .andExpect(jsonPath("$._embedded.profileResourceList[*].schoolId", containsInAnyOrder(newGustavoProfile().getSchoolId().toString())))
+                .andExpect(jsonPath("$._embedded.profileResourceList[*].description", containsInAnyOrder(newGustavoProfile().getDescription())))
+                .andExpect(jsonPath("$._embedded.profileResourceList[*].status", containsInAnyOrder(newGustavoProfile().getStatus().toString())))
+                .andExpect(jsonPath("$._embedded.profileResourceList[*].rate", containsInAnyOrder(newGustavoProfile().getRate().doubleValue())));
     }
 
     @Test
