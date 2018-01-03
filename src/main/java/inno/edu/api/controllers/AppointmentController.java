@@ -20,8 +20,8 @@ import inno.edu.api.domain.appointment.models.Appointment;
 import inno.edu.api.domain.appointment.models.AppointmentStatus;
 import inno.edu.api.domain.appointment.models.Feedback;
 import inno.edu.api.domain.appointment.queries.GetAppointmentByIdQuery;
-import inno.edu.api.domain.appointment.queries.GetAppointmentsByMenteeIdQuery;
-import inno.edu.api.domain.appointment.queries.GetAppointmentsByMentorIdQuery;
+import inno.edu.api.domain.appointment.queries.GetAppointmentsByMenteeProfileIdQuery;
+import inno.edu.api.domain.appointment.queries.GetAppointmentsByMentorProfileIdQuery;
 import inno.edu.api.domain.appointment.queries.GetFeedbackByIdQuery;
 import inno.edu.api.domain.appointment.queries.GetFeedbacksByAppointmentByIdQuery;
 import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
@@ -61,23 +61,23 @@ public class AppointmentController {
     private final CalculateAppointmentFeeCommand calculateAppointmentFeeCommand;
 
     private final GetAppointmentByIdQuery getAppointmentByIdQuery;
-    private final GetAppointmentsByMentorIdQuery getAppointmentsByMentorIdQuery;
-    private final GetAppointmentsByMenteeIdQuery getAppointmentsByMenteeIdQuery;
+    private final GetAppointmentsByMentorProfileIdQuery getAppointmentsByMentorProfileIdQuery;
+    private final GetAppointmentsByMenteeProfileIdQuery getAppointmentsByMenteeProfileIdQuery;
 
     private final CreateFeedbackCommand createFeedbackCommand;
     private final DeleteFeedbackCommand deleteFeedbackCommand;
     private final GetFeedbacksByAppointmentByIdQuery getFeedbacksByAppointmentByIdQuery;
     private final GetFeedbackByIdQuery getFeedbackByIdQuery;
 
-    public AppointmentController(AppointmentRepository appointmentRepository, ResourceBuilder resourceBuilder, CreateAppointmentCommand createAppointmentCommand, UpdateAppointmentCommand updateAppointmentCommand, DeleteAppointmentCommand deleteAppointmentCommand, GetAppointmentByIdQuery getAppointmentByIdQuery, GetAppointmentsByMentorIdQuery getAppointmentsByMentorIdQuery, GetAppointmentsByMenteeIdQuery getAppointmentsByMenteeIdQuery, UpdateAppointmentStatusCommand updateAppointmentStatusCommand, CalculateAppointmentFeeCommand calculateAppointmentFeeCommand, CreateFeedbackCommand createFeedbackCommand, DeleteFeedbackCommand deleteFeedbackCommand, GetFeedbacksByAppointmentByIdQuery getFeedbacksByAppointmentByIdQuery, GetFeedbackByIdQuery getFeedbackByIdQuery) {
+    public AppointmentController(AppointmentRepository appointmentRepository, ResourceBuilder resourceBuilder, CreateAppointmentCommand createAppointmentCommand, UpdateAppointmentCommand updateAppointmentCommand, DeleteAppointmentCommand deleteAppointmentCommand, GetAppointmentByIdQuery getAppointmentByIdQuery, GetAppointmentsByMentorProfileIdQuery getAppointmentsByMentorProfileIdQuery, GetAppointmentsByMenteeProfileIdQuery getAppointmentsByMenteeProfileIdQuery, UpdateAppointmentStatusCommand updateAppointmentStatusCommand, CalculateAppointmentFeeCommand calculateAppointmentFeeCommand, CreateFeedbackCommand createFeedbackCommand, DeleteFeedbackCommand deleteFeedbackCommand, GetFeedbacksByAppointmentByIdQuery getFeedbacksByAppointmentByIdQuery, GetFeedbackByIdQuery getFeedbackByIdQuery) {
         this.appointmentRepository = appointmentRepository;
         this.resourceBuilder = resourceBuilder;
         this.createAppointmentCommand = createAppointmentCommand;
         this.updateAppointmentCommand = updateAppointmentCommand;
         this.deleteAppointmentCommand = deleteAppointmentCommand;
         this.getAppointmentByIdQuery = getAppointmentByIdQuery;
-        this.getAppointmentsByMentorIdQuery = getAppointmentsByMentorIdQuery;
-        this.getAppointmentsByMenteeIdQuery = getAppointmentsByMenteeIdQuery;
+        this.getAppointmentsByMentorProfileIdQuery = getAppointmentsByMentorProfileIdQuery;
+        this.getAppointmentsByMenteeProfileIdQuery = getAppointmentsByMenteeProfileIdQuery;
         this.updateAppointmentStatusCommand = updateAppointmentStatusCommand;
         this.calculateAppointmentFeeCommand = calculateAppointmentFeeCommand;
         this.createFeedbackCommand = createFeedbackCommand;
@@ -95,14 +95,14 @@ public class AppointmentController {
     @GetMapping("/mentor/{mentorId}")
     public Resources<Object> allByMentor(@PathVariable UUID mentorId,
                                          @RequestParam(required = false) AppointmentStatus status) {
-        List<Appointment> appointments = getAppointmentsByMentorIdQuery.run(mentorId, status);
+        List<Appointment> appointments = getAppointmentsByMentorProfileIdQuery.run(mentorId, status);
         return resourceBuilder.wrappedFrom(appointments, AppointmentResource::new, AppointmentResource.class);
     }
 
     @GetMapping("/mentee/{menteeId}")
     public Resources<Object> allByMentee(@PathVariable UUID menteeId,
                                          @RequestParam(required = false) AppointmentStatus status) {
-        List<Appointment> appointments = getAppointmentsByMenteeIdQuery.run(menteeId, status);
+        List<Appointment> appointments = getAppointmentsByMenteeProfileIdQuery.run(menteeId, status);
         return resourceBuilder.wrappedFrom(appointments, AppointmentResource::new, AppointmentResource.class);
     }
 

@@ -18,8 +18,8 @@ import static inno.edu.api.support.Payloads.postFeedbackPayload;
 import static inno.edu.api.support.Payloads.putAppointmentPayload;
 import static inno.edu.api.support.Payloads.putAppointmentReasonPayload;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
-import static inno.edu.api.support.UserFactory.alan;
-import static inno.edu.api.support.UserFactory.fei;
+import static inno.edu.api.support.ProfileFactory.newAlanProfile;
+import static inno.edu.api.support.ProfileFactory.newFeiProfile;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.not;
@@ -48,8 +48,8 @@ public class AppointmentControllerApiTest extends ApiTest {
     }
 
     @Test
-    public void shouldListAppointmentsByMentorAndStatus() throws Exception {
-        this.mockMvc.perform(get("/api/appointments/mentor/" + fei().getId())
+    public void shouldListAppointmentsByMentorProfileAndStatus() throws Exception {
+        this.mockMvc.perform(get("/api/appointments/mentor/" + newFeiProfile().getId())
                 .param("status", PROPOSED.toString()))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -64,8 +64,8 @@ public class AppointmentControllerApiTest extends ApiTest {
     }
 
     @Test
-    public void shouldListAppointmentsByMenteeAndStatus() throws Exception {
-        this.mockMvc.perform(get("/api/appointments/mentee/" + alan().getId())
+    public void shouldListAppointmentsByMenteeProfileAndStatus() throws Exception {
+        this.mockMvc.perform(get("/api/appointments/mentee/" + newAlanProfile().getId())
                 .param("status", PROPOSED.toString()))
                 .andDo(print())
                 .andExpect(status().isOk())
