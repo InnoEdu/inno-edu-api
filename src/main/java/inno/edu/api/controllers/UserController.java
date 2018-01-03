@@ -3,8 +3,6 @@ package inno.edu.api.controllers;
 import inno.edu.api.controllers.resources.ProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.UserResource;
-import inno.edu.api.domain.profile.commands.UpdateMentorProfileStatusByUserCommand;
-import inno.edu.api.domain.profile.models.ProfileStatus;
 import inno.edu.api.domain.profile.queries.GetProfileByUserIdQuery;
 import inno.edu.api.domain.user.commands.CreateUserCommand;
 import inno.edu.api.domain.user.commands.DeleteUserCommand;
@@ -51,10 +49,9 @@ public class UserController {
     private final LoginCommand loginCommand;
 
     private final ResourceBuilder resourceBuilder;
-    private final UpdateMentorProfileStatusByUserCommand updateMentorProfileStatusByUserCommand;
 
     @Autowired
-    public UserController(UserRepository userRepository, GetProfileByUserIdQuery getProfileByUserIdQuery, GetUserByIdQuery getUserByIdQuery, CreateUserCommand createUserCommand, UpdateUserCommand updateUserCommand, DeleteUserCommand deleteUserCommand, LoginCommand loginCommand, ResourceBuilder resourceBuilder, UpdateMentorProfileStatusByUserCommand updateMentorProfileStatusByUserCommand) {
+    public UserController(UserRepository userRepository, GetProfileByUserIdQuery getProfileByUserIdQuery, GetUserByIdQuery getUserByIdQuery, CreateUserCommand createUserCommand, UpdateUserCommand updateUserCommand, DeleteUserCommand deleteUserCommand, LoginCommand loginCommand, ResourceBuilder resourceBuilder) {
         this.userRepository = userRepository;
         this.getProfileByUserIdQuery = getProfileByUserIdQuery;
         this.getUserByIdQuery = getUserByIdQuery;
@@ -63,7 +60,6 @@ public class UserController {
         this.deleteUserCommand = deleteUserCommand;
         this.loginCommand = loginCommand;
         this.resourceBuilder = resourceBuilder;
-        this.updateMentorProfileStatusByUserCommand = updateMentorProfileStatusByUserCommand;
     }
 
     @GetMapping
@@ -103,18 +99,6 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
         deleteUserCommand.run(id);
-        return noContent().build();
-    }
-
-    @PutMapping("/{id}/approve")
-    public  ResponseEntity<?>  approve(@PathVariable UUID id) {
-        updateMentorProfileStatusByUserCommand.run(id, ProfileStatus.ACTIVE);
-        return noContent().build();
-    }
-
-    @PutMapping("/{id}/reject")
-    public  ResponseEntity<?>  reject(@PathVariable UUID id) {
-        updateMentorProfileStatusByUserCommand.run(id, ProfileStatus.REJECTED);
         return noContent().build();
     }
 }

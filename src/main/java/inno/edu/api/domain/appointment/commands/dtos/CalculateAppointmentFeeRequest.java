@@ -16,7 +16,7 @@ import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME
 @NoArgsConstructor
 @AllArgsConstructor
 public class CalculateAppointmentFeeRequest {
-    public UUID mentorProfileId;
+    private UUID mentorProfileId;
 
     @DateTimeFormat(iso = DATE_TIME)
     private LocalDateTime fromDateTime;

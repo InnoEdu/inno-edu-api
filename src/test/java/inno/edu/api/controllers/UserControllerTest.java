@@ -2,8 +2,6 @@ package inno.edu.api.controllers;
 
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.UserResource;
-import inno.edu.api.domain.profile.commands.UpdateMentorProfileStatusByUserCommand;
-import inno.edu.api.domain.profile.models.ProfileStatus;
 import inno.edu.api.domain.profile.queries.GetProfileByUserIdQuery;
 import inno.edu.api.domain.user.commands.CreateUserCommand;
 import inno.edu.api.domain.user.commands.DeleteUserCommand;
@@ -66,9 +64,6 @@ public class UserControllerTest {
     @Mock
     private LoginCommand loginCommand;
 
-    @Mock
-    private UpdateMentorProfileStatusByUserCommand updateMentorProfileStatusByUserCommand;
-
     @InjectMocks
     private UserController userController;
 
@@ -128,19 +123,5 @@ public class UserControllerTest {
         userController.delete(fei().getId());
 
         verify(deleteUserCommand).run(fei().getId());
-    }
-
-    @Test
-    public void shouldApproveUserProfile() {
-        userController.approve(fei().getId());
-
-        verify(updateMentorProfileStatusByUserCommand).run(fei().getId(), ProfileStatus.ACTIVE);
-    }
-
-    @Test
-    public void shouldRejectUserProfile() {
-        userController.reject(fei().getId());
-
-        verify(updateMentorProfileStatusByUserCommand).run(fei().getId(), ProfileStatus.REJECTED);
     }
 }

@@ -2,7 +2,8 @@ package inno.edu.api.domain.appointment.commands;
 
 import inno.edu.api.domain.appointment.commands.dtos.CalculateAppointmentFeeRequest;
 import inno.edu.api.domain.common.assertions.DateTimeRangeAssertion;
-import inno.edu.api.domain.profile.queries.GetMentorProfileByIdQuery;
+import inno.edu.api.domain.profile.models.Profile;
+import inno.edu.api.domain.profile.queries.GetProfileByIdQuery;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,8 +14,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.math.BigDecimal;
 
 import static inno.edu.api.support.AppointmentFactory.calculateAppointmentFeeRequest;
-import static inno.edu.api.support.ProfileFactory.feiProfile;
-import static inno.edu.api.support.ProfileFactory.gustavoProfile;
+import static inno.edu.api.support.ProfileFactory.newFeiProfile;
+import static inno.edu.api.support.ProfileFactory.newGustavoProfile;
 import static java.time.LocalDateTime.of;
 import static org.hamcrest.number.BigDecimalCloseTo.closeTo;
 import static org.junit.Assert.assertThat;
@@ -27,34 +28,38 @@ public class CalculateAppointmentFeeCommandTest {
     private DateTimeRangeAssertion dateTimeRangeAssertion;
 
     @Mock
-    private GetMentorProfileByIdQuery getMentorProfileByIdQuery;
+    private GetProfileByIdQuery getProfileByIdQuery;
 
     @InjectMocks
     private CalculateAppointmentFeeCommand calculateAppointmentFeeCommand;
 
     @Before
     public void setUp() {
-        when(getMentorProfileByIdQuery.run(feiProfile().getId())).thenReturn(feiProfile());
+        when(getProfileByIdQuery.run(newFeiProfile().getId())).thenReturn(newFeiProfile());
     }
 
     @Test
     public void shouldCalculateFeeForAppointment() {
         BigDecimal fee = calculateAppointmentFeeCommand.run(calculateAppointmentFeeRequest());
-        assertThat(fee, closeTo(feiProfile().getRate(), new BigDecimal(0.001)));
+        assertThat(fee, closeTo(newFeiProfile().getRate(), new BigDecimal(0.001)));
     }
 
     @Test
     public void shouldCalculateFeeForAppointmentWithSmallRate() {
-        when(getMentorProfileByIdQuery.run(gustavoProfile().getId())).thenReturn(gustavoProfile());
+        Profile smallRateProfile = newGustavoProfile().toBuilder()
+                .rate(new BigDecimal(5))
+                .build();
+
+        when(getProfileByIdQuery.run(smallRateProfile.getId())).thenReturn(smallRateProfile);
 
         CalculateAppointmentFeeRequest request =  CalculateAppointmentFeeRequest.builder()
-                .mentorProfileId(gustavoProfile().getId())
+                .mentorProfileId(smallRateProfile.getId())
                 .fromDateTime(of(2017, 11, 10, 9, 0, 1))
                 .toDateTime(of(2017, 11, 10, 10, 0, 1))
                 .build();
 
         BigDecimal fee = calculateAppointmentFeeCommand.run(request);
-        assertThat(fee, closeTo(gustavoProfile().getRate(), new BigDecimal(0.001)));
+        assertThat(fee, closeTo(smallRateProfile.getRate(), new BigDecimal(0.001)));
     }
 
     @Test

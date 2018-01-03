@@ -41,6 +41,17 @@ public class ProfileFactory {
                 .build();
     }
 
+    public static Profile newFeiProfile() {
+        return Profile.builder().id(fromString("0e9e40c0-b44b-4387-92a9-9d75d10e3d42"))
+                .userId(fei().getId())
+                .schoolId(stanford().getId())
+                .description("Fei is a great mentor.")
+                .status(ACTIVE)
+                .rate(new BigDecimal(10.5))
+                .build();
+    }
+
+
 
     public static Profile newAlanProfile() {
         return Profile.builder().id(fromString("c5f473b4-3311-40b1-8fb3-f70357894754"))
