@@ -11,6 +11,7 @@ import inno.edu.api.domain.user.commands.dtos.LoginResponse;
 import inno.edu.api.domain.user.models.ApplicationUser;
 import inno.edu.api.domain.user.queries.GetUserByIdQuery;
 import inno.edu.api.domain.user.repositories.UserRepository;
+import inno.edu.api.support.ProfileFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +22,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import static inno.edu.api.support.ProfileFactory.newAlanProfile;
 import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.createFeiRequest;
 import static inno.edu.api.support.UserFactory.fei;
@@ -84,7 +84,7 @@ public class UserControllerTest {
     @Test
     public void shouldGetProfileByUserId() {
         when(userRepository.existsByIdAndIsMentorIsTrue(eq(alan().getId()))).thenReturn(false);
-        when(getProfileByUserIdQuery.run(alan().getId())).thenReturn(newAlanProfile());
+        when(getProfileByUserIdQuery.run(alan().getId())).thenReturn(ProfileFactory.alanProfile());
 
         userController.getProfile(alan().getId());
 

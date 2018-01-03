@@ -11,7 +11,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.List;
 
 import static inno.edu.api.support.AvailabilityFactory.feiAvailability;
-import static inno.edu.api.support.ProfileFactory.newFeiProfile;
+import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
@@ -26,9 +26,9 @@ public class GetAvailabilityByProfileIdTest {
 
     @Test
     public void shouldGetAvailabilityByProfile() {
-        when(availabilityRepository.findByMentorProfileId(newFeiProfile().getId())).thenReturn(feiAvailability());
+        when(availabilityRepository.findByMentorProfileId(feiProfile().getId())).thenReturn(feiAvailability());
 
-        List<Availability> availability = getAvailabilityByProfileId.run(newFeiProfile().getId());
+        List<Availability> availability = getAvailabilityByProfileId.run(feiProfile().getId());
 
         assertThat(availability, is(feiAvailability()));
     }

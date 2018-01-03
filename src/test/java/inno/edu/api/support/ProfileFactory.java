@@ -20,14 +20,14 @@ import static java.util.Collections.singletonList;
 import static java.util.UUID.fromString;
 
 public class ProfileFactory {
-    public static Profile newNewAlanProfile(UUID id, ProfileStatus status) {
-        return newAlanProfile().toBuilder()
+    public static Profile newAlanProfile(UUID id, ProfileStatus status) {
+        return alanProfile().toBuilder()
                 .id(id)
                 .status(status)
                 .build();
     }
 
-    public static Profile newGustavoProfile() {
+    public static Profile gustavoProfile() {
         return Profile.builder().id(fromString("e1b66612-a94a-4db3-86a1-04f3a102227b"))
                 .userId(gustavo().getId())
                 .schoolId(stanford().getId())
@@ -37,7 +37,7 @@ public class ProfileFactory {
                 .build();
     }
 
-    public static Profile newFeiProfile() {
+    public static Profile feiProfile() {
         return Profile.builder().id(fromString("0e9e40c0-b44b-4387-92a9-9d75d10e3d42"))
                 .userId(fei().getId())
                 .schoolId(stanford().getId())
@@ -47,7 +47,7 @@ public class ProfileFactory {
                 .build();
     }
 
-    public static Profile newAlanProfile() {
+    public static Profile alanProfile() {
         return Profile.builder().id(fromString("c5f473b4-3311-40b1-8fb3-f70357894754"))
                 .userId(alan().getId())
                 .description("Alan is a great mentee.")
@@ -55,7 +55,7 @@ public class ProfileFactory {
                 .build();
     }
 
-    public static Profile newTuanyProfile() {
+    public static Profile tuanyProfile() {
         return Profile.builder().id(fromString("c96ae800-fd93-48c2-bbf3-91a6658c8079"))
                 .userId(tuany().getId())
                 .description("Tuany is a great mentee.")
@@ -65,40 +65,40 @@ public class ProfileFactory {
                 .build();
     }
 
-    public static Profile updatedNewAlanProfile() {
-        return newAlanProfile().toBuilder()
+    public static Profile updatedAlanProfile() {
+        return alanProfile().toBuilder()
                 .description("Updated description")
                 .build();
     }
 
-    public static CreateProfileRequest createNewGustavoProfileRequest() {
+    public static CreateProfileRequest createGustavoProfileRequest() {
         return CreateProfileRequest.builder()
                 .userId(gustavo().getId())
                 .description("Gustavo is a great mentor.")
                 .build();
     }
 
-    public static CreateProfileRequest createNewTuanyProfileRequest() {
+    public static CreateProfileRequest createTuanyProfileRequest() {
         return CreateProfileRequest.builder()
-                .userId(newTuanyProfile().getUserId())
-                .description(newTuanyProfile().getDescription())
+                .userId(tuanyProfile().getUserId())
+                .description(tuanyProfile().getDescription())
                 .build();
     }
 
     public static List<Profile> profiles() {
-        return singletonList(newAlanProfile());
+        return singletonList(alanProfile());
     }
 
-    public static CreateProfileRequest createNewAlanProfileRequest() {
+    public static CreateProfileRequest createAlanProfileRequest() {
         return CreateProfileRequest.builder()
                 .userId(alan().getId())
                 .description("Alan is a great mentee.")
                 .build();
     }
 
-    public static UpdateProfileRequest updateNewAlanProfileRequest() {
+    public static UpdateProfileRequest updateAlanProfileRequest() {
         return UpdateProfileRequest.builder()
-                .description(updatedNewAlanProfile().getDescription())
+                .description(updatedAlanProfile().getDescription())
                 .build();
     }
 }

@@ -14,8 +14,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.math.BigDecimal;
 
 import static inno.edu.api.support.AppointmentFactory.calculateAppointmentFeeRequest;
-import static inno.edu.api.support.ProfileFactory.newFeiProfile;
-import static inno.edu.api.support.ProfileFactory.newGustavoProfile;
+import static inno.edu.api.support.ProfileFactory.feiProfile;
+import static inno.edu.api.support.ProfileFactory.gustavoProfile;
 import static java.time.LocalDateTime.of;
 import static org.hamcrest.number.BigDecimalCloseTo.closeTo;
 import static org.junit.Assert.assertThat;
@@ -35,18 +35,18 @@ public class CalculateAppointmentFeeCommandTest {
 
     @Before
     public void setUp() {
-        when(getProfileByIdQuery.run(newFeiProfile().getId())).thenReturn(newFeiProfile());
+        when(getProfileByIdQuery.run(feiProfile().getId())).thenReturn(feiProfile());
     }
 
     @Test
     public void shouldCalculateFeeForAppointment() {
         BigDecimal fee = calculateAppointmentFeeCommand.run(calculateAppointmentFeeRequest());
-        assertThat(fee, closeTo(newFeiProfile().getRate(), new BigDecimal(0.001)));
+        assertThat(fee, closeTo(feiProfile().getRate(), new BigDecimal(0.001)));
     }
 
     @Test
     public void shouldCalculateFeeForAppointmentWithSmallRate() {
-        Profile smallRateProfile = newGustavoProfile().toBuilder()
+        Profile smallRateProfile = gustavoProfile().toBuilder()
                 .rate(new BigDecimal(5))
                 .build();
 

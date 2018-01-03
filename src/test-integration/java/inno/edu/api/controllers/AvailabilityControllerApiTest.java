@@ -11,7 +11,7 @@ import static inno.edu.api.support.AvailabilityFactory.updateAvailabilityRequest
 import static inno.edu.api.support.AvailabilityFactory.updatedAvailability;
 import static inno.edu.api.support.Payloads.postAvailabilityPayload;
 import static inno.edu.api.support.Payloads.putAvailabilityPayload;
-import static inno.edu.api.support.ProfileFactory.newFeiProfile;
+import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.Is.is;
@@ -82,7 +82,7 @@ public class AvailabilityControllerApiTest extends ApiTest {
 
     @Test
     public void shouldListAvailabilityByProfile() throws Exception {
-        this.mockMvc.perform(get("/api/availability/profile/" + newFeiProfile().getId()))
+        this.mockMvc.perform(get("/api/availability/profile/" + feiProfile().getId()))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.availabilityResourceList[*].id", containsInAnyOrder(availability().getId().toString(), otherAvailability().getId().toString())))

@@ -4,15 +4,15 @@ import inno.edu.api.domain.profile.commands.mappers.UpdateProfileRequestMapper;
 import inno.edu.api.domain.profile.models.Profile;
 import inno.edu.api.domain.profile.queries.GetProfileByIdQuery;
 import inno.edu.api.domain.profile.repositories.ProfileRepository;
+import inno.edu.api.support.ProfileFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static inno.edu.api.support.ProfileFactory.newAlanProfile;
-import static inno.edu.api.support.ProfileFactory.updateNewAlanProfileRequest;
-import static inno.edu.api.support.ProfileFactory.updatedNewAlanProfile;
+import static inno.edu.api.support.ProfileFactory.updateAlanProfileRequest;
+import static inno.edu.api.support.ProfileFactory.updatedAlanProfile;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
@@ -34,13 +34,13 @@ public class UpdateProfileCommandTest {
 
     @Test
     public void shouldReturnUpdatedProfile() {
-        when(getProfileByIdQuery.run(newAlanProfile().getId())).thenReturn(newAlanProfile());
-        when(profileRepository.save(newAlanProfile())).thenReturn(updatedNewAlanProfile());
+        when(getProfileByIdQuery.run(ProfileFactory.alanProfile().getId())).thenReturn(ProfileFactory.alanProfile());
+        when(profileRepository.save(ProfileFactory.alanProfile())).thenReturn(updatedAlanProfile());
 
-        Profile Profile = updateProfileCommand.run(newAlanProfile().getId(), updateNewAlanProfileRequest());
+        Profile Profile = updateProfileCommand.run(ProfileFactory.alanProfile().getId(), updateAlanProfileRequest());
 
-        verify(updateProfileRequestMapper).setProfile(updateNewAlanProfileRequest(), newAlanProfile());
+        verify(updateProfileRequestMapper).setProfile(updateAlanProfileRequest(), ProfileFactory.alanProfile());
 
-        assertThat(Profile, is(updatedNewAlanProfile()));
+        assertThat(Profile, is(updatedAlanProfile()));
     }
 }

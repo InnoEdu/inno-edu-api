@@ -4,13 +4,13 @@ import inno.edu.api.domain.profile.models.Profile;
 import inno.edu.api.domain.profile.models.ProfileStatus;
 import inno.edu.api.domain.profile.queries.GetProfileByIdQuery;
 import inno.edu.api.domain.profile.repositories.ProfileRepository;
+import inno.edu.api.support.ProfileFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static inno.edu.api.support.ProfileFactory.newAlanProfile;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -27,15 +27,15 @@ public class UpdateProfileStatusCommandTest {
 
     @Test
     public void shouldApproveMentorProfile() {
-        Profile inactiveProfile = newAlanProfile()
+        Profile inactiveProfile = ProfileFactory.alanProfile()
                 .toBuilder()
                 .status(ProfileStatus.ACTIVE)
                 .build();
 
-        when(getProfileByIdQuery.run(newAlanProfile().getId())).thenReturn(inactiveProfile);
+        when(getProfileByIdQuery.run(ProfileFactory.alanProfile().getId())).thenReturn(inactiveProfile);
 
-        updateProfileStatusCommand.run(newAlanProfile().getId(), ProfileStatus.CREATED);
+        updateProfileStatusCommand.run(ProfileFactory.alanProfile().getId(), ProfileStatus.CREATED);
 
-        verify(profileRepository).save(newAlanProfile());
+        verify(profileRepository).save(ProfileFactory.alanProfile());
     }
 }

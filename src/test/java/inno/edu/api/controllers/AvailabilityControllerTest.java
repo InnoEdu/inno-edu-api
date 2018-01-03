@@ -25,7 +25,7 @@ import static inno.edu.api.support.AvailabilityFactory.createAvailabilityRequest
 import static inno.edu.api.support.AvailabilityFactory.feiAvailability;
 import static inno.edu.api.support.AvailabilityFactory.updateAvailabilityRequest;
 import static inno.edu.api.support.AvailabilityFactory.updatedAvailability;
-import static inno.edu.api.support.ProfileFactory.newFeiProfile;
+import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
@@ -110,9 +110,9 @@ public class AvailabilityControllerTest {
 
     @Test
     public void shouldListAvailabilityByMentor() {
-        when(getAvailabilityByProfileId.run(newFeiProfile().getId())).thenReturn(feiAvailability());
+        when(getAvailabilityByProfileId.run(feiProfile().getId())).thenReturn(feiAvailability());
 
-        availabilityController.allByProfile(newFeiProfile().getId());
+        availabilityController.allByProfile(feiProfile().getId());
 
         verify(resourceBuilder).wrappedFrom(eq(feiAvailability()), any(), eq(AvailabilityResource.class));
     }

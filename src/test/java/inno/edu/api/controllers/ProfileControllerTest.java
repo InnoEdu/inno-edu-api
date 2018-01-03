@@ -8,6 +8,7 @@ import inno.edu.api.domain.profile.commands.UpdateProfileCommand;
 import inno.edu.api.domain.profile.models.Profile;
 import inno.edu.api.domain.profile.queries.GetProfileByIdQuery;
 import inno.edu.api.domain.profile.repositories.ProfileRepository;
+import inno.edu.api.support.ProfileFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,11 +19,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import static inno.edu.api.support.ProfileFactory.createNewAlanProfileRequest;
-import static inno.edu.api.support.ProfileFactory.newAlanProfile;
+import static inno.edu.api.support.ProfileFactory.createAlanProfileRequest;
 import static inno.edu.api.support.ProfileFactory.profiles;
-import static inno.edu.api.support.ProfileFactory.updateNewAlanProfileRequest;
-import static inno.edu.api.support.ProfileFactory.updatedNewAlanProfile;
+import static inno.edu.api.support.ProfileFactory.updateAlanProfileRequest;
+import static inno.edu.api.support.ProfileFactory.updatedAlanProfile;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
@@ -70,35 +70,35 @@ public class ProfileControllerTest {
 
     @Test
     public void shouldGetProfileById() {
-        when(getProfileByIdQuery.run(eq(newAlanProfile().getId()))).thenReturn(newAlanProfile());
+        when(getProfileByIdQuery.run(eq(ProfileFactory.alanProfile().getId()))).thenReturn(ProfileFactory.alanProfile());
 
-        ProfileResource profileResource = profileController.get(newAlanProfile().getId());
+        ProfileResource profileResource = profileController.get(ProfileFactory.alanProfile().getId());
 
-        assertThat(profileResource.getProfile(), is(newAlanProfile()));
+        assertThat(profileResource.getProfile(), is(ProfileFactory.alanProfile()));
     }
 
     @Test
     public void shouldCreateNewProfile() {
-        when(createProfileCommand.run(createNewAlanProfileRequest())).thenReturn(newAlanProfile());
+        when(createProfileCommand.run(createAlanProfileRequest())).thenReturn(ProfileFactory.alanProfile());
 
-        ResponseEntity<Profile> entity = profileController.post(createNewAlanProfileRequest());
+        ResponseEntity<Profile> entity = profileController.post(createAlanProfileRequest());
 
-        assertThat(entity.getBody(), is(newAlanProfile()));
+        assertThat(entity.getBody(), is(ProfileFactory.alanProfile()));
     }
 
     @Test
     public void shouldUpdateProfile() {
-        when(updateProfileCommand.run(newAlanProfile().getId(), updateNewAlanProfileRequest())).thenReturn(updatedNewAlanProfile());
+        when(updateProfileCommand.run(ProfileFactory.alanProfile().getId(), updateAlanProfileRequest())).thenReturn(updatedAlanProfile());
 
-        ResponseEntity<Profile> entity = profileController.put(newAlanProfile().getId(), updateNewAlanProfileRequest());
+        ResponseEntity<Profile> entity = profileController.put(ProfileFactory.alanProfile().getId(), updateAlanProfileRequest());
 
-        assertThat(entity.getBody(), is(updatedNewAlanProfile()));
+        assertThat(entity.getBody(), is(updatedAlanProfile()));
     }
 
     @Test
     public void shouldDeleteProfile() {
-        profileController.delete(newAlanProfile().getId());
+        profileController.delete(ProfileFactory.alanProfile().getId());
 
-        verify(deleteProfileCommand).run(newAlanProfile().getId());
+        verify(deleteProfileCommand).run(ProfileFactory.alanProfile().getId());
     }
 }

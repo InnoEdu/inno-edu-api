@@ -3,13 +3,13 @@ package inno.edu.api.domain.profile.queries;
 import inno.edu.api.domain.profile.exceptions.UserProfileNotFoundException;
 import inno.edu.api.domain.profile.models.Profile;
 import inno.edu.api.domain.profile.repositories.ProfileRepository;
+import inno.edu.api.support.ProfileFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static inno.edu.api.support.ProfileFactory.newAlanProfile;
 import static inno.edu.api.support.UserFactory.alan;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -25,11 +25,11 @@ public class GetProfileByUserIdQueryTest {
 
     @Test
     public void shouldGetProfile() {
-        when(profileRepository.findOneByUserId(alan().getId())).thenReturn(newAlanProfile());
+        when(profileRepository.findOneByUserId(alan().getId())).thenReturn(ProfileFactory.alanProfile());
 
         Profile profile = getProfileByUserIdQuery.run(alan().getId());
 
-        assertThat(profile, is(newAlanProfile()));
+        assertThat(profile, is(ProfileFactory.alanProfile()));
     }
 
     @Test(expected = UserProfileNotFoundException.class)

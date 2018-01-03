@@ -3,13 +3,13 @@ package inno.edu.api.domain.profile.queries;
 import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
 import inno.edu.api.domain.profile.models.Profile;
 import inno.edu.api.domain.profile.repositories.ProfileRepository;
+import inno.edu.api.support.ProfileFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static inno.edu.api.support.ProfileFactory.newAlanProfile;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
@@ -24,17 +24,17 @@ public class GetProfileByIdQueryTest {
 
     @Test(expected = ProfileNotFoundException.class)
     public void shouldThrowExceptionIfProfileDoesNotExist() {
-        when(profileRepository.findOne(newAlanProfile().getId())).thenReturn(null);
+        when(profileRepository.findOne(ProfileFactory.alanProfile().getId())).thenReturn(null);
 
-        getProfileByIdQuery.run(newAlanProfile().getId());
+        getProfileByIdQuery.run(ProfileFactory.alanProfile().getId());
     }
 
     @Test
     public void shouldReturnProfile() {
-        when(profileRepository.findOne(newAlanProfile().getId())).thenReturn(newAlanProfile());
+        when(profileRepository.findOne(ProfileFactory.alanProfile().getId())).thenReturn(ProfileFactory.alanProfile());
 
-        Profile profile = getProfileByIdQuery.run(newAlanProfile().getId());
+        Profile profile = getProfileByIdQuery.run(ProfileFactory.alanProfile().getId());
 
-        assertThat(profile, is(newAlanProfile()));
+        assertThat(profile, is(ProfileFactory.alanProfile()));
     }
 }

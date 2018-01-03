@@ -13,7 +13,7 @@ import java.util.List;
 
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.support.AppointmentFactory.appointments;
-import static inno.edu.api.support.ProfileFactory.newFeiProfile;
+import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
@@ -29,24 +29,24 @@ public class GetAppointmentsByMentorProfileIdQueryTest {
 
     @Before
     public void setUp() {
-        when(appointmentRepository.findByMentorProfileId(newFeiProfile().getId())).thenReturn(appointments());
-        when(appointmentRepository.findByMentorProfileIdAndStatus(newFeiProfile().getId(), PROPOSED)).thenReturn(appointments());
+        when(appointmentRepository.findByMentorProfileId(feiProfile().getId())).thenReturn(appointments());
+        when(appointmentRepository.findByMentorProfileIdAndStatus(feiProfile().getId(), PROPOSED)).thenReturn(appointments());
     }
 
     @Test
     public void shouldCallRepositoryForProfileId() {
-        List<Appointment> expected = getAppointmentsByMentorProfileIdQuery.run(newFeiProfile().getId(), null);
+        List<Appointment> expected = getAppointmentsByMentorProfileIdQuery.run(feiProfile().getId(), null);
 
-        verify(appointmentRepository).findByMentorProfileId(newFeiProfile().getId());
+        verify(appointmentRepository).findByMentorProfileId(feiProfile().getId());
 
         assertThat(expected, is(appointments()));
     }
 
     @Test
     public void shouldCallRepositoryForProfileIdAndStatus() {
-        List<Appointment> expected = getAppointmentsByMentorProfileIdQuery.run(newFeiProfile().getId(), PROPOSED);
+        List<Appointment> expected = getAppointmentsByMentorProfileIdQuery.run(feiProfile().getId(), PROPOSED);
 
-        verify(appointmentRepository).findByMentorProfileIdAndStatus(newFeiProfile().getId(), PROPOSED);
+        verify(appointmentRepository).findByMentorProfileIdAndStatus(feiProfile().getId(), PROPOSED);
 
         assertThat(expected, is(appointments()));
     }

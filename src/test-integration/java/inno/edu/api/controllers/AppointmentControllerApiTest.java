@@ -17,8 +17,8 @@ import static inno.edu.api.support.Payloads.postAppointmentPayload;
 import static inno.edu.api.support.Payloads.postFeedbackPayload;
 import static inno.edu.api.support.Payloads.putAppointmentPayload;
 import static inno.edu.api.support.Payloads.putAppointmentReasonPayload;
-import static inno.edu.api.support.ProfileFactory.newAlanProfile;
-import static inno.edu.api.support.ProfileFactory.newFeiProfile;
+import static inno.edu.api.support.ProfileFactory.alanProfile;
+import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.not;
@@ -48,7 +48,7 @@ public class AppointmentControllerApiTest extends ApiTest {
 
     @Test
     public void shouldListAppointmentsByMentorProfileAndStatus() throws Exception {
-        this.mockMvc.perform(get("/api/appointments/mentor/" + newFeiProfile().getId())
+        this.mockMvc.perform(get("/api/appointments/mentor/" + feiProfile().getId())
                 .param("status", PROPOSED.toString()))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -64,7 +64,7 @@ public class AppointmentControllerApiTest extends ApiTest {
 
     @Test
     public void shouldListAppointmentsByMenteeProfileAndStatus() throws Exception {
-        this.mockMvc.perform(get("/api/appointments/mentee/" + newAlanProfile().getId())
+        this.mockMvc.perform(get("/api/appointments/mentee/" + alanProfile().getId())
                 .param("status", PROPOSED.toString()))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -167,7 +167,7 @@ public class AppointmentControllerApiTest extends ApiTest {
     @Test
     public void shouldEstimateAppointment() throws Exception {
         this.mockMvc.perform(get("/api/appointments/estimate")
-                .param("mentorProfileId", newFeiProfile().getId().toString())
+                .param("mentorProfileId", feiProfile().getId().toString())
                 .param("fromDateTime", appointment().getFromDateTime().toString())
                 .param("toDateTime", appointment().getToDateTime().toString()))
                 .andDo(print())
