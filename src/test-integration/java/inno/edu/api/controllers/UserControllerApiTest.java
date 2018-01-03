@@ -6,7 +6,6 @@ import org.springframework.http.MediaType;
 
 import static inno.edu.api.support.Payloads.postUserPayload;
 import static inno.edu.api.support.Payloads.putUserPayload;
-import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static inno.edu.api.support.ProfileFactory.newAlanProfile;
 import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.createFeiRequest;
@@ -55,18 +54,7 @@ public class UserControllerApiTest extends ApiTest {
     }
 
     @Test
-    public void shouldGetMentorProfileByUserId() throws Exception {
-        this.mockMvc.perform(get("/api/users/" + fei().getId().toString() + "/profile")).andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(feiProfile().getId().toString())))
-                .andExpect(jsonPath("$.mentorId", is(feiProfile().getMentorId().toString())))
-                .andExpect(jsonPath("$.schoolId", is(feiProfile().getSchoolId().toString())))
-                .andExpect(jsonPath("$.email", is(feiProfile().getEmail())))
-                .andExpect(jsonPath("$.status", is(feiProfile().getStatus().toString())));
-    }
-
-    @Test
-    public void shouldGetMenteeProfileByUserId() throws Exception {
+    public void shouldGetProfileByUserId() throws Exception {
         this.mockMvc.perform(get("/api/users/" + alan().getId().toString() + "/profile")).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(newAlanProfile().getId().toString())))

@@ -2,7 +2,7 @@ package inno.edu.api.controllers.resources;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import inno.edu.api.controllers.AvailabilityController;
-import inno.edu.api.controllers.MentorProfileController;
+import inno.edu.api.controllers.ProfileController;
 import inno.edu.api.domain.availability.models.Availability;
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;
@@ -24,7 +24,7 @@ public class AvailabilityResource extends ResourceSupport {
         this.availability = availability;
 
         add(linkTo(methodOn(AvailabilityController.class).get(availability.getId())).withSelfRel());
-        add(linkTo(methodOn(MentorProfileController.class).get(availability.getMentorProfileId())).withRel("mentor-profile"));
+        add(linkTo(methodOn(ProfileController.class).get(availability.getMentorProfileId())).withRel("profile"));
     }
 
     public ResponseEntity<Availability> toCreated() {

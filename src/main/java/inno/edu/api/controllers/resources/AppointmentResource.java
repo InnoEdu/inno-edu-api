@@ -2,8 +2,7 @@ package inno.edu.api.controllers.resources;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import inno.edu.api.controllers.AppointmentController;
-import inno.edu.api.controllers.MentorProfileController;
-import inno.edu.api.controllers.UserController;
+import inno.edu.api.controllers.ProfileController;
 import inno.edu.api.domain.appointment.models.Appointment;
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;
@@ -26,8 +25,8 @@ public class AppointmentResource extends ResourceSupport {
 
         add(linkTo(methodOn(AppointmentController.class).get(appointment.getId())).withSelfRel());
         add(linkTo(methodOn(AppointmentController.class).allFeedbacks(appointment.getId())).withRel("feedbacks"));
-        add(linkTo(methodOn(MentorProfileController.class).get(appointment.getMentorProfileId())).withRel("mentor-profile"));
-        add(linkTo(methodOn(UserController.class).get(appointment.getMenteeProfileId())).withRel("mentee"));
+        add(linkTo(methodOn(ProfileController.class).get(appointment.getMentorProfileId())).withRel("mentor"));
+        add(linkTo(methodOn(ProfileController.class).get(appointment.getMenteeProfileId())).withRel("mentee"));
     }
 
     public ResponseEntity<Appointment> toCreated() {

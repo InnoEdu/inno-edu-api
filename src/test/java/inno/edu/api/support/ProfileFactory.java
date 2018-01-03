@@ -57,6 +57,8 @@ public class ProfileFactory {
                 .userId(tuany().getId())
                 .description("Tuany is a great mentee.")
                 .status(CREATED)
+                .rate(BigDecimal.ONE)
+                .schoolId(stanford().getId())
                 .build();
     }
 

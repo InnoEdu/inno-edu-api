@@ -1,12 +1,10 @@
 package inno.edu.api.controllers;
 
-import inno.edu.api.controllers.resources.MentorProfileResource;
 import inno.edu.api.controllers.resources.ProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.UserResource;
 import inno.edu.api.domain.profile.commands.UpdateMentorProfileStatusByUserCommand;
 import inno.edu.api.domain.profile.models.ProfileStatus;
-import inno.edu.api.domain.profile.queries.GetMentorProfileByUserIdQuery;
 import inno.edu.api.domain.profile.queries.GetProfileByUserIdQuery;
 import inno.edu.api.domain.user.commands.CreateUserCommand;
 import inno.edu.api.domain.user.commands.DeleteUserCommand;
@@ -44,7 +42,6 @@ public class UserController {
 
     private final UserRepository userRepository;
 
-    private final GetMentorProfileByUserIdQuery getMentorProfileByUserIdQuery;
     private final GetProfileByUserIdQuery getProfileByUserIdQuery;
     private final GetUserByIdQuery getUserByIdQuery;
 
@@ -57,9 +54,8 @@ public class UserController {
     private final UpdateMentorProfileStatusByUserCommand updateMentorProfileStatusByUserCommand;
 
     @Autowired
-    public UserController(UserRepository userRepository, GetMentorProfileByUserIdQuery getMentorProfileByUserIdQuery, GetProfileByUserIdQuery getProfileByUserIdQuery, GetUserByIdQuery getUserByIdQuery, CreateUserCommand createUserCommand, UpdateUserCommand updateUserCommand, DeleteUserCommand deleteUserCommand, LoginCommand loginCommand, ResourceBuilder resourceBuilder, UpdateMentorProfileStatusByUserCommand updateMentorProfileStatusByUserCommand) {
+    public UserController(UserRepository userRepository, GetProfileByUserIdQuery getProfileByUserIdQuery, GetUserByIdQuery getUserByIdQuery, CreateUserCommand createUserCommand, UpdateUserCommand updateUserCommand, DeleteUserCommand deleteUserCommand, LoginCommand loginCommand, ResourceBuilder resourceBuilder, UpdateMentorProfileStatusByUserCommand updateMentorProfileStatusByUserCommand) {
         this.userRepository = userRepository;
-        this.getMentorProfileByUserIdQuery = getMentorProfileByUserIdQuery;
         this.getProfileByUserIdQuery = getProfileByUserIdQuery;
         this.getUserByIdQuery = getUserByIdQuery;
         this.createUserCommand = createUserCommand;
@@ -83,9 +79,6 @@ public class UserController {
 
     @GetMapping("/{id}/profile")
     public ResourceSupport getProfile(@PathVariable UUID id) {
-        if (userRepository.existsByIdAndIsMentorIsTrue(id)) {
-            return new MentorProfileResource(getMentorProfileByUserIdQuery.run(id));
-        }
         return new ProfileResource(getProfileByUserIdQuery.run(id));
     }
 

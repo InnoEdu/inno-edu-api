@@ -4,7 +4,6 @@ import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.UserResource;
 import inno.edu.api.domain.profile.commands.UpdateMentorProfileStatusByUserCommand;
 import inno.edu.api.domain.profile.models.ProfileStatus;
-import inno.edu.api.domain.profile.queries.GetMentorProfileByUserIdQuery;
 import inno.edu.api.domain.profile.queries.GetProfileByUserIdQuery;
 import inno.edu.api.domain.user.commands.CreateUserCommand;
 import inno.edu.api.domain.user.commands.DeleteUserCommand;
@@ -24,7 +23,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static inno.edu.api.support.ProfileFactory.newAlanProfile;
 import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.createFeiRequest;
@@ -52,9 +50,6 @@ public class UserControllerTest {
 
     @Mock
     private GetUserByIdQuery getUserByIdQuery;
-
-    @Mock
-    private GetMentorProfileByUserIdQuery getMentorProfileByUserIdQuery;
 
     @Mock
     private GetProfileByUserIdQuery getProfileByUserIdQuery;
@@ -92,17 +87,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void shouldGetMentorProfileByUserId() {
-        when(userRepository.existsByIdAndIsMentorIsTrue(fei().getId())).thenReturn(true);
-        when(getMentorProfileByUserIdQuery.run(fei().getId())).thenReturn(feiProfile());
-
-        userController.getProfile(fei().getId());
-
-        verify(getMentorProfileByUserIdQuery).run(fei().getId());
-    }
-
-    @Test
-    public void shouldGetMenteeProfileByUserId() {
+    public void shouldGetProfileByUserId() {
         when(userRepository.existsByIdAndIsMentorIsTrue(eq(alan().getId()))).thenReturn(false);
         when(getProfileByUserIdQuery.run(alan().getId())).thenReturn(newAlanProfile());
 
