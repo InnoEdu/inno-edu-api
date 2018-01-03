@@ -1,8 +1,6 @@
 package inno.edu.api.support;
 
-import inno.edu.api.domain.profile.commands.dtos.CreateMentorProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.CreateProfileRequest;
-import inno.edu.api.domain.profile.commands.dtos.UpdateMentorProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.UpdateProfileRequest;
 import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.profile.models.Profile;
@@ -142,27 +140,10 @@ public class ProfileFactory {
                 .build();
     }
 
-    public static CreateMentorProfileRequest createFeiProfileRequest() {
-        return CreateMentorProfileRequest.builder()
-                .mentorId(fei().getId())
-                .schoolId(stanford().getId())
-                .email("feixiu@inno.edu")
-                .rate(new BigDecimal(10.5))
-                .description("Fei is a great mentor.")
-                .build();
-    }
-
     public static MentorProfile updatedFeiProfile() {
         return feiProfile().toBuilder()
                 .description("Updated description")
                 .rate(new BigDecimal(20.5))
-                .build();
-    }
-
-    public static UpdateMentorProfileRequest updateFeiProfileRequest() {
-        return UpdateMentorProfileRequest.builder()
-                .description(updatedFeiProfile().getDescription())
-                .rate(updatedFeiProfile().getRate())
                 .build();
     }
 
