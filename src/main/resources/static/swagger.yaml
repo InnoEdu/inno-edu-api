@@ -14,14 +14,12 @@ tags:
     description: User management
   - name: schools
     description: School management
-  - name: mentor-profiles
-    description: Mentor profiles management
-  - name: mentee-profiles
-    description: Mentor profiles management
+  - name: profiles
+    description: Profile management
   - name: availability
     description: Mentor avaialbility management
   - name: appointments
-    description: Appointments management
+    description: Appointment management
   - name: feedbacks
     description: Apointment feedbacks
 responses:
@@ -192,61 +190,11 @@ paths:
             $ref: '#/definitions/VndErrors'
         '403':
           $ref: '#/responses/403'
-  /users/{id}/approve:
-    put:
-      tags:
-        - users
-      summary: Approve the current created mentor profile by user id
-      parameters:
-        - in: path
-          name: id
-          description: User id
-          required: true
-          type: string
-          format: uuid
-      responses:
-        '204':
-          description: User profile successfully approved
-        '404':
-          description: User not found
-          schema:
-            $ref: '#/definitions/VndErrors'
-        '400':
-          description: User is not a mentor
-          schema:
-            $ref: '#/definitions/VndErrors'
-        '403':
-          $ref: '#/responses/403'
-  /users/{id}/reject:
-    put:
-      tags:
-        - users
-      summary: Reject the current created mentor profile by user id
-      parameters:
-        - in: path
-          name: id
-          description: User id
-          required: true
-          type: string
-          format: uuid
-      responses:
-        '204':
-          description: User profile successfully rejected
-        '404':
-          description: User not found
-          schema:
-            $ref: '#/definitions/VndErrors'
-        '400':
-          description: User is not a mentor
-          schema:
-            $ref: '#/definitions/VndErrors'
-        '403':
-          $ref: '#/responses/403'
   /users/{id}/profile:
     get:
       tags:
         - users
-      summary: Get mentor or mentee profile by user by id
+      summary: Get a profile by user id
       parameters:
         - in: path
           name: id
@@ -259,6 +207,8 @@ paths:
       responses:
         '200':
           description: OK
+          schema:
+            $ref: '#/definitions/ProfileResource'
         '404':
           description: User not found
           schema:
@@ -281,6 +231,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/EmbeddedSchoolResourceList'
+        '403':
+          $ref: '#/responses/403'
     post:
       tags:
         - schools
@@ -332,6 +284,8 @@ paths:
           description: School not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
     put:
       tags:
         - schools
@@ -390,7 +344,7 @@ paths:
     get:
       tags:
         - schools
-      summary: Get school mentors
+      summary: Get school mentor profiles
       parameters:
         - in: path
           name: id
@@ -404,29 +358,31 @@ paths:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/EmbeddedMentorProfileUserResourceList'
+            $ref: '#/definitions/EmbeddedProfileResourceList'
         '404':
           description: School not found
           schema:
             $ref: '#/definitions/VndErrors'
-  /mentor-profiles:
+        '403':
+          $ref: '#/responses/403'
+  /profiles:
     get:
       tags:
-        - mentor-profiles
-      summary: Get all mentor profiles
+        - profiles
+      summary: Get all profiles
       produces:
         - application/hal+json
       responses:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/EmbeddedMentorProfileResourceList'
+            $ref: '#/definitions/EmbeddedProfileResourceList'
         '403':
           $ref: '#/responses/403'
     post:
       tags:
-        - mentor-profiles
-      summary: Add a new mentor profile
+        - profiles
+      summary: Add a new profile
       consumes:
         - application/json
       produces:
@@ -434,15 +390,15 @@ paths:
       parameters:
         - in: body
           name: request
-          description: Request object with the mentor profile information to be created
+          description: Request object with the profile information to be created
           required: true
           schema:
-            $ref: '#/definitions/CreateMentorProfileRequest'
+            $ref: '#/definitions/CreateProfileRequest'
       responses:
         '201':
-          description: New mentor profile successfully created
+          description: New profile successfully created
           schema:
-            $ref: '#/definitions/MentorProfile'
+            $ref: '#/definitions/Profile'
           headers:
             Location:
               type: string
@@ -451,15 +407,15 @@ paths:
           $ref: '#/responses/400'
         '403':
           $ref: '#/responses/403'
-  /mentor-profiles/{id}:
+  /profiles/{id}:
     get:
       tags:
-        - mentor-profiles
-      summary: Get mentor profile by id
+        - profiles
+      summary: Get profile by id
       parameters:
         - in: path
           name: id
-          description: Mentor profile id
+          description: Profile id
           required: true
           type: string
           format: uuid
@@ -469,15 +425,17 @@ paths:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/MentorProfileResource'
+            $ref: '#/definitions/ProfileResource'
         '404':
           description: Profile not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
     put:
       tags:
-        - mentor-profiles
-      summary: Update mentor profile by id
+        - profiles
+      summary: Update profile by id
       consumes:
         - application/json
       produces:
@@ -485,21 +443,21 @@ paths:
       parameters:
         - in: path
           name: id
-          description: Mentor profile id
+          description: Profile id
           required: true
           type: string
           format: uuid
         - in: body
           name: request
-          description: Request object with the mentor profile information to be updated
+          description: Request object with the profile information to be updated
           required: true
           schema:
-            $ref: '#/definitions/UpdateMentorProfileRequest'
+            $ref: '#/definitions/UpdateProfileRequest'
       responses:
         '201':
-          description: Mentor profile successfully updated
+          description: Profile successfully updated
           schema:
-            $ref: '#/definitions/MentorProfile'
+            $ref: '#/definitions/Profile'
         '404':
           description: Profile not found
           schema:
@@ -510,181 +468,18 @@ paths:
           $ref: '#/responses/403'
     delete:
       tags:
-        - mentor-profiles
-      summary: Delete mentor profile by id
+        - profiles
+      summary: Delete profile by id
       parameters:
         - in: path
           name: id
-          description: Mentor profile id
+          description: Profile id
           required: true
           type: string
           format: uuid
       responses:
         '204':
-          description: Mentor profile successfully removed
-        '404':
-          description: Profile not found
-          schema:
-            $ref: '#/definitions/VndErrors'
-        '403':
-          $ref: '#/responses/403'
-  /mentor-profiles/{id}/approve:
-    put:
-      tags:
-        - mentor-profiles
-      summary: Approve a new mentor profile. All other profiles will be inactivated
-      parameters:
-        - in: path
-          name: id
-          description: User id
-          required: true
-          type: string
-          format: uuid
-      responses:
-        '204':
-          description: Mentor profile successfully approved
-        '404':
-          description: Profile not found
-          schema:
-            $ref: '#/definitions/VndErrors'
-        '403':
-          $ref: '#/responses/403'
-  /mentor-profiles/{id}/reject:
-    put:
-      tags:
-        - mentor-profiles
-      summary: Reject the mentor profile
-      parameters:
-        - in: path
-          name: id
-          description: Mentor profile id
-          required: true
-          type: string
-          format: uuid
-      responses:
-        '204':
-          description: Mentor profile profile successfully rejected
-        '404':
-          description: Profile not found
-          schema:
-            $ref: '#/definitions/VndErrors'
-        '403':
-          $ref: '#/responses/403'
-  /mentee-profiles:
-    get:
-      tags:
-        - mentee-profiles
-      summary: Get all mentee profiles
-      produces:
-        - application/hal+json
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/EmbeddedMenteeProfileResourceList'
-        '403':
-          $ref: '#/responses/403'
-    post:
-      tags:
-        - mentee-profiles
-      summary: Add a new mentee profile
-      consumes:
-        - application/json
-      produces:
-        - application/hal+json
-      parameters:
-        - in: body
-          name: request
-          description: Request object with the mentee profile information to be created
-          required: true
-          schema:
-            $ref: '#/definitions/CreateMenteeProfileRequest'
-      responses:
-        '201':
-          description: New mentee profile successfully created
-          schema:
-            $ref: '#/definitions/MenteeProfile'
-          headers:
-            Location:
-              type: string
-              description: Link to the new resource created
-        '400':
-          $ref: '#/responses/400'
-        '403':
-          $ref: '#/responses/403'
-  /mentee-profiles/{id}:
-    get:
-      tags:
-        - mentee-profiles
-      summary: Get mentee profile by id
-      parameters:
-        - in: path
-          name: id
-          description: Mentee profile id
-          required: true
-          type: string
-          format: uuid
-      produces:
-        - application/hal+json
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/MenteeProfileResource'
-        '404':
-          description: Profile not found
-          schema:
-            $ref: '#/definitions/VndErrors'
-        '403':
-          $ref: '#/responses/403'
-    put:
-      tags:
-        - mentee-profiles
-      summary: Update mentee profile by id
-      consumes:
-        - application/json
-      produces:
-        - application/hal+json
-      parameters:
-        - in: path
-          name: id
-          description: Mentee profile id
-          required: true
-          type: string
-          format: uuid
-        - in: body
-          name: request
-          description: Request object with the mentee profile information to be updated
-          required: true
-          schema:
-            $ref: '#/definitions/UpdateMenteeProfileRequest'
-      responses:
-        '201':
-          description: Mentee profile successfully updated
-          schema:
-            $ref: '#/definitions/MenteeProfile'
-        '404':
-          description: Profile not found
-          schema:
-            $ref: '#/definitions/VndErrors'
-        '400':
-          $ref: '#/responses/400'
-        '403':
-          $ref: '#/responses/403'
-    delete:
-      tags:
-        - mentee-profiles
-      summary: Delete mentee profile by id
-      parameters:
-        - in: path
-          name: id
-          description: Mentee profile id
-          required: true
-          type: string
-          format: uuid
-      responses:
-        '204':
-          description: Mentee profile successfully removed
+          description: Profile successfully removed
         '404':
           description: Profile not found
           schema:
@@ -812,15 +607,15 @@ paths:
             $ref: '#/definitions/VndErrors'
         '403':
           $ref: '#/responses/403'
-  /availability/mentor/{mentorId}:
+  /availability/profile/{profileId}:
     get:
       tags:
         - availability
-      summary: Get availability for a mentor
+      summary: Get availability for a profile
       parameters:
         - in: path
-          name: mentorId
-          description: Mentor id
+          name: profileId
+          description: Profile id
           required: true
           type: string
           format: uuid
@@ -831,38 +626,6 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/EmbeddedAvailabilityResourceList'
-    post:
-      tags:
-        - availability
-      summary: Create availability for the mentor
-      consumes:
-        - application/json
-      produces:
-        - application/hal+json
-      parameters:
-        - in: path
-          name: mentorId
-          description: Mentor id
-          required: true
-          type: string
-          format: uuid
-        - in: body
-          name: request
-          description: Request object with the availability information to be created
-          required: true
-          schema:
-            $ref: '#/definitions/CreateAvailabilityByMentorIdRequest'
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/Availability'
-        '404':
-          description: Mentor not found
-          schema:
-            $ref: '#/definitions/VndErrors'
-        '400':
-          $ref: '#/responses/400'
         '403':
           $ref: '#/responses/403'
   /appointments:
@@ -1025,17 +788,17 @@ paths:
             $ref: '#/definitions/VndErrors'
         '403':
           $ref: '#/responses/403'
-  /appointments/mentor/{mentorId}:
+  /appointments/mentor/{profileId}:
     get:
       tags:
         - appointments
-      summary: Get all appointments by mentor and status
+      summary: Get all appointments by mentor profile and status
       produces:
         - application/hal+json
       parameters:
         - in: path
-          name: mentorId
-          description: Mentor id
+          name: profileId
+          description: Mentor Profile id
           required: true
           type: string
           format: uuid
@@ -1056,17 +819,17 @@ paths:
             $ref: '#/definitions/VndErrors'
         '403':
           $ref: '#/responses/403'
-  /appointments/mentee/{menteeId}:
+  /appointments/mentee/{profileId}:
     get:
       tags:
         - appointments
-      summary: Get all appointments by mentee and status
+      summary: Get all appointments by mentee profile and status
       produces:
         - application/hal+json
       parameters:
         - in: path
-          name: menteeId
-          description: Mentee id
+          name: profileId
+          description: Profile id
           required: true
           type: string
           format: uuid
@@ -1472,94 +1235,36 @@ definitions:
         $ref: '#/definitions/SchoolResourceList'
       _links:
         type: object
-  MentorProfileUser:
+  CreateProfileRequest:
+    type: object
+    properties:
+      userId:
+        type: string
+        format: uuid
+      description:
+        type: string
+    required:
+      - userId
+      - description
+  UpdateProfileRequest:
+    type: object
+    properties:
+      description:
+        type: string
+    required:
+      - description
+  Profile:
     type: object
     properties:
       id:
         type: string
         format: uuid
-      mentorId:
+      userId:
         type: string
         format: uuid
       schoolId:
         type: string
         format: uuid
-      email:
-        type: string
-      description:
-        type: string
-      firstName:
-        type: string
-      secondName:
-        type: string
-  MentorProfileUserResource:
-    allOf:
-        - $ref: '#/definitions/MentorProfileUser'
-        - type: object
-          properties:
-            _links:
-              type: object
-  MentorProfileUserResourceList:
-    type: object
-    properties:
-      mentorProfileUserResourceList:
-        type: array
-        items:
-          $ref: '#/definitions/MentorProfileUserResource'
-  EmbeddedMentorProfileUserResourceList:
-    type: object
-    properties:
-      _embedded:
-        $ref: '#/definitions/MentorProfileUserResourceList'
-      _links:
-        type: object
-  CreateMentorProfileRequest:
-    type: object
-    properties:
-      mentorId:
-        type: string
-        format: uuid
-      schoolId:
-        type: string
-        format: uuid
-      email:
-        type: string
-        maxLength: 255
-      description:
-        type: string
-      rate:
-        type: number
-    required:
-      - mentorId
-      - schoolId
-      - email
-      - description
-      - rate
-  UpdateMentorProfileRequest:
-    type: object
-    properties:
-      description:
-        type: string
-      rate:
-        type: number
-    required:
-      - description
-      - rate
-  MentorProfile:
-    type: object
-    properties:
-      id:
-        type: string
-        format: uuid
-      mentorId:
-        type: string
-        format: uuid
-      schoolId:
-        type: string
-        format: uuid
-      email:
-        type: string
-        maxLength: 255
       description:
         type: string
       rate:
@@ -1567,75 +1272,25 @@ definitions:
       status:
         type: string
         enum: [CREATED, ACTIVE, INACTIVE, REJECTED]
-  MentorProfileResource:
-    allOf:
-        - $ref: '#/definitions/MentorProfile'
+  ProfileResource:
+      allOf:
+        - $ref: '#/definitions/Profile'
         - type: object
           properties:
             _links:
               type: object
-  MentorProfileResourceList:
+  ProfileResourceList:
     type: object
     properties:
-      mentorProfileResourceList:
+      profileResourceList:
         type: array
         items:
-          $ref: '#/definitions/MentorProfileResource'
-  EmbeddedMentorProfileResourceList:
+          $ref: '#/definitions/ProfileResource'
+  EmbeddedProfileResourceList:
     type: object
     properties:
       _embedded:
-        $ref: '#/definitions/MentorProfileResourceList'
-      _links:
-        type: object
-  CreateMenteeProfileRequest:
-    type: object
-    properties:
-      menteeId:
-        type: string
-        format: uuid
-      description:
-        type: string
-    required:
-      - menteeId
-      - description
-  UpdateMenteeProfileRequest:
-    type: object
-    properties:
-      description:
-        type: string
-    required:
-      - description
-  MenteeProfile:
-    type: object
-    properties:
-      id:
-        type: string
-        format: uuid
-      menteeId:
-        type: string
-        format: uuid
-      description:
-        type: string
-  MenteeProfileResource:
-    allOf:
-        - $ref: '#/definitions/MenteeProfile'
-        - type: object
-          properties:
-            _links:
-              type: object
-  MenteeProfileResourceList:
-    type: object
-    properties:
-      menteeProfileResourceList:
-        type: array
-        items:
-          $ref: '#/definitions/MenteeProfileResource'
-  EmbeddedMenteeProfileResourceList:
-    type: object
-    properties:
-      _embedded:
-        $ref: '#/definitions/MenteeProfileResourceList'
+        $ref: '#/definitions/ProfileResourceList'
       _links:
         type: object
   CreateAvailabilityRequest:

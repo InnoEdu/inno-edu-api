@@ -92,17 +92,17 @@ public class AppointmentController {
         return resourceBuilder.wrappedFrom(appointments, AppointmentResource::new, AppointmentResource.class);
     }
 
-    @GetMapping("/mentor/{mentorId}")
-    public Resources<Object> allByMentor(@PathVariable UUID mentorId,
+    @GetMapping("/mentor/{profileId}")
+    public Resources<Object> allByMentor(@PathVariable UUID profileId,
                                          @RequestParam(required = false) AppointmentStatus status) {
-        List<Appointment> appointments = getAppointmentsByMentorProfileIdQuery.run(mentorId, status);
+        List<Appointment> appointments = getAppointmentsByMentorProfileIdQuery.run(profileId, status);
         return resourceBuilder.wrappedFrom(appointments, AppointmentResource::new, AppointmentResource.class);
     }
 
-    @GetMapping("/mentee/{menteeId}")
-    public Resources<Object> allByMentee(@PathVariable UUID menteeId,
+    @GetMapping("/mentee/{profileId}")
+    public Resources<Object> allByMentee(@PathVariable UUID profileId,
                                          @RequestParam(required = false) AppointmentStatus status) {
-        List<Appointment> appointments = getAppointmentsByMenteeProfileIdQuery.run(menteeId, status);
+        List<Appointment> appointments = getAppointmentsByMenteeProfileIdQuery.run(profileId, status);
         return resourceBuilder.wrappedFrom(appointments, AppointmentResource::new, AppointmentResource.class);
     }
 
