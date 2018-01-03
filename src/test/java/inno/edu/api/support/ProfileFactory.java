@@ -2,10 +2,8 @@ package inno.edu.api.support;
 
 import inno.edu.api.domain.profile.commands.dtos.CreateProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.UpdateProfileRequest;
-import inno.edu.api.domain.profile.models.MentorProfile;
 import inno.edu.api.domain.profile.models.Profile;
 import inno.edu.api.domain.profile.models.ProfileStatus;
-import inno.edu.api.domain.profile.queries.dtos.MentorProfileUser;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -22,8 +20,6 @@ import static java.util.Collections.singletonList;
 import static java.util.UUID.fromString;
 
 public class ProfileFactory {
-    // New
-
     public static Profile newNewAlanProfile(UUID id, ProfileStatus status) {
         return newAlanProfile().toBuilder()
                 .id(id)
@@ -105,63 +101,4 @@ public class ProfileFactory {
                 .description(updatedNewAlanProfile().getDescription())
                 .build();
     }
-
-
-    ///
-
-    public static MentorProfile gustavoProfile() {
-        return MentorProfile.builder().id(fromString("e1b66612-a94a-4db3-86a1-04f3a102227b"))
-                .mentorId(gustavo().getId())
-                .schoolId(stanford().getId())
-                .email("gustavo@inno.edu")
-                .description("Gustavo is a great mentee.")
-                .rate(new BigDecimal(5))
-                .status(CREATED)
-                .build();
-    }
-
-    public static MentorProfile feiProfile() {
-        return MentorProfile.builder().id(fromString("0e9e40c0-b44b-4387-92a9-9d75d10e3d42"))
-                .mentorId(fei().getId())
-                .schoolId(stanford().getId())
-                .email("feixiu@inno.edu")
-                .description("Fei is a great mentor.")
-                .status(ACTIVE)
-                .rate(new BigDecimal(10.5))
-                .build();
-    }
-
-    public static MentorProfile newFeiProfile(UUID id, ProfileStatus status) {
-        return feiProfile().toBuilder()
-                .id(id)
-                .status(status)
-                .build();
-    }
-
-    public static MentorProfileUser feiProfileUser() {
-        return MentorProfileUser.builder().id(fromString("0e9e40c0-b44b-4387-92a9-9d75d10e3d42"))
-                .mentorId(fei().getId())
-                .schoolId(stanford().getId())
-                .email("feixiu@inno.edu")
-                .description("Fei is a great mentor.")
-                .firstName(fei().getFirstName())
-                .lastName(fei().getLastName())
-                .build();
-    }
-
-    public static MentorProfile updatedFeiProfile() {
-        return feiProfile().toBuilder()
-                .description("Updated description")
-                .rate(new BigDecimal(20.5))
-                .build();
-    }
-
-    public static List<MentorProfile> mentorProfiles() {
-        return singletonList(feiProfile());
-    }
-
-    public static List<MentorProfileUser> mentorProfileUsers() {
-        return singletonList(feiProfileUser());
-    }
-
 }

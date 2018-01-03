@@ -15,7 +15,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import static inno.edu.api.support.AvailabilityFactory.availability;
 import static inno.edu.api.support.AvailabilityFactory.createAvailabilityRequest;
 import static inno.edu.api.support.AvailabilityFactory.newAvailability;
-import static inno.edu.api.support.ProfileFactory.feiProfile;
+import static inno.edu.api.support.ProfileFactory.newFeiProfile;
 import static java.util.UUID.randomUUID;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -43,12 +43,12 @@ public class CreateAvailabilityCommandTest {
         when(uuidGeneratorService.generate()).thenReturn(randomUUID());
 
         when(createAvailabilityRequestMapper.toAvailability(createAvailabilityRequest()))
-                .thenReturn(newAvailability(null, feiProfile().getId()));
+                .thenReturn(newAvailability(null, newFeiProfile().getId()));
     }
 
     @Test
     public void shouldCallRepositoryToSaveAvailability() {
-        Availability availability = newAvailability(uuidGeneratorService.generate(), feiProfile().getId());
+        Availability availability = newAvailability(uuidGeneratorService.generate(), newFeiProfile().getId());
         when(availabilityRepository.save(availability)).thenReturn(availability);
 
         Availability savedAvailability = createAvailabilityCommand.run(createAvailabilityRequest());

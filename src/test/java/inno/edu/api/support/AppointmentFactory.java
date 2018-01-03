@@ -16,8 +16,8 @@ import java.util.UUID;
 import static com.google.common.collect.Lists.newArrayList;
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.ACCEPTED;
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
-import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static inno.edu.api.support.ProfileFactory.newAlanProfile;
+import static inno.edu.api.support.ProfileFactory.newFeiProfile;
 import static java.time.LocalDateTime.of;
 import static java.util.Collections.singletonList;
 import static java.util.UUID.fromString;
@@ -26,7 +26,7 @@ public class AppointmentFactory {
     public static Appointment appointment() {
         return Appointment.builder()
                 .id(fromString("f192270f-2dad-4bcd-96c3-c3765df77ce8"))
-                .mentorProfileId(feiProfile().getId())
+                .mentorProfileId(newFeiProfile().getId())
                 .menteeProfileId(newAlanProfile().getId())
                 .fromDateTime(of(2017, 11, 10, 9, 0, 1))
                 .toDateTime(of(2017, 11, 10, 10, 0, 1))
@@ -38,7 +38,7 @@ public class AppointmentFactory {
 
     public static CreateAppointmentRequest createAppointmentRequest() {
         return CreateAppointmentRequest.builder()
-                .mentorProfileId(feiProfile().getId())
+                .mentorProfileId(newFeiProfile().getId())
                 .menteeProfileId(newAlanProfile().getId())
                 .fromDateTime(of(2017, 11, 10, 9, 0, 1))
                 .toDateTime(of(2017, 11, 10, 10, 0, 1))
@@ -57,7 +57,7 @@ public class AppointmentFactory {
     public static Appointment otherAppointment() {
         return Appointment.builder()
                 .id(fromString("42f2431a-0216-416e-b795-29292b637ec4"))
-                .mentorProfileId(feiProfile().getId())
+                .mentorProfileId(newFeiProfile().getId())
                 .menteeProfileId(newAlanProfile().getId())
                 .fromDateTime(of(2017, 11, 10, 10, 0, 1))
                 .toDateTime(of(2017, 11, 10, 11, 0, 1))
@@ -69,7 +69,7 @@ public class AppointmentFactory {
 
     public static Appointment newAppointment() {
         return Appointment.builder()
-                .mentorProfileId(feiProfile().getId())
+                .mentorProfileId(newFeiProfile().getId())
                 .menteeProfileId(newAlanProfile().getId())
                 .fromDateTime(of(2017, 11, 10, 10, 0, 1))
                 .toDateTime(of(2017, 11, 10, 11, 0, 1))
