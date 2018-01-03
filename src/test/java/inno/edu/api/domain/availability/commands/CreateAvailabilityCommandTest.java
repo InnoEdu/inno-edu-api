@@ -3,7 +3,7 @@ package inno.edu.api.domain.availability.commands;
 import inno.edu.api.domain.availability.commands.mappers.CreateAvailabilityRequestMapper;
 import inno.edu.api.domain.availability.models.Availability;
 import inno.edu.api.domain.availability.repositories.AvailabilityRepository;
-import inno.edu.api.domain.profile.assertions.MentorProfileExistsAssertion;
+import inno.edu.api.domain.profile.assertions.ProfileExistsAssertion;
 import inno.edu.api.infrastructure.services.UUIDGeneratorService;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +33,7 @@ public class CreateAvailabilityCommandTest {
     private AvailabilityRepository availabilityRepository;
 
     @Mock
-    private MentorProfileExistsAssertion mentorProfileExistsAssertion;
+    private ProfileExistsAssertion profileExistsAssertion;
 
     @InjectMocks
     private CreateAvailabilityCommand createAvailabilityCommand;
@@ -45,6 +45,7 @@ public class CreateAvailabilityCommandTest {
         when(createAvailabilityRequestMapper.toAvailability(createAvailabilityRequest()))
                 .thenReturn(newAvailability(null, feiProfile().getId()));
     }
+
     @Test
     public void shouldCallRepositoryToSaveAvailability() {
         Availability availability = newAvailability(uuidGeneratorService.generate(), feiProfile().getId());
@@ -58,6 +59,6 @@ public class CreateAvailabilityCommandTest {
     public void shouldRunAllAssertions() {
         createAvailabilityCommand.run(createAvailabilityRequest());
 
-        verify(mentorProfileExistsAssertion).run(availability().getMentorProfileId());
+        verify(profileExistsAssertion).run(availability().getMentorProfileId());
     }
 }
