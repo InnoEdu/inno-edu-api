@@ -2,16 +2,14 @@ package inno.edu.api.controllers;
 
 import inno.edu.api.controllers.resources.AvailabilityResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
-import inno.edu.api.domain.availability.commands.CreateAvailabilityByMentorIdCommand;
 import inno.edu.api.domain.availability.commands.CreateAvailabilityCommand;
 import inno.edu.api.domain.availability.commands.DeleteAvailabilityCommand;
 import inno.edu.api.domain.availability.commands.UpdateAvailabilityCommand;
-import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityByMentorIdRequest;
 import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityRequest;
 import inno.edu.api.domain.availability.commands.dtos.UpdateAvailabilityRequest;
 import inno.edu.api.domain.availability.models.Availability;
 import inno.edu.api.domain.availability.queries.GetAvailabilityByIdQuery;
-import inno.edu.api.domain.availability.queries.GetAvailabilityByMentorId;
+import inno.edu.api.domain.availability.queries.GetAvailabilityByProfileId;
 import inno.edu.api.domain.availability.repositories.AvailabilityRepository;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
@@ -38,22 +36,20 @@ public class AvailabilityController {
     private final ResourceBuilder resourceBuilder;
 
     private final CreateAvailabilityCommand createAvailabilityCommand;
-    private final CreateAvailabilityByMentorIdCommand createAvailabilityByMentorIdCommand;
     private final UpdateAvailabilityCommand updateAvailabilityCommand;
     private final DeleteAvailabilityCommand deleteAvailabilityCommand;
 
     private final GetAvailabilityByIdQuery getAvailabilityByIdQuery;
-    private final GetAvailabilityByMentorId getAvailabilityByMentorIdQuery;
+    private final GetAvailabilityByProfileId getAvailabilityByProfileIdQuery;
 
-    public AvailabilityController(AvailabilityRepository availabilityRepository, ResourceBuilder resourceBuilder, CreateAvailabilityCommand createAvailabilityCommand, CreateAvailabilityByMentorIdCommand createAvailabilityByMentorIdCommand, UpdateAvailabilityCommand updateAvailabilityCommand, DeleteAvailabilityCommand deleteAvailabilityCommand, GetAvailabilityByIdQuery getAvailabilityByIdQuery, GetAvailabilityByMentorId getAvailabilityByMentorIdQuery) {
+    public AvailabilityController(AvailabilityRepository availabilityRepository, ResourceBuilder resourceBuilder, CreateAvailabilityCommand createAvailabilityCommand, UpdateAvailabilityCommand updateAvailabilityCommand, DeleteAvailabilityCommand deleteAvailabilityCommand, GetAvailabilityByIdQuery getAvailabilityByIdQuery, GetAvailabilityByProfileId getAvailabilityByProfileIdQuery) {
         this.availabilityRepository = availabilityRepository;
         this.resourceBuilder = resourceBuilder;
         this.createAvailabilityCommand = createAvailabilityCommand;
-        this.createAvailabilityByMentorIdCommand = createAvailabilityByMentorIdCommand;
         this.updateAvailabilityCommand = updateAvailabilityCommand;
         this.deleteAvailabilityCommand = deleteAvailabilityCommand;
         this.getAvailabilityByIdQuery = getAvailabilityByIdQuery;
-        this.getAvailabilityByMentorIdQuery = getAvailabilityByMentorIdQuery;
+        this.getAvailabilityByProfileIdQuery = getAvailabilityByProfileIdQuery;
     }
 
     @GetMapping
@@ -85,15 +81,9 @@ public class AvailabilityController {
         return noContent().build();
     }
 
-    @PostMapping("/mentor/{mentorId}")
-    public ResponseEntity<Availability> postByMentor(@PathVariable UUID mentorId, @Valid @RequestBody CreateAvailabilityByMentorIdRequest request) {
-        AvailabilityResource availabilityResource = new AvailabilityResource(createAvailabilityByMentorIdCommand.run(mentorId, request));
-        return availabilityResource.toCreated();
-    }
-
-    @GetMapping("/mentor/{mentorId}")
-    public Resources<Object> allByMentor(@PathVariable UUID mentorId) {
-        List<Availability> availability = getAvailabilityByMentorIdQuery.run(mentorId);
+    @GetMapping("/profile/{profileId}")
+    public Resources<Object> allByProfile(@PathVariable UUID profileId) {
+        List<Availability> availability = getAvailabilityByProfileIdQuery.run(profileId);
         return resourceBuilder.wrappedFrom(availability, AvailabilityResource::new, AvailabilityResource.class);
     }
 }

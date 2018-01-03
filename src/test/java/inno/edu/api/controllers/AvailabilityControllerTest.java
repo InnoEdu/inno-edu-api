@@ -2,13 +2,12 @@ package inno.edu.api.controllers;
 
 import inno.edu.api.controllers.resources.AvailabilityResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
-import inno.edu.api.domain.availability.commands.CreateAvailabilityByMentorIdCommand;
 import inno.edu.api.domain.availability.commands.CreateAvailabilityCommand;
 import inno.edu.api.domain.availability.commands.DeleteAvailabilityCommand;
 import inno.edu.api.domain.availability.commands.UpdateAvailabilityCommand;
 import inno.edu.api.domain.availability.models.Availability;
 import inno.edu.api.domain.availability.queries.GetAvailabilityByIdQuery;
-import inno.edu.api.domain.availability.queries.GetAvailabilityByMentorId;
+import inno.edu.api.domain.availability.queries.GetAvailabilityByProfileId;
 import inno.edu.api.domain.availability.repositories.AvailabilityRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,12 +21,11 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static inno.edu.api.support.AvailabilityFactory.allAvailability;
 import static inno.edu.api.support.AvailabilityFactory.availability;
-import static inno.edu.api.support.AvailabilityFactory.createAvailabilityByMentorRequest;
 import static inno.edu.api.support.AvailabilityFactory.createAvailabilityRequest;
 import static inno.edu.api.support.AvailabilityFactory.feiAvailability;
 import static inno.edu.api.support.AvailabilityFactory.updateAvailabilityRequest;
 import static inno.edu.api.support.AvailabilityFactory.updatedAvailability;
-import static inno.edu.api.support.UserFactory.fei;
+import static inno.edu.api.support.ProfileFactory.newFeiProfile;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
@@ -48,9 +46,6 @@ public class AvailabilityControllerTest {
     private CreateAvailabilityCommand createAvailabilityCommand;
 
     @Mock
-    private CreateAvailabilityByMentorIdCommand createAvailabilityByMentorIdCommand;
-
-    @Mock
     private UpdateAvailabilityCommand updateAvailabilityCommand;
 
     @Mock
@@ -60,7 +55,7 @@ public class AvailabilityControllerTest {
     private GetAvailabilityByIdQuery getAvailabilityByIdQuery;
 
     @Mock
-    private GetAvailabilityByMentorId getAvailabilityByMentorId;
+    private GetAvailabilityByProfileId getAvailabilityByProfileId;
 
     @InjectMocks
     private AvailabilityController availabilityController;
@@ -98,15 +93,6 @@ public class AvailabilityControllerTest {
     }
 
     @Test
-    public void shouldCreateNewAvailabilityByMentor() {
-        when(createAvailabilityByMentorIdCommand.run(fei().getId(), createAvailabilityByMentorRequest())).thenReturn(availability());
-
-        ResponseEntity<Availability> entity = availabilityController.postByMentor(fei().getId(), createAvailabilityByMentorRequest());
-
-        assertThat(entity.getBody(), is(availability()));
-    }
-
-    @Test
     public void shouldUpdateAvailability() {
         when(updateAvailabilityCommand.run(availability().getId(), updateAvailabilityRequest())).thenReturn(updatedAvailability());
 
@@ -124,9 +110,9 @@ public class AvailabilityControllerTest {
 
     @Test
     public void shouldListAvailabilityByMentor() {
-        when(getAvailabilityByMentorId.run(fei().getId())).thenReturn(feiAvailability());
+        when(getAvailabilityByProfileId.run(newFeiProfile().getId())).thenReturn(feiAvailability());
 
-        availabilityController.allByMentor(fei().getId());
+        availabilityController.allByProfile(newFeiProfile().getId());
 
         verify(resourceBuilder).wrappedFrom(eq(feiAvailability()), any(), eq(AvailabilityResource.class));
     }

@@ -5,15 +5,13 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 
 import static inno.edu.api.support.AvailabilityFactory.availability;
-import static inno.edu.api.support.AvailabilityFactory.createAvailabilityByMentorRequest;
 import static inno.edu.api.support.AvailabilityFactory.createAvailabilityRequest;
 import static inno.edu.api.support.AvailabilityFactory.otherAvailability;
 import static inno.edu.api.support.AvailabilityFactory.updateAvailabilityRequest;
 import static inno.edu.api.support.AvailabilityFactory.updatedAvailability;
-import static inno.edu.api.support.Payloads.postAvailabilityByMentorPayload;
 import static inno.edu.api.support.Payloads.postAvailabilityPayload;
 import static inno.edu.api.support.Payloads.putAvailabilityPayload;
-import static inno.edu.api.support.UserFactory.fei;
+import static inno.edu.api.support.ProfileFactory.newFeiProfile;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.Is.is;
@@ -61,20 +59,6 @@ public class AvailabilityControllerApiTest extends ApiTest {
     }
 
     @Test
-    public void shouldCreateNewAvailabilityByMentor() throws Exception {
-        this.mockMvc.perform(
-                post("/api/availability/mentor/" + fei().getId())
-                        .content(postAvailabilityByMentorPayload(createAvailabilityByMentorRequest()))
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", not(availability().getId().toString())))
-                .andExpect(jsonPath("$.mentorProfileId", is(availability().getMentorProfileId().toString())))
-                .andExpect(jsonPath("$.toDateTime", is(availability().getToDateTime().toString())))
-                .andExpect(jsonPath("$.fromDateTime", is(availability().getFromDateTime().toString())));
-    }
-
-    @Test
     public void shouldUpdateAvailability() throws Exception {
         this.mockMvc.perform(
                 put("/api/availability/" + availability().getId())
@@ -97,8 +81,8 @@ public class AvailabilityControllerApiTest extends ApiTest {
     }
 
     @Test
-    public void shouldListAvailabilityByMentor() throws Exception {
-        this.mockMvc.perform(get("/api/availability/mentor/" + fei().getId()))
+    public void shouldListAvailabilityByProfile() throws Exception {
+        this.mockMvc.perform(get("/api/availability/profile/" + newFeiProfile().getId()))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.availabilityResourceList[*].id", containsInAnyOrder(availability().getId().toString(), otherAvailability().getId().toString())))
