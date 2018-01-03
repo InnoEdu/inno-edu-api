@@ -34,25 +34,6 @@ CREATE TABLE Profile (
     ON DELETE CASCADE
 );
 
-CREATE TABLE Mentor_Profile (
-  id          BINARY(16) PRIMARY KEY,
-  mentor_id   BINARY(16)     NOT NULL,
-  school_id   BINARY(16)     NOT NULL,
-  email       VARCHAR(255)   NOT NULL,
-  description TEXT           NOT NULL,
-  status      SMALLINT       NOT NULL,
-  rate        DECIMAL(15, 2) NOT NULL,
-
-  FOREIGN KEY (mentor_id)
-  REFERENCES User (id)
-    ON DELETE CASCADE,
-
-  FOREIGN KEY (school_id)
-  REFERENCES School (id)
-    ON DELETE CASCADE
-);
-
-
 CREATE TABLE Availability (
   id                BINARY(16) PRIMARY KEY,
   mentor_profile_id BINARY(16) NOT NULL,
@@ -60,7 +41,7 @@ CREATE TABLE Availability (
   to_date_time      TIMESTAMP  NOT NULL,
 
   FOREIGN KEY (mentor_profile_id)
-  REFERENCES Mentor_Profile (id)
+  REFERENCES Profile (id)
     ON DELETE CASCADE
 );
 
@@ -76,7 +57,7 @@ CREATE TABLE Appointment (
   reason            VARCHAR(255),
 
   FOREIGN KEY (mentor_profile_id)
-  REFERENCES Mentor_Profile (id)
+  REFERENCES Profile (id)
     ON DELETE CASCADE,
 
   FOREIGN KEY (mentee_profile_id)
@@ -141,21 +122,19 @@ VALUES (${map}('83768bb035514586bbba03efb5f8d7bd'), 'Massachusetts Institute of 
         'MIT is an outstanding university.',
         'http://2.bp.blogspot.com/-i0BlZJ18qDQ/UawSQ7ixU1I/AAAAAAAABCQ/VjoBvrEVh5w/s1600/Postagem+12+-+M.I.T.+-+310513.bmp');
 
--- Mentor Profiles
-
-INSERT INTO Mentor_Profile (id, mentor_id, school_id, email, description, rate, status)
-VALUES (${map}('0e9e40c0b44b438792a99d75d10e3d42'), ${map}('ba7c650519fd47c387a6c6af6e5322b7'),
-        ${map}('0a58153cc15f4e5b802cbbf5d6c1c55c'), 'feixiu@inno.edu', 'Fei is a great mentor.', 5.0, 1);
-
-INSERT INTO Mentor_Profile (id, mentor_id, school_id, email, description, rate, status)
-VALUES (${map}('e1b66612a94a4db386a104f3a102227b'), ${map}('df54ff863caa4145b228284f5d4a908a'),
-        ${map}('7f297cd9723b43c98021a8530129dedb'), 'gustavo@inno.edu', 'Gustavo is a great mentor.', 10.0, 1);
-
-INSERT INTO Mentor_Profile (id, mentor_id, school_id, email, description, rate, status)
-VALUES (${map}('2744d1cbb25e4a61879dad3d15ffebe2'), ${map}('8d6153fc83e54b3a90acd081ff789cef'),
-        ${map}('a10afaca201644b8940b5b88323901b9'), 'alan@inno.edu', 'Alan is a great mentor.', 15.0, 1);
-
 -- Profiles
+
+INSERT INTO Profile (id, user_id, school_id, description, rate, status)
+VALUES (${map}('0e9e40c0b44b438792a99d75d10e3d42'), ${map}('ba7c650519fd47c387a6c6af6e5322b7'),
+        ${map}('0a58153cc15f4e5b802cbbf5d6c1c55c'), 'Fei is a great mentor.', 5.0, 1);
+
+INSERT INTO Profile (id, user_id, school_id, description, rate, status)
+VALUES (${map}('e1b66612a94a4db386a104f3a102227b'), ${map}('df54ff863caa4145b228284f5d4a908a'),
+        ${map}('7f297cd9723b43c98021a8530129dedb'), 'Gustavo is a great mentor.', 10.0, 1);
+
+INSERT INTO Profile (id, user_id, school_id, description, rate, status)
+VALUES (${map}('2744d1cbb25e4a61879dad3d15ffebe2'), ${map}('8d6153fc83e54b3a90acd081ff789cef'),
+        ${map}('a10afaca201644b8940b5b88323901b9'), 'Alan is a great mentor.', 15.0, 1);
 
 INSERT INTO Profile (id, user_id, description, status)
 VALUES (${map}('c5f473b4331140b18fb3f70357894754'), ${map}('e3495a43a0af42b7ab91a3801b1b56ab'),
