@@ -942,7 +942,6 @@ paths:
   /appointments/{id}/feedbacks:
     get:
       tags:
-        - appointments
         - feedbacks
       summary: Get all feedbacks for appointment
       produces:
@@ -963,7 +962,6 @@ paths:
           $ref: '#/responses/403'
     post:
       tags:
-        - appointments
         - feedbacks
       summary: Add a feedback for the appointment
       consumes:
@@ -999,7 +997,6 @@ paths:
   /appointments/feedbacks/{id}:
     get:
       tags:
-        - appointments
         - feedbacks
       summary: Get feedback by id
       parameters:
@@ -1024,7 +1021,6 @@ paths:
           $ref: '#/responses/403'
     delete:
       tags:
-        - appointments
         - feedbacks
       summary: Delete feedback by id
       parameters:
