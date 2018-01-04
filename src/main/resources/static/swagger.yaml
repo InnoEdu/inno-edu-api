@@ -520,7 +520,7 @@ paths:
         '403':
           $ref: '#/responses/403'
   /profiles/{id}/associate:
-    put:
+    post:
       tags:
         - profile-associations
       summary: Associate a profile to a school
@@ -1589,4 +1589,3 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/ProfileAssociationResource'
-        

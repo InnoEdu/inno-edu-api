@@ -1,5 +1,6 @@
 package inno.edu.api.controllers.advices;
 
+import inno.edu.api.domain.profile.exceptions.ProfileAssociationNotFoundException;
 import inno.edu.api.domain.profile.exceptions.PendingAssociationExistsException;
 import inno.edu.api.domain.profile.exceptions.ProfileAlreadyCreatedException;
 import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
@@ -22,6 +23,13 @@ public class ProfileControllerAdvice {
     @ExceptionHandler(ProfileNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     VndErrors appointmentNotFoundExceptionHandler(ProfileNotFoundException ex) {
+        return new VndErrors("error", ex.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(ProfileAssociationNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    VndErrors associationNotFoundExceptionHandler(ProfileAssociationNotFoundException ex) {
         return new VndErrors("error", ex.getMessage());
     }
 

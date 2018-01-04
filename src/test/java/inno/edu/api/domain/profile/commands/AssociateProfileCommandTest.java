@@ -14,7 +14,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import static inno.edu.api.support.ProfileFactory.gustavoProfile;
 import static inno.edu.api.support.ProfileFactory.gustavoProfileAssociation;
-import static inno.edu.api.support.ProfileFactory.gustavoToStanfordRequest;
+import static inno.edu.api.support.ProfileFactory.gustavoToBerkeleyRequest;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
@@ -48,18 +48,18 @@ public class AssociateProfileCommandTest {
         when(uuidGeneratorService.generate()).thenReturn(expectedAssociation.getId());
         when(profileAssociationRepository.save(any(ProfileAssociation.class))).then((answer) -> answer.getArguments()[0]);
 
-        ProfileAssociation profileAssociation = associateProfileCommand.run(gustavoProfile().getId(), gustavoToStanfordRequest());
+        ProfileAssociation profileAssociation = associateProfileCommand.run(gustavoProfile().getId(), gustavoToBerkeleyRequest());
         assertThat(profileAssociation, is(expectedAssociation));
     }
 
     @Test
     public void shouldRunAllAssertions() {
-        associateProfileCommand.run(gustavoProfile().getId(), gustavoToStanfordRequest());
+        associateProfileCommand.run(gustavoProfile().getId(), gustavoToBerkeleyRequest());
 
         verify(profileExistsAssertion).run(gustavoProfile().getId());
         verify(checkPendingAssociationsAssertion).run(gustavoProfile().getId());
 
-        verify(schoolExistsAssertion).run(gustavoProfile().getSchoolId());
+        verify(schoolExistsAssertion).run(gustavoToBerkeleyRequest().getSchoolId());
     }
 
 }

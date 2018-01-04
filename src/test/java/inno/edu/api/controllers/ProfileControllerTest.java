@@ -3,9 +3,11 @@ package inno.edu.api.controllers;
 import inno.edu.api.controllers.resources.ProfileAssociationResource;
 import inno.edu.api.controllers.resources.ProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
+import inno.edu.api.domain.profile.commands.ApproveProfileAssociationCommand;
 import inno.edu.api.domain.profile.commands.AssociateProfileCommand;
 import inno.edu.api.domain.profile.commands.CreateProfileCommand;
 import inno.edu.api.domain.profile.commands.DeleteProfileCommand;
+import inno.edu.api.domain.profile.commands.RejectProfileAssociationCommand;
 import inno.edu.api.domain.profile.commands.UpdateProfileCommand;
 import inno.edu.api.domain.profile.models.Profile;
 import inno.edu.api.domain.profile.queries.GetAssociationsByProfileIdQuery;
@@ -22,12 +24,14 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static inno.edu.api.support.ProfileFactory.alanProfile;
+import static inno.edu.api.support.ProfileFactory.approveRequest;
 import static inno.edu.api.support.ProfileFactory.associations;
 import static inno.edu.api.support.ProfileFactory.createAlanProfileRequest;
 import static inno.edu.api.support.ProfileFactory.gustavoProfile;
 import static inno.edu.api.support.ProfileFactory.gustavoProfileAssociation;
-import static inno.edu.api.support.ProfileFactory.gustavoToStanfordRequest;
+import static inno.edu.api.support.ProfileFactory.gustavoToBerkeleyRequest;
 import static inno.edu.api.support.ProfileFactory.profiles;
+import static inno.edu.api.support.ProfileFactory.rejectRequest;
 import static inno.edu.api.support.ProfileFactory.updateAlanProfileRequest;
 import static inno.edu.api.support.ProfileFactory.updatedAlanProfile;
 import static org.hamcrest.core.Is.is;
@@ -63,6 +67,12 @@ public class ProfileControllerTest {
 
     @Mock
     private AssociateProfileCommand associateProfileCommand;
+
+    @Mock
+    private ApproveProfileAssociationCommand approveProfileAssociationCommand;
+
+    @Mock
+    private RejectProfileAssociationCommand rejectProfileAssociationCommand;
 
     @InjectMocks
     private ProfileController profileController;
@@ -117,9 +127,9 @@ public class ProfileControllerTest {
 
     @Test
     public void shouldAssociateProfileToSchool() {
-        profileController.associate(gustavoProfile().getId(), gustavoToStanfordRequest());
+        profileController.associate(gustavoProfile().getId(), gustavoToBerkeleyRequest());
 
-        verify(associateProfileCommand).run(gustavoProfile().getId(), gustavoToStanfordRequest());
+        verify(associateProfileCommand).run(gustavoProfile().getId(), gustavoToBerkeleyRequest());
     }
 
     @Test
@@ -132,5 +142,17 @@ public class ProfileControllerTest {
         verify(resourceBuilder).wrappedFrom(eq(associations()), any(), eq(ProfileAssociationResource.class));
     }
 
+    @Test
+    public void shouldApproveAssociation() {
+        profileController.approveAssociation(gustavoProfileAssociation().getId(), approveRequest());
 
+        verify(approveProfileAssociationCommand).run(gustavoProfileAssociation().getId(), approveRequest());
+    }
+
+    @Test
+    public void shouldRejectAssociation() {
+        profileController.rejectAssociation(gustavoProfileAssociation().getId(), rejectRequest());
+
+        verify(rejectProfileAssociationCommand).run(gustavoProfileAssociation().getId(), rejectRequest());
+    }
 }

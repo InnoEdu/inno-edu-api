@@ -1,7 +1,9 @@
 package inno.edu.api.support;
 
+import inno.edu.api.domain.profile.commands.dtos.ApproveProfileAssociationRequest;
 import inno.edu.api.domain.profile.commands.dtos.CreateProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.ProfileAssociationRequest;
+import inno.edu.api.domain.profile.commands.dtos.RejectProfileAssociationRequest;
 import inno.edu.api.domain.profile.commands.dtos.UpdateProfileRequest;
 import inno.edu.api.domain.profile.models.Profile;
 import inno.edu.api.domain.profile.models.ProfileAssociation;
@@ -15,6 +17,7 @@ import static inno.edu.api.domain.profile.models.ProfileStatus.ACTIVE;
 import static inno.edu.api.domain.profile.models.ProfileStatus.CREATED;
 import static inno.edu.api.domain.profile.models.RequestStatus.APPROVED;
 import static inno.edu.api.domain.profile.models.RequestStatus.PENDING;
+import static inno.edu.api.support.SchoolFactory.berkeley;
 import static inno.edu.api.support.SchoolFactory.stanford;
 import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.fei;
@@ -106,16 +109,16 @@ public class ProfileFactory {
                 .build();
     }
 
-    public static ProfileAssociationRequest gustavoToStanfordRequest() {
+    public static ProfileAssociationRequest gustavoToBerkeleyRequest() {
         return ProfileAssociationRequest.builder()
-                .schoolId(stanford().getId())
+                .schoolId(berkeley().getId())
                 .build();
     }
 
     public static ProfileAssociation gustavoProfileAssociation() {
         return ProfileAssociation.builder()
                 .id(fromString("9db7c055-b02e-4fbe-9e0f-57dbb027767e"))
-                .schoolId(stanford().getId())
+                .schoolId(gustavoToBerkeleyRequest().getSchoolId())
                 .profileId(gustavoProfile().getId())
                 .status(PENDING)
                 .build();
@@ -129,6 +132,14 @@ public class ProfileFactory {
                 .status(APPROVED)
                 .description("Approved")
                 .build();
+    }
+
+    public static ApproveProfileAssociationRequest approveRequest() {
+        return ApproveProfileAssociationRequest.builder().rate(BigDecimal.TEN).build();
+    }
+
+    public static RejectProfileAssociationRequest rejectRequest() {
+        return RejectProfileAssociationRequest.builder().description("Rejected").build();
     }
 
     public static List<ProfileAssociation> associations() {

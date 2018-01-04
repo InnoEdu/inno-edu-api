@@ -4,16 +4,20 @@ import inno.edu.api.ApiTest;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
+import static inno.edu.api.support.Payloads.approveProfileAssociationPayload;
 import static inno.edu.api.support.Payloads.associateProfilePayload;
 import static inno.edu.api.support.Payloads.postProfilePayload;
 import static inno.edu.api.support.Payloads.putProfilePayload;
+import static inno.edu.api.support.Payloads.rejectProfileAssociationPayload;
 import static inno.edu.api.support.ProfileFactory.alanProfile;
+import static inno.edu.api.support.ProfileFactory.approveRequest;
 import static inno.edu.api.support.ProfileFactory.createAlanProfileRequest;
 import static inno.edu.api.support.ProfileFactory.createTuanyProfileRequest;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static inno.edu.api.support.ProfileFactory.feiProfileAssociation;
 import static inno.edu.api.support.ProfileFactory.gustavoProfile;
-import static inno.edu.api.support.ProfileFactory.gustavoToStanfordRequest;
+import static inno.edu.api.support.ProfileFactory.gustavoToBerkeleyRequest;
+import static inno.edu.api.support.ProfileFactory.rejectRequest;
 import static inno.edu.api.support.ProfileFactory.tuanyProfile;
 import static inno.edu.api.support.ProfileFactory.updateAlanProfileRequest;
 import static inno.edu.api.support.ProfileFactory.updatedAlanProfile;
@@ -101,8 +105,8 @@ public class ProfileControllerApiTest extends ApiTest {
     @Test
     public void shouldAssociateProfileToSchool() throws Exception {
         this.mockMvc.perform(
-                put("/api/profiles/" + gustavoProfile().getId() + "/associate")
-                        .content(associateProfilePayload(gustavoToStanfordRequest()))
+                post("/api/profiles/" + gustavoProfile().getId() + "/associate")
+                        .content(associateProfilePayload(gustavoToBerkeleyRequest()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isNoContent());
@@ -119,4 +123,25 @@ public class ProfileControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$._embedded.profileAssociationResourceList[*].status", hasItems(feiProfileAssociation().getStatus().toString())))
                 .andExpect(jsonPath("$._embedded.profileAssociationResourceList[*].description", hasItems(feiProfileAssociation().getDescription())));
     }
+
+    @Test
+    public void shouldApproveProfileToSchool() throws Exception {
+        this.mockMvc.perform(
+                put("/api/profiles/associations/" + feiProfileAssociation().getId() + "/approve")
+                        .content(approveProfileAssociationPayload(approveRequest()))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void shouldRejectProfileToSchool() throws Exception {
+        this.mockMvc.perform(
+                put("/api/profiles/associations/" + feiProfileAssociation().getId() + "/reject")
+                        .content(rejectProfileAssociationPayload(rejectRequest()))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+    }
+
 }

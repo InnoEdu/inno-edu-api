@@ -7,8 +7,10 @@ import inno.edu.api.domain.appointment.commands.dtos.UpdateAppointmentRequest;
 import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityByMentorIdRequest;
 import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityRequest;
 import inno.edu.api.domain.availability.commands.dtos.UpdateAvailabilityRequest;
+import inno.edu.api.domain.profile.commands.dtos.ApproveProfileAssociationRequest;
 import inno.edu.api.domain.profile.commands.dtos.CreateProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.ProfileAssociationRequest;
+import inno.edu.api.domain.profile.commands.dtos.RejectProfileAssociationRequest;
 import inno.edu.api.domain.profile.commands.dtos.UpdateProfileRequest;
 import inno.edu.api.domain.school.commands.dtos.CreateSchoolRequest;
 import inno.edu.api.domain.school.commands.dtos.UpdateSchoolRequest;
@@ -48,6 +50,14 @@ public class Payloads {
 
     public static String postProfilePayload(CreateProfileRequest createProfileRequest) {
         return format(loadPayload("payloads/profile/post-profile.json"), createProfileRequest.getUserId(), createProfileRequest.getDescription());
+    }
+
+    public static String approveProfileAssociationPayload(ApproveProfileAssociationRequest approveProfileAssociationRequest) {
+        return format(loadPayload("payloads/profile/approve-profile-association.json"), approveProfileAssociationRequest.getRate());
+    }
+
+    public static String rejectProfileAssociationPayload(RejectProfileAssociationRequest rejectProfileAssociationRequest) {
+        return format(loadPayload("payloads/profile/reject-profile-association.json"), rejectProfileAssociationRequest.getDescription());
     }
 
     public static String associateProfilePayload(ProfileAssociationRequest profileAssociationRequest) {

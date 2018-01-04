@@ -6,9 +6,13 @@ import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.profile.commands.AssociateProfileCommand;
 import inno.edu.api.domain.profile.commands.CreateProfileCommand;
 import inno.edu.api.domain.profile.commands.DeleteProfileCommand;
+import inno.edu.api.domain.profile.commands.ApproveProfileAssociationCommand;
+import inno.edu.api.domain.profile.commands.RejectProfileAssociationCommand;
 import inno.edu.api.domain.profile.commands.UpdateProfileCommand;
+import inno.edu.api.domain.profile.commands.dtos.ApproveProfileAssociationRequest;
 import inno.edu.api.domain.profile.commands.dtos.CreateProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.ProfileAssociationRequest;
+import inno.edu.api.domain.profile.commands.dtos.RejectProfileAssociationRequest;
 import inno.edu.api.domain.profile.commands.dtos.UpdateProfileRequest;
 import inno.edu.api.domain.profile.models.Profile;
 import inno.edu.api.domain.profile.models.ProfileAssociation;
@@ -48,10 +52,13 @@ public class ProfileController {
     private final UpdateProfileCommand updateProfileCommand;
     private final CreateProfileCommand createProfileCommand;
     private final DeleteProfileCommand deleteProfileCommand;
+
     private final AssociateProfileCommand associateProfileCommand;
+    private final ApproveProfileAssociationCommand approveProfileAssociationCommand;
+    private final RejectProfileAssociationCommand rejectProfileAssociationCommand;
 
     @Autowired
-    public ProfileController(ProfileRepository profileRepository, ResourceBuilder resourceBuilder, GetProfileByIdQuery getProfileByIdQuery, GetAssociationsByProfileIdQuery getAssociationsByProfileIdQuery, UpdateProfileCommand updateProfileCommand, CreateProfileCommand createProfileCommand, DeleteProfileCommand deleteProfileCommand, AssociateProfileCommand associateProfileCommand) {
+    public ProfileController(ProfileRepository profileRepository, ResourceBuilder resourceBuilder, GetProfileByIdQuery getProfileByIdQuery, GetAssociationsByProfileIdQuery getAssociationsByProfileIdQuery, UpdateProfileCommand updateProfileCommand, CreateProfileCommand createProfileCommand, DeleteProfileCommand deleteProfileCommand, AssociateProfileCommand associateProfileCommand, ApproveProfileAssociationCommand approveProfileAssociationCommand, RejectProfileAssociationCommand rejectProfileAssociationCommand) {
         this.profileRepository = profileRepository;
         this.resourceBuilder = resourceBuilder;
         this.getProfileByIdQuery = getProfileByIdQuery;
@@ -60,6 +67,8 @@ public class ProfileController {
         this.createProfileCommand = createProfileCommand;
         this.deleteProfileCommand = deleteProfileCommand;
         this.associateProfileCommand = associateProfileCommand;
+        this.approveProfileAssociationCommand = approveProfileAssociationCommand;
+        this.rejectProfileAssociationCommand = rejectProfileAssociationCommand;
     }
 
     @GetMapping
@@ -91,7 +100,7 @@ public class ProfileController {
         return noContent().build();
     }
 
-    @PutMapping("/{id}/associate")
+    @PostMapping("/{id}/associate")
     public ResponseEntity<?> associate(@PathVariable UUID id, @Valid @RequestBody ProfileAssociationRequest request) {
         associateProfileCommand.run(id, request);
         return noContent().build();
@@ -101,6 +110,18 @@ public class ProfileController {
     public Resources<Object> associations(@PathVariable UUID id, @RequestParam(required = false) RequestStatus status) {
         List<ProfileAssociation> profileAssociations = getAssociationsByProfileIdQuery.run(id, status);
         return resourceBuilder.wrappedFrom(profileAssociations, ProfileAssociationResource::new, ProfileAssociationResource.class);
+    }
+
+    @PutMapping("/associations/{id}/approve")
+    public ResponseEntity<?> approveAssociation(@PathVariable UUID id, @Valid @RequestBody ApproveProfileAssociationRequest request) {
+        approveProfileAssociationCommand.run(id, request);
+        return noContent().build();
+    }
+
+    @PutMapping("/associations/{id}/reject")
+    public ResponseEntity<?> rejectAssociation(@PathVariable UUID id, @Valid @RequestBody RejectProfileAssociationRequest request) {
+        rejectProfileAssociationCommand.run(id, request);
+        return noContent().build();
     }
 
 }
