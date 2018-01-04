@@ -16,6 +16,8 @@ tags:
     description: School management
   - name: profiles
     description: Profile management
+  - name: profile-associations
+    description: Profile association management
   - name: availability
     description: Mentor avaialbility management
   - name: appointments
@@ -489,7 +491,7 @@ paths:
   /profiles/{id}/associate:
     put:
       tags:
-        - profiles
+        - profile-associations
       summary: Associate a profile to a school
       consumes:
         - application/json
