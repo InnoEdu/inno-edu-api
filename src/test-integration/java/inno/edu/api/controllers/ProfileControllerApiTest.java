@@ -4,12 +4,14 @@ import inno.edu.api.ApiTest;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
+import static inno.edu.api.support.Payloads.associateProfilePayload;
 import static inno.edu.api.support.Payloads.postProfilePayload;
 import static inno.edu.api.support.Payloads.putProfilePayload;
 import static inno.edu.api.support.ProfileFactory.alanProfile;
 import static inno.edu.api.support.ProfileFactory.createAlanProfileRequest;
 import static inno.edu.api.support.ProfileFactory.createTuanyProfileRequest;
 import static inno.edu.api.support.ProfileFactory.gustavoProfile;
+import static inno.edu.api.support.ProfileFactory.gustavoToStanfordRequest;
 import static inno.edu.api.support.ProfileFactory.tuanyProfile;
 import static inno.edu.api.support.ProfileFactory.updateAlanProfileRequest;
 import static inno.edu.api.support.ProfileFactory.updatedAlanProfile;
@@ -93,4 +95,15 @@ public class ProfileControllerApiTest extends ApiTest {
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }
+
+    @Test
+    public void shouldAssociateProfileToSchool() throws Exception {
+        this.mockMvc.perform(
+                put("/api/profiles/" + gustavoProfile().getId() + "/associate")
+                        .content(associateProfilePayload(gustavoToStanfordRequest()))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+    }
+
 }

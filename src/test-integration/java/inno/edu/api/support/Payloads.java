@@ -8,6 +8,7 @@ import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityByMentor
 import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityRequest;
 import inno.edu.api.domain.availability.commands.dtos.UpdateAvailabilityRequest;
 import inno.edu.api.domain.profile.commands.dtos.CreateProfileRequest;
+import inno.edu.api.domain.profile.commands.dtos.ProfileAssociationRequest;
 import inno.edu.api.domain.profile.commands.dtos.UpdateProfileRequest;
 import inno.edu.api.domain.school.commands.dtos.CreateSchoolRequest;
 import inno.edu.api.domain.school.commands.dtos.UpdateSchoolRequest;
@@ -47,6 +48,10 @@ public class Payloads {
 
     public static String postProfilePayload(CreateProfileRequest createProfileRequest) {
         return format(loadPayload("payloads/profile/post-profile.json"), createProfileRequest.getUserId(), createProfileRequest.getDescription());
+    }
+
+    public static String associateProfilePayload(ProfileAssociationRequest profileAssociationRequest) {
+        return format(loadPayload("payloads/profile/associate-profile.json"), profileAssociationRequest.getSchoolId());
     }
 
     public static String putProfilePayload(UpdateProfileRequest updateProfileRequest) {
