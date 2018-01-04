@@ -488,6 +488,37 @@ paths:
             $ref: '#/definitions/VndErrors'
         '403':
           $ref: '#/responses/403'
+  /profiles/{id}/associations:
+    get:
+      tags:
+        - profile-associations
+      summary: Get profile associations by profile and status
+      parameters:
+        - in: path
+          name: id
+          description: Profile id
+          required: true
+          type: string
+          format: uuid
+        - in: query
+          name: status
+          description: Status
+          required: false
+          type: string
+          enum: [PENDING, APPROVED, REJECTED]
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ProfileAssociationResourceList'
+        '404':
+          description: Profile not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
   /profiles/{id}/associate:
     put:
       tags:
@@ -1266,13 +1297,6 @@ definitions:
         type: string
     required:
       - description
-  ProfileAssociationRequest:
-    type: object
-    properties:
-      schoolId:
-        type: string
-    required:
-      - schoolId
   Profile:
     type: object
     properties:
@@ -1527,3 +1551,42 @@ definitions:
         $ref: '#/definitions/FeedbackResourceList'
       _links:
         type: object
+  ProfileAssociationRequest:
+    type: object
+    properties:
+      schoolId:
+        type: string
+    required:
+      - schoolId
+  ProfileAssociation:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      profileId:
+        type: string
+        format: uuid
+      schoolId:
+        type: string
+        format: uuid
+      status:
+        type: string
+        enum: [PENDING, APPROVED, REJECTED]
+      description:
+        type: string
+  ProfileAssociationResource:
+    allOf:
+        - $ref: '#/definitions/ProfileAssociation'
+        - type: object
+          properties:
+            _links:
+              type: object
+  ProfileAssociationResourceList:
+    type: object
+    properties:
+      profileAssociationResourceList:
+        type: array
+        items:
+          $ref: '#/definitions/ProfileAssociationResource'
+        
