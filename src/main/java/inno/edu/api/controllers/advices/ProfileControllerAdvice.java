@@ -1,5 +1,6 @@
 package inno.edu.api.controllers.advices;
 
+import inno.edu.api.domain.profile.exceptions.PendingAssociationExistsException;
 import inno.edu.api.domain.profile.exceptions.ProfileAlreadyCreatedException;
 import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
 import org.springframework.core.annotation.Order;
@@ -27,6 +28,13 @@ public class ProfileControllerAdvice {
     @ExceptionHandler(ProfileAlreadyCreatedException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     VndErrors profileAlreadyCreatedExceptionHandler(ProfileAlreadyCreatedException ex) {
+        return new VndErrors("error", ex.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(PendingAssociationExistsException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    VndErrors pendingAssociationExistsExceptionHandler(ProfileAlreadyCreatedException ex) {
         return new VndErrors("error", ex.getMessage());
     }
 }
