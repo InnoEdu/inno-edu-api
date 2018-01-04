@@ -1383,9 +1383,6 @@ definitions:
         type: string
       rate:
         type: number
-      status:
-        type: string
-        enum: [CREATED, ACTIVE, INACTIVE, REJECTED]
   ProfileResource:
       allOf:
         - $ref: '#/definitions/Profile'
