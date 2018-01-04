@@ -554,6 +554,76 @@ paths:
           $ref: '#/responses/400'
         '403':
           $ref: '#/responses/403'
+  /profiles/associations/{id}/approve:
+    put:
+      tags:
+        - profile-associations
+      summary: Approve profile association
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: id
+          description: Profile association id
+          required: true
+          type: string
+          format: uuid
+        - in: body
+          name: request
+          description: Request object with the profile association information to be updated
+          required: true
+          schema:
+            $ref: '#/definitions/ApproveProfileAssociationRequest'
+      responses:
+        '204':
+          description: Profile association successfully approved
+          schema:
+            $ref: '#/definitions/Profile'
+        '404':
+          description: Profile association not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '400':
+          $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
+  /profiles/associations/{id}/reject:
+    put:
+      tags:
+        - profile-associations
+      summary: Reject profile association
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: id
+          description: Profile association id
+          required: true
+          type: string
+          format: uuid
+        - in: body
+          name: request
+          description: Request object with the profile association information to be updated
+          required: true
+          schema:
+            $ref: '#/definitions/RejectProfileAssociationRequest'
+      responses:
+        '204':
+          description: Profile association successfully approved
+          schema:
+            $ref: '#/definitions/Profile'
+        '404':
+          description: Profile association not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '400':
+          $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
   /availability:
     get:
       tags:
@@ -1558,6 +1628,21 @@ definitions:
         type: string
     required:
       - schoolId
+  ApproveProfileAssociationRequest:
+    type: object
+    properties:
+      rate:
+        type: number
+    required:
+      - rate
+  RejectProfileAssociationRequest:
+    type: object
+    properties:
+      description:
+        type: string
+        maxLength: 255
+    required:
+      - rate
   ProfileAssociation:
     type: object
     properties:
