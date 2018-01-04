@@ -35,9 +35,7 @@ public class UserControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$._embedded.userResourceList[*].firstName", hasItems(fei().getFirstName(), alan().getFirstName())))
                 .andExpect(jsonPath("$._embedded.userResourceList[*].lastName", hasItems(fei().getLastName(), alan().getLastName())))
                 .andExpect(jsonPath("$._embedded.userResourceList[*].username", hasItems(fei().getUsername(), alan().getUsername())))
-                .andExpect(jsonPath("$._embedded.userResourceList[*].email", hasItems(fei().getEmail(), alan().getEmail())))
-                .andExpect(jsonPath("$._embedded.userResourceList[*].photoUrl", hasItems(fei().getPhotoUrl(), alan().getPhotoUrl())))
-                .andExpect(jsonPath("$._embedded.userResourceList[*].isMentor", hasItems(fei().getIsMentor(), alan().getIsMentor())));
+                .andExpect(jsonPath("$._embedded.userResourceList[*].email", hasItems(fei().getEmail(), alan().getEmail())));
     }
 
     @Test
@@ -48,9 +46,7 @@ public class UserControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.firstName", is(fei().getFirstName())))
                 .andExpect(jsonPath("$.lastName", is(fei().getLastName())))
                 .andExpect(jsonPath("$.username", is(fei().getUsername())))
-                .andExpect(jsonPath("$.email", is(fei().getEmail())))
-                .andExpect(jsonPath("$.photoUrl", is(fei().getPhotoUrl())))
-                .andExpect(jsonPath("$.isMentor", is(fei().getIsMentor())));
+                .andExpect(jsonPath("$.email", is(fei().getEmail())));
     }
 
     @Test
@@ -74,9 +70,7 @@ public class UserControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.user.firstName", is(gustavo().getFirstName())))
                 .andExpect(jsonPath("$.user.lastName", is(gustavo().getLastName())))
                 .andExpect(jsonPath("$.user.username", is(gustavo().getUsername())))
-                .andExpect(jsonPath("$.user.email", is(gustavo().getEmail())))
-                .andExpect(jsonPath("$.user.photoUrl", is(gustavo().getPhotoUrl())))
-                .andExpect(jsonPath("$.user.isMentor", is(gustavo().getIsMentor())));
+                .andExpect(jsonPath("$.user.email", is(gustavo().getEmail())));
     }
 
     @Test
@@ -101,9 +95,7 @@ public class UserControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.firstName", is(updatedFei().getFirstName())))
                 .andExpect(jsonPath("$.lastName", is(updatedFei().getLastName())))
                 .andExpect(jsonPath("$.username", is(fei().getUsername())))
-                .andExpect(jsonPath("$.email", is(updatedFei().getEmail())))
-                .andExpect(jsonPath("$.photoUrl", is(updatedFei().getPhotoUrl())))
-                .andExpect(jsonPath("$.isMentor", is(fei().getIsMentor())));
+                .andExpect(jsonPath("$.email", is(updatedFei().getEmail())));
     }
 
     @Test

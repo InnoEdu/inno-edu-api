@@ -22,7 +22,6 @@ public class UserFactory {
                 .username("gustavodomenico")
                 .email("gustavo@inno.edu")
                 .password("password")
-                .isMentor(true)
                 .build();
     }
 
@@ -34,8 +33,6 @@ public class UserFactory {
                 .username("feixiu")
                 .email("feixiu@inno.edu")
                 .password("password")
-                .photoUrl("https://i1.rgstatic.net/ii/profile.image/AS%3A278674336174081%401443452547142_xl/Peng_Fei_Xu.png")
-                .isMentor(true)
                 .build();
     }
 
@@ -50,7 +47,6 @@ public class UserFactory {
                 .firstName(updatedFei().getFirstName())
                 .lastName(updatedFei().getLastName())
                 .email(updatedFei().getEmail())
-                .photoUrl(updatedFei().getPhotoUrl())
                 .build();
     }
 
@@ -62,7 +58,6 @@ public class UserFactory {
                 .email("feixiu@inno.edu")
                 .password("password")
                 .confirmPassword("password")
-                .isMentor(true)
                 .build();
     }
 
@@ -74,7 +69,6 @@ public class UserFactory {
                 .email("gustavo@inno.edu")
                 .password("password")
                 .confirmPassword("password")
-                .isMentor(true)
                 .build();
     }
 
@@ -99,8 +93,6 @@ public class UserFactory {
                 .username("alanly")
                 .email("alanly@inno.edu")
                 .password("password")
-                .photoUrl("https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAeBAAAAJDk1ZDQyNzE0LWY2MGQtNDFmYS05MmRmLTRhMzc0MTAxMGEwMQ.jpg")
-                .isMentor(false)
                 .build();
     }
 
@@ -115,7 +107,6 @@ public class UserFactory {
                 .firstName("UpdatedFei")
                 .lastName("UpdatedXiu")
                 .email("UpdatedEmail@email.com")
-                .photoUrl("UpdatedProfileUrl")
                 .build();
     }
 

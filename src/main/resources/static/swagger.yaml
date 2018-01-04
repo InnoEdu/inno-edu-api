@@ -1095,8 +1095,6 @@ definitions:
       confirmPassword:
         type: string
         maxLength: 30
-      isMentor:
-        type: boolean
     required:
       - firstName
       - lastName
@@ -1104,7 +1102,6 @@ definitions:
       - email
       - password
       - confirmPassword
-      - isMentor
   UpdateUserRequest:
     type: object
     properties:
@@ -1117,8 +1114,6 @@ definitions:
       email:
         type: string
         maxLength: 255
-      photoUrl:
-        type: string
     required:
       - firstName
       - lastName
@@ -1141,10 +1136,6 @@ definitions:
       email:
         type: string
         maxLength: 255
-      photoUrl:
-        type: string
-      isMentor:
-        type: boolean
   UserResource:
     allOf:
         - $ref: '#/definitions/User'
@@ -1174,13 +1165,9 @@ definitions:
         maxLength: 255
       description:
         type: string
-      photoUrl:
-        type: string
-        maxLength: 255
     required:
       - name
       - description
-      - photoUrl
   UpdateSchoolRequest:
     type: object
     properties:
@@ -1189,13 +1176,9 @@ definitions:
         maxLength: 255
       description:
         type: string
-      photoUrl:
-        type: string
-        maxLength: 255
     required:
       - name
       - description
-      - photoUrl
   School:
     type: object
     properties:
@@ -1207,9 +1190,6 @@ definitions:
         maxLength: 255
       description:
         type: string
-      photoUrl:
-        type: string
-        maxLength: 255
   SchoolResource:
     allOf:
         - $ref: '#/definitions/School'

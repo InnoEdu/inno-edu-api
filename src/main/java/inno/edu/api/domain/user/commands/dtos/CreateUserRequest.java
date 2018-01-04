@@ -38,6 +38,4 @@ public class CreateUserRequest {
     @NotNull
     @Size(max = 30)
     private String confirmPassword;
-
-    private Boolean isMentor;
 }

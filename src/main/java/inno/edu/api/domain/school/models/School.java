@@ -20,6 +20,4 @@ public class School {
 
     private String name;
     private String description;
-
-    private String photoUrl;
 }

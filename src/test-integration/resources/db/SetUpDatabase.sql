@@ -1,30 +1,24 @@
 DELETE FROM User;
 
-INSERT INTO User (id, first_name, last_name, username, email, password, is_mentor, photo_url)
-VALUES ('ba7c650519fd47c387a6c6af6e5322b7', 'Fei', 'Xiu', 'feixiu', 'feixiu@inno.edu', 'password', 1,
-        'https://i1.rgstatic.net/ii/profile.image/AS%3A278674336174081%401443452547142_xl/Peng_Fei_Xu.png');
+INSERT INTO User (id, first_name, last_name, username, email, password)
+VALUES ('ba7c650519fd47c387a6c6af6e5322b7', 'Fei', 'Xiu', 'feixiu', 'feixiu@inno.edu', 'password');
 
-INSERT INTO User (id, first_name, last_name, username, email, password, is_mentor, photo_url)
-VALUES ('8d6153fc83e54b3a90acd081ff789cef', 'Alan', 'Ly', 'alanly', 'alanly@inno.edu', 'password', 0,
-        'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAeBAAAAJDk1ZDQyNzE0LWY2MGQtNDFmYS05MmRmLTRhMzc0MTAxMGEwMQ.jpg');
+INSERT INTO User (id, first_name, last_name, username, email, password)
+VALUES ('8d6153fc83e54b3a90acd081ff789cef', 'Alan', 'Ly', 'alanly', 'alanly@inno.edu', 'password');
 
-INSERT INTO User (id, first_name, last_name, username, email, password, is_mentor, photo_url)
-VALUES ('df54ff863caa4145b228284f5d4a908a', 'Gustavo', 'Di Domenico', 'gdomenico', 'gustavo@inno.edu', 'password', 1,
-        'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAANPAAAAJGMwMjU0ZWJlLTBjZmEtNDNiNC1hZWVlLTQzNDRjZDM1MDZjZQ.jpg');
+INSERT INTO User (id, first_name, last_name, username, email, password)
+VALUES ('df54ff863caa4145b228284f5d4a908a', 'Gustavo', 'Di Domenico', 'gdomenico', 'gustavo@inno.edu', 'password');
 
-INSERT INTO User (id, first_name, last_name, username, email, password, is_mentor, photo_url)
-VALUES ('1e4cc51c767f4524b4e04f2e4bd249da', 'Tuany', 'Di Domenico', 'tdomenico', 'tuany@inno.edu', 'password', 1,
-        'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAANPAAAAJGMwMjU0ZWJlLTBjZmEtNDNiNC1hZWVlLTQzNDRjZDM1MDZjZQ.jpg');
+INSERT INTO User (id, first_name, last_name, username, email, password)
+VALUES ('1e4cc51c767f4524b4e04f2e4bd249da', 'Tuany', 'Di Domenico', 'tdomenico', 'tuany@inno.edu', 'password');
 
 DELETE FROM School;
 
-INSERT INTO School (id, name, description, photo_url)
-VALUES ('0a58153cc15f4e5b802cbbf5d6c1c55c', 'Stanford', 'Stanford is an amazing university.',
-        'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2013/07/26/100917787-Stanford_Oval_May_2011_panorama_r.jpg?v=1374868882');
+INSERT INTO School (id, name, description)
+VALUES ('0a58153cc15f4e5b802cbbf5d6c1c55c', 'Stanford', 'Stanford is an amazing university.');
 
-INSERT INTO School (id, name, description, photo_url)
-VALUES ('a10afaca201644b8940b5b88323901b9', 'Berkeley', 'Berkeley is an outstanding university.',
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/UCBerkeleyCampus.jpg/220px-UCBerkeleyCampus.jpg');
+INSERT INTO School (id, name, description)
+VALUES ('a10afaca201644b8940b5b88323901b9', 'Berkeley', 'Berkeley is an outstanding university.');
 
 DELETE FROM Profile;
 

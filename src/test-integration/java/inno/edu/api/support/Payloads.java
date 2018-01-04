@@ -38,11 +38,11 @@ public class Payloads {
     }
 
     public static String postUserPayload(CreateUserRequest createUserRequest) {
-        return format(loadPayload("payloads/user/post-user.json"), createUserRequest.getFirstName(), createUserRequest.getLastName(), createUserRequest.getUsername(), createUserRequest.getEmail(), createUserRequest.getPassword(), createUserRequest.getConfirmPassword(), createUserRequest.getIsMentor());
+        return format(loadPayload("payloads/user/post-user.json"), createUserRequest.getFirstName(), createUserRequest.getLastName(), createUserRequest.getUsername(), createUserRequest.getEmail(), createUserRequest.getPassword(), createUserRequest.getConfirmPassword());
     }
 
     public static String putUserPayload(UpdateUserRequest updateUserRequest) {
-        return format(loadPayload("payloads/user/put-user.json"), updateUserRequest.getFirstName(), updateUserRequest.getLastName(), updateUserRequest.getEmail(), updateUserRequest.getPhotoUrl());
+        return format(loadPayload("payloads/user/put-user.json"), updateUserRequest.getFirstName(), updateUserRequest.getLastName(), updateUserRequest.getEmail());
     }
 
     public static String postProfilePayload(CreateProfileRequest createProfileRequest) {
@@ -54,11 +54,11 @@ public class Payloads {
     }
 
     public static String postSchoolPayload(CreateSchoolRequest createSchoolRequest) {
-        return format(loadPayload("payloads/school/post-school.json"), createSchoolRequest.getName(), createSchoolRequest.getDescription(), createSchoolRequest.getPhotoUrl());
+        return format(loadPayload("payloads/school/post-school.json"), createSchoolRequest.getName(), createSchoolRequest.getDescription());
     }
 
     public static String putSchoolPayload(UpdateSchoolRequest updateSchoolRequest) {
-        return format(loadPayload("payloads/school/put-school.json"), updateSchoolRequest.getName(), updateSchoolRequest.getDescription(), updateSchoolRequest.getPhotoUrl());
+        return format(loadPayload("payloads/school/put-school.json"), updateSchoolRequest.getName(), updateSchoolRequest.getDescription());
     }
 
     public static String postAvailabilityPayload(CreateAvailabilityRequest createAvailabilityRequest) {

@@ -31,8 +31,4 @@ public class ApplicationUser {
 
     @JsonProperty(access = WRITE_ONLY)
     private String password;
-
-    private String photoUrl;
-
-    private Boolean isMentor;
 }

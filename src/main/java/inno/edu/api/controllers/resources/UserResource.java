@@ -1,7 +1,6 @@
 package inno.edu.api.controllers.resources;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import inno.edu.api.controllers.AppointmentController;
 import inno.edu.api.controllers.UserController;
 import inno.edu.api.domain.user.models.ApplicationUser;
 import lombok.Getter;
@@ -10,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 
 import java.net.URI;
 
-import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
 import static org.springframework.hateoas.core.DummyInvocationUtils.methodOn;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.http.ResponseEntity.created;
@@ -27,12 +25,6 @@ public class UserResource extends ResourceSupport {
 
         add(linkTo(methodOn(UserController.class).get(user.getId())).withSelfRel());
         add(linkTo(methodOn(UserController.class).getProfile(user.getId())).withRel("profile"));
-
-        if (user.getIsMentor()) {
-            add(linkTo(methodOn(AppointmentController.class).allByMentor(user.getId(), PROPOSED)).withRel("proposed-appointments"));
-        } else {
-            add(linkTo(methodOn(AppointmentController.class).allByMentee(user.getId(), PROPOSED)).withRel("proposed-appointments"));
-        }
     }
 
     public ResponseEntity<ApplicationUser> toCreated() {

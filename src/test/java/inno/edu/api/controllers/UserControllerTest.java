@@ -83,7 +83,6 @@ public class UserControllerTest {
 
     @Test
     public void shouldGetProfileByUserId() {
-        when(userRepository.existsByIdAndIsMentorIsTrue(eq(alan().getId()))).thenReturn(false);
         when(getProfileByUserIdQuery.run(alan().getId())).thenReturn(ProfileFactory.alanProfile());
 
         userController.getProfile(alan().getId());

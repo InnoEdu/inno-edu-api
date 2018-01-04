@@ -30,8 +30,7 @@ public class SchoolControllerApiTest extends ApiTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.schoolResourceList[*].id", containsInAnyOrder(stanford().getId().toString(), berkeley().getId().toString())))
                 .andExpect(jsonPath("$._embedded.schoolResourceList[*].name", containsInAnyOrder(stanford().getName(), berkeley().getName())))
-                .andExpect(jsonPath("$._embedded.schoolResourceList[*].description", containsInAnyOrder(stanford().getDescription(), berkeley().getDescription())))
-                .andExpect(jsonPath("$._embedded.schoolResourceList[*].photoUrl", containsInAnyOrder(stanford().getPhotoUrl(), berkeley().getPhotoUrl())));
+                .andExpect(jsonPath("$._embedded.schoolResourceList[*].description", containsInAnyOrder(stanford().getDescription(), berkeley().getDescription())));
     }
 
     @Test
@@ -52,8 +51,7 @@ public class SchoolControllerApiTest extends ApiTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(stanford().getId().toString())))
                 .andExpect(jsonPath("$.name", is(stanford().getName())))
-                .andExpect(jsonPath("$.description", is(stanford().getDescription())))
-                .andExpect(jsonPath("$.photoUrl", is(stanford().getPhotoUrl())));
+                .andExpect(jsonPath("$.description", is(stanford().getDescription())));
     }
 
     @Test
@@ -66,8 +64,7 @@ public class SchoolControllerApiTest extends ApiTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", not(stanford().getId().toString())))
                 .andExpect(jsonPath("$.name", is(stanford().getName())))
-                .andExpect(jsonPath("$.description", is(stanford().getDescription())))
-                .andExpect(jsonPath("$.photoUrl", is(stanford().getPhotoUrl())));
+                .andExpect(jsonPath("$.description", is(stanford().getDescription())));
     }
 
     @Test
@@ -80,8 +77,7 @@ public class SchoolControllerApiTest extends ApiTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", is(stanford().getId().toString())))
                 .andExpect(jsonPath("$.name", is(updatedStanford().getName())))
-                .andExpect(jsonPath("$.description", is(updatedStanford().getDescription())))
-                .andExpect(jsonPath("$.photoUrl", is(updatedStanford().getPhotoUrl())));
+                .andExpect(jsonPath("$.description", is(updatedStanford().getDescription())));
     }
 
     @Test

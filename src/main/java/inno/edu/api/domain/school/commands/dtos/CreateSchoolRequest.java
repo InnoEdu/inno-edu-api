@@ -19,8 +19,4 @@ public class CreateSchoolRequest {
 
     @NotNull
     private String description;
-
-    @NotNull
-    @Size(max = 255)
-    private String photoUrl;
 }

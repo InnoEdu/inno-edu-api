@@ -4,17 +4,13 @@ CREATE TABLE User (
   last_name  VARCHAR(50)  NOT NULL,
   username   VARCHAR(30)  NOT NULL,
   email      VARCHAR(255) NOT NULL,
-  password   VARCHAR(30)  NOT NULL,
-  photo_url  VARCHAR(255),
-  is_mentor  BOOLEAN      NOT NULL
+  password   VARCHAR(30)  NOT NULL
 );
-
 
 CREATE TABLE School (
   id          BINARY(16) PRIMARY KEY,
   name        VARCHAR(255) NOT NULL,
-  description TEXT         NOT NULL,
-  photo_url   VARCHAR(255)
+  description TEXT         NOT NULL
 );
 
 CREATE TABLE Profile (
@@ -80,47 +76,38 @@ CREATE TABLE Feedback (
 
 -- Mentors
 
-INSERT INTO User (id, first_name, last_name, username, email, password, is_mentor, photo_url)
-VALUES (${map}('ba7c650519fd47c387a6c6af6e5322b7'), 'Fei', 'Xiu', 'feixiu', 'feixiu@inno.edu', 'password', 1,
-        'https://i1.rgstatic.net/ii/profile.image/AS%3A278674336174081%401443452547142_xl/Peng_Fei_Xu.png');
+INSERT INTO User (id, first_name, last_name, username, email, password)
+VALUES (${map}('ba7c650519fd47c387a6c6af6e5322b7'), 'Fei', 'Xiu', 'feixiu', 'feixiu@inno.edu', 'password');
 
-INSERT INTO User (id, first_name, last_name, username, email, password, is_mentor, photo_url)
-VALUES (${map}('8d6153fc83e54b3a90acd081ff789cef'), 'Alan', 'Ly', 'alanly', 'alanly@inno.edu', 'password', 1,
-        'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAeBAAAAJDk1ZDQyNzE0LWY2MGQtNDFmYS05MmRmLTRhMzc0MTAxMGEwMQ.jpg');
+INSERT INTO User (id, first_name, last_name, username, email, password)
+VALUES (${map}('8d6153fc83e54b3a90acd081ff789cef'), 'Alan', 'Ly', 'alanly', 'alanly@inno.edu', 'password');
 
-INSERT INTO User (id, first_name, last_name, username, email, password, is_mentor, photo_url)
+INSERT INTO User (id, first_name, last_name, username, email, password)
 VALUES
-  (${map}('df54ff863caa4145b228284f5d4a908a'), 'Gustavo', 'Di Domenico', 'gdomenico', 'gustavo@inno.edu', 'password', 1,
-   'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAANPAAAAJGMwMjU0ZWJlLTBjZmEtNDNiNC1hZWVlLTQzNDRjZDM1MDZjZQ.jpg');
+  (${map}('df54ff863caa4145b228284f5d4a908a'), 'Gustavo', 'Di Domenico', 'gdomenico', 'gustavo@inno.edu', 'password');
 
 -- Mentees
 
-INSERT INTO User (id, first_name, last_name, username, email, password, is_mentor, photo_url)
-VALUES (${map}('e3495a43a0af42b7ab91a3801b1b56ab'), 'Tuany', 'Di Domenico', 'tuany', 'tuany@inno.edu', 'password', 0,
-        'https://scontent-sea1-1.cdninstagram.com/t51.2885-15/s480x480/e15/c0.80.640.640/13129262_634106980078940_906222652_n.jpg?ig_cache_key=MTI0MDAxMzMyNzYzMDI1ODQyOQ%3D%3D.2.c');
+INSERT INTO User (id, first_name, last_name, username, email, password)
+VALUES (${map}('e3495a43a0af42b7ab91a3801b1b56ab'), 'Tuany', 'Di Domenico', 'tuany', 'tuany@inno.edu', 'password');
 
-INSERT INTO User (id, first_name, last_name, username, email, password, is_mentor, photo_url)
-VALUES (${map}('c5e6b39233e14255a249f777b6ab355d'), 'Elisete', 'Muller', 'elisete', 'eluisete@inno.edu', 'password', 0,
-        'http://www.observatoriodemarcas.com.br/images/IIcongresso/elizete_de_azevedokreutz.jpg');
+INSERT INTO User (id, first_name, last_name, username, email, password)
+VALUES (${map}('c5e6b39233e14255a249f777b6ab355d'), 'Elisete', 'Muller', 'elisete', 'eluisete@inno.edu', 'password');
 
 -- Schools
 
-INSERT INTO School (id, name, description, photo_url)
-VALUES (${map}('0a58153cc15f4e5b802cbbf5d6c1c55c'), 'Stanford', 'Stanford is an amazing university.',
-        'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2013/07/26/100917787-Stanford_Oval_May_2011_panorama_r.jpg?v=1374868882');
+INSERT INTO School (id, name, description)
+VALUES (${map}('0a58153cc15f4e5b802cbbf5d6c1c55c'), 'Stanford', 'Stanford is an amazing university.');
 
-INSERT INTO School (id, name, description, photo_url)
-VALUES (${map}('a10afaca201644b8940b5b88323901b9'), 'Berkeley', 'Berkeley is an outstanding university.',
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/UCBerkeleyCampus.jpg/220px-UCBerkeleyCampus.jpg');
+INSERT INTO School (id, name, description)
+VALUES (${map}('a10afaca201644b8940b5b88323901b9'), 'Berkeley', 'Berkeley is an outstanding university.');
 
-INSERT INTO School (id, name, description, photo_url)
-VALUES (${map}('7f297cd9723b43c98021a8530129dedb'), 'PUCRS', 'PUCRS is an outstanding university.',
-        'http://www.pucrs.br/wp-content/themes/pucrs/images/logo_topo.png');
+INSERT INTO School (id, name, description)
+VALUES (${map}('7f297cd9723b43c98021a8530129dedb'), 'PUCRS', 'PUCRS is an outstanding university.');
 
-INSERT INTO School (id, name, description, photo_url)
+INSERT INTO School (id, name, description)
 VALUES (${map}('83768bb035514586bbba03efb5f8d7bd'), 'Massachusetts Institute of Technology',
-        'MIT is an outstanding university.',
-        'http://2.bp.blogspot.com/-i0BlZJ18qDQ/UawSQ7ixU1I/AAAAAAAABCQ/VjoBvrEVh5w/s1600/Postagem+12+-+M.I.T.+-+310513.bmp');
+        'MIT is an outstanding university.');
 
 -- Profiles
 
