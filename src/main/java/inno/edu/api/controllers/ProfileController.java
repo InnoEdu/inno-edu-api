@@ -28,6 +28,7 @@ import javax.validation.Valid;
 import java.util.UUID;
 
 import static org.springframework.http.ResponseEntity.noContent;
+import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping(value = "/api/profiles", produces = "application/hal+json")
@@ -86,6 +87,6 @@ public class ProfileController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
         deleteProfileCommand.run(id);
-        return noContent().build();
+        return ok().build();
     }
 }

@@ -486,6 +486,41 @@ paths:
             $ref: '#/definitions/VndErrors'
         '403':
           $ref: '#/responses/403'
+  /profiles/{id}/associate:
+    put:
+      tags:
+        - profiles
+      summary: Associate a profile to a school
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: id
+          description: Profile id
+          required: true
+          type: string
+          format: uuid
+        - in: body
+          name: request
+          description: Request object with the school information to be associated
+          required: true
+          schema:
+            $ref: '#/definitions/ProfileAssociationRequest'
+      responses:
+        '200':
+          description: Profile successfully associated
+          schema:
+            $ref: '#/definitions/Profile'
+        '404':
+          description: Profile not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '400':
+          $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
   /availability:
     get:
       tags:
@@ -1229,6 +1264,13 @@ definitions:
         type: string
     required:
       - description
+  ProfileAssociationRequest:
+    type: object
+    properties:
+      schoolId:
+        type: string
+    required:
+      - schoolId
   Profile:
     type: object
     properties:
@@ -1283,18 +1325,6 @@ definitions:
         format: date-time
     required:
       - mentorProfileId
-      - fromDateTime
-      - toDateTime
-  CreateAvailabilityByMentorIdRequest:
-    type: object
-    properties:
-      fromDateTime:
-        type: string
-        format: date-time
-      toDateTime:
-        type: string
-        format: date-time
-    required:
       - fromDateTime
       - toDateTime
   UpdateAvailabilityRequest:
