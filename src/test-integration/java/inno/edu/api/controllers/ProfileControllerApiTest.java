@@ -41,7 +41,6 @@ public class ProfileControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$._embedded.profileResourceList[*].userId", hasItems(alanProfile().getUserId().toString(), gustavoProfile().getUserId().toString())))
                 .andExpect(jsonPath("$._embedded.profileResourceList[*].schoolId", hasItems(alanProfile().getSchoolId(), gustavoProfile().getSchoolId().toString())))
                 .andExpect(jsonPath("$._embedded.profileResourceList[*].description", hasItems(alanProfile().getDescription(), gustavoProfile().getDescription())))
-                .andExpect(jsonPath("$._embedded.profileResourceList[*].status", hasItems(alanProfile().getStatus().toString(), gustavoProfile().getStatus().toString())))
                 .andExpect(jsonPath("$._embedded.profileResourceList[*].rate", hasItems(alanProfile().getRate(), gustavoProfile().getRate().doubleValue())));
     }
 
@@ -53,7 +52,6 @@ public class ProfileControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.userId", is(gustavoProfile().getUserId().toString())))
                 .andExpect(jsonPath("$.schoolId", is(gustavoProfile().getSchoolId().toString())))
                 .andExpect(jsonPath("$.description", is(gustavoProfile().getDescription())))
-                .andExpect(jsonPath("$.status", is(gustavoProfile().getStatus().toString())))
                 .andExpect(jsonPath("$.rate", is(gustavoProfile().getRate().doubleValue())));
     }
 
@@ -67,8 +65,7 @@ public class ProfileControllerApiTest extends ApiTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", not(tuanyProfile().getId().toString())))
                 .andExpect(jsonPath("$.userId", is(tuanyProfile().getUserId().toString())))
-                .andExpect(jsonPath("$.description", is(tuanyProfile().getDescription())))
-                .andExpect(jsonPath("$.status", is(tuanyProfile().getStatus().toString())));
+                .andExpect(jsonPath("$.description", is(tuanyProfile().getDescription())));
     }
 
     @Test

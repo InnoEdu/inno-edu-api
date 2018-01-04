@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -24,7 +23,4 @@ public class Profile {
 
     private UUID schoolId;
     private BigDecimal rate;
-
-    @Enumerated
-    private ProfileStatus status;
 }

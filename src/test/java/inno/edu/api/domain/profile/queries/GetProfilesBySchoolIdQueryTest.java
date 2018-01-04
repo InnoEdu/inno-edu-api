@@ -11,7 +11,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.List;
 
-import static inno.edu.api.domain.profile.models.ProfileStatus.ACTIVE;
 import static inno.edu.api.support.ProfileFactory.profiles;
 import static inno.edu.api.support.SchoolFactory.stanford;
 import static org.hamcrest.core.Is.is;
@@ -32,7 +31,7 @@ public class GetProfilesBySchoolIdQueryTest {
 
     @Test
     public void shouldGetSchoolMentorProfiles() {
-        when(profileRepository.findBySchoolIdAndStatus(stanford().getId(), ACTIVE)).thenReturn(profiles());
+        when(profileRepository.findBySchoolId(stanford().getId())).thenReturn(profiles());
 
         List<Profile> profiles = getProfilesBySchoolIdQuery.run(stanford().getId());
 

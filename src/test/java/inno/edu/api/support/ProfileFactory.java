@@ -7,14 +7,11 @@ import inno.edu.api.domain.profile.commands.dtos.RejectProfileAssociationRequest
 import inno.edu.api.domain.profile.commands.dtos.UpdateProfileRequest;
 import inno.edu.api.domain.profile.models.Profile;
 import inno.edu.api.domain.profile.models.ProfileAssociation;
-import inno.edu.api.domain.profile.models.ProfileStatus;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
-import static inno.edu.api.domain.profile.models.ProfileStatus.ACTIVE;
-import static inno.edu.api.domain.profile.models.ProfileStatus.CREATED;
 import static inno.edu.api.domain.profile.models.RequestStatus.APPROVED;
 import static inno.edu.api.domain.profile.models.RequestStatus.PENDING;
 import static inno.edu.api.support.SchoolFactory.berkeley;
@@ -27,10 +24,9 @@ import static java.util.Collections.singletonList;
 import static java.util.UUID.fromString;
 
 public class ProfileFactory {
-    public static Profile newAlanProfile(UUID id, ProfileStatus status) {
+    public static Profile newAlanProfile(UUID id) {
         return alanProfile().toBuilder()
                 .id(id)
-                .status(status)
                 .build();
     }
 
@@ -40,7 +36,6 @@ public class ProfileFactory {
                 .schoolId(stanford().getId())
                 .rate(new BigDecimal(20.5))
                 .description("Gustavo is a great mentor.")
-                .status(ACTIVE)
                 .build();
     }
 
@@ -49,7 +44,6 @@ public class ProfileFactory {
                 .userId(fei().getId())
                 .schoolId(stanford().getId())
                 .description("Fei is a great mentor.")
-                .status(ACTIVE)
                 .rate(new BigDecimal(10.5))
                 .build();
     }
@@ -58,7 +52,6 @@ public class ProfileFactory {
         return Profile.builder().id(fromString("c5f473b4-3311-40b1-8fb3-f70357894754"))
                 .userId(alan().getId())
                 .description("Alan is a great mentee.")
-                .status(CREATED)
                 .build();
     }
 
@@ -66,7 +59,6 @@ public class ProfileFactory {
         return Profile.builder().id(fromString("c96ae800-fd93-48c2-bbf3-91a6658c8079"))
                 .userId(tuany().getId())
                 .description("Tuany is a great mentee.")
-                .status(CREATED)
                 .rate(BigDecimal.ONE)
                 .schoolId(stanford().getId())
                 .build();

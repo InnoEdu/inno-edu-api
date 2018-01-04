@@ -9,8 +9,6 @@ import inno.edu.api.domain.user.assertions.UserExistsAssertion;
 import inno.edu.api.infrastructure.annotations.Command;
 import inno.edu.api.infrastructure.services.UUIDGeneratorService;
 
-import static inno.edu.api.domain.profile.models.ProfileStatus.CREATED;
-
 @Command
 public class CreateProfileCommand {
     private final UUIDGeneratorService uuidGeneratorService;
@@ -37,7 +35,6 @@ public class CreateProfileCommand {
         }
 
         profile.setId(uuidGeneratorService.generate());
-        profile.setStatus(CREATED);
 
         return profileRepository.save(profile);
     }

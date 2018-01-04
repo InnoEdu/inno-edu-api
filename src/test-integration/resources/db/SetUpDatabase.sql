@@ -22,17 +22,17 @@ VALUES ('a10afaca201644b8940b5b88323901b9', 'Berkeley', 'Berkeley is an outstand
 
 DELETE FROM Profile;
 
-INSERT INTO Profile (id, user_id, description, status)
+INSERT INTO Profile (id, user_id, description)
 VALUES ('c5f473b4331140b18fb3f70357894754', '8d6153fc83e54b3a90acd081ff789cef',
-        'Alan is a great mentee.', 0);
+        'Alan is a great mentee.');
 
-INSERT INTO Profile (id, user_id, school_id, description, rate, status)
+INSERT INTO Profile (id, user_id, school_id, description, rate)
 VALUES ('0e9e40c0b44b438792a99d75d10e3d42', 'ba7c650519fd47c387a6c6af6e5322b7',
-        '0a58153cc15f4e5b802cbbf5d6c1c55c', 'Fei is a great mentor.', 10.5, 0);
+        '0a58153cc15f4e5b802cbbf5d6c1c55c', 'Fei is a great mentor.', 10.5);
 
-INSERT INTO Profile (id, user_id, school_id, description, rate, status)
+INSERT INTO Profile (id, user_id, school_id, description, rate)
 VALUES ('e1b66612a94a4db386a104f3a102227b', 'df54ff863caa4145b228284f5d4a908a',
-        '0a58153cc15f4e5b802cbbf5d6c1c55c', 'Gustavo is a great mentor.', 20.5, 1);
+        '0a58153cc15f4e5b802cbbf5d6c1c55c', 'Gustavo is a great mentor.', 20.5);
 
 DELETE FROM Profile_Association;
 

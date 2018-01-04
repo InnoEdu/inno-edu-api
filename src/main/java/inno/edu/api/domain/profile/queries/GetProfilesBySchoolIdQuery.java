@@ -8,8 +8,6 @@ import inno.edu.api.infrastructure.annotations.Query;
 import java.util.List;
 import java.util.UUID;
 
-import static inno.edu.api.domain.profile.models.ProfileStatus.ACTIVE;
-
 @Query
 public class GetProfilesBySchoolIdQuery {
     private final SchoolExistsAssertion schoolExistsAssertion;
@@ -22,6 +20,6 @@ public class GetProfilesBySchoolIdQuery {
 
     public List<Profile> run(UUID schoolId) {
         schoolExistsAssertion.run(schoolId);
-        return profileRepository.findBySchoolIdAndStatus(schoolId, ACTIVE);
+        return profileRepository.findBySchoolId(schoolId);
     }
 }

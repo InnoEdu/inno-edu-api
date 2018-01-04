@@ -13,6 +13,7 @@ import static inno.edu.api.support.SchoolFactory.stanford;
 import static inno.edu.api.support.SchoolFactory.updateStanfordRequest;
 import static inno.edu.api.support.SchoolFactory.updatedStanford;
 import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -37,12 +38,11 @@ public class SchoolControllerApiTest extends ApiTest {
     public void shouldListSchoolMentorsProfile() throws Exception {
         this.mockMvc.perform(get("/api/schools/" + stanford().getId() + "/mentors")).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.profileResourceList[*].id", containsInAnyOrder(gustavoProfile().getId().toString())))
-                .andExpect(jsonPath("$._embedded.profileResourceList[*].userId", containsInAnyOrder(gustavoProfile().getUserId().toString())))
-                .andExpect(jsonPath("$._embedded.profileResourceList[*].schoolId", containsInAnyOrder(gustavoProfile().getSchoolId().toString())))
-                .andExpect(jsonPath("$._embedded.profileResourceList[*].description", containsInAnyOrder(gustavoProfile().getDescription())))
-                .andExpect(jsonPath("$._embedded.profileResourceList[*].status", containsInAnyOrder(gustavoProfile().getStatus().toString())))
-                .andExpect(jsonPath("$._embedded.profileResourceList[*].rate", containsInAnyOrder(gustavoProfile().getRate().doubleValue())));
+                .andExpect(jsonPath("$._embedded.profileResourceList[*].id", hasItems(gustavoProfile().getId().toString())))
+                .andExpect(jsonPath("$._embedded.profileResourceList[*].userId", hasItems(gustavoProfile().getUserId().toString())))
+                .andExpect(jsonPath("$._embedded.profileResourceList[*].schoolId", hasItems(gustavoProfile().getSchoolId().toString())))
+                .andExpect(jsonPath("$._embedded.profileResourceList[*].description", hasItems(gustavoProfile().getDescription())))
+                .andExpect(jsonPath("$._embedded.profileResourceList[*].rate", hasItems(gustavoProfile().getRate().doubleValue())));
     }
 
     @Test
