@@ -2,10 +2,12 @@ package inno.edu.api.controllers;
 
 import inno.edu.api.controllers.resources.ProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
+import inno.edu.api.domain.profile.commands.AssociateProfileCommand;
 import inno.edu.api.domain.profile.commands.CreateProfileCommand;
 import inno.edu.api.domain.profile.commands.DeleteProfileCommand;
 import inno.edu.api.domain.profile.commands.UpdateProfileCommand;
 import inno.edu.api.domain.profile.commands.dtos.CreateProfileRequest;
+import inno.edu.api.domain.profile.commands.dtos.ProfileAssociationRequest;
 import inno.edu.api.domain.profile.commands.dtos.UpdateProfileRequest;
 import inno.edu.api.domain.profile.models.Profile;
 import inno.edu.api.domain.profile.queries.GetProfileByIdQuery;
@@ -39,15 +41,17 @@ public class ProfileController {
     private final UpdateProfileCommand updateProfileCommand;
     private final CreateProfileCommand createProfileCommand;
     private final DeleteProfileCommand deleteProfileCommand;
+    private final AssociateProfileCommand associateProfileCommand;
 
     @Autowired
-    public ProfileController(ProfileRepository profileRepository, ResourceBuilder resourceBuilder, GetProfileByIdQuery getProfileByIdQuery, UpdateProfileCommand updateProfileCommand, CreateProfileCommand createProfileCommand, DeleteProfileCommand deleteProfileCommand) {
+    public ProfileController(ProfileRepository profileRepository, ResourceBuilder resourceBuilder, GetProfileByIdQuery getProfileByIdQuery, UpdateProfileCommand updateProfileCommand, CreateProfileCommand createProfileCommand, DeleteProfileCommand deleteProfileCommand, AssociateProfileCommand associateProfileCommand) {
         this.profileRepository = profileRepository;
         this.resourceBuilder = resourceBuilder;
         this.getProfileByIdQuery = getProfileByIdQuery;
         this.updateProfileCommand = updateProfileCommand;
         this.createProfileCommand = createProfileCommand;
         this.deleteProfileCommand = deleteProfileCommand;
+        this.associateProfileCommand = associateProfileCommand;
     }
 
     @GetMapping
@@ -71,6 +75,12 @@ public class ProfileController {
     public ResponseEntity<Profile> put(@PathVariable UUID id, @Valid @RequestBody UpdateProfileRequest request) {
         ProfileResource profileResource = new ProfileResource(updateProfileCommand.run(id, request));
         return profileResource.toUpdated();
+    }
+
+    @PutMapping("/{id}/associate")
+    public ResponseEntity<?> associate(@PathVariable UUID id, @Valid @RequestBody ProfileAssociationRequest request) {
+        associateProfileCommand.run(id, request);
+        return noContent().build();
     }
 
     @DeleteMapping("/{id}")

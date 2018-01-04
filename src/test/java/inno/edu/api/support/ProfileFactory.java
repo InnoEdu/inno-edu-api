@@ -1,8 +1,10 @@
 package inno.edu.api.support;
 
 import inno.edu.api.domain.profile.commands.dtos.CreateProfileRequest;
+import inno.edu.api.domain.profile.commands.dtos.ProfileAssociationRequest;
 import inno.edu.api.domain.profile.commands.dtos.UpdateProfileRequest;
 import inno.edu.api.domain.profile.models.Profile;
+import inno.edu.api.domain.profile.models.ProfileAssociation;
 import inno.edu.api.domain.profile.models.ProfileStatus;
 
 import java.math.BigDecimal;
@@ -11,6 +13,7 @@ import java.util.UUID;
 
 import static inno.edu.api.domain.profile.models.ProfileStatus.ACTIVE;
 import static inno.edu.api.domain.profile.models.ProfileStatus.CREATED;
+import static inno.edu.api.domain.profile.models.RequestStatus.PENDING;
 import static inno.edu.api.support.SchoolFactory.stanford;
 import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.fei;
@@ -18,6 +21,7 @@ import static inno.edu.api.support.UserFactory.gustavo;
 import static inno.edu.api.support.UserFactory.tuany;
 import static java.util.Collections.singletonList;
 import static java.util.UUID.fromString;
+import static java.util.UUID.randomUUID;
 
 public class ProfileFactory {
     public static Profile newAlanProfile(UUID id, ProfileStatus status) {
@@ -99,6 +103,21 @@ public class ProfileFactory {
     public static UpdateProfileRequest updateAlanProfileRequest() {
         return UpdateProfileRequest.builder()
                 .description(updatedAlanProfile().getDescription())
+                .build();
+    }
+
+    public static ProfileAssociationRequest gustavoToStanfordRequest() {
+        return ProfileAssociationRequest.builder()
+                .schoolId(stanford().getId())
+                .build();
+    }
+
+    public static ProfileAssociation gustavoProfileAssociation() {
+        return ProfileAssociation.builder()
+                .id(randomUUID())
+                .schoolId(stanford().getId())
+                .profileId(gustavoProfile().getId())
+                .status(PENDING)
                 .build();
     }
 }

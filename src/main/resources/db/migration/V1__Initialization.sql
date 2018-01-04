@@ -30,11 +30,11 @@ CREATE TABLE Profile (
     ON DELETE CASCADE
 );
 
-CREATE TABLE Association_Request (
-  id BINARY(16) PRIMARY KEY,
-  profile_id BINARY(16),
-  school_id  BINARY(16) NOT NULL,
-  status SMALLINT NOT NULL,
+CREATE TABLE Profile_Association (
+  id          BINARY(16) PRIMARY KEY,
+  profile_id  BINARY(16),
+  school_id   BINARY(16)   NOT NULL,
+  status      SMALLINT     NOT NULL,
   description VARCHAR(255) NULL,
 
   FOREIGN KEY (profile_id)
