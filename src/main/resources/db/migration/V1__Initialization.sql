@@ -30,6 +30,22 @@ CREATE TABLE Profile (
     ON DELETE CASCADE
 );
 
+CREATE TABLE Association_Request (
+  id BINARY(16) PRIMARY KEY,
+  profile_id BINARY(16),
+  school_id  BINARY(16) NOT NULL,
+  status SMALLINT NOT NULL,
+  description VARCHAR(255) NULL,
+
+  FOREIGN KEY (profile_id)
+  REFERENCES Profile (id)
+    ON DELETE CASCADE,
+
+  FOREIGN KEY (school_id)
+  REFERENCES School (id)
+    ON DELETE CASCADE
+);
+
 CREATE TABLE Availability (
   id                BINARY(16) PRIMARY KEY,
   mentor_profile_id BINARY(16) NOT NULL,
