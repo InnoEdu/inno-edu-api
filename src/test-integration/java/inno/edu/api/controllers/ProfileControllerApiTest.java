@@ -10,6 +10,8 @@ import static inno.edu.api.support.Payloads.putProfilePayload;
 import static inno.edu.api.support.ProfileFactory.alanProfile;
 import static inno.edu.api.support.ProfileFactory.createAlanProfileRequest;
 import static inno.edu.api.support.ProfileFactory.createTuanyProfileRequest;
+import static inno.edu.api.support.ProfileFactory.feiProfile;
+import static inno.edu.api.support.ProfileFactory.feiProfileAssociation;
 import static inno.edu.api.support.ProfileFactory.gustavoProfile;
 import static inno.edu.api.support.ProfileFactory.gustavoToStanfordRequest;
 import static inno.edu.api.support.ProfileFactory.tuanyProfile;
@@ -106,4 +108,15 @@ public class ProfileControllerApiTest extends ApiTest {
                 .andExpect(status().isNoContent());
     }
 
+    @Test
+    public void shouldListAssociationForProfile() throws Exception {
+        this.mockMvc.perform(get("/api/profiles/" + feiProfile().getId() + "/associations"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$._embedded.profileAssociationResourceList[*].id", hasItems(feiProfileAssociation().getId().toString())))
+                .andExpect(jsonPath("$._embedded.profileAssociationResourceList[*].profileId", hasItems(feiProfileAssociation().getProfileId().toString())))
+                .andExpect(jsonPath("$._embedded.profileAssociationResourceList[*].schoolId", hasItems(feiProfileAssociation().getSchoolId().toString())))
+                .andExpect(jsonPath("$._embedded.profileAssociationResourceList[*].status", hasItems(feiProfileAssociation().getStatus().toString())))
+                .andExpect(jsonPath("$._embedded.profileAssociationResourceList[*].description", hasItems(feiProfileAssociation().getDescription())));
+    }
 }

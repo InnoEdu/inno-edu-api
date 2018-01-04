@@ -13,6 +13,7 @@ import java.util.UUID;
 
 import static inno.edu.api.domain.profile.models.ProfileStatus.ACTIVE;
 import static inno.edu.api.domain.profile.models.ProfileStatus.CREATED;
+import static inno.edu.api.domain.profile.models.RequestStatus.APPROVED;
 import static inno.edu.api.domain.profile.models.RequestStatus.PENDING;
 import static inno.edu.api.support.SchoolFactory.stanford;
 import static inno.edu.api.support.UserFactory.alan;
@@ -21,7 +22,6 @@ import static inno.edu.api.support.UserFactory.gustavo;
 import static inno.edu.api.support.UserFactory.tuany;
 import static java.util.Collections.singletonList;
 import static java.util.UUID.fromString;
-import static java.util.UUID.randomUUID;
 
 public class ProfileFactory {
     public static Profile newAlanProfile(UUID id, ProfileStatus status) {
@@ -114,10 +114,24 @@ public class ProfileFactory {
 
     public static ProfileAssociation gustavoProfileAssociation() {
         return ProfileAssociation.builder()
-                .id(randomUUID())
+                .id(fromString("9db7c055-b02e-4fbe-9e0f-57dbb027767e"))
                 .schoolId(stanford().getId())
                 .profileId(gustavoProfile().getId())
                 .status(PENDING)
                 .build();
+    }
+
+    public static ProfileAssociation feiProfileAssociation() {
+        return ProfileAssociation.builder()
+                .id(fromString("a29aab94-7004-4ac6-9081-ebea3890df51"))
+                .schoolId(stanford().getId())
+                .profileId(feiProfile().getId())
+                .status(APPROVED)
+                .description("Approved")
+                .build();
+    }
+
+    public static List<ProfileAssociation> associations() {
+        return singletonList(gustavoProfileAssociation());
     }
 }

@@ -34,6 +34,12 @@ INSERT INTO Profile (id, user_id, school_id, description, rate, status)
 VALUES ('e1b66612a94a4db386a104f3a102227b', 'df54ff863caa4145b228284f5d4a908a',
         '0a58153cc15f4e5b802cbbf5d6c1c55c', 'Gustavo is a great mentor.', 20.5, 1);
 
+DELETE FROM Profile_Association;
+
+INSERT INTO Profile_Association (id, profile_id, school_id, status, description)
+VALUES ('a29aab9470044ac69081ebea3890df51', '0e9e40c0b44b438792a99d75d10e3d42',
+        '0a58153cc15f4e5b802cbbf5d6c1c55c', 1, 'Approved');
+
 DELETE FROM Availability;
 
 INSERT INTO Availability (id, mentor_profile_id, from_date_time, to_date_time)

@@ -1,5 +1,6 @@
 package inno.edu.api.controllers;
 
+import inno.edu.api.controllers.resources.ProfileAssociationResource;
 import inno.edu.api.controllers.resources.ProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.profile.commands.AssociateProfileCommand;
@@ -7,6 +8,7 @@ import inno.edu.api.domain.profile.commands.CreateProfileCommand;
 import inno.edu.api.domain.profile.commands.DeleteProfileCommand;
 import inno.edu.api.domain.profile.commands.UpdateProfileCommand;
 import inno.edu.api.domain.profile.models.Profile;
+import inno.edu.api.domain.profile.queries.GetAssociationsByProfileIdQuery;
 import inno.edu.api.domain.profile.queries.GetProfileByIdQuery;
 import inno.edu.api.domain.profile.repositories.ProfileRepository;
 import org.junit.Before;
@@ -20,8 +22,10 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static inno.edu.api.support.ProfileFactory.alanProfile;
+import static inno.edu.api.support.ProfileFactory.associations;
 import static inno.edu.api.support.ProfileFactory.createAlanProfileRequest;
 import static inno.edu.api.support.ProfileFactory.gustavoProfile;
+import static inno.edu.api.support.ProfileFactory.gustavoProfileAssociation;
 import static inno.edu.api.support.ProfileFactory.gustavoToStanfordRequest;
 import static inno.edu.api.support.ProfileFactory.profiles;
 import static inno.edu.api.support.ProfileFactory.updateAlanProfileRequest;
@@ -44,6 +48,9 @@ public class ProfileControllerTest {
 
     @Mock
     private GetProfileByIdQuery getProfileByIdQuery;
+
+    @Mock
+    private GetAssociationsByProfileIdQuery getAssociationsByProfileIdQuery;
 
     @Mock
     private UpdateProfileCommand updateProfileCommand;
@@ -114,5 +121,16 @@ public class ProfileControllerTest {
 
         verify(associateProfileCommand).run(gustavoProfile().getId(), gustavoToStanfordRequest());
     }
+
+    @Test
+    public void shouldListAssociationsForProfile() {
+        when(getAssociationsByProfileIdQuery.run(gustavoProfile().getId(), gustavoProfileAssociation().getStatus()))
+                .thenReturn(associations());
+
+        profileController.associations(gustavoProfile().getId(), gustavoProfileAssociation().getStatus());
+
+        verify(resourceBuilder).wrappedFrom(eq(associations()), any(), eq(ProfileAssociationResource.class));
+    }
+
 
 }
