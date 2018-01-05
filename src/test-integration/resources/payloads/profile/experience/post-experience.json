@@ -1,0 +1,10 @@
+{
+  "title": "%s",
+  "institution": "%s",
+  "location": "%s",
+  "area": "%s",
+  "fromDate": "%s",
+  "toDate": "%s",
+  "description": "%s",
+  "type": "%s"
+}

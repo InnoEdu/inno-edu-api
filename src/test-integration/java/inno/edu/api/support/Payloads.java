@@ -7,6 +7,8 @@ import inno.edu.api.domain.appointment.commands.dtos.UpdateAppointmentRequest;
 import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityByMentorIdRequest;
 import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityRequest;
 import inno.edu.api.domain.availability.commands.dtos.UpdateAvailabilityRequest;
+import inno.edu.api.domain.profile.experience.commands.dtos.CreateExperienceRequest;
+import inno.edu.api.domain.profile.experience.commands.dtos.UpdateExperienceRequest;
 import inno.edu.api.domain.profile.root.commands.dtos.ApproveProfileAssociationRequest;
 import inno.edu.api.domain.profile.root.commands.dtos.CreateProfileRequest;
 import inno.edu.api.domain.profile.root.commands.dtos.ProfileAssociationRequest;
@@ -52,20 +54,28 @@ public class Payloads {
         return format(loadPayload("payloads/profile/post-profile.json"), createProfileRequest.getUserId(), createProfileRequest.getDescription());
     }
 
+    public static String putProfilePayload(UpdateProfileRequest updateProfileRequest) {
+        return format(loadPayload("payloads/profile/put-profile.json"), updateProfileRequest.getDescription());
+    }
+
     public static String approveProfileAssociationPayload(ApproveProfileAssociationRequest approveProfileAssociationRequest) {
-        return format(loadPayload("payloads/profile/approve-profile-association.json"), approveProfileAssociationRequest.getRate());
+        return format(loadPayload("payloads/profile/association/approve-profile-association.json"), approveProfileAssociationRequest.getRate());
     }
 
     public static String rejectProfileAssociationPayload(RejectProfileAssociationRequest rejectProfileAssociationRequest) {
-        return format(loadPayload("payloads/profile/reject-profile-association.json"), rejectProfileAssociationRequest.getDescription());
+        return format(loadPayload("payloads/profile/association/reject-profile-association.json"), rejectProfileAssociationRequest.getDescription());
     }
 
     public static String associateProfilePayload(ProfileAssociationRequest profileAssociationRequest) {
-        return format(loadPayload("payloads/profile/associate-profile.json"), profileAssociationRequest.getSchoolId());
+        return format(loadPayload("payloads/profile/association/associate-profile.json"), profileAssociationRequest.getSchoolId());
     }
 
-    public static String putProfilePayload(UpdateProfileRequest updateProfileRequest) {
-        return format(loadPayload("payloads/profile/put-profile.json"), updateProfileRequest.getDescription());
+    public static String postExperiencePayload(CreateExperienceRequest createExperienceRequest) {
+        return format(loadPayload("payloads/profile/experience/post-experience.json"), createExperienceRequest.getTitle(), createExperienceRequest.getInstitution(), createExperienceRequest.getLocation(), createExperienceRequest.getArea(), createExperienceRequest.getFromDate(), createExperienceRequest.getToDate(), createExperienceRequest.getDescription(), createExperienceRequest.getType());
+    }
+
+    public static String putExperiencePayload(UpdateExperienceRequest updateExperienceRequest) {
+        return format(loadPayload("payloads/profile/experience/put-experience.json"), updateExperienceRequest.getTitle(), updateExperienceRequest.getInstitution(), updateExperienceRequest.getLocation(), updateExperienceRequest.getArea(), updateExperienceRequest.getFromDate(), updateExperienceRequest.getToDate(), updateExperienceRequest.getDescription());
     }
 
     public static String postSchoolPayload(CreateSchoolRequest createSchoolRequest) {
