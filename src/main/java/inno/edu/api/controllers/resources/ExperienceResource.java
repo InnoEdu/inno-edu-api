@@ -1,6 +1,7 @@
 package inno.edu.api.controllers.resources;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import inno.edu.api.controllers.profile.ExperienceController;
 import inno.edu.api.controllers.profile.ProfileController;
 import inno.edu.api.domain.profile.experience.models.Experience;
 import lombok.Getter;
@@ -22,7 +23,7 @@ public class ExperienceResource extends ResourceSupport {
     public ExperienceResource(Experience experience) {
         this.experience = experience;
 
-        add(linkTo(methodOn(ProfileController.class).getExperience(experience.getId())).withSelfRel());
+        add(linkTo(methodOn(ExperienceController.class).get(experience.getId())).withSelfRel());
         add(linkTo(methodOn(ProfileController.class).get(experience.getProfileId())).withRel("profile"));
     }
 
