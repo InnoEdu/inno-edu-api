@@ -123,5 +123,4 @@ public class ProfileController {
         rejectProfileAssociationCommand.run(id, request);
         return noContent().build();
     }
-
 }

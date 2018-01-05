@@ -5,6 +5,7 @@ import inno.edu.api.domain.profile.commands.dtos.CreateProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.ProfileAssociationRequest;
 import inno.edu.api.domain.profile.commands.dtos.RejectProfileAssociationRequest;
 import inno.edu.api.domain.profile.commands.dtos.UpdateProfileRequest;
+import inno.edu.api.domain.profile.models.Experience;
 import inno.edu.api.domain.profile.models.Profile;
 import inno.edu.api.domain.profile.models.ProfileAssociation;
 
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
+import static inno.edu.api.domain.profile.models.ExperienceType.PROFESSIONAL;
 import static inno.edu.api.domain.profile.models.RequestStatus.APPROVED;
 import static inno.edu.api.domain.profile.models.RequestStatus.PENDING;
 import static inno.edu.api.support.SchoolFactory.berkeley;
@@ -20,6 +22,7 @@ import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.fei;
 import static inno.edu.api.support.UserFactory.gustavo;
 import static inno.edu.api.support.UserFactory.tuany;
+import static java.time.LocalDate.of;
 import static java.util.Collections.singletonList;
 import static java.util.UUID.fromString;
 
@@ -136,5 +139,23 @@ public class ProfileFactory {
 
     public static List<ProfileAssociation> associations() {
         return singletonList(gustavoProfileAssociation());
+    }
+
+    public static Experience feiProfessionalExperience() {
+        return Experience.builder()
+                .id(fromString("7555b5ce-f7a0-4d9a-a902-25f9dcc8de6f"))
+                .profileId(feiProfile().getId())
+                .title("Owner")
+                .institution("InnoEdu")
+                .location("San Francisco, CA")
+                .fromDate(of(2018, 1, 1))
+                .toDate(of(2018, 12, 31))
+                .description("Great owner.")
+                .type(PROFESSIONAL)
+                .build();
+    }
+
+    public static List<Experience> feiExperiences() {
+        return singletonList(feiProfessionalExperience());
     }
 }
