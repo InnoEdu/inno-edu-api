@@ -1,9 +1,18 @@
 package inno.edu.api.controllers;
 
+import inno.edu.api.controllers.resources.ExperienceResource;
 import inno.edu.api.controllers.resources.ProfileAssociationResource;
 import inno.edu.api.controllers.resources.ProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.profile.association.commands.AssociateProfileCommand;
+import inno.edu.api.domain.profile.experience.commands.CreateExperienceCommand;
+import inno.edu.api.domain.profile.experience.commands.DeleteExperienceCommand;
+import inno.edu.api.domain.profile.experience.commands.UpdateExperienceCommand;
+import inno.edu.api.domain.profile.experience.commands.dtos.CreateExperienceRequest;
+import inno.edu.api.domain.profile.experience.commands.dtos.UpdateExperienceRequest;
+import inno.edu.api.domain.profile.experience.models.Experience;
+import inno.edu.api.domain.profile.experience.queries.GetExperienceByIdQuery;
+import inno.edu.api.domain.profile.experience.queries.GetExperiencesByProfileIdQuery;
 import inno.edu.api.domain.profile.root.commands.CreateProfileCommand;
 import inno.edu.api.domain.profile.root.commands.DeleteProfileCommand;
 import inno.edu.api.domain.profile.association.commands.ApproveProfileAssociationCommand;
@@ -47,7 +56,9 @@ public class ProfileController {
     private final ProfileRepository profileRepository;
 
     private final GetProfileByIdQuery getProfileByIdQuery;
+    private final GetExperienceByIdQuery getExperienceByIdQuery;
     private final GetAssociationsByProfileIdQuery getAssociationsByProfileIdQuery;
+    private final GetExperiencesByProfileIdQuery getExperiencesByProfileIdQuery;
 
     private final UpdateProfileCommand updateProfileCommand;
     private final CreateProfileCommand createProfileCommand;
@@ -57,18 +68,27 @@ public class ProfileController {
     private final ApproveProfileAssociationCommand approveProfileAssociationCommand;
     private final RejectProfileAssociationCommand rejectProfileAssociationCommand;
 
+    private final CreateExperienceCommand createExperienceCommand;
+    private final UpdateExperienceCommand updateExperienceCommand;
+    private final DeleteExperienceCommand deleteExperienceCommand;
+
     @Autowired
-    public ProfileController(ProfileRepository profileRepository, ResourceBuilder resourceBuilder, GetProfileByIdQuery getProfileByIdQuery, GetAssociationsByProfileIdQuery getAssociationsByProfileIdQuery, UpdateProfileCommand updateProfileCommand, CreateProfileCommand createProfileCommand, DeleteProfileCommand deleteProfileCommand, AssociateProfileCommand associateProfileCommand, ApproveProfileAssociationCommand approveProfileAssociationCommand, RejectProfileAssociationCommand rejectProfileAssociationCommand) {
+    public ProfileController(ProfileRepository profileRepository, ResourceBuilder resourceBuilder, GetProfileByIdQuery getProfileByIdQuery, GetExperienceByIdQuery getExperienceByIdQuery, GetAssociationsByProfileIdQuery getAssociationsByProfileIdQuery, GetExperiencesByProfileIdQuery getExperiencesByProfileIdQuery, UpdateProfileCommand updateProfileCommand, CreateProfileCommand createProfileCommand, DeleteProfileCommand deleteProfileCommand, AssociateProfileCommand associateProfileCommand, ApproveProfileAssociationCommand approveProfileAssociationCommand, RejectProfileAssociationCommand rejectProfileAssociationCommand, CreateExperienceCommand createExperienceCommand, UpdateExperienceCommand updateExperienceCommand, DeleteExperienceCommand deleteExperienceCommand) {
         this.profileRepository = profileRepository;
         this.resourceBuilder = resourceBuilder;
         this.getProfileByIdQuery = getProfileByIdQuery;
+        this.getExperienceByIdQuery = getExperienceByIdQuery;
         this.getAssociationsByProfileIdQuery = getAssociationsByProfileIdQuery;
+        this.getExperiencesByProfileIdQuery = getExperiencesByProfileIdQuery;
         this.updateProfileCommand = updateProfileCommand;
         this.createProfileCommand = createProfileCommand;
         this.deleteProfileCommand = deleteProfileCommand;
         this.associateProfileCommand = associateProfileCommand;
         this.approveProfileAssociationCommand = approveProfileAssociationCommand;
         this.rejectProfileAssociationCommand = rejectProfileAssociationCommand;
+        this.createExperienceCommand = createExperienceCommand;
+        this.updateExperienceCommand = updateExperienceCommand;
+        this.deleteExperienceCommand = deleteExperienceCommand;
     }
 
     @GetMapping
@@ -121,6 +141,35 @@ public class ProfileController {
     @PutMapping("/associations/{id}/reject")
     public ResponseEntity<?> rejectAssociation(@PathVariable UUID id, @Valid @RequestBody RejectProfileAssociationRequest request) {
         rejectProfileAssociationCommand.run(id, request);
+        return noContent().build();
+    }
+
+    @GetMapping("/{id}/experiences")
+    public Resources<Object> experiences(@PathVariable UUID id) {
+        Iterable<Experience> experiences = getExperiencesByProfileIdQuery.run(id);
+        return resourceBuilder.wrappedFrom(experiences, ExperienceResource::new, ExperienceResource.class);
+    }
+
+    @GetMapping("/experiences/{id}")
+    public ExperienceResource getExperience(@PathVariable UUID id) {
+        return new ExperienceResource(getExperienceByIdQuery.run(id));
+    }
+
+    @PostMapping("/{id}/experiences")
+    public ResponseEntity<Experience> postExperience(@PathVariable UUID id, @Valid @RequestBody CreateExperienceRequest request) {
+        ExperienceResource experienceResource = new ExperienceResource(createExperienceCommand.run(id, request));
+        return experienceResource.toCreated();
+    }
+
+    @PutMapping("/experiences/{id}")
+    public ResponseEntity<Experience> putExperience(@PathVariable UUID id, @Valid @RequestBody UpdateExperienceRequest request) {
+        ExperienceResource experienceResource = new ExperienceResource(updateExperienceCommand.run(id, request));
+        return experienceResource.toUpdated();
+    }
+
+    @DeleteMapping("/experiences/{id}")
+    public ResponseEntity<?> deleteExperience(@PathVariable UUID id) {
+        deleteExperienceCommand.run(id);
         return noContent().build();
     }
 }
