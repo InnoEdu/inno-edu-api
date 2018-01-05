@@ -5,6 +5,7 @@ import inno.edu.api.domain.profile.commands.dtos.CreateExperienceRequest;
 import inno.edu.api.domain.profile.commands.dtos.CreateProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.ProfileAssociationRequest;
 import inno.edu.api.domain.profile.commands.dtos.RejectProfileAssociationRequest;
+import inno.edu.api.domain.profile.commands.dtos.UpdateExperienceRequest;
 import inno.edu.api.domain.profile.commands.dtos.UpdateProfileRequest;
 import inno.edu.api.domain.profile.models.Experience;
 import inno.edu.api.domain.profile.models.Profile;
@@ -173,6 +174,30 @@ public class ProfileFactory {
                 .toDate(of(2018, 12, 31))
                 .description("Great owner.")
                 .type(PROFESSIONAL)
+                .build();
+    }
+
+    public static Experience updatedFeiExperience() {
+        return feiExperience().toBuilder()
+                .title("Updated Owner")
+                .area("Updated Area")
+                .institution("Updated InnoEdu")
+                .location("Updated San Francisco, CA")
+                .fromDate(of(2019, 1, 1))
+                .toDate(of(2020, 12, 31))
+                .description("Updated Great owner.")
+                .build();
+    }
+
+    public static UpdateExperienceRequest updateFeiExperienceRequest() {
+        return UpdateExperienceRequest.builder()
+                .title("Updated Owner")
+                .area("Updated Area")
+                .institution("Updated InnoEdu")
+                .location("Updated San Francisco, CA")
+                .fromDate(of(2019, 1, 1))
+                .toDate(of(2020, 12, 31))
+                .description("Updated Great owner.")
                 .build();
     }
 
