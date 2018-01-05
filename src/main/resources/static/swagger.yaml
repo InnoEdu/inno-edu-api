@@ -18,6 +18,8 @@ tags:
     description: Profile management
   - name: profile-associations
     description: Profile association management
+  - name: profile-experiences
+    description: Profile experiences management
   - name: availability
     description: Mentor avaialbility management
   - name: appointments
@@ -620,6 +622,124 @@ paths:
           description: Profile association not found
           schema:
             $ref: '#/definitions/VndErrors'
+        '400':
+          $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
+  /profiles/{id}/experiences:
+    get:
+      tags:
+        - profile-experiences
+      summary: Get experiences by profile
+      parameters:
+        - in: path
+          name: id
+          description: Profile id
+          required: true
+          type: string
+          format: uuid
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ExperienceResourceList'
+        '404':
+          description: Profile not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
+    post:
+      tags:
+        - profile-experiences
+      summary: Add a new experience for profile
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: id
+          description: Profile id
+          required: true
+          type: string
+          format: uuid
+        - in: body
+          name: request
+          description: Request object with the experience information to be created
+          required: true
+          schema:
+            $ref: '#/definitions/CreateExperienceRequest'
+      responses:
+        '201':
+          description: New experience successfully created
+          schema:
+            $ref: '#/definitions/Experience'
+          headers:
+            Location:
+              type: string
+              description: Link to the new resource created
+        '400':
+          $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
+  /profiles/experiences/{id}:
+    get:
+      tags:
+        - profile-experiences
+      summary: Get experience by id
+      parameters:
+        - in: path
+          name: id
+          description: Profile id
+          required: true
+          type: string
+          format: uuid
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ExperienceResource'
+        '404':
+          description: Experience not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
+    put:
+      tags:
+        - profile-experiences
+      summary: Update experience for profile
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: id
+          description: Experience id
+          required: true
+          type: string
+          format: uuid
+        - in: body
+          name: request
+          description: Request object with the experience information to be updated
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateExperienceRequest'
+      responses:
+        '201':
+          description: Experience successfully updated
+          schema:
+            $ref: '#/definitions/Experience'
+          headers:
+            Location:
+              type: string
+              description: Link to the new resource created
         '400':
           $ref: '#/responses/400'
         '403':
@@ -1671,3 +1791,105 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/ProfileAssociationResource'
+  CreateExperienceRequest:
+    type: object
+    properties:
+      title:
+        type: string
+        maxLength: 100
+      institution:
+        type: string
+        maxLength: 100
+      location:
+        type: string
+        maxLength: 255
+      area:
+        type: string
+        maxLength: 100
+      fromDate:
+        type: string
+        format: date
+      toDate:
+        type: string
+        format: date
+      description:
+        type: string
+      type:
+        type: string
+        enum: [PROFESSIONAL, EDUCATIONAL, VOLUNTEER]
+    required:
+      - title
+      - institution
+      - type
+  UpdateExperienceRequest:
+    type: object
+    properties:
+      title:
+        type: string
+        maxLength: 100
+      institution:
+        type: string
+        maxLength: 100
+      location:
+        type: string
+        maxLength: 255
+      area:
+        type: string
+        maxLength: 100
+      fromDate:
+        type: string
+        format: date
+      toDate:
+        type: string
+        format: date
+      description:
+        type: string
+    required:
+      - title
+      - institution
+  Experience:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      profileId:
+        type: string
+        format: uuid
+      title:
+        type: string
+        maxLength: 100
+      institution:
+        type: string
+        maxLength: 100
+      location:
+        type: string
+        maxLength: 255
+      area:
+        type: string
+        maxLength: 100
+      fromDate:
+        type: string
+        format: date
+      toDate:
+        type: string
+        format: date
+      description:
+        type: string
+      type:
+        type: string
+        enum: [PROFESSIONAL, EDUCATIONAL, VOLUNTEER]
+  ExperienceResource:
+    allOf:
+        - $ref: '#/definitions/Experience'
+        - type: object
+          properties:
+            _links:
+              type: object
+  ExperienceResourceList:
+    type: object
+    properties:
+      experienceResourceList:
+        type: array
+        items:
+          $ref: '#/definitions/ExperienceResource'          

@@ -40,5 +40,7 @@ public class CreateExperienceRequest {
     private LocalDate toDate;
 
     private String description;
+
+    @NotNull
     private ExperienceType type;
 }
