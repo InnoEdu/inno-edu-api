@@ -1,11 +1,11 @@
 package inno.edu.api.domain.profile.association.commands;
 
 import inno.edu.api.domain.profile.association.assertions.ProfileAssociationExistsAssertion;
-import inno.edu.api.domain.profile.commands.dtos.ApproveProfileAssociationRequest;
-import inno.edu.api.domain.profile.models.Profile;
+import inno.edu.api.domain.profile.root.commands.dtos.ApproveProfileAssociationRequest;
+import inno.edu.api.domain.profile.root.models.Profile;
 import inno.edu.api.domain.profile.association.models.ProfileAssociation;
 import inno.edu.api.domain.profile.association.repositories.ProfileAssociationRepository;
-import inno.edu.api.domain.profile.repositories.ProfileRepository;
+import inno.edu.api.domain.profile.root.repositories.ProfileRepository;
 import inno.edu.api.infrastructure.annotations.Command;
 
 import java.util.UUID;

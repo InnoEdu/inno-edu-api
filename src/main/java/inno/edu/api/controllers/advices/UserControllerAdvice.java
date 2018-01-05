@@ -1,6 +1,6 @@
 package inno.edu.api.controllers.advices;
 
-import inno.edu.api.domain.profile.exceptions.UserProfileNotFoundException;
+import inno.edu.api.domain.profile.root.exceptions.UserProfileNotFoundException;
 import inno.edu.api.domain.user.exceptions.InvalidUsernameOrPasswordException;
 import inno.edu.api.domain.user.exceptions.UserIsNotMentorException;
 import inno.edu.api.domain.user.exceptions.UserNotFoundException;

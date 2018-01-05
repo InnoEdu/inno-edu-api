@@ -2,8 +2,8 @@ package inno.edu.api.controllers.advices;
 
 import inno.edu.api.domain.profile.association.exceptions.ProfileAssociationNotFoundException;
 import inno.edu.api.domain.profile.association.exceptions.PendingAssociationExistsException;
-import inno.edu.api.domain.profile.exceptions.ProfileAlreadyCreatedException;
-import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
+import inno.edu.api.domain.profile.root.exceptions.ProfileAlreadyCreatedException;
+import inno.edu.api.domain.profile.root.exceptions.ProfileNotFoundException;
 import inno.edu.api.domain.school.exceptions.SchoolNotFoundException;
 import org.springframework.core.annotation.Order;
 import org.springframework.hateoas.VndErrors;

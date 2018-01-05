@@ -4,7 +4,7 @@ import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityRequest;
 import inno.edu.api.domain.availability.commands.mappers.CreateAvailabilityRequestMapper;
 import inno.edu.api.domain.availability.models.Availability;
 import inno.edu.api.domain.availability.repositories.AvailabilityRepository;
-import inno.edu.api.domain.profile.assertions.ProfileExistsAssertion;
+import inno.edu.api.domain.profile.root.assertions.ProfileExistsAssertion;
 import inno.edu.api.infrastructure.annotations.Command;
 import inno.edu.api.infrastructure.services.UUIDGeneratorService;
 

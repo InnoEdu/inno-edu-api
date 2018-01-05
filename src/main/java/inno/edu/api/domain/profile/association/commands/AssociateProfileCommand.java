@@ -1,8 +1,8 @@
 package inno.edu.api.domain.profile.association.commands;
 
 import inno.edu.api.domain.profile.association.assertions.CheckPendingAssociationsAssertion;
-import inno.edu.api.domain.profile.assertions.ProfileExistsAssertion;
-import inno.edu.api.domain.profile.commands.dtos.ProfileAssociationRequest;
+import inno.edu.api.domain.profile.root.assertions.ProfileExistsAssertion;
+import inno.edu.api.domain.profile.root.commands.dtos.ProfileAssociationRequest;
 import inno.edu.api.domain.profile.association.models.ProfileAssociation;
 import inno.edu.api.domain.profile.association.repositories.ProfileAssociationRepository;
 import inno.edu.api.domain.school.assertions.SchoolExistsAssertion;

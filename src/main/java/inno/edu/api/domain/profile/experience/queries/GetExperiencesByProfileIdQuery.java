@@ -1,6 +1,6 @@
 package inno.edu.api.domain.profile.experience.queries;
 
-import inno.edu.api.domain.profile.assertions.ProfileExistsAssertion;
+import inno.edu.api.domain.profile.root.assertions.ProfileExistsAssertion;
 import inno.edu.api.domain.profile.experience.models.Experience;
 import inno.edu.api.domain.profile.experience.repositories.ExperienceRepository;
 import inno.edu.api.infrastructure.annotations.Query;

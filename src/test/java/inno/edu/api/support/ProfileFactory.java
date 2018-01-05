@@ -1,14 +1,14 @@
 package inno.edu.api.support;
 
-import inno.edu.api.domain.profile.commands.dtos.ApproveProfileAssociationRequest;
+import inno.edu.api.domain.profile.root.commands.dtos.ApproveProfileAssociationRequest;
 import inno.edu.api.domain.profile.experience.commands.dtos.CreateExperienceRequest;
-import inno.edu.api.domain.profile.commands.dtos.CreateProfileRequest;
-import inno.edu.api.domain.profile.commands.dtos.ProfileAssociationRequest;
-import inno.edu.api.domain.profile.commands.dtos.RejectProfileAssociationRequest;
+import inno.edu.api.domain.profile.root.commands.dtos.CreateProfileRequest;
+import inno.edu.api.domain.profile.root.commands.dtos.ProfileAssociationRequest;
+import inno.edu.api.domain.profile.root.commands.dtos.RejectProfileAssociationRequest;
 import inno.edu.api.domain.profile.experience.commands.dtos.UpdateExperienceRequest;
-import inno.edu.api.domain.profile.commands.dtos.UpdateProfileRequest;
+import inno.edu.api.domain.profile.root.commands.dtos.UpdateProfileRequest;
 import inno.edu.api.domain.profile.experience.models.Experience;
-import inno.edu.api.domain.profile.models.Profile;
+import inno.edu.api.domain.profile.root.models.Profile;
 import inno.edu.api.domain.profile.association.models.ProfileAssociation;
 
 import java.math.BigDecimal;

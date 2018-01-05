@@ -2,8 +2,8 @@ package inno.edu.api.domain.appointment.commands;
 
 import inno.edu.api.domain.appointment.commands.dtos.CalculateAppointmentFeeRequest;
 import inno.edu.api.domain.common.assertions.DateTimeRangeAssertion;
-import inno.edu.api.domain.profile.models.Profile;
-import inno.edu.api.domain.profile.queries.GetProfileByIdQuery;
+import inno.edu.api.domain.profile.root.models.Profile;
+import inno.edu.api.domain.profile.root.queries.GetProfileByIdQuery;
 import inno.edu.api.infrastructure.annotations.Command;
 
 import java.math.BigDecimal;

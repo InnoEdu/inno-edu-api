@@ -3,7 +3,7 @@ package inno.edu.api.controllers;
 import inno.edu.api.controllers.resources.ProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.controllers.resources.SchoolResource;
-import inno.edu.api.domain.profile.queries.GetProfilesBySchoolIdQuery;
+import inno.edu.api.domain.profile.root.queries.GetProfilesBySchoolIdQuery;
 import inno.edu.api.domain.school.commands.CreateSchoolCommand;
 import inno.edu.api.domain.school.commands.DeleteSchoolCommand;
 import inno.edu.api.domain.school.commands.UpdateSchoolCommand;

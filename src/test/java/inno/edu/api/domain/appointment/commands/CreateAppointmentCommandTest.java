@@ -4,7 +4,7 @@ import inno.edu.api.domain.appointment.commands.mappers.CalculateAppointmentFeeR
 import inno.edu.api.domain.appointment.commands.mappers.CreateAppointmentRequestMapper;
 import inno.edu.api.domain.appointment.models.Appointment;
 import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
-import inno.edu.api.domain.profile.assertions.ProfileExistsAssertion;
+import inno.edu.api.domain.profile.root.assertions.ProfileExistsAssertion;
 import inno.edu.api.infrastructure.services.UUIDGeneratorService;
 import org.junit.Before;
 import org.junit.Test;
