@@ -45,6 +45,23 @@ CREATE TABLE Profile_Association (
     ON DELETE CASCADE
 );
 
+CREATE TABLE Experience (
+  id          BINARY(16) PRIMARY KEY,
+  profile_id  BINARY(16)   NOT NULL,
+  institution VARCHAR(255) NOT NULL,
+  location    VARCHAR(255) NOT NULL,
+  area        VARCHAR(255) NULL,
+  from_date   DATE         NULL,
+  to_date     DATE         NULL,
+  description TEXT         NOT NULL,
+  type        SMALLINT     NOT NULL,
+
+  FOREIGN KEY (profile_id)
+  REFERENCES Profile (id)
+    ON DELETE CASCADE
+);
+
+
 CREATE TABLE Availability (
   id                BINARY(16) PRIMARY KEY,
   mentor_profile_id BINARY(16) NOT NULL,
