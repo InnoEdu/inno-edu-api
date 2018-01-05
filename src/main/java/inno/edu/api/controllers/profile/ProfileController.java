@@ -1,8 +1,8 @@
-package inno.edu.api.controllers;
+package inno.edu.api.controllers.profile;
 
 import inno.edu.api.controllers.resources.ExperienceResource;
-import inno.edu.api.controllers.resources.ProfileAssociationResource;
-import inno.edu.api.controllers.resources.ProfileResource;
+import inno.edu.api.controllers.profile.resources.ProfileAssociationResource;
+import inno.edu.api.controllers.profile.resources.ProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.profile.association.commands.AssociateProfileCommand;
 import inno.edu.api.domain.profile.experience.commands.CreateExperienceCommand;

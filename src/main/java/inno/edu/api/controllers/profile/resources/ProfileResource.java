@@ -1,11 +1,12 @@
-package inno.edu.api.controllers.resources;
+package inno.edu.api.controllers.profile.resources;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import inno.edu.api.controllers.ProfileController;
+import inno.edu.api.controllers.profile.ProfileController;
 import inno.edu.api.controllers.UserController;
 import inno.edu.api.domain.profile.root.models.Profile;
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
 
 import java.net.URI;
@@ -23,7 +24,7 @@ public class ProfileResource extends ResourceSupport {
     public ProfileResource(Profile profile) {
         this.profile = profile;
 
-        add(linkTo(methodOn(ProfileController.class).get(profile.getId())).withSelfRel());
+        add(ControllerLinkBuilder.linkTo(methodOn(ProfileController.class).get(profile.getId())).withSelfRel());
         add(linkTo(methodOn(UserController.class).get(profile.getUserId())).withRel("user"));
     }
 

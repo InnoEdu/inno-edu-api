@@ -2,7 +2,7 @@ package inno.edu.api.controllers.resources;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import inno.edu.api.controllers.AvailabilityController;
-import inno.edu.api.controllers.ProfileController;
+import inno.edu.api.controllers.profile.ProfileController;
 import inno.edu.api.domain.availability.models.Availability;
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;

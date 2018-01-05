@@ -1,4 +1,4 @@
-package inno.edu.api.controllers.advices;
+package inno.edu.api.controllers.profile.advices;
 
 import inno.edu.api.domain.profile.association.exceptions.ProfileAssociationNotFoundException;
 import inno.edu.api.domain.profile.association.exceptions.PendingAssociationExistsException;

@@ -1,7 +1,7 @@
 package inno.edu.api.controllers.resources;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import inno.edu.api.controllers.ProfileController;
+import inno.edu.api.controllers.profile.ProfileController;
 import inno.edu.api.domain.profile.experience.models.Experience;
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;
