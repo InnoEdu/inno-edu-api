@@ -6,7 +6,6 @@ import inno.edu.api.domain.profile.models.Profile;
 import inno.edu.api.domain.profile.repositories.ProfileRepository;
 import inno.edu.api.domain.user.assertions.UserExistsAssertion;
 import inno.edu.api.infrastructure.services.UUIDGeneratorService;
-import inno.edu.api.support.ProfileFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static inno.edu.api.support.ProfileFactory.alanProfile;
 import static inno.edu.api.support.ProfileFactory.createAlanProfileRequest;
 import static inno.edu.api.support.ProfileFactory.newAlanProfile;
 import static java.util.UUID.randomUUID;
@@ -58,7 +58,7 @@ public class CreateProfileCommandTest {
 
     @Test(expected = ProfileAlreadyCreatedException.class)
     public void shouldNotAllowMultipleProfiles() {
-        when(profileRepository.existsByUserId(ProfileFactory.alanProfile().getUserId())).thenReturn(true);
+        when(profileRepository.existsByUserId(alanProfile().getUserId())).thenReturn(true);
 
         createProfileCommand.run(createAlanProfileRequest());
     }
@@ -67,6 +67,6 @@ public class CreateProfileCommandTest {
     public void shouldRunAllAssertions() {
         createProfileCommand.run(createAlanProfileRequest());
 
-        verify(userExistsAssertion).run(ProfileFactory.alanProfile().getUserId());
+        verify(userExistsAssertion).run(alanProfile().getUserId());
     }
 }

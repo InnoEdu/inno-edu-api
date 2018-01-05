@@ -1,6 +1,7 @@
 package inno.edu.api.support;
 
 import inno.edu.api.domain.profile.commands.dtos.ApproveProfileAssociationRequest;
+import inno.edu.api.domain.profile.commands.dtos.CreateExperienceRequest;
 import inno.edu.api.domain.profile.commands.dtos.CreateProfileRequest;
 import inno.edu.api.domain.profile.commands.dtos.ProfileAssociationRequest;
 import inno.edu.api.domain.profile.commands.dtos.RejectProfileAssociationRequest;
@@ -141,11 +142,31 @@ public class ProfileFactory {
         return singletonList(gustavoProfileAssociation());
     }
 
-    public static Experience feiProfessionalExperience() {
+    public static Experience feiExperience() {
         return Experience.builder()
                 .id(fromString("7555b5ce-f7a0-4d9a-a902-25f9dcc8de6f"))
                 .profileId(feiProfile().getId())
                 .title("Owner")
+                .area("Area")
+                .institution("InnoEdu")
+                .location("San Francisco, CA")
+                .fromDate(of(2018, 1, 1))
+                .toDate(of(2018, 12, 31))
+                .description("Great owner.")
+                .type(PROFESSIONAL)
+                .build();
+    }
+
+    public static Experience newFeiExperience(UUID id) {
+        return feiExperience().toBuilder()
+                .id(id)
+                .build();
+    }
+
+    public static CreateExperienceRequest createFeiExperienceRequest() {
+        return CreateExperienceRequest.builder()
+                .title("Owner")
+                .area("Area")
                 .institution("InnoEdu")
                 .location("San Francisco, CA")
                 .fromDate(of(2018, 1, 1))
@@ -156,6 +177,6 @@ public class ProfileFactory {
     }
 
     public static List<Experience> feiExperiences() {
-        return singletonList(feiProfessionalExperience());
+        return singletonList(feiExperience());
     }
 }

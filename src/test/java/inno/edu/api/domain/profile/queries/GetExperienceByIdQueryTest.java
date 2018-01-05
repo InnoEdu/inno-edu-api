@@ -10,7 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static inno.edu.api.support.ProfileFactory.feiProfessionalExperience;
+import static inno.edu.api.support.ProfileFactory.feiExperience;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
@@ -25,17 +25,17 @@ public class GetExperienceByIdQueryTest {
 
     @Test(expected = ExperienceNotFoundException.class)
     public void shouldThrowExceptionIfExperienceDoesNotExist() {
-        when(experienceRepository.findOne(feiProfessionalExperience().getId())).thenReturn(null);
+        when(experienceRepository.findOne(feiExperience().getId())).thenReturn(null);
 
-        getExperienceByIdQuery.run(feiProfessionalExperience().getId());
+        getExperienceByIdQuery.run(feiExperience().getId());
     }
 
     @Test
     public void shouldReturnExperience() {
-        when(experienceRepository.findOne(feiProfessionalExperience().getId())).thenReturn(feiProfessionalExperience());
+        when(experienceRepository.findOne(feiExperience().getId())).thenReturn(feiExperience());
 
-        Experience experience = getExperienceByIdQuery.run(feiProfessionalExperience().getId());
+        Experience experience = getExperienceByIdQuery.run(feiExperience().getId());
 
-        assertThat(experience, is(feiProfessionalExperience()));
+        assertThat(experience, is(feiExperience()));
     }
 }

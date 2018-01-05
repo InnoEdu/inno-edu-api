@@ -48,12 +48,13 @@ CREATE TABLE Profile_Association (
 CREATE TABLE Experience (
   id          BINARY(16) PRIMARY KEY,
   profile_id  BINARY(16)   NOT NULL,
-  institution VARCHAR(255) NOT NULL,
+  title       VARCHAR(100) NOT NULL,
+  institution VARCHAR(100) NOT NULL,
   location    VARCHAR(255) NOT NULL,
-  area        VARCHAR(255) NULL,
+  area        VARCHAR(100) NULL,
   from_date   DATE         NULL,
   to_date     DATE         NULL,
-  description TEXT         NOT NULL,
+  description TEXT         NULL,
   type        SMALLINT     NOT NULL,
 
   FOREIGN KEY (profile_id)
