@@ -1,9 +1,10 @@
-package inno.edu.api.domain.profile.commands;
+package inno.edu.api.domain.profile.association.commands;
 
-import inno.edu.api.domain.profile.assertions.ProfileAssociationExistsAssertion;
+import inno.edu.api.domain.profile.association.assertions.ProfileAssociationExistsAssertion;
+import inno.edu.api.domain.profile.association.commands.ApproveProfileAssociationCommand;
 import inno.edu.api.domain.profile.models.Profile;
-import inno.edu.api.domain.profile.models.ProfileAssociation;
-import inno.edu.api.domain.profile.repositories.ProfileAssociationRepository;
+import inno.edu.api.domain.profile.association.models.ProfileAssociation;
+import inno.edu.api.domain.profile.association.repositories.ProfileAssociationRepository;
 import inno.edu.api.domain.profile.repositories.ProfileRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static inno.edu.api.domain.profile.models.RequestStatus.APPROVED;
+import static inno.edu.api.domain.profile.association.models.RequestStatus.APPROVED;
 import static inno.edu.api.support.ProfileFactory.approveRequest;
 import static inno.edu.api.support.ProfileFactory.gustavoProfile;
 import static inno.edu.api.support.ProfileFactory.gustavoProfileAssociation;

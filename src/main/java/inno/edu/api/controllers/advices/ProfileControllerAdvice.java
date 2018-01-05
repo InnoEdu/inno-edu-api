@@ -1,7 +1,7 @@
 package inno.edu.api.controllers.advices;
 
-import inno.edu.api.domain.profile.exceptions.ProfileAssociationNotFoundException;
-import inno.edu.api.domain.profile.exceptions.PendingAssociationExistsException;
+import inno.edu.api.domain.profile.association.exceptions.ProfileAssociationNotFoundException;
+import inno.edu.api.domain.profile.association.exceptions.PendingAssociationExistsException;
 import inno.edu.api.domain.profile.exceptions.ProfileAlreadyCreatedException;
 import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
 import inno.edu.api.domain.school.exceptions.SchoolNotFoundException;

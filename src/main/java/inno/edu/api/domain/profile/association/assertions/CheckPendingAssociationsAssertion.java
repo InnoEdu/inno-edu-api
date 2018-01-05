@@ -1,12 +1,12 @@
-package inno.edu.api.domain.profile.assertions;
+package inno.edu.api.domain.profile.association.assertions;
 
-import inno.edu.api.domain.profile.exceptions.PendingAssociationExistsException;
-import inno.edu.api.domain.profile.repositories.ProfileAssociationRepository;
+import inno.edu.api.domain.profile.association.exceptions.PendingAssociationExistsException;
+import inno.edu.api.domain.profile.association.repositories.ProfileAssociationRepository;
 import inno.edu.api.infrastructure.annotations.Assertion;
 
 import java.util.UUID;
 
-import static inno.edu.api.domain.profile.models.RequestStatus.PENDING;
+import static inno.edu.api.domain.profile.association.models.RequestStatus.PENDING;
 
 @Assertion
 public class CheckPendingAssociationsAssertion {

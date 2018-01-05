@@ -1,9 +1,10 @@
-package inno.edu.api.domain.profile.commands;
+package inno.edu.api.domain.profile.association.commands;
 
-import inno.edu.api.domain.profile.assertions.CheckPendingAssociationsAssertion;
+import inno.edu.api.domain.profile.association.assertions.CheckPendingAssociationsAssertion;
 import inno.edu.api.domain.profile.assertions.ProfileExistsAssertion;
-import inno.edu.api.domain.profile.models.ProfileAssociation;
-import inno.edu.api.domain.profile.repositories.ProfileAssociationRepository;
+import inno.edu.api.domain.profile.association.commands.AssociateProfileCommand;
+import inno.edu.api.domain.profile.association.models.ProfileAssociation;
+import inno.edu.api.domain.profile.association.repositories.ProfileAssociationRepository;
 import inno.edu.api.domain.school.assertions.SchoolExistsAssertion;
 import inno.edu.api.infrastructure.services.UUIDGeneratorService;
 import org.junit.Test;

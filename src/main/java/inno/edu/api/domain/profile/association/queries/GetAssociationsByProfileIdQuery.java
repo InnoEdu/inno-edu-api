@@ -1,9 +1,9 @@
-package inno.edu.api.domain.profile.queries;
+package inno.edu.api.domain.profile.association.queries;
 
 import inno.edu.api.domain.profile.assertions.ProfileExistsAssertion;
-import inno.edu.api.domain.profile.models.ProfileAssociation;
-import inno.edu.api.domain.profile.models.RequestStatus;
-import inno.edu.api.domain.profile.repositories.ProfileAssociationRepository;
+import inno.edu.api.domain.profile.association.models.ProfileAssociation;
+import inno.edu.api.domain.profile.association.models.RequestStatus;
+import inno.edu.api.domain.profile.association.repositories.ProfileAssociationRepository;
 import inno.edu.api.infrastructure.annotations.Query;
 
 import java.util.List;

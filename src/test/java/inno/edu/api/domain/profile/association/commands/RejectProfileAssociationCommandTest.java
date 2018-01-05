@@ -1,8 +1,9 @@
-package inno.edu.api.domain.profile.commands;
+package inno.edu.api.domain.profile.association.commands;
 
-import inno.edu.api.domain.profile.assertions.ProfileAssociationExistsAssertion;
-import inno.edu.api.domain.profile.models.ProfileAssociation;
-import inno.edu.api.domain.profile.repositories.ProfileAssociationRepository;
+import inno.edu.api.domain.profile.association.assertions.ProfileAssociationExistsAssertion;
+import inno.edu.api.domain.profile.association.commands.RejectProfileAssociationCommand;
+import inno.edu.api.domain.profile.association.models.ProfileAssociation;
+import inno.edu.api.domain.profile.association.repositories.ProfileAssociationRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,7 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static inno.edu.api.domain.profile.models.RequestStatus.REJECTED;
+import static inno.edu.api.domain.profile.association.models.RequestStatus.REJECTED;
 import static inno.edu.api.support.ProfileFactory.gustavoProfileAssociation;
 import static inno.edu.api.support.ProfileFactory.rejectRequest;
 import static org.hamcrest.CoreMatchers.is;

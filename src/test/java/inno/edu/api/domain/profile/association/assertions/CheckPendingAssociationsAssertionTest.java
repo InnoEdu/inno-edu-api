@@ -1,14 +1,15 @@
-package inno.edu.api.domain.profile.assertions;
+package inno.edu.api.domain.profile.association.assertions;
 
-import inno.edu.api.domain.profile.exceptions.PendingAssociationExistsException;
-import inno.edu.api.domain.profile.repositories.ProfileAssociationRepository;
+import inno.edu.api.domain.profile.association.assertions.CheckPendingAssociationsAssertion;
+import inno.edu.api.domain.profile.association.exceptions.PendingAssociationExistsException;
+import inno.edu.api.domain.profile.association.repositories.ProfileAssociationRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static inno.edu.api.domain.profile.models.RequestStatus.PENDING;
+import static inno.edu.api.domain.profile.association.models.RequestStatus.PENDING;
 import static inno.edu.api.support.ProfileFactory.gustavoProfile;
 import static org.mockito.Mockito.when;
 

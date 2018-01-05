@@ -1,7 +1,7 @@
-package inno.edu.api.domain.profile.repositories;
+package inno.edu.api.domain.profile.association.repositories;
 
-import inno.edu.api.domain.profile.models.ProfileAssociation;
-import inno.edu.api.domain.profile.models.RequestStatus;
+import inno.edu.api.domain.profile.association.models.ProfileAssociation;
+import inno.edu.api.domain.profile.association.models.RequestStatus;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

@@ -1,7 +1,7 @@
-package inno.edu.api.domain.profile.assertions;
+package inno.edu.api.domain.profile.association.assertions;
 
-import inno.edu.api.domain.profile.exceptions.ProfileAssociationNotFoundException;
-import inno.edu.api.domain.profile.repositories.ProfileAssociationRepository;
+import inno.edu.api.domain.profile.association.exceptions.ProfileAssociationNotFoundException;
+import inno.edu.api.domain.profile.association.repositories.ProfileAssociationRepository;
 import inno.edu.api.infrastructure.annotations.Assertion;
 
 import java.util.UUID;

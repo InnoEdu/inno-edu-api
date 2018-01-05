@@ -9,15 +9,15 @@ import inno.edu.api.domain.profile.experience.commands.dtos.UpdateExperienceRequ
 import inno.edu.api.domain.profile.commands.dtos.UpdateProfileRequest;
 import inno.edu.api.domain.profile.experience.models.Experience;
 import inno.edu.api.domain.profile.models.Profile;
-import inno.edu.api.domain.profile.models.ProfileAssociation;
+import inno.edu.api.domain.profile.association.models.ProfileAssociation;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
 import static inno.edu.api.domain.profile.experience.models.ExperienceType.PROFESSIONAL;
-import static inno.edu.api.domain.profile.models.RequestStatus.APPROVED;
-import static inno.edu.api.domain.profile.models.RequestStatus.PENDING;
+import static inno.edu.api.domain.profile.association.models.RequestStatus.APPROVED;
+import static inno.edu.api.domain.profile.association.models.RequestStatus.PENDING;
 import static inno.edu.api.support.SchoolFactory.berkeley;
 import static inno.edu.api.support.SchoolFactory.stanford;
 import static inno.edu.api.support.UserFactory.alan;
