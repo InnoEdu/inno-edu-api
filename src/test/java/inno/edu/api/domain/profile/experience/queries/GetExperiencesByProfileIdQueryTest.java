@@ -1,8 +1,8 @@
-package inno.edu.api.domain.profile.queries;
+package inno.edu.api.domain.profile.experience.queries;
 
 import inno.edu.api.domain.profile.assertions.ProfileExistsAssertion;
-import inno.edu.api.domain.profile.models.Experience;
-import inno.edu.api.domain.profile.repositories.ExperienceRepository;
+import inno.edu.api.domain.profile.experience.models.Experience;
+import inno.edu.api.domain.profile.experience.repositories.ExperienceRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

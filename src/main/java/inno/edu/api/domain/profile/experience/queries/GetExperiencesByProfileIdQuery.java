@@ -1,9 +1,8 @@
-package inno.edu.api.domain.profile.queries;
+package inno.edu.api.domain.profile.experience.queries;
 
 import inno.edu.api.domain.profile.assertions.ProfileExistsAssertion;
-import inno.edu.api.domain.profile.models.Experience;
-import inno.edu.api.domain.profile.models.Profile;
-import inno.edu.api.domain.profile.repositories.ExperienceRepository;
+import inno.edu.api.domain.profile.experience.models.Experience;
+import inno.edu.api.domain.profile.experience.repositories.ExperienceRepository;
 import inno.edu.api.infrastructure.annotations.Query;
 
 import java.util.List;

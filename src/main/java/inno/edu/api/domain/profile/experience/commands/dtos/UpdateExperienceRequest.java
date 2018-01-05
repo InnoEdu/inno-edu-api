@@ -1,4 +1,4 @@
-package inno.edu.api.domain.profile.commands.dtos;
+package inno.edu.api.domain.profile.experience.commands.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

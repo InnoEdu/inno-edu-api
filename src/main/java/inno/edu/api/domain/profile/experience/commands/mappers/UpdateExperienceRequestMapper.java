@@ -1,7 +1,7 @@
-package inno.edu.api.domain.profile.commands.mappers;
+package inno.edu.api.domain.profile.experience.commands.mappers;
 
-import inno.edu.api.domain.profile.commands.dtos.UpdateExperienceRequest;
-import inno.edu.api.domain.profile.models.Experience;
+import inno.edu.api.domain.profile.experience.commands.dtos.UpdateExperienceRequest;
+import inno.edu.api.domain.profile.experience.models.Experience;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 

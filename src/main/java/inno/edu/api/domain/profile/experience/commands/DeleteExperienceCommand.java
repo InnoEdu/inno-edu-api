@@ -1,7 +1,7 @@
-package inno.edu.api.domain.profile.commands;
+package inno.edu.api.domain.profile.experience.commands;
 
-import inno.edu.api.domain.profile.assertions.ExperienceExistsAssertion;
-import inno.edu.api.domain.profile.repositories.ExperienceRepository;
+import inno.edu.api.domain.profile.experience.assertions.ExperienceExistsAssertion;
+import inno.edu.api.domain.profile.experience.repositories.ExperienceRepository;
 import inno.edu.api.infrastructure.annotations.Command;
 
 import java.util.UUID;

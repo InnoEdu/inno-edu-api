@@ -2,7 +2,6 @@ package inno.edu.api.domain.profile.assertions;
 
 import inno.edu.api.domain.profile.exceptions.ProfileNotFoundException;
 import inno.edu.api.domain.profile.repositories.ProfileRepository;
-import inno.edu.api.support.ProfileFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

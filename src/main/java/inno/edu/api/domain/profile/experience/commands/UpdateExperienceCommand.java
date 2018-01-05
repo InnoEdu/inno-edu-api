@@ -1,10 +1,10 @@
-package inno.edu.api.domain.profile.commands;
+package inno.edu.api.domain.profile.experience.commands;
 
-import inno.edu.api.domain.profile.commands.dtos.UpdateExperienceRequest;
-import inno.edu.api.domain.profile.commands.mappers.UpdateExperienceRequestMapper;
-import inno.edu.api.domain.profile.models.Experience;
-import inno.edu.api.domain.profile.queries.GetExperienceByIdQuery;
-import inno.edu.api.domain.profile.repositories.ExperienceRepository;
+import inno.edu.api.domain.profile.experience.commands.dtos.UpdateExperienceRequest;
+import inno.edu.api.domain.profile.experience.commands.mappers.UpdateExperienceRequestMapper;
+import inno.edu.api.domain.profile.experience.models.Experience;
+import inno.edu.api.domain.profile.experience.queries.GetExperienceByIdQuery;
+import inno.edu.api.domain.profile.experience.repositories.ExperienceRepository;
 import inno.edu.api.infrastructure.annotations.Command;
 
 import java.util.UUID;

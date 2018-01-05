@@ -1,7 +1,7 @@
-package inno.edu.api.domain.profile.assertions;
+package inno.edu.api.domain.profile.experience.assertions;
 
-import inno.edu.api.domain.profile.exceptions.ExperienceNotFoundException;
-import inno.edu.api.domain.profile.repositories.ExperienceRepository;
+import inno.edu.api.domain.profile.experience.exceptions.ExperienceNotFoundException;
+import inno.edu.api.domain.profile.experience.repositories.ExperienceRepository;
 import inno.edu.api.infrastructure.annotations.Assertion;
 
 import java.util.UUID;

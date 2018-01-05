@@ -1,4 +1,4 @@
-package inno.edu.api.domain.profile.models;
+package inno.edu.api.domain.profile.experience.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

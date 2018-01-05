@@ -1,6 +1,6 @@
-package inno.edu.api.domain.profile.repositories;
+package inno.edu.api.domain.profile.experience.repositories;
 
-import inno.edu.api.domain.profile.models.Experience;
+import inno.edu.api.domain.profile.experience.models.Experience;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

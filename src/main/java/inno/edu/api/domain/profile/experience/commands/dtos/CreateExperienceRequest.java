@@ -1,6 +1,6 @@
-package inno.edu.api.domain.profile.commands.dtos;
+package inno.edu.api.domain.profile.experience.commands.dtos;
 
-import inno.edu.api.domain.profile.models.ExperienceType;
+import inno.edu.api.domain.profile.experience.models.ExperienceType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
