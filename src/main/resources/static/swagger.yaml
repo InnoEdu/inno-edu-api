@@ -750,6 +750,26 @@ paths:
           $ref: '#/responses/400'
         '403':
           $ref: '#/responses/403'
+    delete:
+      tags:
+        - profile-experiences
+      summary: Delete experience by id
+      parameters:
+        - in: path
+          name: id
+          description: Experience id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: Experience successfully removed
+        '404':
+          description: Experience not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
   /profiles/{id}/interests:
     get:
       tags:
@@ -866,6 +886,26 @@ paths:
               description: Link to the new resource created
         '400':
           $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
+    delete:
+      tags:
+        - profile-interests
+      summary: Delete interest by id
+      parameters:
+        - in: path
+          name: id
+          description: Interest id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: Interest successfully removed
+        '404':
+          description: Interest not found
+          schema:
+            $ref: '#/definitions/VndErrors'
         '403':
           $ref: '#/responses/403'
   /profiles/{id}/accomplishments:
@@ -986,6 +1026,26 @@ paths:
           $ref: '#/responses/400'
         '403':
           $ref: '#/responses/403'
+    delete:
+      tags:
+        - profile-accomplishments
+      summary: Delete accomplishment by id
+      parameters:
+        - in: path
+          name: id
+          description: Accomplishment id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: Accomplishment successfully removed
+        '404':
+          description: Accomplishment not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
   /profiles/{id}/services:
     get:
       tags:
@@ -1102,6 +1162,26 @@ paths:
               description: Link to the new resource created
         '400':
           $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
+    delete:
+      tags:
+        - profile-services
+      summary: Delete service by id
+      parameters:
+        - in: path
+          name: id
+          description: Service id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: Service successfully removed
+        '404':
+          description: Service not found
+          schema:
+            $ref: '#/definitions/VndErrors'
         '403':
           $ref: '#/responses/403'
   /availability:
