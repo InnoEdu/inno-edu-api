@@ -16,6 +16,9 @@ import inno.edu.api.domain.profile.root.commands.dtos.ProfileAssociationRequest;
 import inno.edu.api.domain.profile.root.commands.dtos.RejectProfileAssociationRequest;
 import inno.edu.api.domain.profile.root.commands.dtos.UpdateProfileRequest;
 import inno.edu.api.domain.profile.root.models.Profile;
+import inno.edu.api.domain.profile.service.commands.dtos.CreateServiceRequest;
+import inno.edu.api.domain.profile.service.commands.dtos.UpdateServiceRequest;
+import inno.edu.api.domain.profile.service.models.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -304,5 +307,45 @@ public class ProfileFactory {
 
     public static List<Accomplishment> feiAccomplishments() {
         return singletonList(feiAccomplishment());
+    }
+
+    public static Service feiService() {
+        return Service.builder()
+                .id(fromString("a9e747ab-1cb9-4941-9608-5f6115bb48ce"))
+                .profileId(feiProfile().getId())
+                .title("My service")
+                .description("Perfect service.")
+                .build();
+    }
+
+    public static Service newFeiService(UUID id) {
+        return feiService().toBuilder()
+                .id(id)
+                .build();
+    }
+
+    public static CreateServiceRequest createFeiServiceRequest() {
+        return CreateServiceRequest.builder()
+                .title(feiService().getTitle())
+                .description(feiService().getDescription())
+                .build();
+    }
+
+    public static Service updatedFeiService() {
+        return feiService().toBuilder()
+                .title("Updated Title")
+                .description("Updated description")
+                .build();
+    }
+
+    public static UpdateServiceRequest updateFeiServiceRequest() {
+        return UpdateServiceRequest.builder()
+                .title(updatedFeiService().getTitle())
+                .description(updatedFeiService().getDescription())
+                .build();
+    }
+
+    public static List<Service> feiServices() {
+        return singletonList(feiService());
     }
 }
