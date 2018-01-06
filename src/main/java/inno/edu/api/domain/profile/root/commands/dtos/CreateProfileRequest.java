@@ -24,7 +24,8 @@ public class CreateProfileRequest {
     @Size(max = 100)
     private String location;
 
-
     @Size(max = 100)
     private String company;
+
+    private UUID profileReferenceId;
 }

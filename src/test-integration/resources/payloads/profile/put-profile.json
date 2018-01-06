@@ -1,4 +1,5 @@
 {
   "description": "%s",
-  "location": "%s"
+  "location": "%s",
+  "profileReferenceId": "%s"
 }

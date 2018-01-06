@@ -2,5 +2,6 @@
   "userId": "%s",
   "description": "%s",
   "location": "%s",
-  "company": "%s"
+  "company": "%s",
+  "profileReferenceId": "%s"
 }

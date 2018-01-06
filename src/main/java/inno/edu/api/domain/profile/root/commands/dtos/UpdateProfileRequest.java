@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 @Data
 @Builder(toBuilder = true)
@@ -16,4 +17,6 @@ public class UpdateProfileRequest {
     private String description;
     @NotNull
     private String location;
+
+    private UUID profileReferenceId;
 }

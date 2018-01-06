@@ -35,7 +35,8 @@ public class ProfileControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$._embedded.profileResourceList[*].description", hasItems(alanProfile().getDescription(), gustavoProfile().getDescription())))
                 .andExpect(jsonPath("$._embedded.profileResourceList[*].location", hasItems(alanProfile().getLocation(), gustavoProfile().getLocation())))
                 .andExpect(jsonPath("$._embedded.profileResourceList[*].company", hasItems(alanProfile().getCompany(), gustavoProfile().getCompany())))
-                .andExpect(jsonPath("$._embedded.profileResourceList[*].rate", hasItems(alanProfile().getRate(), gustavoProfile().getRate().doubleValue())));
+                .andExpect(jsonPath("$._embedded.profileResourceList[*].rate", hasItems(alanProfile().getRate(), gustavoProfile().getRate().doubleValue())))
+                .andExpect(jsonPath("$._embedded.profileResourceList[*].profileReferenceId", hasItems(alanProfile().getProfileReferenceId(), gustavoProfile().getProfileReferenceId().toString())));
     }
 
     @Test
@@ -48,7 +49,8 @@ public class ProfileControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.description", is(gustavoProfile().getDescription())))
                 .andExpect(jsonPath("$.location", is(gustavoProfile().getLocation())))
                 .andExpect(jsonPath("$.company", is(gustavoProfile().getCompany())))
-                .andExpect(jsonPath("$.rate", is(gustavoProfile().getRate().doubleValue())));
+                .andExpect(jsonPath("$.rate", is(gustavoProfile().getRate().doubleValue())))
+                .andExpect(jsonPath("$.profileReferenceId", is(gustavoProfile().getProfileReferenceId().toString())));
     }
 
     @Test
@@ -63,7 +65,8 @@ public class ProfileControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.userId", is(tuanyProfile().getUserId().toString())))
                 .andExpect(jsonPath("$.description", is(tuanyProfile().getDescription())))
                 .andExpect(jsonPath("$.location", is(tuanyProfile().getLocation())))
-                .andExpect(jsonPath("$.company", is(tuanyProfile().getCompany())));
+                .andExpect(jsonPath("$.company", is(tuanyProfile().getCompany())))
+                .andExpect(jsonPath("$.profileReferenceId", is(tuanyProfile().getProfileReferenceId().toString())));
     }
 
     @Test
@@ -87,7 +90,8 @@ public class ProfileControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.id", is(alanProfile().getId().toString())))
                 .andExpect(jsonPath("$.userId", is(alanProfile().getUserId().toString())))
                 .andExpect(jsonPath("$.location", is(updatedAlanProfile().getLocation())))
-                .andExpect(jsonPath("$.description", is(updatedAlanProfile().getDescription())));
+                .andExpect(jsonPath("$.description", is(updatedAlanProfile().getDescription())))
+                .andExpect(jsonPath("$.profileReferenceId", is(updatedAlanProfile().getProfileReferenceId().toString())));
     }
 
     @Test

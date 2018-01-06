@@ -25,4 +25,6 @@ public class Profile {
     private BigDecimal rate;
     private String location;
     private String company;
+
+    private UUID profileReferenceId;
 }

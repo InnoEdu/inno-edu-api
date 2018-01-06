@@ -14,13 +14,14 @@ CREATE TABLE School (
 );
 
 CREATE TABLE Profile (
-  id          BINARY(16) PRIMARY KEY,
-  user_id     BINARY(16)     NOT NULL,
-  school_id   BINARY(16)     NULL,
-  description TEXT           NOT NULL,
-  rate        DECIMAL(15, 2) NULL,
-  location    VARCHAR(255)   NOT NULL,
-  company     VARCHAR(100)   NULL,
+  id                 BINARY(16) PRIMARY KEY,
+  user_id            BINARY(16)     NOT NULL,
+  school_id          BINARY(16)     NULL,
+  description        TEXT           NOT NULL,
+  rate               DECIMAL(15, 2) NULL,
+  location           VARCHAR(255)   NOT NULL,
+  company            VARCHAR(100)   NULL,
+  profile_reference_id BINARY(16)     NULL,
 
   FOREIGN KEY (user_id)
   REFERENCES User (id)
@@ -28,6 +29,10 @@ CREATE TABLE Profile (
 
   FOREIGN KEY (school_id)
   REFERENCES School (id)
+    ON DELETE CASCADE,
+
+  FOREIGN KEY (profile_reference_id)
+  REFERENCES Profile (id)
     ON DELETE CASCADE
 );
 

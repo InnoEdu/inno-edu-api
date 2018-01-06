@@ -57,11 +57,11 @@ public class Payloads {
     }
 
     public static String postProfilePayload(CreateProfileRequest createProfileRequest) {
-        return format(loadPayload("payloads/profile/post-profile.json"), createProfileRequest.getUserId(), createProfileRequest.getDescription(), createProfileRequest.getLocation(), createProfileRequest.getCompany());
+        return format(loadPayload("payloads/profile/post-profile.json"), createProfileRequest.getUserId(), createProfileRequest.getDescription(), createProfileRequest.getLocation(), createProfileRequest.getCompany(), createProfileRequest.getProfileReferenceId());
     }
 
     public static String putProfilePayload(UpdateProfileRequest updateProfileRequest) {
-        return format(loadPayload("payloads/profile/put-profile.json"), updateProfileRequest.getDescription(), updateProfileRequest.getLocation());
+        return format(loadPayload("payloads/profile/put-profile.json"), updateProfileRequest.getDescription(), updateProfileRequest.getLocation(), updateProfileRequest.getProfileReferenceId());
     }
 
     public static String approveProfileAssociationPayload(ApproveProfileAssociationRequest approveProfileAssociationRequest) {

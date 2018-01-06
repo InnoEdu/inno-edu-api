@@ -53,6 +53,7 @@ public class ProfileFactory {
                 .description("Gustavo is a great mentor.")
                 .location("San Francisco, CA")
                 .company("Company")
+                .profileReferenceId(feiProfile().getId())
                 .build();
     }
 
@@ -82,6 +83,7 @@ public class ProfileFactory {
                 .schoolId(stanford().getId())
                 .location("San Francisco, CA")
                 .company("Company")
+                .profileReferenceId(feiProfile().getId())
                 .build();
     }
 
@@ -89,6 +91,7 @@ public class ProfileFactory {
         return alanProfile().toBuilder()
                 .description("Updated description")
                 .location("Updated San Francisco, CA")
+                .profileReferenceId(gustavoProfile().getId())
                 .build();
     }
 
@@ -97,6 +100,8 @@ public class ProfileFactory {
                 .userId(gustavo().getId())
                 .description(gustavoProfile().getDescription())
                 .location(gustavoProfile().getLocation())
+                .company(gustavoProfile().getCompany())
+                .profileReferenceId(gustavoProfile().getProfileReferenceId())
                 .build();
     }
 
@@ -106,6 +111,7 @@ public class ProfileFactory {
                 .description(tuanyProfile().getDescription())
                 .location(tuanyProfile().getLocation())
                 .company(tuanyProfile().getCompany())
+                .profileReferenceId(tuanyProfile().getProfileReferenceId())
                 .build();
     }
 
@@ -125,6 +131,7 @@ public class ProfileFactory {
         return UpdateProfileRequest.builder()
                 .description(updatedAlanProfile().getDescription())
                 .location(updatedAlanProfile().getLocation())
+                .profileReferenceId(updatedAlanProfile().getProfileReferenceId())
                 .build();
     }
 
