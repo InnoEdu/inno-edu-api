@@ -1,6 +1,6 @@
 package inno.edu.api.controllers.profile;
 
-import inno.edu.api.controllers.resources.ExperienceResource;
+import inno.edu.api.controllers.profile.resources.ExperienceResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.profile.experience.commands.CreateExperienceCommand;
 import inno.edu.api.domain.profile.experience.commands.DeleteExperienceCommand;

@@ -9,6 +9,8 @@ import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityRequest;
 import inno.edu.api.domain.availability.commands.dtos.UpdateAvailabilityRequest;
 import inno.edu.api.domain.profile.experience.commands.dtos.CreateExperienceRequest;
 import inno.edu.api.domain.profile.experience.commands.dtos.UpdateExperienceRequest;
+import inno.edu.api.domain.profile.interest.commands.dtos.CreateInterestRequest;
+import inno.edu.api.domain.profile.interest.commands.dtos.UpdateInterestRequest;
 import inno.edu.api.domain.profile.root.commands.dtos.ApproveProfileAssociationRequest;
 import inno.edu.api.domain.profile.root.commands.dtos.CreateProfileRequest;
 import inno.edu.api.domain.profile.root.commands.dtos.ProfileAssociationRequest;
@@ -76,6 +78,14 @@ public class Payloads {
 
     public static String putExperiencePayload(UpdateExperienceRequest updateExperienceRequest) {
         return format(loadPayload("payloads/profile/experience/put-experience.json"), updateExperienceRequest.getTitle(), updateExperienceRequest.getInstitution(), updateExperienceRequest.getLocation(), updateExperienceRequest.getArea(), updateExperienceRequest.getFromDate(), updateExperienceRequest.getToDate(), updateExperienceRequest.getDescription());
+    }
+
+    public static String postInterestPayload(CreateInterestRequest createInterestRequest) {
+        return format(loadPayload("payloads/profile/interest/post-interest.json"), createInterestRequest.getTitle(), createInterestRequest.getDescription());
+    }
+
+    public static String putInterestPayload(UpdateInterestRequest updateInterestRequest) {
+        return format(loadPayload("payloads/profile/interest/put-interest.json"), updateInterestRequest.getTitle(), updateInterestRequest.getDescription());
     }
 
     public static String postSchoolPayload(CreateSchoolRequest createSchoolRequest) {

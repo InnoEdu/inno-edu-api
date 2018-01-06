@@ -248,8 +248,8 @@ public class ProfileFactory {
 
     public static UpdateInterestRequest updateFeiInterestRequest() {
         return UpdateInterestRequest.builder()
-                .title("Updated Owner")
-                .description("Updated Great owner.")
+                .title(updatedFeiInterest().getTitle())
+                .description(updatedFeiInterest().getDescription())
                 .build();
     }
 
