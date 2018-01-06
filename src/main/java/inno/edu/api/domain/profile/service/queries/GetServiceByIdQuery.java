@@ -2,6 +2,7 @@ package inno.edu.api.domain.profile.service.queries;
 
 import inno.edu.api.domain.profile.service.exceptions.ServiceNotFoundException;
 import inno.edu.api.domain.profile.service.models.Service;
+import inno.edu.api.domain.profile.service.models.ServicePrimaryKey;
 import inno.edu.api.domain.profile.service.repositories.ServiceRepository;
 import inno.edu.api.infrastructure.annotations.Query;
 
@@ -18,7 +19,7 @@ public class GetServiceByIdQuery {
     }
 
     public Service run(UUID id) {
-        return ofNullable(experienceRepository.findOne(id))
+        return ofNullable(experienceRepository.findOne(new ServicePrimaryKey(id, id)))
                 .orElseThrow(() -> new ServiceNotFoundException(id));
     }
 }

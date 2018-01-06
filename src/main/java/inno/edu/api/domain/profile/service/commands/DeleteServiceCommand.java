@@ -1,6 +1,7 @@
 package inno.edu.api.domain.profile.service.commands;
 
 import inno.edu.api.domain.profile.service.assertions.ServiceExistsAssertion;
+import inno.edu.api.domain.profile.service.models.ServicePrimaryKey;
 import inno.edu.api.domain.profile.service.repositories.ServiceRepository;
 import inno.edu.api.infrastructure.annotations.Command;
 
@@ -18,6 +19,6 @@ public class DeleteServiceCommand {
 
     public void run(UUID id) {
         experienceExistsAssertion.run(id);
-        experienceRepository.delete(id);
+        experienceRepository.delete(new ServicePrimaryKey(id, id));
     }
 }
