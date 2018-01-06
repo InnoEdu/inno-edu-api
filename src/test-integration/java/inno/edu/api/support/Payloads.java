@@ -7,6 +7,8 @@ import inno.edu.api.domain.appointment.commands.dtos.UpdateAppointmentRequest;
 import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityByMentorIdRequest;
 import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityRequest;
 import inno.edu.api.domain.availability.commands.dtos.UpdateAvailabilityRequest;
+import inno.edu.api.domain.profile.accomplishment.commands.dtos.CreateAccomplishmentRequest;
+import inno.edu.api.domain.profile.accomplishment.commands.dtos.UpdateAccomplishmentRequest;
 import inno.edu.api.domain.profile.experience.commands.dtos.CreateExperienceRequest;
 import inno.edu.api.domain.profile.experience.commands.dtos.UpdateExperienceRequest;
 import inno.edu.api.domain.profile.interest.commands.dtos.CreateInterestRequest;
@@ -86,6 +88,14 @@ public class Payloads {
 
     public static String putInterestPayload(UpdateInterestRequest updateInterestRequest) {
         return format(loadPayload("payloads/profile/interest/put-interest.json"), updateInterestRequest.getTitle(), updateInterestRequest.getDescription());
+    }
+
+    public static String postAccomplishmentPayload(CreateAccomplishmentRequest createAccomplishmentRequest) {
+        return format(loadPayload("payloads/profile/accomplishment/post-accomplishment.json"), createAccomplishmentRequest.getTitle(), createAccomplishmentRequest.getDescription(), createAccomplishmentRequest.getType());
+    }
+
+    public static String putAccomplishmentPayload(UpdateAccomplishmentRequest updateAccomplishmentRequest) {
+        return format(loadPayload("payloads/profile/accomplishment/put-accomplishment.json"), updateAccomplishmentRequest.getTitle(), updateAccomplishmentRequest.getDescription());
     }
 
     public static String postSchoolPayload(CreateSchoolRequest createSchoolRequest) {

@@ -1,5 +1,6 @@
 package inno.edu.api.controllers.profile.advices;
 
+import inno.edu.api.domain.profile.accomplishment.exceptions.AccomplishmentNotFoundException;
 import inno.edu.api.domain.profile.association.exceptions.ProfileAssociationNotFoundException;
 import inno.edu.api.domain.profile.association.exceptions.PendingAssociationExistsException;
 import inno.edu.api.domain.profile.experience.exceptions.ExperienceNotFoundException;
@@ -46,6 +47,13 @@ public class ProfileControllerAdvice {
     @ExceptionHandler(InterestNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     VndErrors interestNotFoundExceptionHanlder(InterestNotFoundException ex) {
+        return new VndErrors("error", ex.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(AccomplishmentNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    VndErrors accomplishmentNotFoundExceptionHanlder(AccomplishmentNotFoundException ex) {
         return new VndErrors("error", ex.getMessage());
     }
 
