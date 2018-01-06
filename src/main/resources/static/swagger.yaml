@@ -24,6 +24,8 @@ tags:
     description: Profile interests management
   - name: profile-accomplishments
     description: Profile accomplishments management
+  - name: profile-services
+    description: Profile services management
   - name: availability
     description: Mentor avaialbility management
   - name: appointments
@@ -976,6 +978,124 @@ paths:
           description: Accomplishment successfully updated
           schema:
             $ref: '#/definitions/Accomplishment'
+          headers:
+            Location:
+              type: string
+              description: Link to the new resource created
+        '400':
+          $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
+  /profiles/{id}/services:
+    get:
+      tags:
+        - profile-services
+      summary: Get services by profile
+      parameters:
+        - in: path
+          name: id
+          description: Profile id
+          required: true
+          type: string
+          format: uuid
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ServiceResourceList'
+        '404':
+          description: Profile not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
+    post:
+      tags:
+        - profile-services
+      summary: Add a new service for profile
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: id
+          description: Profile id
+          required: true
+          type: string
+          format: uuid
+        - in: body
+          name: request
+          description: Request object with the service information to be created
+          required: true
+          schema:
+            $ref: '#/definitions/CreateServiceRequest'
+      responses:
+        '201':
+          description: New service successfully created
+          schema:
+            $ref: '#/definitions/Service'
+          headers:
+            Location:
+              type: string
+              description: Link to the new resource created
+        '400':
+          $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
+  /profiles/services/{id}:
+    get:
+      tags:
+        - profile-services
+      summary: Get service by id
+      parameters:
+        - in: path
+          name: id
+          description: Profile id
+          required: true
+          type: string
+          format: uuid
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ServiceResource'
+        '404':
+          description: Service not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
+    put:
+      tags:
+        - profile-services
+      summary: Update service for profile
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: id
+          description: Service id
+          required: true
+          type: string
+          format: uuid
+        - in: body
+          name: request
+          description: Request object with the service information to be updated
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateServiceRequest'
+      responses:
+        '201':
+          description: Service successfully updated
+          schema:
+            $ref: '#/definitions/Service'
           headers:
             Location:
               type: string
@@ -2143,7 +2263,7 @@ definitions:
   ExperienceResourceList:
     type: object
     properties:
-      interestResourceList:
+      experienceResourceList:
         type: array
         items:
           $ref: '#/definitions/ExperienceResource'
@@ -2254,4 +2374,55 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/AccomplishmentResource'
+  CreateServiceRequest:
+    type: object
+    properties:
+      title:
+        type: string
+        maxLength: 100
+      description:
+        type: string
+    required:
+      - title
+      - description
+  UpdateServiceRequest:
+    type: object
+    properties:
+      title:
+        type: string
+        maxLength: 100
+      description:
+        type: string
+    required:
+      - title
+      - description
+  Service:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      profileId:
+        type: string
+        format: uuid
+      title:
+        type: string
+        maxLength: 100
+      description:
+        type: string
+  ServiceResource:
+    allOf:
+        - $ref: '#/definitions/Service'
+        - type: object
+          properties:
+            _links:
+              type: object
+  ServiceResourceList:
+    type: object
+    properties:
+      serviceResourceList:
+        type: array
+        items:
+          $ref: '#/definitions/ServiceResource'
+          
                     
