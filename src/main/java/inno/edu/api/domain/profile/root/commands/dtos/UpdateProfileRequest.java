@@ -14,4 +14,6 @@ import javax.validation.constraints.NotNull;
 public class UpdateProfileRequest {
     @NotNull
     private String description;
+    @NotNull
+    private String location;
 }

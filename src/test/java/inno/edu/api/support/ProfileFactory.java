@@ -41,6 +41,7 @@ public class ProfileFactory {
                 .schoolId(stanford().getId())
                 .rate(new BigDecimal(20.5))
                 .description("Gustavo is a great mentor.")
+                .location("San Francisco, CA")
                 .build();
     }
 
@@ -50,6 +51,7 @@ public class ProfileFactory {
                 .schoolId(stanford().getId())
                 .description("Fei is a great mentor.")
                 .rate(new BigDecimal(10.5))
+                .location("San Francisco, CA")
                 .build();
     }
 
@@ -57,6 +59,7 @@ public class ProfileFactory {
         return Profile.builder().id(fromString("c5f473b4-3311-40b1-8fb3-f70357894754"))
                 .userId(alan().getId())
                 .description("Alan is a great mentee.")
+                .location("San Francisco, CA")
                 .build();
     }
 
@@ -66,19 +69,22 @@ public class ProfileFactory {
                 .description("Tuany is a great mentee.")
                 .rate(BigDecimal.ONE)
                 .schoolId(stanford().getId())
+                .location("San Francisco, CA")
                 .build();
     }
 
     public static Profile updatedAlanProfile() {
         return alanProfile().toBuilder()
                 .description("Updated description")
+                .location("Updated San Francisco, CA")
                 .build();
     }
 
     public static CreateProfileRequest createGustavoProfileRequest() {
         return CreateProfileRequest.builder()
                 .userId(gustavo().getId())
-                .description("Gustavo is a great mentor.")
+                .description(gustavoProfile().getDescription())
+                .location(gustavoProfile().getLocation())
                 .build();
     }
 
@@ -86,6 +92,7 @@ public class ProfileFactory {
         return CreateProfileRequest.builder()
                 .userId(tuanyProfile().getUserId())
                 .description(tuanyProfile().getDescription())
+                .location(tuanyProfile().getLocation())
                 .build();
     }
 
@@ -96,13 +103,15 @@ public class ProfileFactory {
     public static CreateProfileRequest createAlanProfileRequest() {
         return CreateProfileRequest.builder()
                 .userId(alan().getId())
-                .description("Alan is a great mentee.")
+                .description(alanProfile().getDescription())
+                .location(alanProfile().getLocation())
                 .build();
     }
 
     public static UpdateProfileRequest updateAlanProfileRequest() {
         return UpdateProfileRequest.builder()
                 .description(updatedAlanProfile().getDescription())
+                .location(updatedAlanProfile().getLocation())
                 .build();
     }
 

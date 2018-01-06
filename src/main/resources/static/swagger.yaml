@@ -1477,16 +1477,22 @@ definitions:
         format: uuid
       description:
         type: string
+      location:
+        type: string
     required:
       - userId
       - description
+      - location
   UpdateProfileRequest:
     type: object
     properties:
       description:
         type: string
+      location:
+        type: string
     required:
       - description
+      - location
   Profile:
     type: object
     properties:
@@ -1500,6 +1506,8 @@ definitions:
         type: string
         format: uuid
       description:
+        type: string
+      location:
         type: string
       rate:
         type: number

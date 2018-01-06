@@ -18,4 +18,7 @@ public class CreateProfileRequest {
 
     @NotNull
     private String description;
+
+    @NotNull
+    private String location;
 }

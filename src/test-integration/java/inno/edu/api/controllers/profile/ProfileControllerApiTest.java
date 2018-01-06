@@ -33,6 +33,7 @@ public class ProfileControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$._embedded.profileResourceList[*].userId", hasItems(alanProfile().getUserId().toString(), gustavoProfile().getUserId().toString())))
                 .andExpect(jsonPath("$._embedded.profileResourceList[*].schoolId", hasItems(alanProfile().getSchoolId(), gustavoProfile().getSchoolId().toString())))
                 .andExpect(jsonPath("$._embedded.profileResourceList[*].description", hasItems(alanProfile().getDescription(), gustavoProfile().getDescription())))
+                .andExpect(jsonPath("$._embedded.profileResourceList[*].location", hasItems(alanProfile().getLocation(), gustavoProfile().getLocation())))
                 .andExpect(jsonPath("$._embedded.profileResourceList[*].rate", hasItems(alanProfile().getRate(), gustavoProfile().getRate().doubleValue())));
     }
 
@@ -44,6 +45,7 @@ public class ProfileControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.userId", is(gustavoProfile().getUserId().toString())))
                 .andExpect(jsonPath("$.schoolId", is(gustavoProfile().getSchoolId().toString())))
                 .andExpect(jsonPath("$.description", is(gustavoProfile().getDescription())))
+                .andExpect(jsonPath("$.location", is(gustavoProfile().getLocation())))
                 .andExpect(jsonPath("$.rate", is(gustavoProfile().getRate().doubleValue())));
     }
 
@@ -57,7 +59,8 @@ public class ProfileControllerApiTest extends ApiTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", not(tuanyProfile().getId().toString())))
                 .andExpect(jsonPath("$.userId", is(tuanyProfile().getUserId().toString())))
-                .andExpect(jsonPath("$.description", is(tuanyProfile().getDescription())));
+                .andExpect(jsonPath("$.description", is(tuanyProfile().getDescription())))
+                .andExpect(jsonPath("$.location", is(tuanyProfile().getLocation())));
     }
 
     @Test
@@ -80,6 +83,7 @@ public class ProfileControllerApiTest extends ApiTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", is(alanProfile().getId().toString())))
                 .andExpect(jsonPath("$.userId", is(alanProfile().getUserId().toString())))
+                .andExpect(jsonPath("$.location", is(updatedAlanProfile().getLocation())))
                 .andExpect(jsonPath("$.description", is(updatedAlanProfile().getDescription())));
     }
 

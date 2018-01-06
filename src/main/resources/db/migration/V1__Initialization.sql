@@ -19,6 +19,7 @@ CREATE TABLE Profile (
   school_id   BINARY(16)     NULL,
   description TEXT           NOT NULL,
   rate        DECIMAL(15, 2) NULL,
+  location    VARCHAR(255) NOT NULL,
 
   FOREIGN KEY (user_id)
   REFERENCES User (id)
@@ -144,25 +145,25 @@ VALUES (${map}('83768bb035514586bbba03efb5f8d7bd'), 'Massachusetts Institute of 
 
 -- Profiles
 
-INSERT INTO Profile (id, user_id, school_id, description, rate)
+INSERT INTO Profile (id, user_id, school_id, description, rate, location)
 VALUES (${map}('0e9e40c0b44b438792a99d75d10e3d42'), ${map}('ba7c650519fd47c387a6c6af6e5322b7'),
-        ${map}('0a58153cc15f4e5b802cbbf5d6c1c55c'), 'Fei is a great mentor.', 5.0);
+        ${map}('0a58153cc15f4e5b802cbbf5d6c1c55c'), 'Fei is a great mentor.', 5.0, 'San Francisco, CA');
 
-INSERT INTO Profile (id, user_id, school_id, description, rate)
+INSERT INTO Profile (id, user_id, school_id, description, rate, location)
 VALUES (${map}('e1b66612a94a4db386a104f3a102227b'), ${map}('df54ff863caa4145b228284f5d4a908a'),
-        ${map}('7f297cd9723b43c98021a8530129dedb'), 'Gustavo is a great mentor.', 10.0);
+        ${map}('7f297cd9723b43c98021a8530129dedb'), 'Gustavo is a great mentor.', 10.0, 'San Francisco, CA');
 
-INSERT INTO Profile (id, user_id, school_id, description, rate)
+INSERT INTO Profile (id, user_id, school_id, description, rate, location)
 VALUES (${map}('2744d1cbb25e4a61879dad3d15ffebe2'), ${map}('8d6153fc83e54b3a90acd081ff789cef'),
-        ${map}('a10afaca201644b8940b5b88323901b9'), 'Alan is a great mentor.', 15.0);
+        ${map}('a10afaca201644b8940b5b88323901b9'), 'Alan is a great mentor.', 15.0, 'San Francisco, CA');
 
-INSERT INTO Profile (id, user_id, description)
+INSERT INTO Profile (id, user_id, description, location)
 VALUES (${map}('c5f473b4331140b18fb3f70357894754'), ${map}('e3495a43a0af42b7ab91a3801b1b56ab'),
-        'Tuany is a great mentee.');
+        'Tuany is a great mentee.', 'San Francisco, CA');
 
-INSERT INTO Profile (id, user_id, description)
+INSERT INTO Profile (id, user_id, description, location)
 VALUES (${map}('71b31ec9207d4d469e33c4b4024db0ed'), ${map}('c5e6b39233e14255a249f777b6ab355d'),
-        'Eluisete is a great mentee.');
+        'Eluisete is a great mentee.', 'San Francisco, CA');
 
 -- Availability
 
