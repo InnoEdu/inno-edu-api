@@ -22,6 +22,8 @@ tags:
     description: Profile experiences management
   - name: profile-interests
     description: Profile interests management
+  - name: profile-accomplishments
+    description: Profile accomplishments management
   - name: availability
     description: Mentor avaialbility management
   - name: appointments
@@ -856,6 +858,124 @@ paths:
           description: Interest successfully updated
           schema:
             $ref: '#/definitions/Interest'
+          headers:
+            Location:
+              type: string
+              description: Link to the new resource created
+        '400':
+          $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
+  /profiles/{id}/accomplishments:
+    get:
+      tags:
+        - profile-accomplishments
+      summary: Get accomplishments by profile
+      parameters:
+        - in: path
+          name: id
+          description: Profile id
+          required: true
+          type: string
+          format: uuid
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/AccomplishmentResourceList'
+        '404':
+          description: Profile not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
+    post:
+      tags:
+        - profile-accomplishments
+      summary: Add a new accomplishment for profile
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: id
+          description: Profile id
+          required: true
+          type: string
+          format: uuid
+        - in: body
+          name: request
+          description: Request object with the accomplishment information to be created
+          required: true
+          schema:
+            $ref: '#/definitions/CreateAccomplishmentRequest'
+      responses:
+        '201':
+          description: New accomplishment successfully created
+          schema:
+            $ref: '#/definitions/Accomplishment'
+          headers:
+            Location:
+              type: string
+              description: Link to the new resource created
+        '400':
+          $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
+  /profiles/accomplishments/{id}:
+    get:
+      tags:
+        - profile-accomplishments
+      summary: Get accomplishment by id
+      parameters:
+        - in: path
+          name: id
+          description: Profile id
+          required: true
+          type: string
+          format: uuid
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/AccomplishmentResource'
+        '404':
+          description: Accomplishment not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
+    put:
+      tags:
+        - profile-accomplishments
+      summary: Update accomplishment for profile
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: id
+          description: Accomplishment id
+          required: true
+          type: string
+          format: uuid
+        - in: body
+          name: request
+          description: Request object with the accomplishment information to be updated
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateAccomplishmentRequest'
+      responses:
+        '201':
+          description: Accomplishment successfully updated
+          schema:
+            $ref: '#/definitions/Accomplishment'
           headers:
             Location:
               type: string
@@ -2070,4 +2190,62 @@ definitions:
       interestResourceList:
         type: array
         items:
-          $ref: '#/definitions/InterestResource'          
+          $ref: '#/definitions/InterestResource'
+  CreateAccomplishmentRequest:
+    type: object
+    properties:
+      title:
+        type: string
+        maxLength: 100
+      description:
+        type: string
+      type:
+        type: string
+        enum: [PUBLICATION, CERTIFICATION, LANGUAGE, PROJECT, AWARD]
+    required:
+      - title
+      - description
+      - type
+  UpdateAccomplishmentRequest:
+    type: object
+    properties:
+      title:
+        type: string
+        maxLength: 100
+      description:
+        type: string
+    required:
+      - title
+      - description
+  Accomplishment:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      profileId:
+        type: string
+        format: uuid
+      title:
+        type: string
+        maxLength: 100
+      description:
+        type: string
+      type:
+        type: string
+        enum: [PUBLICATION, CERTIFICATION, LANGUAGE, PROJECT, AWARD]
+  AccomplishmentResource:
+    allOf:
+        - $ref: '#/definitions/Accomplishment'
+        - type: object
+          properties:
+            _links:
+              type: object
+  AccomplishmentResourceList:
+    type: object
+    properties:
+      interestResourceList:
+        type: array
+        items:
+          $ref: '#/definitions/AccomplishmentResource'
+                    
