@@ -45,6 +45,11 @@ DELETE FROM Experience;
 INSERT INTO Experience (id, profile_id, title, area, institution, location, from_date, to_date, description, type)
 VALUES ('7555b5cef7a04d9aa90225f9dcc8de6f', '0e9e40c0b44b438792a99d75d10e3d42', 'Owner', 'Area', 'InnoEdu', 'San Francisco, CA', '2018-01-01', '2018-12-31', 'Great owner.', 0);
 
+DELETE FROM Interest;
+
+INSERT INTO Interest (id, profile_id, title, description)
+VALUES ('f6c17afc39d2475b827a3f473db678af', '0e9e40c0b44b438792a99d75d10e3d42', 'My interest', 'Perfect interest.');
+
 DELETE FROM Availability;
 
 INSERT INTO Availability (id, mentor_profile_id, from_date_time, to_date_time)

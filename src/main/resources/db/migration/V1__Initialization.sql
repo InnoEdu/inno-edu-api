@@ -19,7 +19,7 @@ CREATE TABLE Profile (
   school_id   BINARY(16)     NULL,
   description TEXT           NOT NULL,
   rate        DECIMAL(15, 2) NULL,
-  location    VARCHAR(255) NOT NULL,
+  location    VARCHAR(255)   NOT NULL,
 
   FOREIGN KEY (user_id)
   REFERENCES User (id)
@@ -57,6 +57,17 @@ CREATE TABLE Experience (
   to_date     DATE         NULL,
   description TEXT         NULL,
   type        SMALLINT     NOT NULL,
+
+  FOREIGN KEY (profile_id)
+  REFERENCES Profile (id)
+    ON DELETE CASCADE
+);
+
+CREATE TABLE Interest (
+  id          BINARY(16) PRIMARY KEY,
+  profile_id  BINARY(16)   NOT NULL,
+  title       VARCHAR(100) NOT NULL,
+  description TEXT         NOT NULL,
 
   FOREIGN KEY (profile_id)
   REFERENCES Profile (id)
