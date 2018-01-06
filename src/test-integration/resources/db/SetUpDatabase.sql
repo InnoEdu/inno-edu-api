@@ -55,6 +55,11 @@ DELETE FROM Accomplishment;
 INSERT INTO Accomplishment (id, profile_id, title, description, type)
 VALUES ('27f8f74507e24fb896d45c6623c5cbc6', '0e9e40c0b44b438792a99d75d10e3d42', 'My accomplishment', 'Perfect accomplishment.', 0);
 
+DELETE FROM Service;
+
+INSERT INTO Service (id, profile_id, title, description)
+VALUES ('a9e747ab1cb9494196085f6115bb48ce', '0e9e40c0b44b438792a99d75d10e3d42', 'My service', 'Perfect service.');
+
 DELETE FROM Availability;
 
 INSERT INTO Availability (id, mentor_profile_id, from_date_time, to_date_time)

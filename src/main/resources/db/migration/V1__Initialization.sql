@@ -87,6 +87,16 @@ CREATE TABLE Accomplishment (
     ON DELETE CASCADE
 );
 
+CREATE TABLE Service (
+  id          BINARY(16) PRIMARY KEY,
+  profile_id  BINARY(16)   NOT NULL,
+  title       VARCHAR(100) NOT NULL,
+  description TEXT         NOT NULL,
+
+  FOREIGN KEY (profile_id)
+  REFERENCES Profile (id)
+    ON DELETE CASCADE
+);
 
 CREATE TABLE Availability (
   id                BINARY(16) PRIMARY KEY,
