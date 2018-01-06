@@ -44,5 +44,4 @@ public class GetInterestsByProfileIdQueryTest {
 
         verify(profileExistsAssertion).run(feiProfile().getId());
     }
-
 }

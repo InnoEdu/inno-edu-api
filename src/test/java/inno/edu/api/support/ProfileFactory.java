@@ -1,5 +1,8 @@
 package inno.edu.api.support;
 
+import inno.edu.api.domain.profile.accomplishment.commands.dtos.CreateAccomplishmentRequest;
+import inno.edu.api.domain.profile.accomplishment.commands.dtos.UpdateAccomplishmentRequest;
+import inno.edu.api.domain.profile.accomplishment.models.Accomplishment;
 import inno.edu.api.domain.profile.association.models.ProfileAssociation;
 import inno.edu.api.domain.profile.experience.commands.dtos.CreateExperienceRequest;
 import inno.edu.api.domain.profile.experience.commands.dtos.UpdateExperienceRequest;
@@ -18,6 +21,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
+import static inno.edu.api.domain.profile.accomplishment.models.AccomplishmentType.PUBLICATION;
 import static inno.edu.api.domain.profile.association.models.RequestStatus.APPROVED;
 import static inno.edu.api.domain.profile.association.models.RequestStatus.PENDING;
 import static inno.edu.api.domain.profile.experience.models.ExperienceType.PROFESSIONAL;
@@ -257,4 +261,45 @@ public class ProfileFactory {
         return singletonList(feiInterest());
     }
 
+    public static Accomplishment feiAccomplishment() {
+        return Accomplishment.builder()
+                .id(fromString("f6c17afc-39d2-475b-827a-3f473db678af"))
+                .profileId(feiProfile().getId())
+                .title("My accomplishment")
+                .description("Perfect accomplishment.")
+                .type(PUBLICATION)
+                .build();
+    }
+
+    public static Accomplishment newFeiAccomplishment(UUID id) {
+        return feiAccomplishment().toBuilder()
+                .id(id)
+                .build();
+    }
+
+    public static CreateAccomplishmentRequest createFeiAccomplishmentRequest() {
+        return CreateAccomplishmentRequest.builder()
+                .title(feiAccomplishment().getTitle())
+                .description(feiAccomplishment().getDescription())
+                .type(feiAccomplishment().getType())
+                .build();
+    }
+
+    public static Accomplishment updatedFeiAccomplishment() {
+        return feiAccomplishment().toBuilder()
+                .title("Updated Title")
+                .description("Updated description")
+                .build();
+    }
+
+    public static UpdateAccomplishmentRequest updateFeiAccomplishmentRequest() {
+        return UpdateAccomplishmentRequest.builder()
+                .title(updatedFeiAccomplishment().getTitle())
+                .description(updatedFeiAccomplishment().getDescription())
+                .build();
+    }
+
+    public static List<Accomplishment> feiAccomplishments() {
+        return singletonList(feiAccomplishment());
+    }
 }

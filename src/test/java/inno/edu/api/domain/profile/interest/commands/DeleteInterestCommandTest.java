@@ -35,5 +35,4 @@ public class DeleteInterestCommandTest {
 
         verify(interestExistsAssertion).run(feiInterest().getId());
     }
-
 }

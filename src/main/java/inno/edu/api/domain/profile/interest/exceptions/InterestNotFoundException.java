@@ -4,6 +4,6 @@ import java.util.UUID;
 
 public class InterestNotFoundException extends RuntimeException {
     public InterestNotFoundException(UUID profileId) {
-        super("Could not find experience '" + profileId.toString() + "'.");
+        super("Could not find interest '" + profileId.toString() + "'.");
     }
 }
