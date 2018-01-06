@@ -1923,6 +1923,9 @@ definitions:
       company:
         type: string
         maxLength: 100
+      profileReferenceId:
+        type: string
+        format: uuid
     required:
       - userId
       - description
@@ -1934,6 +1937,9 @@ definitions:
         type: string
       location:
         type: string
+      profileReferenceId:
+        type: string
+        format: uuid
     required:
       - description
       - location
@@ -1957,6 +1963,9 @@ definitions:
         type: number
       company:
         type: string
+      profileReferenceId:
+        type: string
+        format: uuid
   ProfileResource:
       allOf:
         - $ref: '#/definitions/Profile'
