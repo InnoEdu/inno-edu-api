@@ -1,6 +1,7 @@
 package inno.edu.api.domain.profile.service.assertions;
 
 import inno.edu.api.domain.profile.service.exceptions.ServiceNotFoundException;
+import inno.edu.api.domain.profile.service.models.ServicePrimaryKey;
 import inno.edu.api.domain.profile.service.repositories.ServiceRepository;
 import inno.edu.api.infrastructure.annotations.Assertion;
 
@@ -15,7 +16,7 @@ public class ServiceExistsAssertion {
     }
 
     public void run(UUID id) {
-        if (!experienceRepository.exists(id)) {
+        if (!experienceRepository.exists(new ServicePrimaryKey(id, id))) {
             throw new ServiceNotFoundException(id);
         }
     }

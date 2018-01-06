@@ -88,10 +88,12 @@ CREATE TABLE Accomplishment (
 );
 
 CREATE TABLE Service (
-  id          BINARY(16) PRIMARY KEY,
+  id          BINARY(16),
   profile_id  BINARY(16)   NOT NULL,
   title       VARCHAR(100) NOT NULL,
   description TEXT         NOT NULL,
+
+  PRIMARY KEY (id, profile_id),
 
   FOREIGN KEY (profile_id)
   REFERENCES Profile (id)
