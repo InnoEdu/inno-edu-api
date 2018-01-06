@@ -18,6 +18,8 @@ import inno.edu.api.domain.profile.root.commands.dtos.CreateProfileRequest;
 import inno.edu.api.domain.profile.root.commands.dtos.ProfileAssociationRequest;
 import inno.edu.api.domain.profile.root.commands.dtos.RejectProfileAssociationRequest;
 import inno.edu.api.domain.profile.root.commands.dtos.UpdateProfileRequest;
+import inno.edu.api.domain.profile.service.commands.dtos.CreateServiceRequest;
+import inno.edu.api.domain.profile.service.commands.dtos.UpdateServiceRequest;
 import inno.edu.api.domain.school.commands.dtos.CreateSchoolRequest;
 import inno.edu.api.domain.school.commands.dtos.UpdateSchoolRequest;
 import inno.edu.api.domain.user.commands.dtos.CreateUserRequest;
@@ -96,6 +98,14 @@ public class Payloads {
 
     public static String putAccomplishmentPayload(UpdateAccomplishmentRequest updateAccomplishmentRequest) {
         return format(loadPayload("payloads/profile/accomplishment/put-accomplishment.json"), updateAccomplishmentRequest.getTitle(), updateAccomplishmentRequest.getDescription());
+    }
+
+    public static String postServicePayload(CreateServiceRequest createServiceRequest) {
+        return format(loadPayload("payloads/profile/service/post-service.json"), createServiceRequest.getTitle(), createServiceRequest.getDescription());
+    }
+
+    public static String putServicePayload(UpdateServiceRequest updateServiceRequest) {
+        return format(loadPayload("payloads/profile/service/put-service.json"), updateServiceRequest.getTitle(), updateServiceRequest.getDescription());
     }
 
     public static String postSchoolPayload(CreateSchoolRequest createSchoolRequest) {

@@ -7,6 +7,7 @@ import inno.edu.api.domain.profile.experience.exceptions.ExperienceNotFoundExcep
 import inno.edu.api.domain.profile.interest.exceptions.InterestNotFoundException;
 import inno.edu.api.domain.profile.root.exceptions.ProfileAlreadyCreatedException;
 import inno.edu.api.domain.profile.root.exceptions.ProfileNotFoundException;
+import inno.edu.api.domain.profile.service.exceptions.ServiceNotFoundException;
 import inno.edu.api.domain.school.exceptions.SchoolNotFoundException;
 import org.springframework.core.annotation.Order;
 import org.springframework.hateoas.VndErrors;
@@ -54,6 +55,13 @@ public class ProfileControllerAdvice {
     @ExceptionHandler(AccomplishmentNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     VndErrors accomplishmentNotFoundExceptionHanlder(AccomplishmentNotFoundException ex) {
+        return new VndErrors("error", ex.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(ServiceNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    VndErrors serviceNotFoundExceptionHanlder(ServiceNotFoundException ex) {
         return new VndErrors("error", ex.getMessage());
     }
 
