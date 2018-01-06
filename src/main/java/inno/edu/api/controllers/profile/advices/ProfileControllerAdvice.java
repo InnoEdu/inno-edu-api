@@ -3,6 +3,7 @@ package inno.edu.api.controllers.profile.advices;
 import inno.edu.api.domain.profile.association.exceptions.ProfileAssociationNotFoundException;
 import inno.edu.api.domain.profile.association.exceptions.PendingAssociationExistsException;
 import inno.edu.api.domain.profile.experience.exceptions.ExperienceNotFoundException;
+import inno.edu.api.domain.profile.interest.exceptions.InterestNotFoundException;
 import inno.edu.api.domain.profile.root.exceptions.ProfileAlreadyCreatedException;
 import inno.edu.api.domain.profile.root.exceptions.ProfileNotFoundException;
 import inno.edu.api.domain.school.exceptions.SchoolNotFoundException;
@@ -38,6 +39,13 @@ public class ProfileControllerAdvice {
     @ExceptionHandler(ExperienceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     VndErrors experienceNotFoundExceptionHandler(ExperienceNotFoundException ex) {
+        return new VndErrors("error", ex.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(InterestNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    VndErrors interestNotFoundExceptionHanlder(InterestNotFoundException ex) {
         return new VndErrors("error", ex.getMessage());
     }
 

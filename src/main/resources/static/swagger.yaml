@@ -20,6 +20,8 @@ tags:
     description: Profile association management
   - name: profile-experiences
     description: Profile experiences management
+  - name: profile-interests
+    description: Profile interests management
   - name: availability
     description: Mentor avaialbility management
   - name: appointments
@@ -736,6 +738,124 @@ paths:
           description: Experience successfully updated
           schema:
             $ref: '#/definitions/Experience'
+          headers:
+            Location:
+              type: string
+              description: Link to the new resource created
+        '400':
+          $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
+  /profiles/{id}/interests:
+    get:
+      tags:
+        - profile-interests
+      summary: Get interests by profile
+      parameters:
+        - in: path
+          name: id
+          description: Profile id
+          required: true
+          type: string
+          format: uuid
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/InterestResourceList'
+        '404':
+          description: Profile not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
+    post:
+      tags:
+        - profile-interests
+      summary: Add a new interest for profile
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: id
+          description: Profile id
+          required: true
+          type: string
+          format: uuid
+        - in: body
+          name: request
+          description: Request object with the interest information to be created
+          required: true
+          schema:
+            $ref: '#/definitions/CreateInterestRequest'
+      responses:
+        '201':
+          description: New interest successfully created
+          schema:
+            $ref: '#/definitions/Interest'
+          headers:
+            Location:
+              type: string
+              description: Link to the new resource created
+        '400':
+          $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
+  /profiles/interests/{id}:
+    get:
+      tags:
+        - profile-interests
+      summary: Get interest by id
+      parameters:
+        - in: path
+          name: id
+          description: Profile id
+          required: true
+          type: string
+          format: uuid
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/InterestResource'
+        '404':
+          description: Interest not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
+    put:
+      tags:
+        - profile-interests
+      summary: Update interest for profile
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: id
+          description: Interest id
+          required: true
+          type: string
+          format: uuid
+        - in: body
+          name: request
+          description: Request object with the interest information to be updated
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateInterestRequest'
+      responses:
+        '201':
+          description: Interest successfully updated
+          schema:
+            $ref: '#/definitions/Interest'
           headers:
             Location:
               type: string
@@ -1897,7 +2017,57 @@ definitions:
   ExperienceResourceList:
     type: object
     properties:
-      experienceResourceList:
+      interestResourceList:
         type: array
         items:
           $ref: '#/definitions/ExperienceResource'
+  CreateInterestRequest:
+    type: object
+    properties:
+      title:
+        type: string
+        maxLength: 100
+      description:
+        type: string
+    required:
+      - title
+      - description
+  UpdateInterestRequest:
+    type: object
+    properties:
+      title:
+        type: string
+        maxLength: 100
+      description:
+        type: string
+    required:
+      - title
+      - description
+  Interest:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      profileId:
+        type: string
+        format: uuid
+      title:
+        type: string
+        maxLength: 100
+      description:
+        type: string
+  InterestResource:
+    allOf:
+        - $ref: '#/definitions/Interest'
+        - type: object
+          properties:
+            _links:
+              type: object
+  InterestResourceList:
+    type: object
+    properties:
+      interestResourceList:
+        type: array
+        items:
+          $ref: '#/definitions/InterestResource'          
