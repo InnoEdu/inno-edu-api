@@ -1,23 +1,26 @@
 package inno.edu.api.support;
 
-import inno.edu.api.domain.profile.root.commands.dtos.ApproveProfileAssociationRequest;
+import inno.edu.api.domain.profile.association.models.ProfileAssociation;
 import inno.edu.api.domain.profile.experience.commands.dtos.CreateExperienceRequest;
+import inno.edu.api.domain.profile.experience.commands.dtos.UpdateExperienceRequest;
+import inno.edu.api.domain.profile.experience.models.Experience;
+import inno.edu.api.domain.profile.interest.commands.dtos.CreateInterestRequest;
+import inno.edu.api.domain.profile.interest.commands.dtos.UpdateInterestRequest;
+import inno.edu.api.domain.profile.interest.models.Interest;
+import inno.edu.api.domain.profile.root.commands.dtos.ApproveProfileAssociationRequest;
 import inno.edu.api.domain.profile.root.commands.dtos.CreateProfileRequest;
 import inno.edu.api.domain.profile.root.commands.dtos.ProfileAssociationRequest;
 import inno.edu.api.domain.profile.root.commands.dtos.RejectProfileAssociationRequest;
-import inno.edu.api.domain.profile.experience.commands.dtos.UpdateExperienceRequest;
 import inno.edu.api.domain.profile.root.commands.dtos.UpdateProfileRequest;
-import inno.edu.api.domain.profile.experience.models.Experience;
 import inno.edu.api.domain.profile.root.models.Profile;
-import inno.edu.api.domain.profile.association.models.ProfileAssociation;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
-import static inno.edu.api.domain.profile.experience.models.ExperienceType.PROFESSIONAL;
 import static inno.edu.api.domain.profile.association.models.RequestStatus.APPROVED;
 import static inno.edu.api.domain.profile.association.models.RequestStatus.PENDING;
+import static inno.edu.api.domain.profile.experience.models.ExperienceType.PROFESSIONAL;
 import static inno.edu.api.support.SchoolFactory.berkeley;
 import static inno.edu.api.support.SchoolFactory.stanford;
 import static inno.edu.api.support.UserFactory.alan;
@@ -213,4 +216,45 @@ public class ProfileFactory {
     public static List<Experience> feiExperiences() {
         return singletonList(feiExperience());
     }
+
+    public static Interest feiInterest() {
+        return Interest.builder()
+                .id(fromString("f6c17afc-39d2-475b-827a-3f473db678af"))
+                .profileId(feiProfile().getId())
+                .title("My interest")
+                .description("Perfect interest.")
+                .build();
+    }
+
+    public static Interest newFeiInterest(UUID id) {
+        return feiInterest().toBuilder()
+                .id(id)
+                .build();
+    }
+
+    public static CreateInterestRequest createFeiInterestRequest() {
+        return CreateInterestRequest.builder()
+                .title(feiInterest().getTitle())
+                .description(feiInterest().getDescription())
+                .build();
+    }
+
+    public static Interest updatedFeiInterest() {
+        return feiInterest().toBuilder()
+                .title("Updated Title")
+                .description("Updated description")
+                .build();
+    }
+
+    public static UpdateInterestRequest updateFeiInterestRequest() {
+        return UpdateInterestRequest.builder()
+                .title("Updated Owner")
+                .description("Updated Great owner.")
+                .build();
+    }
+
+    public static List<Interest> feiInterests() {
+        return singletonList(feiInterest());
+    }
+
 }
