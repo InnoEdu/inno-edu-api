@@ -24,7 +24,7 @@ public class UpdateInterestCommandTest {
     private UpdateInterestRequestMapper updateInterestRequestMapper;
 
     @Mock
-    private InterestRepository experienceRepository;
+    private InterestRepository interestRepository;
 
     @Mock
     private GetInterestByIdQuery getInterestByIdQuery;
@@ -35,7 +35,7 @@ public class UpdateInterestCommandTest {
     @Test
     public void shouldReturnUpdatedInterest() {
         when(getInterestByIdQuery.run(feiInterest().getId())).thenReturn(feiInterest());
-        when(experienceRepository.save(feiInterest())).thenReturn(updatedFeiInterest());
+        when(interestRepository.save(feiInterest())).thenReturn(updatedFeiInterest());
 
         Interest Interest = updateInterestCommand.run(feiInterest().getId(), updateFeiInterestRequest());
 

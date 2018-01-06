@@ -8,16 +8,16 @@ import java.util.UUID;
 
 @Command
 public class DeleteServiceCommand {
-    private final ServiceExistsAssertion experienceExistsAssertion;
-    private final ServiceRepository experienceRepository;
+    private final ServiceExistsAssertion serviceExistsAssertion;
+    private final ServiceRepository serviceRepository;
 
-    public DeleteServiceCommand(ServiceExistsAssertion experienceExistsAssertion, ServiceRepository experienceRepository) {
-        this.experienceExistsAssertion = experienceExistsAssertion;
-        this.experienceRepository = experienceRepository;
+    public DeleteServiceCommand(ServiceExistsAssertion serviceExistsAssertion, ServiceRepository serviceRepository) {
+        this.serviceExistsAssertion = serviceExistsAssertion;
+        this.serviceRepository = serviceRepository;
     }
 
     public void run(UUID id) {
-        experienceExistsAssertion.run(id);
-        experienceRepository.delete(id);
+        serviceExistsAssertion.run(id);
+        serviceRepository.delete(id);
     }
 }

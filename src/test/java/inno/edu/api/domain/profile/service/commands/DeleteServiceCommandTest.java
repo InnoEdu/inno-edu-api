@@ -14,10 +14,10 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class DeleteServiceCommandTest {
     @Mock
-    private ServiceExistsAssertion interestExistsAssertion;
+    private ServiceExistsAssertion serviceExistsAssertion;
 
     @Mock
-    private ServiceRepository interestRepository;
+    private ServiceRepository serviceRepository;
 
     @InjectMocks
     private DeleteServiceCommand deleteServiceCommand;
@@ -26,13 +26,13 @@ public class DeleteServiceCommandTest {
     public void shouldCallRepositoryToDeleteService() {
         deleteServiceCommand.run(feiService().getId());
 
-        verify(interestRepository).delete(feiService().getId());
+        verify(serviceRepository).delete(feiService().getId());
     }
 
     @Test
     public void shouldRunAllAssertions() {
         deleteServiceCommand.run(feiService().getId());
 
-        verify(interestExistsAssertion).run(feiService().getId());
+        verify(serviceExistsAssertion).run(feiService().getId());
     }
 }

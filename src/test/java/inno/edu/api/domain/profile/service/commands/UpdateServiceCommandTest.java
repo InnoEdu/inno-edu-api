@@ -24,7 +24,7 @@ public class UpdateServiceCommandTest {
     private UpdateServiceRequestMapper updateServiceRequestMapper;
 
     @Mock
-    private ServiceRepository experienceRepository;
+    private ServiceRepository serviceRepository;
 
     @Mock
     private GetServiceByIdQuery getServiceByIdQuery;
@@ -35,7 +35,7 @@ public class UpdateServiceCommandTest {
     @Test
     public void shouldReturnUpdatedService() {
         when(getServiceByIdQuery.run(feiService().getId())).thenReturn(feiService());
-        when(experienceRepository.save(feiService())).thenReturn(updatedFeiService());
+        when(serviceRepository.save(feiService())).thenReturn(updatedFeiService());
 
         Service Service = updateServiceCommand.run(feiService().getId(), updateFeiServiceRequest());
 
