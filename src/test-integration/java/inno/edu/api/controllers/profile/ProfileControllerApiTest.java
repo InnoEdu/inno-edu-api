@@ -4,6 +4,7 @@ import inno.edu.api.ApiTest;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
+import static inno.edu.api.support.Matchers.safeHasItems;
 import static inno.edu.api.support.Payloads.postProfilePayload;
 import static inno.edu.api.support.Payloads.putProfilePayload;
 import static inno.edu.api.support.ProfileFactory.alanProfile;
@@ -13,7 +14,6 @@ import static inno.edu.api.support.ProfileFactory.gustavoProfile;
 import static inno.edu.api.support.ProfileFactory.tuanyProfile;
 import static inno.edu.api.support.ProfileFactory.updateAlanProfileRequest;
 import static inno.edu.api.support.ProfileFactory.updatedAlanProfile;
-import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -25,18 +25,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class ProfileControllerApiTest extends ApiTest {
+
     @Test
     public void shouldListProfiles() throws Exception {
         this.mockMvc.perform(get("/api/profiles")).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.profileResourceList[*].id", hasItems(alanProfile().getId().toString(), gustavoProfile().getId().toString())))
-                .andExpect(jsonPath("$._embedded.profileResourceList[*].userId", hasItems(alanProfile().getUserId().toString(), gustavoProfile().getUserId().toString())))
-                .andExpect(jsonPath("$._embedded.profileResourceList[*].schoolId", hasItems(alanProfile().getSchoolId(), gustavoProfile().getSchoolId().toString())))
-                .andExpect(jsonPath("$._embedded.profileResourceList[*].description", hasItems(alanProfile().getDescription(), gustavoProfile().getDescription())))
-                .andExpect(jsonPath("$._embedded.profileResourceList[*].location", hasItems(alanProfile().getLocation(), gustavoProfile().getLocation())))
-                .andExpect(jsonPath("$._embedded.profileResourceList[*].company", hasItems(alanProfile().getCompany(), gustavoProfile().getCompany())))
-                .andExpect(jsonPath("$._embedded.profileResourceList[*].rate", hasItems(alanProfile().getRate(), gustavoProfile().getRate().doubleValue())))
-                .andExpect(jsonPath("$._embedded.profileResourceList[*].profileReferenceId", hasItems(alanProfile().getProfileReferenceId(), gustavoProfile().getProfileReferenceId().toString())));
+                .andExpect(jsonPath("$._embedded.profileResourceList[*].id", safeHasItems(alanProfile().getId().toString(), gustavoProfile().getId().toString())))
+                .andExpect(jsonPath("$._embedded.profileResourceList[*].userId", safeHasItems(alanProfile().getUserId().toString(), gustavoProfile().getUserId().toString())))
+                .andExpect(jsonPath("$._embedded.profileResourceList[*].schoolId", safeHasItems(alanProfile().getSchoolId(), gustavoProfile().getSchoolId().toString())))
+                .andExpect(jsonPath("$._embedded.profileResourceList[*].description", safeHasItems(alanProfile().getDescription(), gustavoProfile().getDescription())))
+                .andExpect(jsonPath("$._embedded.profileResourceList[*].location", safeHasItems(alanProfile().getLocation(), gustavoProfile().getLocation())))
+                .andExpect(jsonPath("$._embedded.profileResourceList[*].company", safeHasItems(alanProfile().getCompany(), gustavoProfile().getCompany())))
+                .andExpect(jsonPath("$._embedded.profileResourceList[*].rate", safeHasItems(alanProfile().getRate(), gustavoProfile().getRate().doubleValue())))
+                .andExpect(jsonPath("$._embedded.profileResourceList[*].profileReferenceId", safeHasItems(alanProfile().getProfileReferenceId(), gustavoProfile().getProfileReferenceId().toString())));
     }
 
     @Test
