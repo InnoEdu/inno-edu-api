@@ -20,6 +20,7 @@ CREATE TABLE Profile (
   description TEXT           NOT NULL,
   rate        DECIMAL(15, 2) NULL,
   location    VARCHAR(255)   NOT NULL,
+  company     VARCHAR(100)   NULL,
 
   FOREIGN KEY (user_id)
   REFERENCES User (id)

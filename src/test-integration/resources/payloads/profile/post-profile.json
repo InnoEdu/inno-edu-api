@@ -1,5 +1,6 @@
 {
   "userId": "%s",
   "description": "%s",
-  "location": "%s"
+  "location": "%s",
+  "company": "%s"
 }

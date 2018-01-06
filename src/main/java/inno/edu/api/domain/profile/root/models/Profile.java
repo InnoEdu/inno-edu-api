@@ -24,4 +24,5 @@ public class Profile {
     private UUID schoolId;
     private BigDecimal rate;
     private String location;
+    private String company;
 }

@@ -49,6 +49,7 @@ public class ProfileFactory {
                 .rate(new BigDecimal(20.5))
                 .description("Gustavo is a great mentor.")
                 .location("San Francisco, CA")
+                .company("Company")
                 .build();
     }
 
@@ -77,6 +78,7 @@ public class ProfileFactory {
                 .rate(BigDecimal.ONE)
                 .schoolId(stanford().getId())
                 .location("San Francisco, CA")
+                .company("Company")
                 .build();
     }
 
@@ -100,6 +102,7 @@ public class ProfileFactory {
                 .userId(tuanyProfile().getUserId())
                 .description(tuanyProfile().getDescription())
                 .location(tuanyProfile().getLocation())
+                .company(tuanyProfile().getCompany())
                 .build();
     }
 

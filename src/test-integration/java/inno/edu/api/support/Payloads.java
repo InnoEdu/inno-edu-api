@@ -55,7 +55,7 @@ public class Payloads {
     }
 
     public static String postProfilePayload(CreateProfileRequest createProfileRequest) {
-        return format(loadPayload("payloads/profile/post-profile.json"), createProfileRequest.getUserId(), createProfileRequest.getDescription(), createProfileRequest.getLocation());
+        return format(loadPayload("payloads/profile/post-profile.json"), createProfileRequest.getUserId(), createProfileRequest.getDescription(), createProfileRequest.getLocation(), createProfileRequest.getCompany());
     }
 
     public static String putProfilePayload(UpdateProfileRequest updateProfileRequest) {

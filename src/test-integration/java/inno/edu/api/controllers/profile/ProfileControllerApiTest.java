@@ -34,6 +34,7 @@ public class ProfileControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$._embedded.profileResourceList[*].schoolId", hasItems(alanProfile().getSchoolId(), gustavoProfile().getSchoolId().toString())))
                 .andExpect(jsonPath("$._embedded.profileResourceList[*].description", hasItems(alanProfile().getDescription(), gustavoProfile().getDescription())))
                 .andExpect(jsonPath("$._embedded.profileResourceList[*].location", hasItems(alanProfile().getLocation(), gustavoProfile().getLocation())))
+                .andExpect(jsonPath("$._embedded.profileResourceList[*].company", hasItems(alanProfile().getCompany(), gustavoProfile().getCompany())))
                 .andExpect(jsonPath("$._embedded.profileResourceList[*].rate", hasItems(alanProfile().getRate(), gustavoProfile().getRate().doubleValue())));
     }
 
@@ -46,6 +47,7 @@ public class ProfileControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.schoolId", is(gustavoProfile().getSchoolId().toString())))
                 .andExpect(jsonPath("$.description", is(gustavoProfile().getDescription())))
                 .andExpect(jsonPath("$.location", is(gustavoProfile().getLocation())))
+                .andExpect(jsonPath("$.company", is(gustavoProfile().getCompany())))
                 .andExpect(jsonPath("$.rate", is(gustavoProfile().getRate().doubleValue())));
     }
 
@@ -60,7 +62,8 @@ public class ProfileControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.id", not(tuanyProfile().getId().toString())))
                 .andExpect(jsonPath("$.userId", is(tuanyProfile().getUserId().toString())))
                 .andExpect(jsonPath("$.description", is(tuanyProfile().getDescription())))
-                .andExpect(jsonPath("$.location", is(tuanyProfile().getLocation())));
+                .andExpect(jsonPath("$.location", is(tuanyProfile().getLocation())))
+                .andExpect(jsonPath("$.company", is(tuanyProfile().getCompany())));
     }
 
     @Test
