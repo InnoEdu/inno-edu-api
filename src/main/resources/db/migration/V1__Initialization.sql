@@ -74,6 +74,18 @@ CREATE TABLE Interest (
     ON DELETE CASCADE
 );
 
+CREATE TABLE Accomplishment (
+  id          BINARY(16) PRIMARY KEY,
+  profile_id  BINARY(16)   NOT NULL,
+  title       VARCHAR(100) NOT NULL,
+  description TEXT         NOT NULL,
+  type        SMALLINT     NOT NULL,
+
+  FOREIGN KEY (profile_id)
+  REFERENCES Profile (id)
+    ON DELETE CASCADE
+);
+
 
 CREATE TABLE Availability (
   id                BINARY(16) PRIMARY KEY,
