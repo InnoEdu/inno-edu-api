@@ -1,23 +1,30 @@
-package inno.edu.api.domain.appointment.assertions;
+package inno.edu.api.domain.common.assertions;
 
 import inno.edu.api.domain.appointment.exceptions.FeedbackNotFoundException;
 import inno.edu.api.domain.appointment.repositories.FeedbackRepository;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.UUID;
+import java.util.function.Function;
 
 import static inno.edu.api.support.AppointmentFactory.feedback;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class FeedbackExistsAssertionTest {
+public class EntityExistsAssertionTest {
     @Mock
     private FeedbackRepository feedbackRepository;
 
-    @InjectMocks
-    private FeedbackExistsAssertion feedbackExistsAssertion;
+    private EntityExistsAssertion<FeedbackRepository, FeedbackNotFoundException, Function<UUID, FeedbackNotFoundException>> feedbackExistsAssertion;
+
+    @Before
+    public void setUp() {
+        feedbackExistsAssertion = new EntityExistsAssertion<>(feedbackRepository, FeedbackNotFoundException::new);
+    }
 
     @Test(expected = FeedbackNotFoundException.class)
     public void shouldThrowExceptionIfFeedbackDoesNotExist() {
