@@ -9,7 +9,7 @@ import inno.edu.api.domain.profile.root.commands.dtos.CreateProfileRequest;
 import inno.edu.api.domain.profile.root.commands.dtos.UpdateProfileRequest;
 import inno.edu.api.domain.profile.root.models.Profile;
 import inno.edu.api.domain.profile.root.queries.GetProfileByIdQuery;
-import inno.edu.api.domain.profile.root.repositories.ProfileRepository;
+import inno.edu.api.domain.profile.root.queries.GetProfilesQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 
 import static org.springframework.http.ResponseEntity.noContent;
@@ -32,8 +33,8 @@ import static org.springframework.http.ResponseEntity.noContent;
 public class ProfileController {
 
     private final ResourceBuilder resourceBuilder;
-    private final ProfileRepository profileRepository;
 
+    private final GetProfilesQuery getProfilesQuery;
     private final GetProfileByIdQuery getProfileByIdQuery;
 
     private final UpdateProfileCommand updateProfileCommand;
@@ -41,9 +42,9 @@ public class ProfileController {
     private final DeleteProfileCommand deleteProfileCommand;
 
     @Autowired
-    public ProfileController(ResourceBuilder resourceBuilder, ProfileRepository profileRepository, GetProfileByIdQuery getProfileByIdQuery, UpdateProfileCommand updateProfileCommand, CreateProfileCommand createProfileCommand, DeleteProfileCommand deleteProfileCommand) {
+    public ProfileController(ResourceBuilder resourceBuilder, GetProfilesQuery getProfilesQuery, GetProfileByIdQuery getProfileByIdQuery, UpdateProfileCommand updateProfileCommand, CreateProfileCommand createProfileCommand, DeleteProfileCommand deleteProfileCommand) {
         this.resourceBuilder = resourceBuilder;
-        this.profileRepository = profileRepository;
+        this.getProfilesQuery = getProfilesQuery;
         this.getProfileByIdQuery = getProfileByIdQuery;
         this.updateProfileCommand = updateProfileCommand;
         this.createProfileCommand = createProfileCommand;
@@ -52,7 +53,7 @@ public class ProfileController {
 
     @GetMapping
     public Resources<Object> all() {
-        Iterable<Profile> profiles = profileRepository.findAll();
+        List<Profile> profiles = getProfilesQuery.run();
         return resourceBuilder.wrappedFrom(profiles, ProfileResource::new, ProfileResource.class);
     }
 

@@ -5,7 +5,6 @@ import inno.edu.api.domain.availability.repositories.AvailabilityRepository;
 import inno.edu.api.infrastructure.annotations.Query;
 
 import java.util.List;
-import java.util.UUID;
 
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -17,7 +16,7 @@ public class GetAvailabilityQuery {
         this.availabilityRepository = availabilityRepository;
     }
 
-    public List<Availability> run(UUID id) {
+    public List<Availability> run() {
         return newArrayList(availabilityRepository.findAll());
     }
 }

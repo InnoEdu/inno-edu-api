@@ -5,7 +5,6 @@ import inno.edu.api.domain.user.repositories.UserRepository;
 import inno.edu.api.infrastructure.annotations.Query;
 
 import java.util.List;
-import java.util.UUID;
 
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -17,7 +16,7 @@ public class GetUsersQuery {
         this.userRepository = userRepository;
     }
 
-    public List<ApplicationUser> run(UUID id) {
+    public List<ApplicationUser> run() {
         return newArrayList(userRepository.findAll());
     }
 }

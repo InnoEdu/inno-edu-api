@@ -9,7 +9,7 @@ import inno.edu.api.domain.school.commands.DeleteSchoolCommand;
 import inno.edu.api.domain.school.commands.UpdateSchoolCommand;
 import inno.edu.api.domain.school.models.School;
 import inno.edu.api.domain.school.queries.GetSchoolByIdQuery;
-import inno.edu.api.domain.school.repositories.SchoolRepository;
+import inno.edu.api.domain.school.queries.GetSchoolsQuery;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,7 +40,7 @@ public class SchoolControllerTest {
     private ResourceBuilder resourceBuilder;
 
     @Mock
-    private SchoolRepository schoolRepository;
+    private GetSchoolsQuery getSchoolsQuery;
 
     @Mock
     private CreateSchoolCommand createSchoolCommand;
@@ -76,7 +76,7 @@ public class SchoolControllerTest {
 
     @Test
     public void shouldListUniversities() {
-        when(schoolRepository.findAll()).thenReturn(schools());
+        when(getSchoolsQuery.run()).thenReturn(schools());
 
         schoolController.all();
 
@@ -85,7 +85,6 @@ public class SchoolControllerTest {
 
     @Test
     public void shouldListMentorsBySchool() {
-        when(schoolRepository.exists(stanford().getId())).thenReturn(true);
         when(getProfilesBySchoolIdQuery.run(stanford().getId())).thenReturn(profiles());
 
         schoolController.allMentorsProfile(stanford().getId());

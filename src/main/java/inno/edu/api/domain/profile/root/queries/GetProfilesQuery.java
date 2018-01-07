@@ -5,7 +5,6 @@ import inno.edu.api.domain.profile.root.repositories.ProfileRepository;
 import inno.edu.api.infrastructure.annotations.Query;
 
 import java.util.List;
-import java.util.UUID;
 
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -17,7 +16,7 @@ public class GetProfilesQuery {
         this.profileRepository = profileRepository;
     }
 
-    public List<Profile> run(UUID id) {
+    public List<Profile> run() {
         return newArrayList(profileRepository.findAll());
     }
 }

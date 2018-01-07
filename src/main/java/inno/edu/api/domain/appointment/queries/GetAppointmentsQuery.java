@@ -5,7 +5,6 @@ import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
 import inno.edu.api.infrastructure.annotations.Query;
 
 import java.util.List;
-import java.util.UUID;
 
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -17,7 +16,7 @@ public class GetAppointmentsQuery {
         this.appointmentRepository = appointmentRepository;
     }
 
-    public List<Appointment> run(UUID id) {
+    public List<Appointment> run() {
         return newArrayList(appointmentRepository.findAll());
     }
 }

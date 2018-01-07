@@ -10,7 +10,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.List;
 
-import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static inno.edu.api.support.ProfileFactory.profiles;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -28,7 +27,7 @@ public class GetProfilesQueryTest {
     public void shouldReturnProfiles() {
         when(profileRepository.findAll()).thenReturn(profiles());
 
-        List<Profile> profiles = getProfilesQuery.run(feiProfile().getId());
+        List<Profile> profiles = getProfilesQuery.run();
 
         assertThat(profiles, is(profiles()));
     }

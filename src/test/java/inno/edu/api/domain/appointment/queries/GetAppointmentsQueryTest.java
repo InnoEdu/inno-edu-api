@@ -10,7 +10,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.List;
 
-import static inno.edu.api.support.AppointmentFactory.appointment;
 import static inno.edu.api.support.AppointmentFactory.appointments;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -28,7 +27,7 @@ public class GetAppointmentsQueryTest {
     public void shouldReturnAppointments() {
         when(appointmentRepository.findAll()).thenReturn(appointments());
 
-        List<Appointment> appointments = getAppointmentsQuery.run(appointment().getId());
+        List<Appointment> appointments = getAppointmentsQuery.run();
 
         assertThat(appointments, is(appointments()));
     }

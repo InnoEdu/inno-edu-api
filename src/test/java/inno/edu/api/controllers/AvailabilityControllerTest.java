@@ -8,7 +8,7 @@ import inno.edu.api.domain.availability.commands.UpdateAvailabilityCommand;
 import inno.edu.api.domain.availability.models.Availability;
 import inno.edu.api.domain.availability.queries.GetAvailabilityByIdQuery;
 import inno.edu.api.domain.availability.queries.GetAvailabilityByProfileId;
-import inno.edu.api.domain.availability.repositories.AvailabilityRepository;
+import inno.edu.api.domain.availability.queries.GetAvailabilityQuery;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,7 +40,7 @@ public class AvailabilityControllerTest {
     private ResourceBuilder resourceBuilder;
 
     @Mock
-    private AvailabilityRepository availabilityRepository;
+    private GetAvailabilityQuery getAvailabilityQuery;
 
     @Mock
     private CreateAvailabilityCommand createAvailabilityCommand;
@@ -76,7 +76,7 @@ public class AvailabilityControllerTest {
 
     @Test
     public void shouldListAllAvailability() {
-        when(availabilityRepository.findAll()).thenReturn(allAvailability());
+        when(getAvailabilityQuery.run()).thenReturn(allAvailability());
 
         availabilityController.all();
 

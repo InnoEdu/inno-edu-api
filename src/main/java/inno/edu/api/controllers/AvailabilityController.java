@@ -10,7 +10,7 @@ import inno.edu.api.domain.availability.commands.dtos.UpdateAvailabilityRequest;
 import inno.edu.api.domain.availability.models.Availability;
 import inno.edu.api.domain.availability.queries.GetAvailabilityByIdQuery;
 import inno.edu.api.domain.availability.queries.GetAvailabilityByProfileId;
-import inno.edu.api.domain.availability.repositories.AvailabilityRepository;
+import inno.edu.api.domain.availability.queries.GetAvailabilityQuery;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,30 +31,29 @@ import static org.springframework.http.ResponseEntity.noContent;
 @RestController
 @RequestMapping(value = "/api/availability", produces = "application/hal+json")
 public class AvailabilityController {
-    private final AvailabilityRepository availabilityRepository;
-
     private final ResourceBuilder resourceBuilder;
 
     private final CreateAvailabilityCommand createAvailabilityCommand;
     private final UpdateAvailabilityCommand updateAvailabilityCommand;
     private final DeleteAvailabilityCommand deleteAvailabilityCommand;
 
+    private final GetAvailabilityQuery getAvailabilityQuery;
     private final GetAvailabilityByIdQuery getAvailabilityByIdQuery;
     private final GetAvailabilityByProfileId getAvailabilityByProfileIdQuery;
 
-    public AvailabilityController(AvailabilityRepository availabilityRepository, ResourceBuilder resourceBuilder, CreateAvailabilityCommand createAvailabilityCommand, UpdateAvailabilityCommand updateAvailabilityCommand, DeleteAvailabilityCommand deleteAvailabilityCommand, GetAvailabilityByIdQuery getAvailabilityByIdQuery, GetAvailabilityByProfileId getAvailabilityByProfileIdQuery) {
-        this.availabilityRepository = availabilityRepository;
+    public AvailabilityController(GetAvailabilityQuery getAvailabilityQuery, ResourceBuilder resourceBuilder, CreateAvailabilityCommand createAvailabilityCommand, UpdateAvailabilityCommand updateAvailabilityCommand, DeleteAvailabilityCommand deleteAvailabilityCommand, GetAvailabilityQuery getAvailabilityQuery1, GetAvailabilityByIdQuery getAvailabilityByIdQuery, GetAvailabilityByProfileId getAvailabilityByProfileIdQuery) {
         this.resourceBuilder = resourceBuilder;
         this.createAvailabilityCommand = createAvailabilityCommand;
         this.updateAvailabilityCommand = updateAvailabilityCommand;
         this.deleteAvailabilityCommand = deleteAvailabilityCommand;
+        this.getAvailabilityQuery = getAvailabilityQuery1;
         this.getAvailabilityByIdQuery = getAvailabilityByIdQuery;
         this.getAvailabilityByProfileIdQuery = getAvailabilityByProfileIdQuery;
     }
 
     @GetMapping
     public Resources<Object> all() {
-        Iterable<Availability> availability = availabilityRepository.findAll();
+        List<Availability> availability = getAvailabilityQuery.run();
         return resourceBuilder.wrappedFrom(availability, AvailabilityResource::new, AvailabilityResource.class);
     }
 

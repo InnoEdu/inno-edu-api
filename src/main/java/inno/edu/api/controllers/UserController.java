@@ -14,7 +14,7 @@ import inno.edu.api.domain.user.commands.dtos.LoginResponse;
 import inno.edu.api.domain.user.commands.dtos.UpdateUserRequest;
 import inno.edu.api.domain.user.models.ApplicationUser;
 import inno.edu.api.domain.user.queries.GetUserByIdQuery;
-import inno.edu.api.domain.user.repositories.UserRepository;
+import inno.edu.api.domain.user.queries.GetUsersQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.Resources;
@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 
 import static org.springframework.http.ResponseEntity.noContent;
@@ -37,9 +38,7 @@ import static org.springframework.http.ResponseEntity.ok;
 @RestController
 @RequestMapping(value = "/api/users", produces = "application/hal+json")
 public class UserController {
-
-    private final UserRepository userRepository;
-
+    private final GetUsersQuery getUsersQuery;
     private final GetProfileByUserIdQuery getProfileByUserIdQuery;
     private final GetUserByIdQuery getUserByIdQuery;
 
@@ -51,8 +50,8 @@ public class UserController {
     private final ResourceBuilder resourceBuilder;
 
     @Autowired
-    public UserController(UserRepository userRepository, GetProfileByUserIdQuery getProfileByUserIdQuery, GetUserByIdQuery getUserByIdQuery, CreateUserCommand createUserCommand, UpdateUserCommand updateUserCommand, DeleteUserCommand deleteUserCommand, LoginCommand loginCommand, ResourceBuilder resourceBuilder) {
-        this.userRepository = userRepository;
+    public UserController(GetUsersQuery getUsersQuery, GetProfileByUserIdQuery getProfileByUserIdQuery, GetUserByIdQuery getUserByIdQuery, CreateUserCommand createUserCommand, UpdateUserCommand updateUserCommand, DeleteUserCommand deleteUserCommand, LoginCommand loginCommand, ResourceBuilder resourceBuilder) {
+        this.getUsersQuery = getUsersQuery;
         this.getProfileByUserIdQuery = getProfileByUserIdQuery;
         this.getUserByIdQuery = getUserByIdQuery;
         this.createUserCommand = createUserCommand;
@@ -64,7 +63,7 @@ public class UserController {
 
     @GetMapping
     public Resources<Object> all() {
-        Iterable<ApplicationUser> users = userRepository.findAll();
+        List<ApplicationUser> users = getUsersQuery.run();
         return resourceBuilder.wrappedFrom(users, UserResource::new, UserResource.class);
     }
 

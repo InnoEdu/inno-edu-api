@@ -14,9 +14,9 @@ import inno.edu.api.domain.appointment.models.Feedback;
 import inno.edu.api.domain.appointment.queries.GetAppointmentByIdQuery;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByMenteeProfileIdQuery;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByMentorProfileIdQuery;
+import inno.edu.api.domain.appointment.queries.GetAppointmentsQuery;
 import inno.edu.api.domain.appointment.queries.GetFeedbackByIdQuery;
 import inno.edu.api.domain.appointment.queries.GetFeedbacksByAppointmentByIdQuery;
-import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,8 +33,8 @@ import static inno.edu.api.domain.appointment.models.AppointmentStatus.DECLINED;
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.support.AppointmentFactory.appointment;
 import static inno.edu.api.support.AppointmentFactory.appointments;
-import static inno.edu.api.support.AppointmentFactory.createFeedbackRequest;
 import static inno.edu.api.support.AppointmentFactory.createAppointmentRequest;
+import static inno.edu.api.support.AppointmentFactory.createFeedbackRequest;
 import static inno.edu.api.support.AppointmentFactory.emptyReason;
 import static inno.edu.api.support.AppointmentFactory.feedback;
 import static inno.edu.api.support.AppointmentFactory.feedbacks;
@@ -58,7 +58,7 @@ public class AppointmentControllerTest {
     private ResourceBuilder resourceBuilder;
 
     @Mock
-    private AppointmentRepository appointmentRepository;
+    private GetAppointmentsQuery getAppointmentsQuery;
 
     @Mock
     private CreateAppointmentCommand createAppointmentCommand;
@@ -112,7 +112,7 @@ public class AppointmentControllerTest {
 
     @Test
     public void shouldListAppointments() {
-        when(appointmentRepository.findAll()).thenReturn(appointments());
+        when(getAppointmentsQuery.run()).thenReturn(appointments());
 
         appointmentController.all();
 

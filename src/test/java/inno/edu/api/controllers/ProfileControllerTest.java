@@ -8,7 +8,7 @@ import inno.edu.api.domain.profile.root.commands.DeleteProfileCommand;
 import inno.edu.api.domain.profile.root.commands.UpdateProfileCommand;
 import inno.edu.api.domain.profile.root.models.Profile;
 import inno.edu.api.domain.profile.root.queries.GetProfileByIdQuery;
-import inno.edu.api.domain.profile.root.repositories.ProfileRepository;
+import inno.edu.api.domain.profile.root.queries.GetProfilesQuery;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,7 +38,7 @@ public class ProfileControllerTest {
     private ResourceBuilder resourceBuilder;
 
     @Mock
-    private ProfileRepository profileRepository;
+    private GetProfilesQuery getProfilesQuery;
 
     @Mock
     private GetProfileByIdQuery getProfileByIdQuery;
@@ -62,7 +62,7 @@ public class ProfileControllerTest {
 
     @Test
     public void shouldListProfiles() {
-        when(profileRepository.findAll()).thenReturn(profiles());
+        when(getProfilesQuery.run()).thenReturn(profiles());
 
         profileController.all();
 

@@ -11,7 +11,7 @@ import inno.edu.api.domain.school.commands.dtos.CreateSchoolRequest;
 import inno.edu.api.domain.school.commands.dtos.UpdateSchoolRequest;
 import inno.edu.api.domain.school.models.School;
 import inno.edu.api.domain.school.queries.GetSchoolByIdQuery;
-import inno.edu.api.domain.school.repositories.SchoolRepository;
+import inno.edu.api.domain.school.queries.GetSchoolsQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 
 import static org.springframework.http.ResponseEntity.noContent;
@@ -32,21 +33,19 @@ import static org.springframework.http.ResponseEntity.noContent;
 @RestController
 @RequestMapping(value = "/api/schools", produces = "application/hal+json")
 public class SchoolController {
-
-    private final SchoolRepository schoolRepository;
-
     private final CreateSchoolCommand createSchoolCommand;
     private final UpdateSchoolCommand updateSchoolCommand;
     private final DeleteSchoolCommand deleteSchoolCommand;
 
+    private final GetSchoolsQuery getSchoolsQuery;
     private final GetSchoolByIdQuery getSchoolByIdQuery;
     private final GetProfilesBySchoolIdQuery getProfilesBySchoolIdQuery;
 
     private final ResourceBuilder resourceBuilder;
 
     @Autowired
-    public SchoolController(SchoolRepository schoolRepository, CreateSchoolCommand createSchoolCommand, UpdateSchoolCommand updateSchoolCommand, DeleteSchoolCommand deleteSchoolCommand, GetSchoolByIdQuery getSchoolByIdQuery, GetProfilesBySchoolIdQuery getProfilesBySchoolIdQuery, ResourceBuilder resourceBuilder) {
-        this.schoolRepository = schoolRepository;
+    public SchoolController(CreateSchoolCommand createSchoolCommand, UpdateSchoolCommand updateSchoolCommand, DeleteSchoolCommand deleteSchoolCommand, GetSchoolsQuery getSchoolsQuery, GetSchoolByIdQuery getSchoolByIdQuery, GetProfilesBySchoolIdQuery getProfilesBySchoolIdQuery, ResourceBuilder resourceBuilder) {
+        this.getSchoolsQuery = getSchoolsQuery;
         this.createSchoolCommand = createSchoolCommand;
         this.updateSchoolCommand = updateSchoolCommand;
         this.deleteSchoolCommand = deleteSchoolCommand;
@@ -57,7 +56,7 @@ public class SchoolController {
 
     @GetMapping
     public Resources<Object> all() {
-        Iterable<School> schools = schoolRepository.findAll();
+        List<School> schools = getSchoolsQuery.run();
         return resourceBuilder.wrappedFrom(schools, SchoolResource::new, SchoolResource.class);
     }
 

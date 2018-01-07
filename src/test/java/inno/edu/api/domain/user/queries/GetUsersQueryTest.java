@@ -10,7 +10,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.List;
 
-import static inno.edu.api.support.UserFactory.fei;
 import static inno.edu.api.support.UserFactory.users;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -28,7 +27,7 @@ public class GetUsersQueryTest {
     public void shouldReturnUsers() {
         when(userRepository.findAll()).thenReturn(users());
 
-        List<ApplicationUser> users = getUsersQuery.run(fei().getId());
+        List<ApplicationUser> users = getUsersQuery.run();
 
         assertThat(users, is(users()));
     }

@@ -11,7 +11,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.List;
 
 import static inno.edu.api.support.AvailabilityFactory.allAvailability;
-import static inno.edu.api.support.AvailabilityFactory.availability;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
@@ -28,8 +27,8 @@ public class GetAvailabilityQueryTest {
     public void shouldReturnAvailability() {
         when(availabilityRepository.findAll()).thenReturn(allAvailability());
 
-        List<Availability> availabilitys = getAvailabilityQuery.run(availability().getId());
+        List<Availability> availability = getAvailabilityQuery.run();
 
-        assertThat(availabilitys, is(allAvailability()));
+        assertThat(availability, is(allAvailability()));
     }
 }

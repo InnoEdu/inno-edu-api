@@ -10,7 +10,7 @@ import inno.edu.api.domain.user.commands.UpdateUserCommand;
 import inno.edu.api.domain.user.commands.dtos.LoginResponse;
 import inno.edu.api.domain.user.models.ApplicationUser;
 import inno.edu.api.domain.user.queries.GetUserByIdQuery;
-import inno.edu.api.domain.user.repositories.UserRepository;
+import inno.edu.api.domain.user.queries.GetUsersQuery;
 import inno.edu.api.support.ProfileFactory;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,7 +44,7 @@ public class UserControllerTest {
     private ResourceBuilder resourceBuilder;
 
     @Mock
-    private UserRepository userRepository;
+    private GetUsersQuery getUsersQuery;
 
     @Mock
     private GetUserByIdQuery getUserByIdQuery;
@@ -92,7 +92,7 @@ public class UserControllerTest {
 
     @Test
     public void shouldListUsers() {
-        when(userRepository.findAll()).thenReturn(users());
+        when(getUsersQuery.run()).thenReturn(users());
 
         userController.all();
 

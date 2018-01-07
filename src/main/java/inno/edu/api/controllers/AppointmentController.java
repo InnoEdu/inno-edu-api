@@ -22,9 +22,9 @@ import inno.edu.api.domain.appointment.models.Feedback;
 import inno.edu.api.domain.appointment.queries.GetAppointmentByIdQuery;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByMenteeProfileIdQuery;
 import inno.edu.api.domain.appointment.queries.GetAppointmentsByMentorProfileIdQuery;
+import inno.edu.api.domain.appointment.queries.GetAppointmentsQuery;
 import inno.edu.api.domain.appointment.queries.GetFeedbackByIdQuery;
 import inno.edu.api.domain.appointment.queries.GetFeedbacksByAppointmentByIdQuery;
-import inno.edu.api.domain.appointment.repositories.AppointmentRepository;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -52,14 +52,13 @@ import static org.springframework.http.ResponseEntity.noContent;
 public class AppointmentController {
     private final ResourceBuilder resourceBuilder;
 
-    private final AppointmentRepository appointmentRepository;
-
     private final CreateAppointmentCommand createAppointmentCommand;
     private final UpdateAppointmentCommand updateAppointmentCommand;
     private final DeleteAppointmentCommand deleteAppointmentCommand;
     private final UpdateAppointmentStatusCommand updateAppointmentStatusCommand;
     private final CalculateAppointmentFeeCommand calculateAppointmentFeeCommand;
 
+    private final GetAppointmentsQuery getAppointmentsQuery;
     private final GetAppointmentByIdQuery getAppointmentByIdQuery;
     private final GetAppointmentsByMentorProfileIdQuery getAppointmentsByMentorProfileIdQuery;
     private final GetAppointmentsByMenteeProfileIdQuery getAppointmentsByMenteeProfileIdQuery;
@@ -69,12 +68,12 @@ public class AppointmentController {
     private final GetFeedbacksByAppointmentByIdQuery getFeedbacksByAppointmentByIdQuery;
     private final GetFeedbackByIdQuery getFeedbackByIdQuery;
 
-    public AppointmentController(AppointmentRepository appointmentRepository, ResourceBuilder resourceBuilder, CreateAppointmentCommand createAppointmentCommand, UpdateAppointmentCommand updateAppointmentCommand, DeleteAppointmentCommand deleteAppointmentCommand, GetAppointmentByIdQuery getAppointmentByIdQuery, GetAppointmentsByMentorProfileIdQuery getAppointmentsByMentorProfileIdQuery, GetAppointmentsByMenteeProfileIdQuery getAppointmentsByMenteeProfileIdQuery, UpdateAppointmentStatusCommand updateAppointmentStatusCommand, CalculateAppointmentFeeCommand calculateAppointmentFeeCommand, CreateFeedbackCommand createFeedbackCommand, DeleteFeedbackCommand deleteFeedbackCommand, GetFeedbacksByAppointmentByIdQuery getFeedbacksByAppointmentByIdQuery, GetFeedbackByIdQuery getFeedbackByIdQuery) {
-        this.appointmentRepository = appointmentRepository;
+    public AppointmentController(ResourceBuilder resourceBuilder, CreateAppointmentCommand createAppointmentCommand, UpdateAppointmentCommand updateAppointmentCommand, DeleteAppointmentCommand deleteAppointmentCommand, GetAppointmentsQuery getAppointmentsQuery, GetAppointmentByIdQuery getAppointmentByIdQuery, GetAppointmentsByMentorProfileIdQuery getAppointmentsByMentorProfileIdQuery, GetAppointmentsByMenteeProfileIdQuery getAppointmentsByMenteeProfileIdQuery, UpdateAppointmentStatusCommand updateAppointmentStatusCommand, CalculateAppointmentFeeCommand calculateAppointmentFeeCommand, CreateFeedbackCommand createFeedbackCommand, DeleteFeedbackCommand deleteFeedbackCommand, GetFeedbacksByAppointmentByIdQuery getFeedbacksByAppointmentByIdQuery, GetFeedbackByIdQuery getFeedbackByIdQuery) {
         this.resourceBuilder = resourceBuilder;
         this.createAppointmentCommand = createAppointmentCommand;
         this.updateAppointmentCommand = updateAppointmentCommand;
         this.deleteAppointmentCommand = deleteAppointmentCommand;
+        this.getAppointmentsQuery = getAppointmentsQuery;
         this.getAppointmentByIdQuery = getAppointmentByIdQuery;
         this.getAppointmentsByMentorProfileIdQuery = getAppointmentsByMentorProfileIdQuery;
         this.getAppointmentsByMenteeProfileIdQuery = getAppointmentsByMenteeProfileIdQuery;
@@ -88,7 +87,7 @@ public class AppointmentController {
 
     @GetMapping
     public Resources<Object> all() {
-        Iterable<Appointment> appointments = appointmentRepository.findAll();
+        List<Appointment> appointments = getAppointmentsQuery.run();
         return resourceBuilder.wrappedFrom(appointments, AppointmentResource::new, AppointmentResource.class);
     }
 
