@@ -1,6 +1,7 @@
 package inno.edu.api.controllers.advices;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.hateoas.VndErrors;
@@ -35,6 +36,13 @@ public class GlobalControllerExceptionHandler {
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     VndErrors accessDeniedExceptionHandler(AccessDeniedException ex) {
+        return new VndErrors("error", ex.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(ExpiredJwtException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    VndErrors expiredJwtExceptionHandler(ExpiredJwtException ex) {
         return new VndErrors("error", ex.getMessage());
     }
 
