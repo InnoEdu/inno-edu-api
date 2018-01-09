@@ -1,5 +1,6 @@
 package inno.edu.api.domain.profile.root.commands;
 
+import inno.edu.api.domain.profile.root.assertions.ProfileExistsAssertion;
 import inno.edu.api.infrastructure.storage.StorageService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +18,9 @@ public class UploadProfileContentCommandTest {
     private StorageService storageService;
 
     @Mock
+    private ProfileExistsAssertion profileExistsAssertion;
+
+    @Mock
     private MultipartFile multipartFile;
 
     @InjectMocks
@@ -27,5 +31,12 @@ public class UploadProfileContentCommandTest {
         uploadProfileContentCommand.run(feiProfile().getId(), multipartFile);
 
         verify(storageService).save(feiProfile().getId(), multipartFile);
+    }
+
+    @Test
+    public void shouldRunAllAssertions() {
+        uploadProfileContentCommand.run(feiProfile().getId(), multipartFile);
+
+        verify(profileExistsAssertion).run(feiProfile().getId());
     }
 }
