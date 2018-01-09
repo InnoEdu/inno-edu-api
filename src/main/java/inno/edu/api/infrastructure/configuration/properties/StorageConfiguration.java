@@ -5,4 +5,5 @@ import lombok.Data;
 @Data
 public class StorageConfiguration {
     private StorageMode mode;
+    private String location = "";
 }

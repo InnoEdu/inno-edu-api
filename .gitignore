@@ -24,6 +24,7 @@ buildSrc/build
 /spring-*/build
 /src/asciidoc/build
 target/
+upload/
 
 # Eclipse artifacts, including WTP generated manifests
 .classpath

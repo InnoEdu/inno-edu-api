@@ -16,6 +16,7 @@ endpoints:
 application:
   storage:
     mode: local
+    location: upload
   security:
     unsecured:
       - method: GET

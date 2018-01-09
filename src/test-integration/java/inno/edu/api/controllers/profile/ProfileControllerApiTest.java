@@ -107,7 +107,7 @@ public class ProfileControllerApiTest extends ApiTest {
 
     @Test
     public void shouldUploadProfileContent() throws Exception {
-        MockMultipartFile file = new MockMultipartFile("file", "orig", null, "bar".getBytes());
+        MockMultipartFile file = new MockMultipartFile("file", "temporary.json", null, "bar".getBytes());
 
         this.mockMvc.perform(
                 fileUpload("/api/profiles/" + alanProfile().getId() + "/upload").file(file))
