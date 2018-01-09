@@ -6,6 +6,7 @@ import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.profile.root.commands.CreateProfileCommand;
 import inno.edu.api.domain.profile.root.commands.DeleteProfileCommand;
 import inno.edu.api.domain.profile.root.commands.UpdateProfileCommand;
+import inno.edu.api.domain.profile.root.commands.UploadProfileContentCommand;
 import inno.edu.api.domain.profile.root.models.Profile;
 import inno.edu.api.domain.profile.root.queries.GetProfileByIdQuery;
 import inno.edu.api.domain.profile.root.queries.GetProfilesQuery;
@@ -18,9 +19,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import static inno.edu.api.support.ProfileFactory.alanProfile;
 import static inno.edu.api.support.ProfileFactory.createAlanProfileRequest;
+import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static inno.edu.api.support.ProfileFactory.profiles;
 import static inno.edu.api.support.ProfileFactory.updateAlanProfileRequest;
 import static inno.edu.api.support.ProfileFactory.updatedAlanProfile;
@@ -44,13 +47,19 @@ public class ProfileControllerTest {
     private GetProfileByIdQuery getProfileByIdQuery;
 
     @Mock
-    private UpdateProfileCommand updateProfileCommand;
-
-    @Mock
     private CreateProfileCommand createProfileCommand;
 
     @Mock
     private DeleteProfileCommand deleteProfileCommand;
+
+    @Mock
+    private UpdateProfileCommand updateProfileCommand;
+
+    @Mock
+    private UploadProfileContentCommand uploadProfileContentCommand;
+
+    @Mock
+    private MultipartFile multipartFile;
 
     @InjectMocks
     private ProfileController profileController;
@@ -101,5 +110,12 @@ public class ProfileControllerTest {
         profileController.delete(alanProfile().getId());
 
         verify(deleteProfileCommand).run(alanProfile().getId());
+    }
+
+    @Test
+    public void shouldUploadContentForProfile() {
+        profileController.upload(feiProfile().getId(), multipartFile);
+
+        verify(uploadProfileContentCommand).run(feiProfile().getId(), multipartFile);
     }
 }

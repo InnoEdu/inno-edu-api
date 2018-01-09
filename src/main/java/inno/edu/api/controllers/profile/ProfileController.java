@@ -5,6 +5,7 @@ import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.profile.root.commands.CreateProfileCommand;
 import inno.edu.api.domain.profile.root.commands.DeleteProfileCommand;
 import inno.edu.api.domain.profile.root.commands.UpdateProfileCommand;
+import inno.edu.api.domain.profile.root.commands.UploadProfileContentCommand;
 import inno.edu.api.domain.profile.root.commands.dtos.CreateProfileRequest;
 import inno.edu.api.domain.profile.root.commands.dtos.UpdateProfileRequest;
 import inno.edu.api.domain.profile.root.models.Profile;
@@ -20,7 +21,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -40,15 +43,17 @@ public class ProfileController {
     private final UpdateProfileCommand updateProfileCommand;
     private final CreateProfileCommand createProfileCommand;
     private final DeleteProfileCommand deleteProfileCommand;
+    private final UploadProfileContentCommand uploadProfileContentCommand;
 
     @Autowired
-    public ProfileController(ResourceBuilder resourceBuilder, GetProfilesQuery getProfilesQuery, GetProfileByIdQuery getProfileByIdQuery, UpdateProfileCommand updateProfileCommand, CreateProfileCommand createProfileCommand, DeleteProfileCommand deleteProfileCommand) {
+    public ProfileController(ResourceBuilder resourceBuilder, GetProfilesQuery getProfilesQuery, GetProfileByIdQuery getProfileByIdQuery, UpdateProfileCommand updateProfileCommand, CreateProfileCommand createProfileCommand, DeleteProfileCommand deleteProfileCommand, UploadProfileContentCommand uploadProfileContentCommand) {
         this.resourceBuilder = resourceBuilder;
         this.getProfilesQuery = getProfilesQuery;
         this.getProfileByIdQuery = getProfileByIdQuery;
         this.updateProfileCommand = updateProfileCommand;
         this.createProfileCommand = createProfileCommand;
         this.deleteProfileCommand = deleteProfileCommand;
+        this.uploadProfileContentCommand = uploadProfileContentCommand;
     }
 
     @GetMapping
@@ -77,6 +82,12 @@ public class ProfileController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
         deleteProfileCommand.run(id);
+        return noContent().build();
+    }
+
+    @GetMapping("/{id}/upload")
+    public ResponseEntity upload(@PathVariable UUID id, @RequestParam MultipartFile file) {
+        uploadProfileContentCommand.run(id, file);
         return noContent().build();
     }
 }
