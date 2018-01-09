@@ -15,7 +15,7 @@ flyway:
 
 application:
   storage:
-    mode: local
+    mode: none
   security:
     unsecured:
       - method: GET

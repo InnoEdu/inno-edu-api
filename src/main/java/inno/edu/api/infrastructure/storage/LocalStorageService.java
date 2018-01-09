@@ -1,5 +1,6 @@
 package inno.edu.api.infrastructure.storage;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,7 +13,8 @@ import java.util.UUID;
 import static org.springframework.util.StringUtils.cleanPath;
 
 @Service
-public class FileStorageService implements StorageService {
+@ConditionalOnProperty(name = "application.storage.mode", havingValue = "local")
+public class LocalStorageService implements StorageService {
     @Override
     public void save(UUID keyId, MultipartFile file) {
         Path rootLocation = Paths.get("");
