@@ -10,7 +10,7 @@ import java.util.UUID;
 public class UploadProfileContentCommand {
     private StorageService storageService;
 
-    public void run(UUID uuid, MultipartFile file) {
-
+    public void run(UUID id, MultipartFile file) {
+        storageService.save(id, file);
     }
 }
