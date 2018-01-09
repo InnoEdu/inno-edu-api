@@ -10,11 +10,12 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.UUID;
 
+import static com.google.common.io.Files.getFileExtension;
 import static java.nio.file.Files.copy;
 import static java.nio.file.Files.createDirectories;
 import static java.nio.file.Paths.get;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
-import static org.springframework.util.StringUtils.cleanPath;
+import static java.util.UUID.randomUUID;
 
 @Service
 @ConditionalOnProperty(name = "application.storage.mode", havingValue = "local")
@@ -24,9 +25,11 @@ public class LocalStorageService implements StorageService {
 
     @Override
     public void save(UUID keyId, MultipartFile file) {
-        String filename = cleanPath(file.getOriginalFilename());
+        String filename = randomUUID().toString()
+                + "."
+                + getFileExtension(file.getOriginalFilename());
 
-        Path fileLocation = get(configuration.getStorage().getLocation())
+        Path fileLocation = get(configuration.getStorage().getLocation() + "/" + keyId.toString())
                 .resolve(filename);
 
         try {
