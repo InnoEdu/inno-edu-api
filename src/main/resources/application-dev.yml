@@ -14,6 +14,8 @@ endpoints:
   sensitive: false
 
 application:
+  storage:
+    mode: local
   security:
     unsecured:
       - method: GET

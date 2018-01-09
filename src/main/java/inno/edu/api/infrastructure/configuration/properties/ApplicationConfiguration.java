@@ -11,4 +11,5 @@ import org.springframework.context.annotation.Configuration;
 @Data
 public class ApplicationConfiguration {
     private SecurityConfiguration security = new SecurityConfiguration();
+    private StorageConfiguration storage = new StorageConfiguration();
 }

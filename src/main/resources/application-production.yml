@@ -6,6 +6,8 @@ endpoints:
   sensitive: false
 
 application:
+  storage:
+    mode: aws
   security:
     unsecured:
       - method: POST
