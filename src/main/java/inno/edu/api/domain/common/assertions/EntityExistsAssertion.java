@@ -14,8 +14,8 @@ public class EntityExistsAssertion<T extends CrudRepository, E extends RuntimeEx
         this.exceptionSupplier = exceptionSupplier;
     }
 
+    @SuppressWarnings("unchecked")
     public void run(UUID id) {
-        //noinspection unchecked
         if (!repository.exists(id)) {
             throw exceptionSupplier.apply(id);
         }
