@@ -85,7 +85,7 @@ public class ProfileController {
         return noContent().build();
     }
 
-    @GetMapping("/{id}/upload")
+    @PostMapping("/{id}/upload")
     public ResponseEntity upload(@PathVariable UUID id, @RequestParam MultipartFile file) {
         uploadProfileContentCommand.run(id, file);
         return noContent().build();

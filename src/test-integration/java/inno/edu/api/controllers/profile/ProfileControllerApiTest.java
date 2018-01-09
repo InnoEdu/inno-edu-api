@@ -3,6 +3,7 @@ package inno.edu.api.controllers.profile;
 import inno.edu.api.ApiTest;
 import org.junit.Test;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 
 import static inno.edu.api.support.Matchers.safeHasItems;
 import static inno.edu.api.support.Payloads.postProfilePayload;
@@ -17,6 +18,7 @@ import static inno.edu.api.support.ProfileFactory.updatedAlanProfile;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -99,6 +101,16 @@ public class ProfileControllerApiTest extends ApiTest {
     public void shouldDeleteProfile() throws Exception {
         this.mockMvc.perform(
                 delete("/api/profiles/" + alanProfile().getId()))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void shouldUploadProfileContent() throws Exception {
+        MockMultipartFile file = new MockMultipartFile("file", "orig", null, "bar".getBytes());
+
+        this.mockMvc.perform(
+                fileUpload("/api/profiles/" + alanProfile().getId() + "/upload").file(file))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }

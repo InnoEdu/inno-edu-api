@@ -8,7 +8,11 @@ import java.util.UUID;
 
 @Command
 public class UploadProfileContentCommand {
-    private StorageService storageService;
+    private final StorageService storageService;
+
+    public UploadProfileContentCommand(StorageService storageService) {
+        this.storageService = storageService;
+    }
 
     public void run(UUID id, MultipartFile file) {
         storageService.save(id, file);
