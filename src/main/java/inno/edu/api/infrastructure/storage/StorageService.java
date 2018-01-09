@@ -1,4 +1,4 @@
-package inno.edu.api.infrastructure.services;
+package inno.edu.api.infrastructure.storage;
 
 import org.springframework.web.multipart.MultipartFile;
 

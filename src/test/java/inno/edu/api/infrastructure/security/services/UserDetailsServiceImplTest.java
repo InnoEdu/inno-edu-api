@@ -1,4 +1,4 @@
-package inno.edu.api.infrastructure.security.service;
+package inno.edu.api.infrastructure.security.services;
 
 import inno.edu.api.domain.user.repositories.UserRepository;
 import org.junit.Test;

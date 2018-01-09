@@ -1,4 +1,4 @@
-package inno.edu.api.infrastructure.security.service;
+package inno.edu.api.infrastructure.security.services;
 
 import io.jsonwebtoken.Jwts;
 import org.springframework.stereotype.Service;

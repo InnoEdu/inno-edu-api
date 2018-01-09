@@ -1,5 +1,6 @@
-package inno.edu.api.infrastructure.services;
+package inno.edu.api.infrastructure.storage;
 
+import inno.edu.api.infrastructure.storage.StorageService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

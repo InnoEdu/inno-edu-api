@@ -3,7 +3,7 @@ package inno.edu.api.domain.user.commands;
 import inno.edu.api.domain.user.commands.dtos.LoginResponse;
 import inno.edu.api.domain.user.exceptions.InvalidUsernameOrPasswordException;
 import inno.edu.api.domain.user.repositories.UserRepository;
-import inno.edu.api.infrastructure.security.service.TokenGeneratorService;
+import inno.edu.api.infrastructure.security.services.TokenGeneratorService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

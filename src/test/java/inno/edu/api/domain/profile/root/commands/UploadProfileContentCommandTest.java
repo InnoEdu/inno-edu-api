@@ -1,6 +1,6 @@
 package inno.edu.api.domain.profile.root.commands;
 
-import inno.edu.api.infrastructure.services.StorageService;
+import inno.edu.api.infrastructure.storage.StorageService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
