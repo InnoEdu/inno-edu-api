@@ -1,6 +1,7 @@
 package inno.edu.api.infrastructure.storage;
 
 import inno.edu.api.infrastructure.configuration.properties.ApplicationConfiguration;
+import inno.edu.api.infrastructure.services.UUIDGeneratorService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,20 +15,21 @@ import static java.nio.file.Files.copy;
 import static java.nio.file.Files.createDirectories;
 import static java.nio.file.Paths.get;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
-import static java.util.UUID.randomUUID;
 
 @Service
 @ConditionalOnProperty(name = "application.storage.mode", havingValue = "local")
 public class LocalStorageService implements StorageService {
     private final ApplicationConfiguration configuration;
+    private final UUIDGeneratorService uuidGeneratorService;
 
-    public LocalStorageService(ApplicationConfiguration configuration) {
+    public LocalStorageService(ApplicationConfiguration configuration, UUIDGeneratorService uuidGeneratorService) {
         this.configuration = configuration;
+        this.uuidGeneratorService = uuidGeneratorService;
     }
 
     @Override
     public void save(UUID keyId, MultipartFile file) {
-        String filename = randomUUID().toString()
+        String filename = uuidGeneratorService.generate().toString()
                 + "."
                 + getFileExtension(file.getOriginalFilename());
 

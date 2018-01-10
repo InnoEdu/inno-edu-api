@@ -7,5 +7,6 @@ public class StorageConfiguration {
     private StorageMode mode;
     private String location = "";
     private String accessKey = "";
-    private String secretAccessKey = "";
+    private String secretKey = "";
+    private String bucket = "";
 }
