@@ -13,6 +13,7 @@ import java.util.UUID;
 import static com.google.common.io.Files.getFileExtension;
 import static java.nio.file.Files.copy;
 import static java.nio.file.Files.createDirectories;
+import static java.nio.file.Files.deleteIfExists;
 import static java.nio.file.Paths.get;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
@@ -44,5 +45,14 @@ public class LocalStorageService implements StorageService {
         }
 
         return fileLocation.toString();
+    }
+
+    @Override
+    public void delete(String file) {
+        try {
+            deleteIfExists(get(file));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

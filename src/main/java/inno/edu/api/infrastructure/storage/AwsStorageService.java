@@ -6,6 +6,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.AmazonS3URI;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import inno.edu.api.infrastructure.configuration.properties.ApplicationConfiguration;
 import inno.edu.api.infrastructure.services.UUIDGeneratorService;
@@ -55,6 +56,14 @@ public class AwsStorageService implements StorageService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void delete(String file) {
+        AmazonS3 client = buildClient();
+        AmazonS3URI uri = new AmazonS3URI(file, true);
+
+        client.deleteObject(uri.getBucket(), uri.getKey());
     }
 
     private AmazonS3 buildClient() {

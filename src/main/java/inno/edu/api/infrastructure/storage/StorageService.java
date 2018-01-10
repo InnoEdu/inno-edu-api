@@ -6,4 +6,5 @@ import java.util.UUID;
 
 public interface StorageService {
     String save(UUID keyId, MultipartFile file);
+    void delete(String file);
 }

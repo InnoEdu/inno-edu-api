@@ -15,4 +15,9 @@ public class NoneStorageService implements StorageService {
     public String save(UUID keyId, MultipartFile file) {
         return NO_FILE;
     }
+
+    @Override
+    public void delete(String file) {
+        // do nothing
+    }
 }
