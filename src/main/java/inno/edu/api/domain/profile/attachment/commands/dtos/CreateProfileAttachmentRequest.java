@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Value
 @Builder
-public class UploadProfileAttachmentRequest {
+public class CreateProfileAttachmentRequest {
     private UUID profileId;
     private MultipartFile file;
     private String description;

@@ -1,7 +1,7 @@
 package inno.edu.api.domain.profile.attachment.commands;
 
-import inno.edu.api.domain.profile.attachment.commands.dtos.UploadProfileAttachmentRequest;
-import inno.edu.api.domain.profile.attachment.commands.mappers.UploadProfileAttachmentRequestMapper;
+import inno.edu.api.domain.profile.attachment.commands.dtos.CreateProfileAttachmentRequest;
+import inno.edu.api.domain.profile.attachment.commands.mappers.CreateProfileAttachmentRequestMapper;
 import inno.edu.api.domain.profile.attachment.models.ProfileAttachment;
 import inno.edu.api.domain.profile.attachment.repositories.ProfileAttachmentRepository;
 import inno.edu.api.domain.profile.root.assertions.ProfileExistsAssertion;
@@ -15,7 +15,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static inno.edu.api.support.ProfileFactory.feiProfileAttachment;
-import static inno.edu.api.support.ProfileFactory.feiUploadAttachmentRequest;
+import static inno.edu.api.support.ProfileFactory.feiCreateAttachmentRequest;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
@@ -23,7 +23,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UploadProfileAttachmentCommandTest {
+public class CreateProfileAttachmentCommandTest {
     @Mock
     private ProfileExistsAssertion profileExistsAssertion;
 
@@ -31,7 +31,7 @@ public class UploadProfileAttachmentCommandTest {
     private UUIDGeneratorService uuidGeneratorService;
 
     @Mock
-    private UploadProfileAttachmentRequestMapper uploadProfileAttachmentRequestMapper;
+    private CreateProfileAttachmentRequestMapper createProfileAttachmentRequestMapper;
 
     @Mock
     private StorageService storageService;
@@ -40,11 +40,11 @@ public class UploadProfileAttachmentCommandTest {
     private ProfileAttachmentRepository profileAttachmentRepository;
 
     @InjectMocks
-    private UploadProfileAttachmentCommand uploadProfileAttachmentCommand;
+    private CreateProfileAttachmentCommand createProfileAttachmentCommand;
 
     @Before
     public void setUp() {
-        when(uploadProfileAttachmentRequestMapper.toProfileAttachment(any(), any()))
+        when(createProfileAttachmentRequestMapper.toProfileAttachment(any(), any()))
                 .thenReturn(feiProfileAttachment());
 
         when(profileAttachmentRepository.save(feiProfileAttachment()))
@@ -55,26 +55,26 @@ public class UploadProfileAttachmentCommandTest {
 
     @Test
     public void shouldCallStorageToSaveContent() {
-        UploadProfileAttachmentRequest request = feiUploadAttachmentRequest();
+        CreateProfileAttachmentRequest request = feiCreateAttachmentRequest();
 
-        uploadProfileAttachmentCommand.run(request);
+        createProfileAttachmentCommand.run(request);
 
         verify(storageService).save(request.getProfileId(), request.getFile());
     }
 
     @Test
     public void shouldCallRepositoryToSaveAttachment() {
-        UploadProfileAttachmentRequest request = feiUploadAttachmentRequest();
+        CreateProfileAttachmentRequest request = feiCreateAttachmentRequest();
 
-        ProfileAttachment profileAttachment = uploadProfileAttachmentCommand.run(request);
+        ProfileAttachment profileAttachment = createProfileAttachmentCommand.run(request);
 
         assertThat(profileAttachment, is(feiProfileAttachment()));
     }
 
     @Test
     public void shouldRunAllAssertions() {
-        uploadProfileAttachmentCommand.run(feiUploadAttachmentRequest());
+        createProfileAttachmentCommand.run(feiCreateAttachmentRequest());
 
-        verify(profileExistsAssertion).run(feiUploadAttachmentRequest().getProfileId());
+        verify(profileExistsAssertion).run(feiCreateAttachmentRequest().getProfileId());
     }
 }

@@ -4,8 +4,8 @@ import inno.edu.api.ApiTest;
 import org.junit.Test;
 import org.springframework.mock.web.MockMultipartFile;
 
+import static inno.edu.api.support.ProfileFactory.feiCreateAttachmentRequest;
 import static inno.edu.api.support.ProfileFactory.feiProfileAttachment;
-import static inno.edu.api.support.ProfileFactory.feiUploadAttachmentRequest;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
@@ -20,9 +20,9 @@ public class ProfileAttachmentControllerApiTest extends ApiTest {
 
         this.mockMvc.perform(
                 fileUpload("/api/profiles/"
-                        + feiUploadAttachmentRequest().getProfileId()
+                        + feiCreateAttachmentRequest().getProfileId()
                         + "/attachments?description="
-                        + feiUploadAttachmentRequest().getDescription())
+                        + feiCreateAttachmentRequest().getDescription())
                         .file(file))
                 .andDo(print())
                 .andExpect(status().isOk())

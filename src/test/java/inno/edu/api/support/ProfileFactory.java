@@ -4,7 +4,7 @@ import inno.edu.api.domain.profile.accomplishment.commands.dtos.CreateAccomplish
 import inno.edu.api.domain.profile.accomplishment.commands.dtos.UpdateAccomplishmentRequest;
 import inno.edu.api.domain.profile.accomplishment.models.Accomplishment;
 import inno.edu.api.domain.profile.association.models.ProfileAssociation;
-import inno.edu.api.domain.profile.attachment.commands.dtos.UploadProfileAttachmentRequest;
+import inno.edu.api.domain.profile.attachment.commands.dtos.CreateProfileAttachmentRequest;
 import inno.edu.api.domain.profile.attachment.models.ProfileAttachment;
 import inno.edu.api.domain.profile.experience.commands.dtos.CreateExperienceRequest;
 import inno.edu.api.domain.profile.experience.commands.dtos.UpdateExperienceRequest;
@@ -369,8 +369,8 @@ public class ProfileFactory {
                     .build();
     }
 
-    public static UploadProfileAttachmentRequest feiUploadAttachmentRequest() {
-        return UploadProfileAttachmentRequest.builder()
+    public static CreateProfileAttachmentRequest feiCreateAttachmentRequest() {
+        return CreateProfileAttachmentRequest.builder()
                 .profileId(feiProfileAttachment().getProfileId())
                 .description(feiProfileAttachment().getDescription())
                 .file(new MockMultipartFile("file", feiProfileAttachment().getLink(), null, "bar".getBytes()))
