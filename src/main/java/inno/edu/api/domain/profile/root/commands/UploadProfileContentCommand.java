@@ -19,7 +19,6 @@ public class UploadProfileContentCommand {
 
     public void run(UUID id, MultipartFile file) {
         profileExistsAssertion.run(id);
-
         storageService.save(id, file);
     }
 }

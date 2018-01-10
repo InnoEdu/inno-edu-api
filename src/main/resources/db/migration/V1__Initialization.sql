@@ -14,13 +14,13 @@ CREATE TABLE School (
 );
 
 CREATE TABLE Profile (
-  id                 BINARY(16) PRIMARY KEY,
-  user_id            BINARY(16)     NOT NULL,
-  school_id          BINARY(16)     NULL,
-  description        TEXT           NOT NULL,
-  rate               DECIMAL(15, 2) NULL,
-  location           VARCHAR(255)   NOT NULL,
-  company            VARCHAR(100)   NULL,
+  id                   BINARY(16) PRIMARY KEY,
+  user_id              BINARY(16)     NOT NULL,
+  school_id            BINARY(16)     NULL,
+  description          TEXT           NOT NULL,
+  rate                 DECIMAL(15, 2) NULL,
+  location             VARCHAR(255)   NOT NULL,
+  company              VARCHAR(100)   NULL,
   profile_reference_id BINARY(16)     NULL,
 
   FOREIGN KEY (user_id)
@@ -35,6 +35,18 @@ CREATE TABLE Profile (
   REFERENCES Profile (id)
     ON DELETE CASCADE
 );
+
+CREATE TABLE Profile_Attachment (
+  id         BINARY(16) PRIMARY KEY,
+  profile_id BINARY(16)   NOT NULL,
+  title      VARCHAR(100) NOT NULL,
+  link       VARCHAR(255) NOT NULL,
+
+  FOREIGN KEY (profile_id)
+  REFERENCES Profile (id)
+    ON DELETE CASCADE
+);
+
 
 CREATE TABLE Profile_Association (
   id          BINARY(16) PRIMARY KEY,
@@ -207,16 +219,21 @@ VALUES (${map}('71b31ec9207d4d469e33c4b4024db0ed'), ${map}('c5e6b39233e14255a249
 -- Profile items
 
 INSERT INTO Experience (id, profile_id, title, area, institution, location, from_date, to_date, description, type)
-VALUES (${map}('7555b5cef7a04d9aa90225f9dcc8de6f'), ${map}('0e9e40c0b44b438792a99d75d10e3d42'), 'Owner', 'Area', 'InnoEdu', 'San Francisco, CA', '2018-01-01', '2018-12-31', 'Great owner.', 0);
+VALUES
+  (${map}('7555b5cef7a04d9aa90225f9dcc8de6f'), ${map}('0e9e40c0b44b438792a99d75d10e3d42'), 'Owner', 'Area', 'InnoEdu',
+   'San Francisco, CA', '2018-01-01', '2018-12-31', 'Great owner.', 0);
 
 INSERT INTO Interest (id, profile_id, title, description)
-VALUES (${map}('f6c17afc39d2475b827a3f473db678af'), ${map}('0e9e40c0b44b438792a99d75d10e3d42'), 'My interest', 'Perfect interest.');
+VALUES (${map}('f6c17afc39d2475b827a3f473db678af'), ${map}('0e9e40c0b44b438792a99d75d10e3d42'), 'My interest',
+        'Perfect interest.');
 
 INSERT INTO Accomplishment (id, profile_id, title, description, type)
-VALUES (${map}('27f8f74507e24fb896d45c6623c5cbc6'), ${map}('0e9e40c0b44b438792a99d75d10e3d42'), 'My accomplishment', 'Perfect accomplishment.', 0);
+VALUES (${map}('27f8f74507e24fb896d45c6623c5cbc6'), ${map}('0e9e40c0b44b438792a99d75d10e3d42'), 'My accomplishment',
+        'Perfect accomplishment.', 0);
 
 INSERT INTO Service (id, profile_id, title, description)
-VALUES (${map}('a9e747ab1cb9494196085f6115bb48ce'), ${map}('0e9e40c0b44b438792a99d75d10e3d42'), 'My service', 'Perfect service.');
+VALUES (${map}('a9e747ab1cb9494196085f6115bb48ce'), ${map}('0e9e40c0b44b438792a99d75d10e3d42'), 'My service',
+        'Perfect service.');
 
 -- Availability
 
