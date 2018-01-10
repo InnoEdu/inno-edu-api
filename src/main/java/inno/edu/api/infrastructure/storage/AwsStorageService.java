@@ -44,15 +44,17 @@ public class AwsStorageService implements StorageService {
         metadata.setContentType(file.getContentType());
 
         try {
-            client.putObject(applicationConfiguration.getStorage().getBucket(),
+            String bucket = applicationConfiguration.getStorage().getBucket();
+
+            client.putObject(bucket,
                     filename,
                     file.getInputStream(),
                     metadata);
+
+            return client.getUrl(bucket, filename).toString();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        return filename;
     }
 
     private AmazonS3 buildClient() {

@@ -31,6 +31,7 @@ import static inno.edu.api.domain.profile.accomplishment.models.AccomplishmentTy
 import static inno.edu.api.domain.profile.association.models.RequestStatus.APPROVED;
 import static inno.edu.api.domain.profile.association.models.RequestStatus.PENDING;
 import static inno.edu.api.domain.profile.experience.models.ExperienceType.PROFESSIONAL;
+import static inno.edu.api.infrastructure.configuration.StaticConstants.NO_FILE;
 import static inno.edu.api.support.SchoolFactory.berkeley;
 import static inno.edu.api.support.SchoolFactory.stanford;
 import static inno.edu.api.support.UserFactory.alan;
@@ -364,7 +365,7 @@ public class ProfileFactory {
                     .id(fromString("0a2de2db-3997-4082-82b6-56aad9746af9"))
                     .description("My File.")
                     .profileId(feiProfile().getId())
-                    .link("temporary.json")
+                    .link(NO_FILE)
                     .build();
     }
 
