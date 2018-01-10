@@ -1,6 +1,7 @@
 package inno.edu.api.controllers.profile;
 
-import inno.edu.api.domain.profile.attachment.commands.UploadProfileContentCommand;
+import inno.edu.api.domain.profile.attachment.commands.UploadProfileAttachmentCommand;
+import inno.edu.api.domain.profile.attachment.commands.dtos.UploadProfileAttachmentRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,15 +18,21 @@ import static org.springframework.http.ResponseEntity.noContent;
 @RequestMapping(value = "/api/profiles", produces = "application/hal+json")
 public class ProfileAttachmentController {
 
-    private final UploadProfileContentCommand uploadProfileContentCommand;
+    private final UploadProfileAttachmentCommand uploadProfileContentCommand;
 
-    public ProfileAttachmentController(UploadProfileContentCommand uploadProfileContentCommand) {
+    public ProfileAttachmentController(UploadProfileAttachmentCommand uploadProfileContentCommand) {
         this.uploadProfileContentCommand = uploadProfileContentCommand;
     }
 
     @PostMapping(value = "/{id}/upload")
-    public ResponseEntity upload(@PathVariable UUID id, @RequestParam MultipartFile file) {
-        uploadProfileContentCommand.run(id, file);
+    public ResponseEntity upload(@PathVariable UUID id, @RequestParam String description, @RequestParam MultipartFile file) {
+        UploadProfileAttachmentRequest request = UploadProfileAttachmentRequest.builder()
+                .profileId(id)
+                .file(file)
+                .description(description)
+                .build();
+
+        uploadProfileContentCommand.run(request);
         return noContent().build();
     }
 }

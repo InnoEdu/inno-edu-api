@@ -2,7 +2,7 @@ package inno.edu.api.controllers.profile;
 
 import inno.edu.api.controllers.profile.resources.ProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
-import inno.edu.api.domain.profile.attachment.commands.UploadProfileContentCommand;
+import inno.edu.api.domain.profile.attachment.commands.UploadProfileAttachmentCommand;
 import inno.edu.api.domain.profile.root.commands.CreateProfileCommand;
 import inno.edu.api.domain.profile.root.commands.DeleteProfileCommand;
 import inno.edu.api.domain.profile.root.commands.UpdateProfileCommand;
@@ -41,10 +41,10 @@ public class ProfileController {
     private final UpdateProfileCommand updateProfileCommand;
     private final CreateProfileCommand createProfileCommand;
     private final DeleteProfileCommand deleteProfileCommand;
-    private final UploadProfileContentCommand uploadProfileContentCommand;
+    private final UploadProfileAttachmentCommand uploadProfileContentCommand;
 
     @Autowired
-    public ProfileController(ResourceBuilder resourceBuilder, GetProfilesQuery getProfilesQuery, GetProfileByIdQuery getProfileByIdQuery, UpdateProfileCommand updateProfileCommand, CreateProfileCommand createProfileCommand, DeleteProfileCommand deleteProfileCommand, UploadProfileContentCommand uploadProfileContentCommand) {
+    public ProfileController(ResourceBuilder resourceBuilder, GetProfilesQuery getProfilesQuery, GetProfileByIdQuery getProfileByIdQuery, UpdateProfileCommand updateProfileCommand, CreateProfileCommand createProfileCommand, DeleteProfileCommand deleteProfileCommand, UploadProfileAttachmentCommand uploadProfileContentCommand) {
         this.resourceBuilder = resourceBuilder;
         this.getProfilesQuery = getProfilesQuery;
         this.getProfileByIdQuery = getProfileByIdQuery;

@@ -4,7 +4,7 @@ import inno.edu.api.ApiTest;
 import org.junit.Test;
 import org.springframework.mock.web.MockMultipartFile;
 
-import static inno.edu.api.support.ProfileFactory.alanProfile;
+import static inno.edu.api.support.ProfileFactory.feiUploadAttachmentRequest;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -15,7 +15,11 @@ public class ProfileAttachmentControllerApiTest extends ApiTest {
         MockMultipartFile file = new MockMultipartFile("file", "temporary.json", null, "bar".getBytes());
 
         this.mockMvc.perform(
-                fileUpload("/api/profiles/" + alanProfile().getId() + "/upload").file(file))
+                fileUpload("/api/profiles/"
+                        + feiUploadAttachmentRequest().getProfileId()
+                        + "/upload?description="
+                        + feiUploadAttachmentRequest().getDescription())
+                        .file(file))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }

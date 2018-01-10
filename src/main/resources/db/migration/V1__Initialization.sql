@@ -37,10 +37,10 @@ CREATE TABLE Profile (
 );
 
 CREATE TABLE Profile_Attachment (
-  id         BINARY(16) PRIMARY KEY,
-  profile_id BINARY(16)   NOT NULL,
-  title      VARCHAR(100) NOT NULL,
-  link       VARCHAR(255) NOT NULL,
+  id          BINARY(16) PRIMARY KEY,
+  profile_id  BINARY(16)   NOT NULL,
+  description VARCHAR(100) NOT NULL,
+  link        VARCHAR(255) NOT NULL,
 
   FOREIGN KEY (profile_id)
   REFERENCES Profile (id)

@@ -4,6 +4,7 @@ import inno.edu.api.domain.profile.accomplishment.commands.dtos.CreateAccomplish
 import inno.edu.api.domain.profile.accomplishment.commands.dtos.UpdateAccomplishmentRequest;
 import inno.edu.api.domain.profile.accomplishment.models.Accomplishment;
 import inno.edu.api.domain.profile.association.models.ProfileAssociation;
+import inno.edu.api.domain.profile.attachment.commands.dtos.UploadProfileAttachmentRequest;
 import inno.edu.api.domain.profile.experience.commands.dtos.CreateExperienceRequest;
 import inno.edu.api.domain.profile.experience.commands.dtos.UpdateExperienceRequest;
 import inno.edu.api.domain.profile.experience.models.Experience;
@@ -19,6 +20,7 @@ import inno.edu.api.domain.profile.root.models.Profile;
 import inno.edu.api.domain.profile.service.commands.dtos.CreateServiceRequest;
 import inno.edu.api.domain.profile.service.commands.dtos.UpdateServiceRequest;
 import inno.edu.api.domain.profile.service.models.Service;
+import org.springframework.mock.web.MockMultipartFile;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -354,5 +356,13 @@ public class ProfileFactory {
 
     public static List<Service> feiServices() {
         return singletonList(feiService());
+    }
+
+    public static UploadProfileAttachmentRequest feiUploadAttachmentRequest() {
+        return UploadProfileAttachmentRequest.builder()
+                .profileId(feiProfile().getId())
+                .description("My file")
+                .file(new MockMultipartFile("file", "temporary.json", null, "bar".getBytes()))
+                .build();
     }
 }
