@@ -10,7 +10,7 @@ import java.util.UUID;
 @ConditionalOnProperty(name = "application.storage.mode", havingValue = "none")
 public class NoneStorageService implements StorageService {
     @Override
-    public void save(UUID keyId, MultipartFile file) {
-        // Do nothing
+    public String save(UUID keyId, MultipartFile file) {
+        return "no-file";
     }
 }

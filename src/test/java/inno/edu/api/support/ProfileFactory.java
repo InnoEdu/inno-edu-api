@@ -5,6 +5,7 @@ import inno.edu.api.domain.profile.accomplishment.commands.dtos.UpdateAccomplish
 import inno.edu.api.domain.profile.accomplishment.models.Accomplishment;
 import inno.edu.api.domain.profile.association.models.ProfileAssociation;
 import inno.edu.api.domain.profile.attachment.commands.dtos.UploadProfileAttachmentRequest;
+import inno.edu.api.domain.profile.attachment.models.ProfileAttachment;
 import inno.edu.api.domain.profile.experience.commands.dtos.CreateExperienceRequest;
 import inno.edu.api.domain.profile.experience.commands.dtos.UpdateExperienceRequest;
 import inno.edu.api.domain.profile.experience.models.Experience;
@@ -358,11 +359,20 @@ public class ProfileFactory {
         return singletonList(feiService());
     }
 
+    public static ProfileAttachment feiProfileAttachment() {
+            return ProfileAttachment.builder()
+                    .id(fromString("0a2de2db-3997-4082-82b6-56aad9746af9"))
+                    .description("My File.")
+                    .profileId(feiProfile().getId())
+                    .link("temporary.json")
+                    .build();
+    }
+
     public static UploadProfileAttachmentRequest feiUploadAttachmentRequest() {
         return UploadProfileAttachmentRequest.builder()
-                .profileId(feiProfile().getId())
-                .description("My file")
-                .file(new MockMultipartFile("file", "temporary.json", null, "bar".getBytes()))
+                .profileId(feiProfileAttachment().getProfileId())
+                .description(feiProfileAttachment().getDescription())
+                .file(new MockMultipartFile("file", feiProfileAttachment().getLink(), null, "bar".getBytes()))
                 .build();
     }
 }

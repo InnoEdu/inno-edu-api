@@ -30,7 +30,7 @@ public class AwsStorageService implements StorageService {
     }
 
     @Override
-    public void save(UUID keyId, MultipartFile file) {
+    public String save(UUID keyId, MultipartFile file) {
         String filename = keyId.toString()
                 + "/"
                 + uuidGeneratorService.generate().toString()
@@ -51,6 +51,8 @@ public class AwsStorageService implements StorageService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        return filename;
     }
 
     private AmazonS3 buildClient() {

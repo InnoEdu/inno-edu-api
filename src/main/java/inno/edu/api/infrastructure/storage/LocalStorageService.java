@@ -28,7 +28,7 @@ public class LocalStorageService implements StorageService {
     }
 
     @Override
-    public void save(UUID keyId, MultipartFile file) {
+    public String save(UUID keyId, MultipartFile file) {
         String filename = uuidGeneratorService.generate().toString()
                 + "."
                 + getFileExtension(file.getOriginalFilename());
@@ -42,5 +42,7 @@ public class LocalStorageService implements StorageService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        return fileLocation.toString();
     }
 }
