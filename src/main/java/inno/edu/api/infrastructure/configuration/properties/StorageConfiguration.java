@@ -6,4 +6,6 @@ import lombok.Data;
 public class StorageConfiguration {
     private StorageMode mode;
     private String location = "";
+    private String accessKey = "";
+    private String secretAccessKey = "";
 }

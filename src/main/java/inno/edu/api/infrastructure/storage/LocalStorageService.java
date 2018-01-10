@@ -1,7 +1,6 @@
 package inno.edu.api.infrastructure.storage;
 
 import inno.edu.api.infrastructure.configuration.properties.ApplicationConfiguration;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,8 +19,11 @@ import static java.util.UUID.randomUUID;
 @Service
 @ConditionalOnProperty(name = "application.storage.mode", havingValue = "local")
 public class LocalStorageService implements StorageService {
-    @Autowired
-    private ApplicationConfiguration configuration;
+    private final ApplicationConfiguration configuration;
+
+    public LocalStorageService(ApplicationConfiguration configuration) {
+        this.configuration = configuration;
+    }
 
     @Override
     public void save(UUID keyId, MultipartFile file) {

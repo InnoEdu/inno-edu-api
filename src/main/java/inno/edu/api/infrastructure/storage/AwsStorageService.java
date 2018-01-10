@@ -11,6 +11,6 @@ import java.util.UUID;
 public class AwsStorageService implements StorageService {
     @Override
     public void save(UUID keyId, MultipartFile file) {
-        // Do nothing
+
     }
 }
