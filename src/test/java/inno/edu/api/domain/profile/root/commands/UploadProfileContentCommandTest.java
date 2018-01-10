@@ -1,5 +1,6 @@
 package inno.edu.api.domain.profile.root.commands;
 
+import inno.edu.api.domain.profile.attachment.commands.UploadProfileContentCommand;
 import inno.edu.api.domain.profile.root.assertions.ProfileExistsAssertion;
 import inno.edu.api.infrastructure.storage.StorageService;
 import org.junit.Test;

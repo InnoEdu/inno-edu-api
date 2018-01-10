@@ -1,4 +1,4 @@
-package inno.edu.api.domain.profile.root.commands;
+package inno.edu.api.domain.profile.attachment.commands;
 
 import inno.edu.api.domain.profile.root.assertions.ProfileExistsAssertion;
 import inno.edu.api.infrastructure.annotations.Command;

@@ -2,10 +2,10 @@ package inno.edu.api.controllers.profile;
 
 import inno.edu.api.controllers.profile.resources.ProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
+import inno.edu.api.domain.profile.attachment.commands.UploadProfileContentCommand;
 import inno.edu.api.domain.profile.root.commands.CreateProfileCommand;
 import inno.edu.api.domain.profile.root.commands.DeleteProfileCommand;
 import inno.edu.api.domain.profile.root.commands.UpdateProfileCommand;
-import inno.edu.api.domain.profile.root.commands.UploadProfileContentCommand;
 import inno.edu.api.domain.profile.root.commands.dtos.CreateProfileRequest;
 import inno.edu.api.domain.profile.root.commands.dtos.UpdateProfileRequest;
 import inno.edu.api.domain.profile.root.models.Profile;
@@ -21,9 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -82,12 +80,6 @@ public class ProfileController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
         deleteProfileCommand.run(id);
-        return noContent().build();
-    }
-
-    @PostMapping(value = "/{id}/upload")
-    public ResponseEntity upload(@PathVariable UUID id, @RequestParam MultipartFile file) {
-        uploadProfileContentCommand.run(id, file);
         return noContent().build();
     }
 }
