@@ -15,7 +15,7 @@ endpoints:
 
 application:
   storage:
-    mode: aws
+    mode: s3
     accessKey: AKIAJJ6UXMUOZ7LNG6BA
     secretKey: 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
     bucket: inno-edu

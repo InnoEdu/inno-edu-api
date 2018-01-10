@@ -20,12 +20,12 @@ import java.util.UUID;
 import static com.google.common.io.Files.getFileExtension;
 
 @Service
-@ConditionalOnProperty(name = "application.storage.mode", havingValue = "aws")
-public class AwsStorageService implements StorageService {
+@ConditionalOnProperty(name = "application.storage.mode", havingValue = "s3")
+public class S3StorageService implements StorageService {
     private final UUIDGeneratorService uuidGeneratorService;
     private final ApplicationConfiguration applicationConfiguration;
 
-    public AwsStorageService(UUIDGeneratorService uuidGeneratorService, ApplicationConfiguration applicationConfiguration) {
+    public S3StorageService(UUIDGeneratorService uuidGeneratorService, ApplicationConfiguration applicationConfiguration) {
         this.uuidGeneratorService = uuidGeneratorService;
         this.applicationConfiguration = applicationConfiguration;
     }
