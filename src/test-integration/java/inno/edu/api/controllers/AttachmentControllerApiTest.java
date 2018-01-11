@@ -2,36 +2,39 @@ package inno.edu.api.controllers;
 
 import inno.edu.api.ApiTest;
 import org.junit.Test;
+import org.springframework.mock.web.MockMultipartFile;
+
+import static inno.edu.api.support.AttachmentFactory.attachment;
+import static inno.edu.api.support.AttachmentFactory.createAttachmentRequest;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.core.Is.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class AttachmentControllerApiTest extends ApiTest {
     @Test
-    public void temp() {
+    public void shouldCreateAttachment() throws Exception {
+        MockMultipartFile file = new MockMultipartFile("file", "temporary.json", null, "bar".getBytes());
 
+        this.mockMvc.perform(
+                fileUpload("/api/attachments?description="
+                        + createAttachmentRequest().getDescription())
+                        .file(file))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", not(attachment().getId().toString())))
+                .andExpect(jsonPath("$.description", is(attachment().getDescription())))
+                .andExpect(jsonPath("$.url", is(attachment().getUrl())));
     }
 
-//    @Test
-//    public void shouldCreateProfileAttachment() throws Exception {
-//        MockMultipartFile file = new MockMultipartFile("file", "temporary.json", null, "bar".getBytes());
-//
-//        this.mockMvc.perform(
-//                fileUpload("/api/profiles/"
-//                        + feiCreateAttachmentRequest().getProfileId()
-//                        + "/attachments?description="
-//                        + feiCreateAttachmentRequest().getDescription())
-//                        .file(file))
-//                .andDo(print())
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.id", not(feiProfileAttachment().getId().toString())))
-//                .andExpect(jsonPath("$.profileId", is(feiProfileAttachment().getProfileId().toString())))
-//                .andExpect(jsonPath("$.description", is(feiProfileAttachment().getDescription())))
-//                .andExpect(jsonPath("$.url", is(feiProfileAttachment().getUrl())));
-//    }
-//
-//    @Test
-//    public void shouldDeleteProfileAttachment() throws Exception {
-//        this.mockMvc.perform(
-//                delete("/api/profiles/attachments/" + feiProfileAttachment().getId()))
-//                .andDo(print())
-//                .andExpect(status().isNoContent());
-//    }
+    @Test
+    public void shouldDeleteAttachment() throws Exception {
+        this.mockMvc.perform(
+                delete("/api/attachments/" + attachment().getId()))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+    }
 }

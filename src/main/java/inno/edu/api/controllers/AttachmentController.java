@@ -18,7 +18,7 @@ import java.util.UUID;
 import static org.springframework.http.ResponseEntity.noContent;
 
 @RestController
-@RequestMapping(value = "/api/attachments/", produces = "application/hal+json")
+@RequestMapping(value = "/api/attachments", produces = "application/hal+json")
 public class AttachmentController {
 
     private final CreateAttachmentCommand uploadProfileContentCommand;
@@ -39,7 +39,7 @@ public class AttachmentController {
         return new AttachmentResource(uploadProfileContentCommand.run(request));
     }
 
-    @DeleteMapping("/attachments/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
         deleteProfileAttachmentCommand.run(id);
         return noContent().build();
