@@ -363,7 +363,7 @@ public class ProfileFactory {
     public static ProfileAttachment feiProfileAttachment() {
             return ProfileAttachment.builder()
                     .id(fromString("0a2de2db-3997-4082-82b6-56aad9746af9"))
-                    .description("My File.")
+                    .description("My file")
                     .profileId(feiProfile().getId())
                     .url(NO_FILE)
                     .build();

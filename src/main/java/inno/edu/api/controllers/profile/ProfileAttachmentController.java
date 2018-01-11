@@ -2,6 +2,7 @@ package inno.edu.api.controllers.profile;
 
 import inno.edu.api.controllers.profile.resources.ProfileAttachmentResource;
 import inno.edu.api.domain.profile.attachment.commands.CreateProfileAttachmentCommand;
+import inno.edu.api.domain.profile.attachment.commands.DeleteProfileAttachmentCommand;
 import inno.edu.api.domain.profile.attachment.commands.dtos.CreateProfileAttachmentRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,9 +22,11 @@ import static org.springframework.http.ResponseEntity.noContent;
 public class ProfileAttachmentController {
 
     private final CreateProfileAttachmentCommand uploadProfileContentCommand;
+    private final DeleteProfileAttachmentCommand deleteProfileAttachmentCommand;
 
-    public ProfileAttachmentController(CreateProfileAttachmentCommand uploadProfileContentCommand) {
+    public ProfileAttachmentController(CreateProfileAttachmentCommand uploadProfileContentCommand, DeleteProfileAttachmentCommand deleteProfileAttachmentCommand) {
         this.uploadProfileContentCommand = uploadProfileContentCommand;
+        this.deleteProfileAttachmentCommand = deleteProfileAttachmentCommand;
     }
 
     @PostMapping(value = "/{id}/attachments")
@@ -39,6 +42,7 @@ public class ProfileAttachmentController {
 
     @DeleteMapping("/attachments/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
+        deleteProfileAttachmentCommand.run(id);
         return noContent().build();
     }
 }

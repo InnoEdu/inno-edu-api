@@ -8,6 +8,7 @@ import static inno.edu.api.support.ProfileFactory.feiCreateAttachmentRequest;
 import static inno.edu.api.support.ProfileFactory.feiProfileAttachment;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.Is.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -15,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class ProfileAttachmentControllerApiTest extends ApiTest {
     @Test
-    public void shouldUploadProfileContent() throws Exception {
+    public void shouldCreateProfileAttachment() throws Exception {
         MockMultipartFile file = new MockMultipartFile("file", "temporary.json", null, "bar".getBytes());
 
         this.mockMvc.perform(
@@ -30,5 +31,13 @@ public class ProfileAttachmentControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.profileId", is(feiProfileAttachment().getProfileId().toString())))
                 .andExpect(jsonPath("$.description", is(feiProfileAttachment().getDescription())))
                 .andExpect(jsonPath("$.url", is(feiProfileAttachment().getUrl())));
+    }
+
+    @Test
+    public void shouldDeleteProfileAttachment() throws Exception {
+        this.mockMvc.perform(
+                delete("/api/profiles/attachments/" + feiProfileAttachment().getId()))
+                .andDo(print())
+                .andExpect(status().isNoContent());
     }
 }

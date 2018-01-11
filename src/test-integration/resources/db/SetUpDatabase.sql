@@ -60,6 +60,11 @@ DELETE FROM Service;
 INSERT INTO Service (id, profile_id, title, description)
 VALUES ('a9e747ab1cb9494196085f6115bb48ce', '0e9e40c0b44b438792a99d75d10e3d42', 'My service', 'Perfect service.');
 
+DELETE FROM Profile_Attachment;
+
+INSERT INTO Profile_Attachment (id, profile_id, description, url)
+VALUES ('0a2de2db3997408282b656aad9746af9', '0e9e40c0b44b438792a99d75d10e3d42', 'My file', '');
+
 DELETE FROM Availability;
 
 INSERT INTO Availability (id, mentor_profile_id, from_date_time, to_date_time)
