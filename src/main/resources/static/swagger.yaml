@@ -2113,7 +2113,7 @@ definitions:
         type: number
       status:
         type: string
-        enum: [PROPOSED, ACCEPTED, DECLINED, CANCELED, MISSED, COMPLETED]
+        enum: [PROPOSED, ACCEPTED, DECLINED, CANCELED, MISSED, COMPLETED, STARTED]
       reason:
         type: string
   AppointmentReason:
