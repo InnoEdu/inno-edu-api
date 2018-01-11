@@ -20,5 +20,5 @@ public class ProfileAttachment {
     private UUID profileId;
 
     private String description;
-    private String link;
+    private String url;
 }

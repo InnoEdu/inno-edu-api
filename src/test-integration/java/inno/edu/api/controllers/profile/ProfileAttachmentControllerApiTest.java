@@ -29,6 +29,6 @@ public class ProfileAttachmentControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.id", not(feiProfileAttachment().getId().toString())))
                 .andExpect(jsonPath("$.profileId", is(feiProfileAttachment().getProfileId().toString())))
                 .andExpect(jsonPath("$.description", is(feiProfileAttachment().getDescription())))
-                .andExpect(jsonPath("$.link", is(feiProfileAttachment().getLink())));
+                .andExpect(jsonPath("$.url", is(feiProfileAttachment().getUrl())));
     }
 }

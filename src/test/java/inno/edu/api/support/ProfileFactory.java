@@ -365,7 +365,7 @@ public class ProfileFactory {
                     .id(fromString("0a2de2db-3997-4082-82b6-56aad9746af9"))
                     .description("My File.")
                     .profileId(feiProfile().getId())
-                    .link(NO_FILE)
+                    .url(NO_FILE)
                     .build();
     }
 
@@ -373,7 +373,7 @@ public class ProfileFactory {
         return CreateProfileAttachmentRequest.builder()
                 .profileId(feiProfileAttachment().getProfileId())
                 .description(feiProfileAttachment().getDescription())
-                .file(new MockMultipartFile("file", feiProfileAttachment().getLink(), null, "bar".getBytes()))
+                .file(new MockMultipartFile("file", feiProfileAttachment().getUrl(), null, "bar".getBytes()))
                 .build();
     }
 }

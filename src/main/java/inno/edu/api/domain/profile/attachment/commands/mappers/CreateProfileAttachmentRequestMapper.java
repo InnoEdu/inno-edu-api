@@ -6,5 +6,5 @@ import org.mapstruct.Mapper;
 
 @Mapper
 public interface CreateProfileAttachmentRequestMapper {
-    ProfileAttachment toProfileAttachment(CreateProfileAttachmentRequest createProfileAttachmentRequest, String link);
+    ProfileAttachment toProfileAttachment(CreateProfileAttachmentRequest createProfileAttachmentRequest, String url);
 }
