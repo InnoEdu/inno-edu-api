@@ -75,7 +75,7 @@ public class SchoolControllerTest {
     }
 
     @Test
-    public void shouldListUniversities() {
+    public void shouldListSchools() {
         when(getSchoolsQuery.run()).thenReturn(schools());
 
         schoolController.all();

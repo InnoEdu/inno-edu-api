@@ -4,6 +4,7 @@ import inno.edu.api.domain.appointment.commands.dtos.AppointmentReason;
 import inno.edu.api.domain.appointment.commands.dtos.CreateAppointmentRequest;
 import inno.edu.api.domain.appointment.commands.dtos.CreateFeedbackRequest;
 import inno.edu.api.domain.appointment.commands.dtos.UpdateAppointmentRequest;
+import inno.edu.api.domain.attachment.commands.dtos.UpdateAttachmentRequest;
 import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityByMentorIdRequest;
 import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityRequest;
 import inno.edu.api.domain.availability.commands.dtos.UpdateAvailabilityRequest;
@@ -144,4 +145,7 @@ public class Payloads {
         return format(loadPayload("payloads/appointment/post-feedback.json"), createFeedbackRequest.getSource(), createFeedbackRequest.getRating(), createFeedbackRequest.getDescription());
     }
 
+    public static String putAttachmentPayload(UpdateAttachmentRequest updateAttachmentRequest) {
+        return format(loadPayload("payloads/attachment/put-attachment.json"), updateAttachmentRequest.getDescription());
+    }
 }

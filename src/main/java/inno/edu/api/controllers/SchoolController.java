@@ -33,6 +33,8 @@ import static org.springframework.http.ResponseEntity.noContent;
 @RestController
 @RequestMapping(value = "/api/schools", produces = "application/hal+json")
 public class SchoolController {
+    private final ResourceBuilder resourceBuilder;
+
     private final CreateSchoolCommand createSchoolCommand;
     private final UpdateSchoolCommand updateSchoolCommand;
     private final DeleteSchoolCommand deleteSchoolCommand;
@@ -40,8 +42,6 @@ public class SchoolController {
     private final GetSchoolsQuery getSchoolsQuery;
     private final GetSchoolByIdQuery getSchoolByIdQuery;
     private final GetProfilesBySchoolIdQuery getProfilesBySchoolIdQuery;
-
-    private final ResourceBuilder resourceBuilder;
 
     @Autowired
     public SchoolController(CreateSchoolCommand createSchoolCommand, UpdateSchoolCommand updateSchoolCommand, DeleteSchoolCommand deleteSchoolCommand, GetSchoolsQuery getSchoolsQuery, GetSchoolByIdQuery getSchoolByIdQuery, GetProfilesBySchoolIdQuery getProfilesBySchoolIdQuery, ResourceBuilder resourceBuilder) {
