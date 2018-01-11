@@ -30,7 +30,7 @@ public class ProfileAttachmentController {
     }
 
     @PostMapping(value = "/{id}/attachments")
-    public ProfileAttachmentResource upload(@PathVariable UUID id, @RequestParam String description, @RequestParam MultipartFile file) {
+    public ProfileAttachmentResource post(@PathVariable UUID id, @RequestParam String description, @RequestParam MultipartFile file) {
         CreateProfileAttachmentRequest request = CreateProfileAttachmentRequest.builder()
                 .profileId(id)
                 .file(file)

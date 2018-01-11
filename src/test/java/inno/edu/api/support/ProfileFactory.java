@@ -376,4 +376,8 @@ public class ProfileFactory {
                 .file(new MockMultipartFile("file", feiProfileAttachment().getUrl(), null, "bar".getBytes()))
                 .build();
     }
+
+    public static List<ProfileAttachment> feiProfileAttachments() {
+        return singletonList(feiProfileAttachment());
+    }
 }

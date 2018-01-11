@@ -34,7 +34,7 @@ public class ProfileAttachmentControllerTest {
 
         when(uploadProfileContentCommand.run(request)).thenReturn(feiProfileAttachment());
 
-        ProfileAttachmentResource profileAttachmentResource = profileAttachmentController.upload(
+        ProfileAttachmentResource profileAttachmentResource = profileAttachmentController.post(
                 request.getProfileId(),
                 request.getDescription(),
                 request.getFile()
