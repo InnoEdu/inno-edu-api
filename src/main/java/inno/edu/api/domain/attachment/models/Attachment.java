@@ -1,4 +1,4 @@
-package inno.edu.api.domain.profile.attachment.models;
+package inno.edu.api.domain.attachment.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,11 +14,9 @@ import java.util.UUID;
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProfileAttachment {
+public class Attachment {
     @Id
     private UUID id;
-    private UUID profileId;
-
     private String description;
     private String url;
 }

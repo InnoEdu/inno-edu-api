@@ -3,7 +3,7 @@ package inno.edu.api.controllers.profile.advices;
 import inno.edu.api.domain.profile.accomplishment.exceptions.AccomplishmentNotFoundException;
 import inno.edu.api.domain.profile.association.exceptions.ProfileAssociationNotFoundException;
 import inno.edu.api.domain.profile.association.exceptions.PendingAssociationExistsException;
-import inno.edu.api.domain.profile.attachment.exceptions.ProfileAttachmentNotFoundException;
+import inno.edu.api.domain.attachment.exceptions.AttachmentNotFoundException;
 import inno.edu.api.domain.profile.experience.exceptions.ExperienceNotFoundException;
 import inno.edu.api.domain.profile.interest.exceptions.InterestNotFoundException;
 import inno.edu.api.domain.profile.root.exceptions.ProfileAlreadyCreatedException;
@@ -67,9 +67,9 @@ public class ProfileControllerAdvice {
     }
 
     @ResponseBody
-    @ExceptionHandler(ProfileAttachmentNotFoundException.class)
+    @ExceptionHandler(AttachmentNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    VndErrors profileAttachmentNotFoundExceptionHanlder(ProfileAttachmentNotFoundException ex) {
+    VndErrors profileAttachmentNotFoundExceptionHanlder(AttachmentNotFoundException ex) {
         return new VndErrors("error", ex.getMessage());
     }
 

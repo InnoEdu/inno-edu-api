@@ -1,15 +1,12 @@
-package inno.edu.api.domain.profile.attachment.commands.dtos;
+package inno.edu.api.domain.attachment.commands.dtos;
 
 import lombok.Builder;
 import lombok.Value;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.UUID;
-
 @Value
 @Builder
-public class CreateProfileAttachmentRequest {
-    private UUID profileId;
+public class CreateAttachmentRequest {
     private MultipartFile file;
     private String description;
 }

@@ -4,8 +4,6 @@ import inno.edu.api.domain.profile.accomplishment.commands.dtos.CreateAccomplish
 import inno.edu.api.domain.profile.accomplishment.commands.dtos.UpdateAccomplishmentRequest;
 import inno.edu.api.domain.profile.accomplishment.models.Accomplishment;
 import inno.edu.api.domain.profile.association.models.ProfileAssociation;
-import inno.edu.api.domain.profile.attachment.commands.dtos.CreateProfileAttachmentRequest;
-import inno.edu.api.domain.profile.attachment.models.ProfileAttachment;
 import inno.edu.api.domain.profile.experience.commands.dtos.CreateExperienceRequest;
 import inno.edu.api.domain.profile.experience.commands.dtos.UpdateExperienceRequest;
 import inno.edu.api.domain.profile.experience.models.Experience;
@@ -21,7 +19,6 @@ import inno.edu.api.domain.profile.root.models.Profile;
 import inno.edu.api.domain.profile.service.commands.dtos.CreateServiceRequest;
 import inno.edu.api.domain.profile.service.commands.dtos.UpdateServiceRequest;
 import inno.edu.api.domain.profile.service.models.Service;
-import org.springframework.mock.web.MockMultipartFile;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -31,7 +28,6 @@ import static inno.edu.api.domain.profile.accomplishment.models.AccomplishmentTy
 import static inno.edu.api.domain.profile.association.models.RequestStatus.APPROVED;
 import static inno.edu.api.domain.profile.association.models.RequestStatus.PENDING;
 import static inno.edu.api.domain.profile.experience.models.ExperienceType.PROFESSIONAL;
-import static inno.edu.api.infrastructure.configuration.StaticConstants.NO_FILE;
 import static inno.edu.api.support.SchoolFactory.berkeley;
 import static inno.edu.api.support.SchoolFactory.stanford;
 import static inno.edu.api.support.UserFactory.alan;
@@ -358,26 +354,5 @@ public class ProfileFactory {
 
     public static List<Service> feiServices() {
         return singletonList(feiService());
-    }
-
-    public static ProfileAttachment feiProfileAttachment() {
-            return ProfileAttachment.builder()
-                    .id(fromString("0a2de2db-3997-4082-82b6-56aad9746af9"))
-                    .description("My file")
-                    .profileId(feiProfile().getId())
-                    .url(NO_FILE)
-                    .build();
-    }
-
-    public static CreateProfileAttachmentRequest feiCreateAttachmentRequest() {
-        return CreateProfileAttachmentRequest.builder()
-                .profileId(feiProfileAttachment().getProfileId())
-                .description(feiProfileAttachment().getDescription())
-                .file(new MockMultipartFile("file", feiProfileAttachment().getUrl(), null, "bar".getBytes()))
-                .build();
-    }
-
-    public static List<ProfileAttachment> feiProfileAttachments() {
-        return singletonList(feiProfileAttachment());
     }
 }
