@@ -48,8 +48,8 @@ responses:
   500:
     description: Internal Server Error
 securityDefinitions:
-  forwarded:
-    name: authorization
+  bearer:
+    name: Authorization
     type: apiKey
     in: header
 schemes:
