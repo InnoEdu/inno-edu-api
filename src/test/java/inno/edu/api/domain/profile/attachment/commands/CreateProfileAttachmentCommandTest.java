@@ -6,7 +6,7 @@ import inno.edu.api.domain.profile.attachment.models.ProfileAttachment;
 import inno.edu.api.domain.profile.attachment.repositories.ProfileAttachmentRepository;
 import inno.edu.api.domain.profile.root.assertions.ProfileExistsAssertion;
 import inno.edu.api.infrastructure.services.UUIDGeneratorService;
-import inno.edu.api.infrastructure.storage.StorageService;
+import inno.edu.api.infrastructure.storage.services.StorageService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

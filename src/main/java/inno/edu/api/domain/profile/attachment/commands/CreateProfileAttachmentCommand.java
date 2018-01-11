@@ -7,7 +7,7 @@ import inno.edu.api.domain.profile.attachment.repositories.ProfileAttachmentRepo
 import inno.edu.api.domain.profile.root.assertions.ProfileExistsAssertion;
 import inno.edu.api.infrastructure.annotations.Command;
 import inno.edu.api.infrastructure.services.UUIDGeneratorService;
-import inno.edu.api.infrastructure.storage.StorageService;
+import inno.edu.api.infrastructure.storage.services.StorageService;
 
 @Command
 public class CreateProfileAttachmentCommand {

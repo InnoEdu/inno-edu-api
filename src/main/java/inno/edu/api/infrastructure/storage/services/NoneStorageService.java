@@ -1,4 +1,4 @@
-package inno.edu.api.infrastructure.storage;
+package inno.edu.api.infrastructure.storage.services;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import static inno.edu.api.infrastructure.configuration.StaticConstants.NO_FILE;
 @ConditionalOnProperty(name = "application.storage.mode", havingValue = "none")
 public class NoneStorageService implements StorageService {
     @Override
-    public String save(UUID keyId, MultipartFile file) {
+    public String save(UUID resourceId, MultipartFile file) {
         return NO_FILE;
     }
 

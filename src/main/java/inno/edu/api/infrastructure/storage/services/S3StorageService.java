@@ -1,11 +1,6 @@
-package inno.edu.api.infrastructure.storage;
+package inno.edu.api.infrastructure.storage.services;
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.AmazonS3URI;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import inno.edu.api.infrastructure.configuration.properties.ApplicationConfiguration;
@@ -24,21 +19,21 @@ import static com.google.common.io.Files.getFileExtension;
 public class S3StorageService implements StorageService {
     private final UUIDGeneratorService uuidGeneratorService;
     private final ApplicationConfiguration applicationConfiguration;
+    private final AmazonS3 amazonS3Client;
 
-    public S3StorageService(UUIDGeneratorService uuidGeneratorService, ApplicationConfiguration applicationConfiguration) {
+    public S3StorageService(UUIDGeneratorService uuidGeneratorService, ApplicationConfiguration applicationConfiguration, AmazonS3 amazonS3Client) {
         this.uuidGeneratorService = uuidGeneratorService;
         this.applicationConfiguration = applicationConfiguration;
+        this.amazonS3Client = amazonS3Client;
     }
 
     @Override
-    public String save(UUID keyId, MultipartFile file) {
-        String filename = keyId.toString()
+    public String save(UUID resourceId, MultipartFile file) {
+        String filename = resourceId.toString()
                 + "/"
                 + uuidGeneratorService.generate().toString()
                 + "."
                 + getFileExtension(file.getOriginalFilename());
-
-        AmazonS3 client = buildClient();
 
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentLength(file.getSize());
@@ -47,12 +42,12 @@ public class S3StorageService implements StorageService {
         try {
             String bucket = applicationConfiguration.getStorage().getBucket();
 
-            client.putObject(bucket,
+            amazonS3Client.putObject(bucket,
                     filename,
                     file.getInputStream(),
                     metadata);
 
-            return client.getUrl(bucket, filename).toString();
+            return amazonS3Client.getUrl(bucket, filename).toString();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -60,22 +55,8 @@ public class S3StorageService implements StorageService {
 
     @Override
     public void delete(String file) {
-        AmazonS3 client = buildClient();
         AmazonS3URI uri = new AmazonS3URI(file, true);
 
-        client.deleteObject(uri.getBucket(), uri.getKey());
-    }
-
-    private AmazonS3 buildClient() {
-        AWSCredentials credentials = new BasicAWSCredentials(
-                applicationConfiguration.getStorage().getAccessKey(),
-                applicationConfiguration.getStorage().getSecretKey()
-        );
-
-        return AmazonS3ClientBuilder
-                .standard()
-                .withCredentials(new AWSStaticCredentialsProvider(credentials))
-                .withRegion(Regions.US_WEST_1)
-                .build();
+        amazonS3Client.deleteObject(uri.getBucket(), uri.getKey());
     }
 }
