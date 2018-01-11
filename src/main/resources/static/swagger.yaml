@@ -19,19 +19,21 @@ tags:
   - name: profile-associations
     description: Profile association management
   - name: profile-experiences
-    description: Profile experiences management
+    description: Profile experience management
   - name: profile-interests
-    description: Profile interests management
+    description: Profile interest management
   - name: profile-accomplishments
-    description: Profile accomplishments management
+    description: Profile accomplishment management
   - name: profile-services
-    description: Profile services management
+    description: Profile service management
   - name: availability
     description: Mentor avaialbility management
   - name: appointments
     description: Appointment management
   - name: feedbacks
     description: Apointment feedbacks
+  - name: attachments
+    description: Attachment management
 responses:
   400:
     description: Bad request, additional info provided in the response body
@@ -1737,6 +1739,127 @@ paths:
             $ref: '#/definitions/VndErrors'
         '403':
           $ref: '#/responses/403'
+  /attachments:
+    get:
+      tags:
+        - attachments
+      summary: Get all attachments
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EmbeddedAttachmentResourceList'
+        '403':
+          $ref: '#/responses/403'
+    post:
+      tags:
+        - attachments
+      summary: Add a new attachment
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/hal+json
+      parameters:
+        - in: query
+          name: description
+          type: string
+        - in: formData
+          name: file
+          type: file
+      responses:
+        '201':
+          description: New attachment successfully created
+          schema:
+            $ref: '#/definitions/Attachment'
+          headers:
+            Location:
+              type: string
+              description: Link to the new resource created
+        '400':
+          $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
+  /attachments/{id}:
+    get:
+      tags:
+        - attachments
+      summary: Get attachment by id
+      parameters:
+        - in: path
+          name: id
+          description: Attachment id
+          required: true
+          type: string
+          format: uuid
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/AttachmentResource'
+        '404':
+          description: Attachment not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
+    put:
+      tags:
+        - attachments
+      summary: Update attachment by id
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: id
+          description: Attachment id
+          required: true
+          type: string
+          format: uuid
+        - in: body
+          name: request
+          description: Request object with the attachment information to be updated
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateAttachmentRequest'
+      responses:
+        '201':
+          description: Attachment successfully updated
+          schema:
+            $ref: '#/definitions/Attachment'
+        '404':
+          description: Attachment not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '400':
+          $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
+    delete:
+      tags:
+        - attachments
+      summary: Delete attachment by id
+      parameters:
+        - in: path
+          name: id
+          description: Attachment id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: Attachment successfully removed
+        '404':
+          description: Attachment not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
 definitions:
   VndError:
     type: object
@@ -2513,5 +2636,46 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/ServiceResource'
-          
+  UpdateAttachmentRequest:
+    type: object
+    properties:
+      description:
+        type: string
+        maxLength: 100
+    required:
+      - description
+  Attachment:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      description:
+        type: string
+        maxLength: 100
+      url:
+        type: string
+        maxLength: 255
+  AttachmentResource:
+    allOf:
+        - $ref: '#/definitions/Attachment'
+        - type: object
+          properties:
+            _links:
+              type: object
+  AttachmentResourceList:
+    type: object
+    properties:
+      serviceResourceList:
+        type: array
+        items:
+          $ref: '#/definitions/AttachmentResource'
+  EmbeddedAttachmentResourceList:
+    type: object
+    properties:
+      _embedded:
+        $ref: '#/definitions/AttachmentResourceList'
+      _links:
+        type: object
+
                     
