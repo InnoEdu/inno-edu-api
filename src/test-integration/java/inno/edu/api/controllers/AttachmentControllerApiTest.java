@@ -1,8 +1,14 @@
 package inno.edu.api.controllers;
 
 import inno.edu.api.ApiTest;
+import org.junit.Test;
 
 public class AttachmentControllerApiTest extends ApiTest {
+    @Test
+    public void temp() {
+
+    }
+
 //    @Test
 //    public void shouldCreateProfileAttachment() throws Exception {
 //        MockMultipartFile file = new MockMultipartFile("file", "temporary.json", null, "bar".getBytes());
