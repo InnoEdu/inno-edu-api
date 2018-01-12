@@ -14,8 +14,12 @@ tags:
     description: User management
   - name: schools
     description: School management
+  - name: school-attachments
+    description: School attachment management
   - name: profiles
     description: Profile management
+  - name: profile-attachments
+    description: Profile attachment management
   - name: profile-associations
     description: Profile association management
   - name: profile-experiences
@@ -373,6 +377,93 @@ paths:
             $ref: '#/definitions/EmbeddedProfileResourceList'
         '404':
           description: School not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
+  /schools/{schoolId}/attachments:
+    get:
+      tags:
+        - school-attachments
+      summary: Get school attachments
+      parameters:
+        - in: path
+          name: schoolId
+          description: School id
+          required: true
+          type: string
+          format: uuid
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EmbeddedAttachmentResourceList'
+        '404':
+          description: School not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
+    post:
+      tags:
+        - school-attachments
+      summary: Add a new attachment for school
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: schoolId
+          type: string
+          format: uuid
+          required: true
+        - in: query
+          name: description
+          type: string
+          required: true
+        - in: formData
+          name: file
+          type: file
+          required: true
+      responses:
+        '201':
+          description: New attachment successfully created
+          schema:
+            $ref: '#/definitions/Attachment'
+          headers:
+            Location:
+              type: string
+              description: Link to the new resource created
+        '400':
+          $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
+  /schools/{schoolId}/attachments/{id}:
+    delete:
+      tags:
+        - school-attachments
+      summary: Delete attachment by school id and id
+      parameters:
+        - in: path
+          name: schoolId
+          description: School id
+          required: true
+          type: string
+          format: uuid
+        - in: path
+          name: id
+          description: Attachment id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: Attachment successfully removed
+        '404':
+          description: Attachment not found
           schema:
             $ref: '#/definitions/VndErrors'
         '403':
@@ -1186,6 +1277,93 @@ paths:
             $ref: '#/definitions/VndErrors'
         '403':
           $ref: '#/responses/403'
+  /profiles/{profileId}/attachments:
+    get:
+      tags:
+        - profile-attachments
+      summary: Get profile attachments
+      parameters:
+        - in: path
+          name: profileId
+          description: Profile id
+          required: true
+          type: string
+          format: uuid
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EmbeddedAttachmentResourceList'
+        '404':
+          description: School not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
+    post:
+      tags:
+        - profile-attachments
+      summary: Add a new attachment for profile
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: profileId
+          type: string
+          format: uuid
+          required: true
+        - in: query
+          name: description
+          type: string
+          required: true
+        - in: formData
+          name: file
+          type: file
+          required: true
+      responses:
+        '201':
+          description: New attachment successfully created
+          schema:
+            $ref: '#/definitions/Attachment'
+          headers:
+            Location:
+              type: string
+              description: Link to the new resource created
+        '400':
+          $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
+  /profiles/{profileId}/attachments/{id}:
+    delete:
+      tags:
+        - profile-attachments
+      summary: Delete attachment by profile id and id
+      parameters:
+        - in: path
+          name: profileId
+          description: Profile id
+          required: true
+          type: string
+          format: uuid
+        - in: path
+          name: id
+          description: Attachment id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: Attachment successfully removed
+        '404':
+          description: Attachment not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
   /availability:
     get:
       tags:
@@ -1764,9 +1942,11 @@ paths:
       parameters:
         - in: query
           name: description
+          required: true
           type: string
         - in: formData
           name: file
+          required: true
           type: file
       responses:
         '201':
@@ -2677,5 +2857,3 @@ definitions:
         $ref: '#/definitions/AttachmentResourceList'
       _links:
         type: object
-
-                    
