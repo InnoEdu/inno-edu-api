@@ -1,5 +1,6 @@
 package inno.edu.api.support;
 
+import inno.edu.api.domain.school.attachment.models.SchoolAttachment;
 import inno.edu.api.domain.school.root.commands.dtos.CreateSchoolRequest;
 import inno.edu.api.domain.school.root.commands.dtos.UpdateSchoolRequest;
 import inno.edu.api.domain.school.root.models.School;
@@ -8,6 +9,8 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static inno.edu.api.support.AttachmentFactory.otherAttachment;
+import static java.util.Collections.singletonList;
 import static java.util.UUID.fromString;
 
 public class SchoolFactory {
@@ -62,5 +65,17 @@ public class SchoolFactory {
 
     public static List<School> schools() {
         return newArrayList(stanford(), berkeley());
+    }
+
+    public static SchoolAttachment stanfordAttachment() {
+        return SchoolAttachment.builder()
+                .attachmentId(otherAttachment().getId())
+                .schoolId(stanford().getId())
+                .attachment(otherAttachment())
+                .build();
+    }
+
+    public static List<SchoolAttachment> stanfordAttachments() {
+        return singletonList(stanfordAttachment());
     }
 }

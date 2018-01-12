@@ -7,6 +7,7 @@ DELETE FROM Interest;
 DELETE FROM Profile_Association;
 DELETE FROM Experience;
 DELETE FROM Profile_Attachment;
+DELETE FROM School_Attachment;
 DELETE FROM Profile;
 DELETE FROM School;
 DELETE FROM Attachment;
@@ -56,10 +57,16 @@ INSERT INTO Attachment(id, description, url)
 VALUES ('0a2de2db3997408282b656aad9746af9', 'My file', '');
 
 INSERT INTO Attachment(id, description, url)
+VALUES ('a58c72bf8444491ea887f2a8c6345520', 'My second file', '');
+
+INSERT INTO Attachment(id, description, url)
 VALUES ('b192eba5264b4c329bfee72d1f7a244b', 'My file to delete', '');
 
 INSERT INTO Profile_Attachment(profile_id, attachment_id)
 VALUES ('0e9e40c0b44b438792a99d75d10e3d42', '0a2de2db3997408282b656aad9746af9');
+
+INSERT INTO School_Attachment(school_id, attachment_id)
+VALUES ('0a58153cc15f4e5b802cbbf5d6c1c55c', 'a58c72bf8444491ea887f2a8c6345520');
 
 INSERT INTO Profile_Association (id, profile_id, school_id, status, description)
 VALUES ('a29aab9470044ac69081ebea3890df51', '0e9e40c0b44b438792a99d75d10e3d42',
