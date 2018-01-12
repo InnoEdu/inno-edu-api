@@ -1,4 +1,4 @@
-package inno.edu.api.controllers.advices;
+package inno.edu.api.controllers.school.advices;
 
 import inno.edu.api.domain.school.root.exceptions.SchoolNotFoundException;
 import org.springframework.core.annotation.Order;

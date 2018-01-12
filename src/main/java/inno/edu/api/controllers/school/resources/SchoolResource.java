@@ -1,10 +1,11 @@
-package inno.edu.api.controllers.resources;
+package inno.edu.api.controllers.school.resources;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import inno.edu.api.controllers.SchoolController;
+import inno.edu.api.controllers.school.SchoolController;
 import inno.edu.api.domain.school.root.models.School;
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
 
 import java.net.URI;
@@ -22,7 +23,7 @@ public class SchoolResource extends ResourceSupport {
     public SchoolResource(School school) {
         this.school = school;
 
-        add(linkTo(methodOn(SchoolController.class).get(school.getId())).withSelfRel());
+        add(ControllerLinkBuilder.linkTo(methodOn(SchoolController.class).get(school.getId())).withSelfRel());
         add(linkTo(methodOn(SchoolController.class).allMentorsProfile(school.getId())).withRel("mentors"));
     }
 

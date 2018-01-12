@@ -1,8 +1,9 @@
-package inno.edu.api.controllers;
+package inno.edu.api.controllers.school;
 
 import inno.edu.api.controllers.profile.resources.ProfileResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
-import inno.edu.api.controllers.resources.SchoolResource;
+import inno.edu.api.controllers.school.resources.SchoolResource;
+import inno.edu.api.controllers.school.SchoolController;
 import inno.edu.api.domain.profile.root.queries.GetProfilesBySchoolIdQuery;
 import inno.edu.api.domain.school.root.commands.CreateSchoolCommand;
 import inno.edu.api.domain.school.root.commands.DeleteSchoolCommand;
