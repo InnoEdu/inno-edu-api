@@ -1,8 +1,8 @@
-package inno.edu.api.domain.school.assertions;
+package inno.edu.api.domain.school.root.assertions;
 
 import inno.edu.api.domain.common.assertions.EntityExistsAssertion;
-import inno.edu.api.domain.school.exceptions.SchoolNotFoundException;
-import inno.edu.api.domain.school.repositories.SchoolRepository;
+import inno.edu.api.domain.school.root.exceptions.SchoolNotFoundException;
+import inno.edu.api.domain.school.root.repositories.SchoolRepository;
 import inno.edu.api.infrastructure.annotations.Assertion;
 
 import java.util.UUID;

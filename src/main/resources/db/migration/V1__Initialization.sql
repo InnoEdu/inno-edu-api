@@ -46,7 +46,30 @@ CREATE TABLE Profile_Attachment (
   profile_id    BINARY(16),
   attachment_id BINARY(16),
 
-  PRIMARY KEY (profile_id, attachment_id)
+  PRIMARY KEY (profile_id, attachment_id),
+
+  FOREIGN KEY (profile_id)
+  REFERENCES Profile (id)
+    ON DELETE CASCADE,
+
+  FOREIGN KEY (attachment_id)
+  REFERENCES Attachment (id)
+    ON DELETE CASCADE
+);
+
+CREATE TABLE School_Attachment (
+  school_id    BINARY(16),
+  attachment_id BINARY(16),
+
+  PRIMARY KEY (school_id, attachment_id),
+
+  FOREIGN KEY (school_id)
+  REFERENCES School (id)
+    ON DELETE CASCADE,
+
+  FOREIGN KEY (attachment_id)
+  REFERENCES Attachment (id)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE Profile_Association (

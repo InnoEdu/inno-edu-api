@@ -1,7 +1,7 @@
-package inno.edu.api.domain.school.commands;
+package inno.edu.api.domain.school.root.commands;
 
-import inno.edu.api.domain.school.assertions.SchoolExistsAssertion;
-import inno.edu.api.domain.school.repositories.SchoolRepository;
+import inno.edu.api.domain.school.root.assertions.SchoolExistsAssertion;
+import inno.edu.api.domain.school.root.repositories.SchoolRepository;
 import inno.edu.api.infrastructure.annotations.Command;
 
 import java.util.UUID;

@@ -1,4 +1,4 @@
-package inno.edu.api.domain.school.exceptions;
+package inno.edu.api.domain.school.root.exceptions;
 
 import java.util.UUID;
 

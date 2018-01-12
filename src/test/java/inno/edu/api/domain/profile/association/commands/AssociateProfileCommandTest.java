@@ -4,7 +4,7 @@ import inno.edu.api.domain.profile.association.assertions.CheckPendingAssociatio
 import inno.edu.api.domain.profile.root.assertions.ProfileExistsAssertion;
 import inno.edu.api.domain.profile.association.models.ProfileAssociation;
 import inno.edu.api.domain.profile.association.repositories.ProfileAssociationRepository;
-import inno.edu.api.domain.school.assertions.SchoolExistsAssertion;
+import inno.edu.api.domain.school.root.assertions.SchoolExistsAssertion;
 import inno.edu.api.infrastructure.services.UUIDGeneratorService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

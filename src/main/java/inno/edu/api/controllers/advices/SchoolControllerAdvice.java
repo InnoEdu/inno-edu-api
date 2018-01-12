@@ -1,6 +1,6 @@
 package inno.edu.api.controllers.advices;
 
-import inno.edu.api.domain.school.exceptions.SchoolNotFoundException;
+import inno.edu.api.domain.school.root.exceptions.SchoolNotFoundException;
 import org.springframework.core.annotation.Order;
 import org.springframework.hateoas.VndErrors;
 import org.springframework.http.HttpStatus;

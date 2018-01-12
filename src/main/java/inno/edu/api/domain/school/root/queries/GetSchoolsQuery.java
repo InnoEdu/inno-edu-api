@@ -1,7 +1,7 @@
-package inno.edu.api.domain.school.queries;
+package inno.edu.api.domain.school.root.queries;
 
-import inno.edu.api.domain.school.models.School;
-import inno.edu.api.domain.school.repositories.SchoolRepository;
+import inno.edu.api.domain.school.root.models.School;
+import inno.edu.api.domain.school.root.repositories.SchoolRepository;
 import inno.edu.api.infrastructure.annotations.Query;
 
 import java.util.List;

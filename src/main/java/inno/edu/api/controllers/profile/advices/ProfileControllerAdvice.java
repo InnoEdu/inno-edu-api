@@ -9,7 +9,7 @@ import inno.edu.api.domain.profile.interest.exceptions.InterestNotFoundException
 import inno.edu.api.domain.profile.root.exceptions.ProfileAlreadyCreatedException;
 import inno.edu.api.domain.profile.root.exceptions.ProfileNotFoundException;
 import inno.edu.api.domain.profile.service.exceptions.ServiceNotFoundException;
-import inno.edu.api.domain.school.exceptions.SchoolNotFoundException;
+import inno.edu.api.domain.school.root.exceptions.SchoolNotFoundException;
 import org.springframework.core.annotation.Order;
 import org.springframework.hateoas.VndErrors;
 import org.springframework.http.HttpStatus;

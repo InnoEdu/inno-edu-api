@@ -1,6 +1,6 @@
-package inno.edu.api.domain.school.repositories;
+package inno.edu.api.domain.school.root.repositories;
 
-import inno.edu.api.domain.school.models.School;
+import inno.edu.api.domain.school.root.models.School;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.UUID;

@@ -2,7 +2,7 @@ package inno.edu.api.controllers.resources;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import inno.edu.api.controllers.SchoolController;
-import inno.edu.api.domain.school.models.School;
+import inno.edu.api.domain.school.root.models.School;
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.http.ResponseEntity;

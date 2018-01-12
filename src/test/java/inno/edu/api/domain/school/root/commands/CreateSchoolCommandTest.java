@@ -1,8 +1,8 @@
-package inno.edu.api.domain.school.commands;
+package inno.edu.api.domain.school.root.commands;
 
-import inno.edu.api.domain.school.commands.mappers.CreateSchoolRequestMapper;
-import inno.edu.api.domain.school.models.School;
-import inno.edu.api.domain.school.repositories.SchoolRepository;
+import inno.edu.api.domain.school.root.commands.mappers.CreateSchoolRequestMapper;
+import inno.edu.api.domain.school.root.models.School;
+import inno.edu.api.domain.school.root.repositories.SchoolRepository;
 import inno.edu.api.infrastructure.services.UUIDGeneratorService;
 import org.junit.Before;
 import org.junit.Test;

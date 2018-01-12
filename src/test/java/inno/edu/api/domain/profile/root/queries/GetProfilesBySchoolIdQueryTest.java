@@ -2,7 +2,7 @@ package inno.edu.api.domain.profile.root.queries;
 
 import inno.edu.api.domain.profile.root.models.Profile;
 import inno.edu.api.domain.profile.root.repositories.ProfileRepository;
-import inno.edu.api.domain.school.assertions.SchoolExistsAssertion;
+import inno.edu.api.domain.school.root.assertions.SchoolExistsAssertion;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

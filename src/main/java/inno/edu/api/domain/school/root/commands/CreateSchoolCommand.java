@@ -1,9 +1,9 @@
-package inno.edu.api.domain.school.commands;
+package inno.edu.api.domain.school.root.commands;
 
-import inno.edu.api.domain.school.commands.dtos.CreateSchoolRequest;
-import inno.edu.api.domain.school.commands.mappers.CreateSchoolRequestMapper;
-import inno.edu.api.domain.school.models.School;
-import inno.edu.api.domain.school.repositories.SchoolRepository;
+import inno.edu.api.domain.school.root.commands.dtos.CreateSchoolRequest;
+import inno.edu.api.domain.school.root.commands.mappers.CreateSchoolRequestMapper;
+import inno.edu.api.domain.school.root.models.School;
+import inno.edu.api.domain.school.root.repositories.SchoolRepository;
 import inno.edu.api.infrastructure.annotations.Command;
 import inno.edu.api.infrastructure.services.UUIDGeneratorService;
 

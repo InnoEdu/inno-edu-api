@@ -1,8 +1,8 @@
-package inno.edu.api.domain.school.queries;
+package inno.edu.api.domain.school.root.queries;
 
-import inno.edu.api.domain.school.exceptions.SchoolNotFoundException;
-import inno.edu.api.domain.school.models.School;
-import inno.edu.api.domain.school.repositories.SchoolRepository;
+import inno.edu.api.domain.school.root.exceptions.SchoolNotFoundException;
+import inno.edu.api.domain.school.root.models.School;
+import inno.edu.api.domain.school.root.repositories.SchoolRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
