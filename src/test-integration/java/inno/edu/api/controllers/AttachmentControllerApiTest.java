@@ -6,12 +6,13 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 
 import static inno.edu.api.support.AttachmentFactory.attachment;
+import static inno.edu.api.support.AttachmentFactory.attachmentToDelete;
 import static inno.edu.api.support.AttachmentFactory.createAttachmentRequest;
 import static inno.edu.api.support.AttachmentFactory.updateAttachmentRequest;
 import static inno.edu.api.support.AttachmentFactory.updatedAttachment;
 import static inno.edu.api.support.Payloads.putAttachmentPayload;
+import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
@@ -27,9 +28,9 @@ public class AttachmentControllerApiTest extends ApiTest {
         this.mockMvc.perform(get("/api/attachments"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].id", containsInAnyOrder(attachment().getId().toString())))
-                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].description", containsInAnyOrder(attachment().getDescription())))
-                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].url", containsInAnyOrder(attachment().getUrl())));
+                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].id", hasItems(attachment().getId().toString())))
+                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].description", hasItems(attachment().getDescription())))
+                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].url", hasItems(attachment().getUrl())));
     }
 
     @Test
@@ -74,7 +75,7 @@ public class AttachmentControllerApiTest extends ApiTest {
     @Test
     public void shouldDeleteAttachment() throws Exception {
         this.mockMvc.perform(
-                delete("/api/attachments/" + attachment().getId()))
+                delete("/api/attachments/" + attachmentToDelete().getId()))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }

@@ -30,16 +30,13 @@ CREATE TABLE Profile (
   profile_reference_id BINARY(16)     NULL,
 
   FOREIGN KEY (user_id)
-  REFERENCES User (id)
-    ON DELETE CASCADE,
+  REFERENCES User (id),
 
   FOREIGN KEY (school_id)
-  REFERENCES School (id)
-    ON DELETE CASCADE,
+  REFERENCES School (id),
 
   FOREIGN KEY (profile_reference_id)
   REFERENCES Profile (id)
-    ON DELETE CASCADE
 );
 
 CREATE TABLE Profile_Attachment (
@@ -49,12 +46,10 @@ CREATE TABLE Profile_Attachment (
   PRIMARY KEY (profile_id, attachment_id),
 
   FOREIGN KEY (profile_id)
-  REFERENCES Profile (id)
-    ON DELETE CASCADE,
+  REFERENCES Profile (id),
 
   FOREIGN KEY (attachment_id)
   REFERENCES Attachment (id)
-    ON DELETE CASCADE
 );
 
 CREATE TABLE School_Attachment (
@@ -64,12 +59,10 @@ CREATE TABLE School_Attachment (
   PRIMARY KEY (school_id, attachment_id),
 
   FOREIGN KEY (school_id)
-  REFERENCES School (id)
-    ON DELETE CASCADE,
+  REFERENCES School (id),
 
   FOREIGN KEY (attachment_id)
   REFERENCES Attachment (id)
-    ON DELETE CASCADE
 );
 
 CREATE TABLE Profile_Association (
@@ -80,12 +73,10 @@ CREATE TABLE Profile_Association (
   description VARCHAR(255) NULL,
 
   FOREIGN KEY (profile_id)
-  REFERENCES Profile (id)
-    ON DELETE CASCADE,
+  REFERENCES Profile (id),
 
   FOREIGN KEY (school_id)
   REFERENCES School (id)
-    ON DELETE CASCADE
 );
 
 CREATE TABLE Experience (
@@ -102,7 +93,6 @@ CREATE TABLE Experience (
 
   FOREIGN KEY (profile_id)
   REFERENCES Profile (id)
-    ON DELETE CASCADE
 );
 
 CREATE TABLE Interest (
@@ -113,7 +103,6 @@ CREATE TABLE Interest (
 
   FOREIGN KEY (profile_id)
   REFERENCES Profile (id)
-    ON DELETE CASCADE
 );
 
 CREATE TABLE Accomplishment (
@@ -125,7 +114,6 @@ CREATE TABLE Accomplishment (
 
   FOREIGN KEY (profile_id)
   REFERENCES Profile (id)
-    ON DELETE CASCADE
 );
 
 CREATE TABLE Service (
@@ -136,7 +124,6 @@ CREATE TABLE Service (
 
   FOREIGN KEY (profile_id)
   REFERENCES Profile (id)
-    ON DELETE CASCADE
 );
 
 CREATE TABLE Availability (
@@ -147,7 +134,6 @@ CREATE TABLE Availability (
 
   FOREIGN KEY (mentor_profile_id)
   REFERENCES Profile (id)
-    ON DELETE CASCADE
 );
 
 CREATE TABLE Appointment (
@@ -162,12 +148,10 @@ CREATE TABLE Appointment (
   reason            VARCHAR(255),
 
   FOREIGN KEY (mentor_profile_id)
-  REFERENCES Profile (id)
-    ON DELETE CASCADE,
+  REFERENCES Profile (id),
 
   FOREIGN KEY (mentee_profile_id)
   REFERENCES Profile (id)
-    ON DELETE CASCADE
 );
 
 CREATE TABLE Feedback (
@@ -176,9 +160,9 @@ CREATE TABLE Feedback (
   source         SMALLINT     NOT NULL,
   rating         SMALLINT     NOT NULL,
   description    VARCHAR(255) NULL,
+
   FOREIGN KEY (appointment_id)
   REFERENCES Appointment (id)
-    ON DELETE CASCADE
 );
 
 -- Stub data

@@ -14,6 +14,7 @@ import static inno.edu.api.support.UserFactory.fei;
 import static inno.edu.api.support.UserFactory.gustavo;
 import static inno.edu.api.support.UserFactory.updateFeiRequest;
 import static inno.edu.api.support.UserFactory.updatedFei;
+import static inno.edu.api.support.UserFactory.userToDelete;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
@@ -101,7 +102,7 @@ public class UserControllerApiTest extends ApiTest {
     @Test
     public void shouldDeleteUser() throws Exception {
         this.mockMvc.perform(
-                delete("/api/users/" + fei().getId()))
+                delete("/api/users/" + userToDelete().getId()))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }

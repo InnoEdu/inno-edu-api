@@ -36,6 +36,12 @@ public class UserFactory {
                 .build();
     }
 
+    public static ApplicationUser userToDelete() {
+        return fei().toBuilder()
+                .id(fromString("e79b6b2e-cc08-4e37-b227-51cd64f5aa2e"))
+                .build();
+    }
+
     public static ApplicationUser newFei(UUID id) {
         return fei().toBuilder()
                 .id(id)

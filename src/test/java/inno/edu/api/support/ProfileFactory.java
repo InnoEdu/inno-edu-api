@@ -77,6 +77,12 @@ public class ProfileFactory {
                 .build();
     }
 
+    public static Profile profileToDelete() {
+        return alanProfile().toBuilder()
+                .id(fromString("88447c0d-3f2e-48d9-ae51-83037465ab47"))
+                .build();
+    }
+
     public static Profile tuanyProfile() {
         return Profile.builder().id(fromString("c96ae800-fd93-48c2-bbf3-91a6658c8079"))
                 .userId(tuany().getId())

@@ -19,6 +19,12 @@ public class SchoolFactory {
                 .build();
     }
 
+    public static School schoolToDelete() {
+        return stanford().toBuilder()
+                .id(fromString("46ddda8e-e01e-430f-99ed-e8aee71db79a"))
+                .build();
+    }
+
     public static School newStanford(UUID id) {
         return stanford().toBuilder()
                 .id(id)

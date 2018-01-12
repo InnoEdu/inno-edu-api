@@ -10,6 +10,7 @@ import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -47,11 +48,14 @@ public class ProfileAttachmentControllerApiTest extends ApiTest {
     }
 
 
-//    @Test
-//    public void shouldDeleteAttachment() throws Exception {
-//        this.mockMvc.perform(
-//                delete("/api/attachments/" + attachment().getId()))
-//                .andDo(print())
-//                .andExpect(status().isNoContent());
-//    }
+    @Test
+    public void shouldDeleteAttachment() throws Exception {
+        this.mockMvc.perform(
+                delete("/api/profiles/"
+                        + feiProfile().getId()
+                        + "/attachments/"
+                        + attachment().getId()))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+    }
 }

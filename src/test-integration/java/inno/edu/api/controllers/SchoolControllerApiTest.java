@@ -9,10 +9,10 @@ import static inno.edu.api.support.Payloads.putSchoolPayload;
 import static inno.edu.api.support.ProfileFactory.gustavoProfile;
 import static inno.edu.api.support.SchoolFactory.berkeley;
 import static inno.edu.api.support.SchoolFactory.createStanfordRequest;
+import static inno.edu.api.support.SchoolFactory.schoolToDelete;
 import static inno.edu.api.support.SchoolFactory.stanford;
 import static inno.edu.api.support.SchoolFactory.updateStanfordRequest;
 import static inno.edu.api.support.SchoolFactory.updatedStanford;
-import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
@@ -29,9 +29,9 @@ public class SchoolControllerApiTest extends ApiTest {
     public void shouldListSchools() throws Exception {
         this.mockMvc.perform(get("/api/schools")).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.schoolResourceList[*].id", containsInAnyOrder(stanford().getId().toString(), berkeley().getId().toString())))
-                .andExpect(jsonPath("$._embedded.schoolResourceList[*].name", containsInAnyOrder(stanford().getName(), berkeley().getName())))
-                .andExpect(jsonPath("$._embedded.schoolResourceList[*].description", containsInAnyOrder(stanford().getDescription(), berkeley().getDescription())));
+                .andExpect(jsonPath("$._embedded.schoolResourceList[*].id", hasItems(stanford().getId().toString(), berkeley().getId().toString())))
+                .andExpect(jsonPath("$._embedded.schoolResourceList[*].name", hasItems(stanford().getName(), berkeley().getName())))
+                .andExpect(jsonPath("$._embedded.schoolResourceList[*].description", hasItems(stanford().getDescription(), berkeley().getDescription())));
     }
 
     @Test
@@ -83,7 +83,7 @@ public class SchoolControllerApiTest extends ApiTest {
     @Test
     public void shouldDeleteSchool() throws Exception {
         this.mockMvc.perform(
-                delete("/api/schools/" + stanford().getId()))
+                delete("/api/schools/" + schoolToDelete().getId()))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }

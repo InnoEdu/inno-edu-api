@@ -35,6 +35,12 @@ public class AppointmentFactory {
                 .build();
     }
 
+    public static Appointment appointmentToDelete() {
+        return appointment().toBuilder()
+                .id(fromString("2bb42516-808d-4b2e-940c-2eba440ac378"))
+                .build();
+    }
+
     public static CreateAppointmentRequest createAppointmentRequest() {
         return CreateAppointmentRequest.builder()
                 .mentorProfileId(feiProfile().getId())

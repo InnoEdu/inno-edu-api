@@ -20,6 +20,12 @@ public class AttachmentFactory {
                 .build();
     }
 
+    public static Attachment attachmentToDelete() {
+        return attachment().toBuilder()
+                .id(fromString("b192eba5-264b-4c32-9bfe-e72d1f7a244b"))
+                .build();
+    }
+
     public static Attachment updatedAttachment() {
         return attachment().toBuilder()
                 .description("Updated description")

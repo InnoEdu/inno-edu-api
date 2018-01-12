@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.support.AppointmentFactory.appointment;
+import static inno.edu.api.support.AppointmentFactory.appointmentToDelete;
 import static inno.edu.api.support.AppointmentFactory.createAppointmentRequest;
 import static inno.edu.api.support.AppointmentFactory.createFeedbackRequest;
 import static inno.edu.api.support.AppointmentFactory.feedback;
@@ -19,8 +20,7 @@ import static inno.edu.api.support.Payloads.putAppointmentPayload;
 import static inno.edu.api.support.Payloads.putAppointmentReasonPayload;
 import static inno.edu.api.support.ProfileFactory.alanProfile;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -36,14 +36,14 @@ public class AppointmentControllerApiTest extends ApiTest {
     public void shouldListAppointments() throws Exception {
         this.mockMvc.perform(get("/api/appointments")).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].id", containsInAnyOrder(appointment().getId().toString(), otherAppointment().getId().toString())))
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].mentorProfileId", containsInAnyOrder(appointment().getMentorProfileId().toString(), otherAppointment().getMentorProfileId().toString())))
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].menteeProfileId", containsInAnyOrder(appointment().getMenteeProfileId().toString(), otherAppointment().getMenteeProfileId().toString())))
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].fromDateTime", containsInAnyOrder(appointment().getFromDateTime().toString(), otherAppointment().getFromDateTime().toString())))
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].toDateTime", containsInAnyOrder(appointment().getToDateTime().toString(), otherAppointment().getToDateTime().toString())))
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].description", containsInAnyOrder(appointment().getDescription(), otherAppointment().getDescription())))
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].fee", containsInAnyOrder(appointment().getFee().doubleValue(), otherAppointment().getFee().doubleValue())))
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].status", containsInAnyOrder(appointment().getStatus().toString(), otherAppointment().getStatus().toString())));
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].id", hasItems(appointment().getId().toString(), otherAppointment().getId().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].mentorProfileId", hasItems(appointment().getMentorProfileId().toString(), otherAppointment().getMentorProfileId().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].menteeProfileId", hasItems(appointment().getMenteeProfileId().toString(), otherAppointment().getMenteeProfileId().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].fromDateTime", hasItems(appointment().getFromDateTime().toString(), otherAppointment().getFromDateTime().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].toDateTime", hasItems(appointment().getToDateTime().toString(), otherAppointment().getToDateTime().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].description", hasItems(appointment().getDescription(), otherAppointment().getDescription())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].fee", hasItems(appointment().getFee().doubleValue(), otherAppointment().getFee().doubleValue())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].status", hasItems(appointment().getStatus().toString(), otherAppointment().getStatus().toString())));
     }
 
     @Test
@@ -52,14 +52,14 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .param("status", PROPOSED.toString()))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].id", contains(appointment().getId().toString())))
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].mentorProfileId", contains(appointment().getMentorProfileId().toString())))
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].menteeProfileId", contains(appointment().getMenteeProfileId().toString())))
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].fromDateTime", contains(appointment().getFromDateTime().toString())))
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].toDateTime", contains(appointment().getToDateTime().toString())))
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].description", contains(appointment().getDescription())))
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].fee", contains(appointment().getFee().doubleValue())))
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].status", contains(appointment().getStatus().toString())));
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].id", hasItems(appointment().getId().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].mentorProfileId", hasItems(appointment().getMentorProfileId().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].menteeProfileId", hasItems(appointment().getMenteeProfileId().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].fromDateTime", hasItems(appointment().getFromDateTime().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].toDateTime", hasItems(appointment().getToDateTime().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].description", hasItems(appointment().getDescription())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].fee", hasItems(appointment().getFee().doubleValue())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].status", hasItems(appointment().getStatus().toString())));
     }
 
     @Test
@@ -68,14 +68,14 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .param("status", PROPOSED.toString()))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].id", contains(appointment().getId().toString())))
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].mentorProfileId", contains(appointment().getMentorProfileId().toString())))
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].menteeProfileId", contains(appointment().getMenteeProfileId().toString())))
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].fromDateTime", contains(appointment().getFromDateTime().toString())))
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].toDateTime", contains(appointment().getToDateTime().toString())))
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].description", contains(appointment().getDescription())))
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].fee", contains(appointment().getFee().doubleValue())))
-                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].status", contains(appointment().getStatus().toString())));
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].id", hasItems(appointment().getId().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].mentorProfileId", hasItems(appointment().getMentorProfileId().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].menteeProfileId", hasItems(appointment().getMenteeProfileId().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].fromDateTime", hasItems(appointment().getFromDateTime().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].toDateTime", hasItems(appointment().getToDateTime().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].description", hasItems(appointment().getDescription())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].fee", hasItems(appointment().getFee().doubleValue())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].status", hasItems(appointment().getStatus().toString())));
     }
 
     @Test
@@ -131,7 +131,7 @@ public class AppointmentControllerApiTest extends ApiTest {
     @Test
     public void shouldDeleteAppointment() throws Exception {
         this.mockMvc.perform(
-                delete("/api/appointments/" + appointment().getId()))
+                delete("/api/appointments/" + appointmentToDelete().getId()))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }
@@ -195,11 +195,11 @@ public class AppointmentControllerApiTest extends ApiTest {
         this.mockMvc.perform(get("/api/appointments/" + appointment().getId() + "/feedbacks"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.feedbackResourceList[*].id", containsInAnyOrder(feedback().getId().toString())))
-                .andExpect(jsonPath("$._embedded.feedbackResourceList[*].appointmentId", containsInAnyOrder(feedback().getAppointmentId().toString())))
-                .andExpect(jsonPath("$._embedded.feedbackResourceList[*].source", containsInAnyOrder(feedback().getSource().toString())))
-                .andExpect(jsonPath("$._embedded.feedbackResourceList[*].rating", containsInAnyOrder(feedback().getRating())))
-                .andExpect(jsonPath("$._embedded.feedbackResourceList[*].description", containsInAnyOrder(feedback().getDescription())));
+                .andExpect(jsonPath("$._embedded.feedbackResourceList[*].id", hasItems(feedback().getId().toString())))
+                .andExpect(jsonPath("$._embedded.feedbackResourceList[*].appointmentId", hasItems(feedback().getAppointmentId().toString())))
+                .andExpect(jsonPath("$._embedded.feedbackResourceList[*].source", hasItems(feedback().getSource().toString())))
+                .andExpect(jsonPath("$._embedded.feedbackResourceList[*].rating", hasItems(feedback().getRating())))
+                .andExpect(jsonPath("$._embedded.feedbackResourceList[*].description", hasItems(feedback().getDescription())));
     }
 
     @Test

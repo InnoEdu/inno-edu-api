@@ -11,6 +11,7 @@ import static inno.edu.api.support.ProfileFactory.alanProfile;
 import static inno.edu.api.support.ProfileFactory.createAlanProfileRequest;
 import static inno.edu.api.support.ProfileFactory.createTuanyProfileRequest;
 import static inno.edu.api.support.ProfileFactory.gustavoProfile;
+import static inno.edu.api.support.ProfileFactory.profileToDelete;
 import static inno.edu.api.support.ProfileFactory.tuanyProfile;
 import static inno.edu.api.support.ProfileFactory.updateAlanProfileRequest;
 import static inno.edu.api.support.ProfileFactory.updatedAlanProfile;
@@ -98,7 +99,7 @@ public class ProfileControllerApiTest extends ApiTest {
     @Test
     public void shouldDeleteProfile() throws Exception {
         this.mockMvc.perform(
-                delete("/api/profiles/" + alanProfile().getId()))
+                delete("/api/profiles/" + profileToDelete().getId()))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }
