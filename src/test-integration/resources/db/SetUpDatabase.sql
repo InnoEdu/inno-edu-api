@@ -65,6 +65,11 @@ DELETE FROM Attachment;
 INSERT INTO Attachment(id, description, url)
 VALUES ('0a2de2db3997408282b656aad9746af9', 'My file', '');
 
+DELETE FROM Profile_Attachment;
+
+INSERT INTO Profile_Attachment(profile_id, attachment_id)
+VALUES ('0e9e40c0b44b438792a99d75d10e3d42', '0a2de2db3997408282b656aad9746af9');
+
 DELETE FROM Availability;
 
 INSERT INTO Availability (id, mentor_profile_id, from_date_time, to_date_time)

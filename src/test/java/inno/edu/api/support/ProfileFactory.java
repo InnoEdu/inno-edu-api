@@ -4,6 +4,7 @@ import inno.edu.api.domain.profile.accomplishment.commands.dtos.CreateAccomplish
 import inno.edu.api.domain.profile.accomplishment.commands.dtos.UpdateAccomplishmentRequest;
 import inno.edu.api.domain.profile.accomplishment.models.Accomplishment;
 import inno.edu.api.domain.profile.association.models.ProfileAssociation;
+import inno.edu.api.domain.profile.attachment.models.ProfileAttachment;
 import inno.edu.api.domain.profile.experience.commands.dtos.CreateExperienceRequest;
 import inno.edu.api.domain.profile.experience.commands.dtos.UpdateExperienceRequest;
 import inno.edu.api.domain.profile.experience.models.Experience;
@@ -28,6 +29,7 @@ import static inno.edu.api.domain.profile.accomplishment.models.AccomplishmentTy
 import static inno.edu.api.domain.profile.association.models.RequestStatus.APPROVED;
 import static inno.edu.api.domain.profile.association.models.RequestStatus.PENDING;
 import static inno.edu.api.domain.profile.experience.models.ExperienceType.PROFESSIONAL;
+import static inno.edu.api.support.AttachmentFactory.attachment;
 import static inno.edu.api.support.SchoolFactory.berkeley;
 import static inno.edu.api.support.SchoolFactory.stanford;
 import static inno.edu.api.support.UserFactory.alan;
@@ -354,5 +356,16 @@ public class ProfileFactory {
 
     public static List<Service> feiServices() {
         return singletonList(feiService());
+    }
+
+    public static ProfileAttachment feiProfileAttachment() {
+        return ProfileAttachment.builder()
+                .attachmentId(attachment().getId())
+                .profileId(feiProfile().getId())
+                .attachment(attachment())
+                .build();
+    }
+    public static List<ProfileAttachment> feiProfileAttachments() {
+        return singletonList(feiProfileAttachment());
     }
 }

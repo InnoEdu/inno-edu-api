@@ -8,22 +8,26 @@ import static inno.edu.api.support.AttachmentFactory.attachment;
 import static inno.edu.api.support.AttachmentFactory.createAttachmentRequest;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 public class ProfileAttachmentControllerApiTest extends ApiTest {
-//    @Test
-//    public void shouldListAttachments() throws Exception {
-//        this.mockMvc.perform(get("/api/attachments"))
-//                .andDo(print())
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].id", containsInAnyOrder(attachment().getId().toString())))
-//                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].description", containsInAnyOrder(attachment().getDescription())))
-//                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].url", containsInAnyOrder(attachment().getUrl())));
-//    }
+    @Test
+    public void shouldListProfileAttachments() throws Exception {
+        this.mockMvc.perform(get("/api/profiles/"
+                + feiProfile().getId()
+                + "/attachments"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].id", containsInAnyOrder(attachment().getId().toString())))
+                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].description", containsInAnyOrder(attachment().getDescription())))
+                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].url", containsInAnyOrder(attachment().getUrl())));
+    }
 
     @Test
     public void shouldCreateProfileAttachment() throws Exception {
