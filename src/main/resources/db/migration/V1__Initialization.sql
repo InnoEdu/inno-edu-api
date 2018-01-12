@@ -13,6 +13,12 @@ CREATE TABLE School (
   description TEXT         NOT NULL
 );
 
+CREATE TABLE Attachment (
+  id          BINARY(16) PRIMARY KEY,
+  description VARCHAR(100) NOT NULL,
+  url         VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE Profile (
   id                   BINARY(16) PRIMARY KEY,
   user_id              BINARY(16)     NOT NULL,
@@ -36,10 +42,11 @@ CREATE TABLE Profile (
     ON DELETE CASCADE
 );
 
-CREATE TABLE Attachment (
-  id          BINARY(16) PRIMARY KEY,
-  description VARCHAR(100) NOT NULL,
-  url         VARCHAR(255) NOT NULL
+CREATE TABLE Profile_Attachment (
+  profile_id    BINARY(16),
+  attachment_id BINARY(16),
+
+  PRIMARY KEY (profile_id, attachment_id)
 );
 
 CREATE TABLE Profile_Association (
