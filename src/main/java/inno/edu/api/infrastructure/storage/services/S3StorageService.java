@@ -4,6 +4,7 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3URI;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import inno.edu.api.infrastructure.configuration.properties.ApplicationConfiguration;
+import inno.edu.api.infrastructure.storage.exceptions.S3StorageException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,7 +45,7 @@ public class S3StorageService implements StorageService {
 
             return amazonS3Client.getUrl(bucket, filename).toString();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new S3StorageException(e);
         }
     }
 

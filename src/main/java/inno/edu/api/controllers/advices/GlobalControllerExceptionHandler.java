@@ -1,6 +1,7 @@
 package inno.edu.api.controllers.advices;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import inno.edu.api.infrastructure.storage.exceptions.S3StorageException;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -29,6 +30,13 @@ public class GlobalControllerExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     VndErrors exceptionHandler(RuntimeException ex) {
+        return new VndErrors("error", ex.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(S3StorageException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    VndErrors s3StorageExceptionHandler(S3StorageException ex) {
         return new VndErrors("error", ex.getMessage());
     }
 
