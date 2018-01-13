@@ -2,6 +2,7 @@ package inno.edu.api.controllers.appointment.resources;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import inno.edu.api.controllers.appointment.AppointmentController;
+import inno.edu.api.controllers.appointment.FeedbackController;
 import inno.edu.api.controllers.profile.ProfileController;
 import inno.edu.api.domain.appointment.models.Appointment;
 import lombok.Getter;
@@ -25,7 +26,7 @@ public class AppointmentResource extends ResourceSupport {
         this.appointment = appointment;
 
         add(ControllerLinkBuilder.linkTo(methodOn(AppointmentController.class).get(appointment.getId())).withSelfRel());
-        add(linkTo(methodOn(AppointmentController.class).allFeedbacks(appointment.getId())).withRel("feedbacks"));
+        add(linkTo(methodOn(FeedbackController.class).allFeedbacks(appointment.getId())).withRel("feedbacks"));
         add(linkTo(methodOn(ProfileController.class).get(appointment.getMentorProfileId())).withRel("mentor"));
         add(linkTo(methodOn(ProfileController.class).get(appointment.getMenteeProfileId())).withRel("mentee"));
     }
