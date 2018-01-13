@@ -1,4 +1,4 @@
-package inno.edu.api.controllers;
+package inno.edu.api.controllers.appointment;
 
 import inno.edu.api.ApiTest;
 import org.junit.Test;

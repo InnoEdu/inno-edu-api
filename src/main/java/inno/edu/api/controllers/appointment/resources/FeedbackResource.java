@@ -1,10 +1,11 @@
-package inno.edu.api.controllers.resources;
+package inno.edu.api.controllers.appointment.resources;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import inno.edu.api.controllers.AppointmentController;
+import inno.edu.api.controllers.appointment.AppointmentController;
 import inno.edu.api.domain.appointment.models.Feedback;
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
 
 import java.net.URI;
@@ -21,7 +22,7 @@ public class FeedbackResource extends ResourceSupport {
     public FeedbackResource(Feedback feedback) {
         this.feedback = feedback;
 
-        add(linkTo(methodOn(AppointmentController.class).getFeedback(feedback.getId())).withSelfRel());
+        add(ControllerLinkBuilder.linkTo(methodOn(AppointmentController.class).getFeedback(feedback.getId())).withSelfRel());
     }
 
     public ResponseEntity<Feedback> toCreated() {

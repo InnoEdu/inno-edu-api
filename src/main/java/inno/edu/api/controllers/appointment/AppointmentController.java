@@ -1,8 +1,8 @@
-package inno.edu.api.controllers;
+package inno.edu.api.controllers.appointment;
 
-import inno.edu.api.controllers.resources.AppointmentResource;
-import inno.edu.api.controllers.resources.EstimationResource;
-import inno.edu.api.controllers.resources.FeedbackResource;
+import inno.edu.api.controllers.appointment.resources.AppointmentResource;
+import inno.edu.api.controllers.appointment.resources.EstimationResource;
+import inno.edu.api.controllers.appointment.resources.FeedbackResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.appointment.commands.CalculateAppointmentFeeCommand;
 import inno.edu.api.domain.appointment.commands.CreateAppointmentCommand;
