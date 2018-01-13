@@ -1,10 +1,10 @@
 package inno.edu.api.support;
 
-import inno.edu.api.domain.appointment.commands.dtos.AppointmentReason;
 import inno.edu.api.domain.appointment.commands.dtos.CalculateAppointmentFeeRequest;
 import inno.edu.api.domain.appointment.commands.dtos.CreateAppointmentRequest;
 import inno.edu.api.domain.appointment.commands.dtos.CreateFeedbackRequest;
 import inno.edu.api.domain.appointment.commands.dtos.UpdateAppointmentRequest;
+import inno.edu.api.domain.appointment.commands.dtos.UpdateAppointmentStatusRequest;
 import inno.edu.api.domain.appointment.models.Appointment;
 import inno.edu.api.domain.appointment.models.Feedback;
 import inno.edu.api.domain.appointment.models.FeedbackSource;
@@ -99,8 +99,11 @@ public class AppointmentFactory {
                 .build();
     }
 
-    public static AppointmentReason reason() {
-        return AppointmentReason.builder().reason("Reason for appointment.").build();
+    public static UpdateAppointmentStatusRequest updateAppointmentStatusRequest() {
+        return UpdateAppointmentStatusRequest.builder()
+                .reason("Reason for appointment.")
+                .status(ACCEPTED)
+                .build();
     }
 
     public static Feedback feedback() {
@@ -126,10 +129,6 @@ public class AppointmentFactory {
                 .rating(feedback().getRating())
                 .source(feedback().getSource())
                 .build();
-    }
-
-    public static AppointmentReason emptyReason() {
-        return AppointmentReason.builder().build();
     }
 
     public static List<Appointment> appointments() {

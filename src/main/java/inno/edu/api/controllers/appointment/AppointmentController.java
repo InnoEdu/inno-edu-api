@@ -8,10 +8,10 @@ import inno.edu.api.domain.appointment.commands.CreateAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.DeleteAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentCommand;
 import inno.edu.api.domain.appointment.commands.UpdateAppointmentStatusCommand;
-import inno.edu.api.domain.appointment.commands.dtos.AppointmentReason;
 import inno.edu.api.domain.appointment.commands.dtos.CalculateAppointmentFeeRequest;
 import inno.edu.api.domain.appointment.commands.dtos.CreateAppointmentRequest;
 import inno.edu.api.domain.appointment.commands.dtos.UpdateAppointmentRequest;
+import inno.edu.api.domain.appointment.commands.dtos.UpdateAppointmentStatusRequest;
 import inno.edu.api.domain.appointment.models.Appointment;
 import inno.edu.api.domain.appointment.models.AppointmentStatus;
 import inno.edu.api.domain.appointment.queries.GetAppointmentByIdQuery;
@@ -35,9 +35,6 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
-import static inno.edu.api.domain.appointment.models.AppointmentStatus.ACCEPTED;
-import static inno.edu.api.domain.appointment.models.AppointmentStatus.CANCELED;
-import static inno.edu.api.domain.appointment.models.AppointmentStatus.DECLINED;
 import static org.springframework.http.ResponseEntity.noContent;
 
 @RestController
@@ -112,21 +109,9 @@ public class AppointmentController {
         return noContent().build();
     }
 
-    @PutMapping("/{id}/cancel")
-    public ResponseEntity<?> cancel(@PathVariable UUID id, @Valid @RequestBody AppointmentReason reason) {
-        updateAppointmentStatusCommand.run(id, reason, CANCELED);
-        return noContent().build();
-    }
-
-    @PutMapping("/{id}/decline")
-    public ResponseEntity<?> decline(@PathVariable UUID id, @Valid @RequestBody AppointmentReason reason) {
-        updateAppointmentStatusCommand.run(id, reason, DECLINED);
-        return noContent().build();
-    }
-
-    @PutMapping("/{id}/accept")
-    public ResponseEntity<?> accept(@PathVariable UUID id) {
-        updateAppointmentStatusCommand.run(id, new AppointmentReason(), ACCEPTED);
+    @PutMapping("/{id}/status")
+    public ResponseEntity<?> status(@PathVariable UUID id, @Valid @RequestBody UpdateAppointmentStatusRequest request) {
+        updateAppointmentStatusCommand.run(id, request);
         return noContent().build();
     }
 

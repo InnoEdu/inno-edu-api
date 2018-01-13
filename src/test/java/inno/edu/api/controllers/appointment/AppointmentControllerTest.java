@@ -21,17 +21,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import static inno.edu.api.domain.appointment.models.AppointmentStatus.ACCEPTED;
-import static inno.edu.api.domain.appointment.models.AppointmentStatus.CANCELED;
-import static inno.edu.api.domain.appointment.models.AppointmentStatus.DECLINED;
 import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.support.AppointmentFactory.appointment;
 import static inno.edu.api.support.AppointmentFactory.appointments;
 import static inno.edu.api.support.AppointmentFactory.createAppointmentRequest;
-import static inno.edu.api.support.AppointmentFactory.emptyReason;
 import static inno.edu.api.support.AppointmentFactory.proposedAppointments;
-import static inno.edu.api.support.AppointmentFactory.reason;
 import static inno.edu.api.support.AppointmentFactory.updateAppointmentRequest;
+import static inno.edu.api.support.AppointmentFactory.updateAppointmentStatusRequest;
 import static inno.edu.api.support.AppointmentFactory.updatedAppointment;
 import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.fei;
@@ -161,22 +157,8 @@ public class AppointmentControllerTest {
 
     @Test
     public void shouldCancelAppointment() {
-        appointmentController.cancel(appointment().getId(), reason());
+        appointmentController.status(appointment().getId(), updateAppointmentStatusRequest());
 
-        verify(updateAppointmentStatusCommand).run(appointment().getId(), reason(), CANCELED);
-    }
-
-    @Test
-    public void shouldDeclineAppointment() {
-        appointmentController.decline(appointment().getId(), reason());
-
-        verify(updateAppointmentStatusCommand).run(appointment().getId(), reason(), DECLINED);
-    }
-
-    @Test
-    public void shouldAcceptAppointment() {
-        appointmentController.accept(appointment().getId());
-
-        verify(updateAppointmentStatusCommand).run(appointment().getId(), emptyReason(), ACCEPTED);
+        verify(updateAppointmentStatusCommand).run(appointment().getId(), updateAppointmentStatusRequest());
     }
 }

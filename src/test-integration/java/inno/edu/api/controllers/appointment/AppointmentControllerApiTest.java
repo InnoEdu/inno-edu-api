@@ -8,16 +8,13 @@ import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.support.AppointmentFactory.appointment;
 import static inno.edu.api.support.AppointmentFactory.appointmentToDelete;
 import static inno.edu.api.support.AppointmentFactory.createAppointmentRequest;
-import static inno.edu.api.support.AppointmentFactory.createFeedbackRequest;
-import static inno.edu.api.support.AppointmentFactory.feedback;
 import static inno.edu.api.support.AppointmentFactory.otherAppointment;
-import static inno.edu.api.support.AppointmentFactory.reason;
 import static inno.edu.api.support.AppointmentFactory.updateAppointmentRequest;
+import static inno.edu.api.support.AppointmentFactory.updateAppointmentStatusRequest;
 import static inno.edu.api.support.AppointmentFactory.updatedAppointment;
 import static inno.edu.api.support.Payloads.postAppointmentPayload;
-import static inno.edu.api.support.Payloads.postFeedbackPayload;
 import static inno.edu.api.support.Payloads.putAppointmentPayload;
-import static inno.edu.api.support.Payloads.putAppointmentReasonPayload;
+import static inno.edu.api.support.Payloads.putAppointmentStatusPayload;
 import static inno.edu.api.support.ProfileFactory.alanProfile;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static org.hamcrest.Matchers.hasItems;
@@ -137,29 +134,11 @@ public class AppointmentControllerApiTest extends ApiTest {
     }
 
     @Test
-    public void shouldCancelAppointment() throws Exception {
+    public void shouldUpdateAppointmentStatus() throws Exception {
         this.mockMvc.perform(
-                put("/api/appointments/" + appointment().getId() + "/cancel")
-                        .content(putAppointmentReasonPayload(reason()))
+                put("/api/appointments/" + appointment().getId() + "/status")
+                        .content(putAppointmentStatusPayload(updateAppointmentStatusRequest()))
                         .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isNoContent());
-    }
-
-    @Test
-    public void shouldDeclineAppointment() throws Exception {
-        this.mockMvc.perform(
-                put("/api/appointments/" + appointment().getId() + "/decline")
-                        .content(putAppointmentReasonPayload(reason()))
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isNoContent());
-    }
-
-    @Test
-    public void shouldAcceptAppointment() throws Exception {
-        this.mockMvc.perform(
-                put("/api/appointments/" + appointment().getId() + "/accept"))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }
@@ -173,52 +152,5 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.fee", is(appointment().getFee().doubleValue())));
-    }
-
-    @Test
-    public void shouldCreateNewFeedback() throws Exception {
-        this.mockMvc.perform(
-                post("/api/appointments/" + appointment().getId() + "/feedbacks")
-                        .content(postFeedbackPayload(createFeedbackRequest()))
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", not(feedback().getId().toString())))
-                .andExpect(jsonPath("$.appointmentId", is(feedback().getAppointmentId().toString())))
-                .andExpect(jsonPath("$.source", is(feedback().getSource().toString())))
-                .andExpect(jsonPath("$.rating", is(feedback().getRating())))
-                .andExpect(jsonPath("$.description", is(feedback().getDescription())));
-    }
-
-    @Test
-    public void shouldListFeedbacks() throws Exception {
-        this.mockMvc.perform(get("/api/appointments/" + appointment().getId() + "/feedbacks"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.feedbackResourceList[*].id", hasItems(feedback().getId().toString())))
-                .andExpect(jsonPath("$._embedded.feedbackResourceList[*].appointmentId", hasItems(feedback().getAppointmentId().toString())))
-                .andExpect(jsonPath("$._embedded.feedbackResourceList[*].source", hasItems(feedback().getSource().toString())))
-                .andExpect(jsonPath("$._embedded.feedbackResourceList[*].rating", hasItems(feedback().getRating())))
-                .andExpect(jsonPath("$._embedded.feedbackResourceList[*].description", hasItems(feedback().getDescription())));
-    }
-
-    @Test
-    public void shouldDeleteFeedback() throws Exception {
-        this.mockMvc.perform(
-                delete("/api/appointments/feedbacks/" + feedback().getId()))
-                .andDo(print())
-                .andExpect(status().isNoContent());
-    }
-
-    @Test
-    public void shouldGetFeedbackById() throws Exception {
-        this.mockMvc.perform(get("/api/appointments/feedbacks/" + feedback().getId().toString()))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(feedback().getId().toString())))
-                .andExpect(jsonPath("$.appointmentId", is(feedback().getAppointmentId().toString())))
-                .andExpect(jsonPath("$.source", is(feedback().getSource().toString())))
-                .andExpect(jsonPath("$.rating", is(feedback().getRating())))
-                .andExpect(jsonPath("$.description", is(feedback().getDescription())));
     }
 }

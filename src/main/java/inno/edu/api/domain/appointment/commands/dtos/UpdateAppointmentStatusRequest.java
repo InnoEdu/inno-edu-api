@@ -1,5 +1,6 @@
 package inno.edu.api.domain.appointment.commands.dtos;
 
+import inno.edu.api.domain.appointment.models.AppointmentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,8 +13,10 @@ import javax.validation.constraints.Size;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AppointmentReason {
-    @NotNull
+public class UpdateAppointmentStatusRequest {
     @Size(max = 255)
     private String reason;
+
+    @NotNull
+    private AppointmentStatus status;
 }
