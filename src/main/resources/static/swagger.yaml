@@ -1728,11 +1728,11 @@ paths:
             $ref: '#/definitions/VndErrors'
         '403':
           $ref: '#/responses/403'
-  /appointments/{id}/cancel:
+  /appointments/{id}/status:
     put:
       tags:
         - appointments
-      summary: Cancel appointment by id
+      summary: Change the appointment status
       consumes:
         - application/json
       parameters:
@@ -1743,74 +1743,14 @@ paths:
           type: string
           format: uuid
         - in: body
-          name: reason
-          description: Reason for canceling the appointment
+          name: request
+          description: Request object with the status information to be updated
           required: true
           schema:
-            $ref: '#/definitions/AppointmentReason'
+            $ref: '#/definitions/UpdateAppointmentStatusRequest'
       responses:
         '204':
-          description: Appointment canceled
-        '404':
-          description: Appointment not found
-          schema:
-            $ref: '#/definitions/VndErrors'
-        '400':
-          description: Reason not provided
-          schema:
-            $ref: '#/definitions/VndErrors'
-        '403':
-          $ref: '#/responses/403'
-  /appointments/{id}/decline:
-    put:
-      tags:
-        - appointments
-      summary: Decline appointment by id
-      consumes:
-        - application/json
-      parameters:
-        - in: path
-          name: id
-          description: Appointment id
-          required: true
-          type: string
-          format: uuid
-        - in: body
-          name: reason
-          description: Reason for declining the appointment
-          required: true
-          schema:
-            $ref: '#/definitions/AppointmentReason'
-      responses:
-        '204':
-          description: Appointment declined
-        '404':
-          description: Appointment not found
-          schema:
-            $ref: '#/definitions/VndErrors'
-        '400':
-          description: Reason not provided
-          schema:
-            $ref: '#/definitions/VndErrors'
-        '403':
-          $ref: '#/responses/403'
-  /appointments/{id}/accept:
-    put:
-      tags:
-        - appointments
-      summary: Accept appointment by id
-      consumes:
-        - application/json
-      parameters:
-        - in: path
-          name: id
-          description: Appointment id
-          required: true
-          type: string
-          format: uuid
-      responses:
-        '204':
-          description: Appointment accepted
+          description: Appointment updated
         '404':
           description: Appointment not found
           schema:
@@ -2857,3 +2797,12 @@ definitions:
         $ref: '#/definitions/AttachmentResourceList'
       _links:
         type: object
+  UpdateAppointmentStatusRequest:
+    type: object
+    properties:
+      reason:
+        type: string
+        maxLength: 255
+      status:
+        type: string
+        enum: [PROPOSED, ACCEPTED, DECLINED, CANCELED, MISSED, COMPLETED, STARTED]
