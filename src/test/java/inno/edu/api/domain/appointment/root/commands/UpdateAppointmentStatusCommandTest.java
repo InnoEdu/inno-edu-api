@@ -30,6 +30,9 @@ public class UpdateAppointmentStatusCommandTest {
     @Mock
     private UpdateAppointmentStatusRequestMapper updateAppointmentStatusRequestMapper;
 
+    @Mock
+    private UpdateConflictingAppointmentsCommand updateConflictingAppointmentsCommand;
+
     @InjectMocks
     private UpdateAppointmentStatusCommand updateAppointmentStatusCommand;
 
@@ -43,6 +46,13 @@ public class UpdateAppointmentStatusCommandTest {
         updateAppointmentStatusCommand.run(appointment().getId(), updateAppointmentStatusRequest());
 
         verify(updateAppointmentStatusRequestMapper).setAppointment(updateAppointmentStatusRequest(), appointment());
+    }
+
+    @Test
+    public void shouldCheckForConflictsIfMentorAccepts() {
+        updateAppointmentStatusCommand.run(appointment().getId(), updateAppointmentStatusRequest());
+
+        verify(updateConflictingAppointmentsCommand).run(appointment());
     }
 
     @Test
