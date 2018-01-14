@@ -1,7 +1,7 @@
 package inno.edu.api.domain.common.assertions;
 
-import inno.edu.api.domain.appointment.exceptions.FeedbackNotFoundException;
-import inno.edu.api.domain.appointment.repositories.FeedbackRepository;
+import inno.edu.api.domain.appointment.root.exceptions.FeedbackNotFoundException;
+import inno.edu.api.domain.appointment.root.repositories.FeedbackRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

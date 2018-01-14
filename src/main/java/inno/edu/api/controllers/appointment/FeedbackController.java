@@ -2,12 +2,12 @@ package inno.edu.api.controllers.appointment;
 
 import inno.edu.api.controllers.appointment.resources.FeedbackResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
-import inno.edu.api.domain.appointment.commands.CreateFeedbackCommand;
-import inno.edu.api.domain.appointment.commands.DeleteFeedbackCommand;
-import inno.edu.api.domain.appointment.commands.dtos.CreateFeedbackRequest;
-import inno.edu.api.domain.appointment.models.Feedback;
-import inno.edu.api.domain.appointment.queries.GetFeedbackByIdQuery;
-import inno.edu.api.domain.appointment.queries.GetFeedbacksByAppointmentByIdQuery;
+import inno.edu.api.domain.appointment.root.commands.CreateFeedbackCommand;
+import inno.edu.api.domain.appointment.root.commands.DeleteFeedbackCommand;
+import inno.edu.api.domain.appointment.root.commands.dtos.CreateFeedbackRequest;
+import inno.edu.api.domain.appointment.root.models.Feedback;
+import inno.edu.api.domain.appointment.root.queries.GetFeedbackByIdQuery;
+import inno.edu.api.domain.appointment.root.queries.GetFeedbacksByAppointmentByIdQuery;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;

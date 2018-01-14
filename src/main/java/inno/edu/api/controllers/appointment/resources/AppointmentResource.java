@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import inno.edu.api.controllers.appointment.AppointmentController;
 import inno.edu.api.controllers.appointment.FeedbackController;
 import inno.edu.api.controllers.profile.ProfileController;
-import inno.edu.api.domain.appointment.models.Appointment;
+import inno.edu.api.domain.appointment.root.models.Appointment;
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;

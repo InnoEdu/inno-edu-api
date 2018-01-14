@@ -4,7 +4,7 @@ import inno.edu.api.ApiTest;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
-import static inno.edu.api.domain.appointment.models.AppointmentStatus.PROPOSED;
+import static inno.edu.api.domain.appointment.root.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.support.AppointmentFactory.appointment;
 import static inno.edu.api.support.AppointmentFactory.appointmentToDelete;
 import static inno.edu.api.support.AppointmentFactory.createAppointmentRequest;

@@ -1,9 +1,9 @@
 package inno.edu.api.support;
 
-import inno.edu.api.domain.appointment.commands.dtos.CreateAppointmentRequest;
-import inno.edu.api.domain.appointment.commands.dtos.CreateFeedbackRequest;
-import inno.edu.api.domain.appointment.commands.dtos.UpdateAppointmentRequest;
-import inno.edu.api.domain.appointment.commands.dtos.UpdateAppointmentStatusRequest;
+import inno.edu.api.domain.appointment.root.commands.dtos.CreateAppointmentRequest;
+import inno.edu.api.domain.appointment.root.commands.dtos.CreateFeedbackRequest;
+import inno.edu.api.domain.appointment.root.commands.dtos.UpdateAppointmentRequest;
+import inno.edu.api.domain.appointment.root.commands.dtos.UpdateAppointmentStatusRequest;
 import inno.edu.api.domain.attachment.commands.dtos.UpdateAttachmentRequest;
 import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityByMentorIdRequest;
 import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityRequest;
