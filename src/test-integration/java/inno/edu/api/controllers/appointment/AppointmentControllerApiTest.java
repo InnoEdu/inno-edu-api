@@ -5,8 +5,10 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 
 import static inno.edu.api.domain.appointment.root.models.AppointmentStatus.PROPOSED;
+import static inno.edu.api.domain.appointment.root.models.AppointmentStatus.UNAVAILABLE;
 import static inno.edu.api.support.AppointmentFactory.appointment;
 import static inno.edu.api.support.AppointmentFactory.appointmentToDelete;
+import static inno.edu.api.support.AppointmentFactory.conflictAppointment;
 import static inno.edu.api.support.AppointmentFactory.createAppointmentRequest;
 import static inno.edu.api.support.AppointmentFactory.otherAppointment;
 import static inno.edu.api.support.AppointmentFactory.updateAppointmentRequest;
@@ -141,6 +143,12 @@ public class AppointmentControllerApiTest extends ApiTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isNoContent());
+
+        this.mockMvc.perform(get("/api/appointments/" + conflictAppointment().getId().toString()))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(conflictAppointment().getId().toString())))
+                .andExpect(jsonPath("$.status", is(UNAVAILABLE.toString())));
     }
 
     @Test

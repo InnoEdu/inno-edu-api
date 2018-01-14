@@ -21,7 +21,7 @@ import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static java.util.UUID.fromString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.anyCollection;
+import static org.mockito.Matchers.anyCollectionOf;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -40,7 +40,7 @@ public class UpdateConflictingAppointmentsCommandTest {
         when(getAppointmentsByMentorProfileIdQuery.run(feiProfile().getId(), PROPOSED))
                 .thenReturn(appointmentList());
 
-        when(appointmentRepository.save(anyCollection()))
+        when(appointmentRepository.save(anyCollectionOf(Appointment.class)))
                 .thenAnswer(answer -> answer.getArguments()[0]);
     }
 

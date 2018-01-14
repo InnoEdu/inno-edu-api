@@ -36,6 +36,19 @@ public class AppointmentFactory {
                 .build();
     }
 
+    public static Appointment conflictAppointment() {
+        return Appointment.builder()
+                .id(fromString("22f81159-e211-4b95-9416-6648c339ce3a"))
+                .mentorProfileId(feiProfile().getId())
+                .menteeProfileId(alanProfile().getId())
+                .fromDateTime(of(2017, 11, 10, 9, 0, 5))
+                .toDateTime(of(2017, 11, 10, 10, 0, 5))
+                .description("conflict")
+                .fee(new BigDecimal(10.5))
+                .status(PROPOSED)
+                .build();
+    }
+
     public static Appointment appointmentToDelete() {
         return appointment().toBuilder()
                 .id(fromString("2bb42516-808d-4b2e-940c-2eba440ac378"))

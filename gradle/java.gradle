@@ -8,7 +8,12 @@ compileJava {
             '-Amapstruct.defaultComponentModel=spring',
             '-Amapstruct.unmappedTargetPolicy=IGNORE',
             '-Xlint:unchecked'
+    ]
+}
 
+compileTestJava {
+    options.compilerArgs = [
+            '-Xlint:unchecked'
     ]
 }
 

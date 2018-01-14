@@ -107,5 +107,10 @@ VALUES ('2bb42516808d4b2e940c2eba440ac378', '0e9e40c0b44b438792a99d75d10e3d42',
         'c5f473b4331140b18fb3f70357894754', '2017-11-10 09:00:01.000',
         '2017-11-10 10:00:01.000', 'Appoointment to delete.', 0, 10.5);
 
+INSERT INTO Appointment (id, mentor_profile_id, mentee_profile_id, from_date_time, to_date_time, description, status, fee)
+VALUES ('22f81159e2114b9594166648c339ce3a', '0e9e40c0b44b438792a99d75d10e3d42',
+        'c5f473b4331140b18fb3f70357894754', '2017-11-10 09:00:05.000',
+        '2017-11-10 10:00:05.000', 'conflict', 0, 10.5);
+
 INSERT INTO Feedback (id, appointment_id, source, rating, description)
 VALUES ('bd06f884b1264be8b637758519dea5a5', 'f192270f2dad4bcd96c3c3765df77ce8', 0, 5, 'Great session');
