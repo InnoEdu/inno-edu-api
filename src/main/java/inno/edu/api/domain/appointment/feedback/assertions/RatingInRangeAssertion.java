@@ -1,6 +1,6 @@
-package inno.edu.api.domain.appointment.root.assertions;
+package inno.edu.api.domain.appointment.feedback.assertions;
 
-import inno.edu.api.domain.appointment.root.exceptions.InvalidRatingRangeException;
+import inno.edu.api.domain.appointment.feedback.exceptions.InvalidRatingRangeException;
 import inno.edu.api.infrastructure.annotations.Assertion;
 
 @Assertion

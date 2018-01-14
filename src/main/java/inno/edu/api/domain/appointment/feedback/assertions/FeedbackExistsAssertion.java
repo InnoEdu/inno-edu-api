@@ -1,7 +1,7 @@
-package inno.edu.api.domain.appointment.root.assertions;
+package inno.edu.api.domain.appointment.feedback.assertions;
 
-import inno.edu.api.domain.appointment.root.exceptions.FeedbackNotFoundException;
-import inno.edu.api.domain.appointment.root.repositories.FeedbackRepository;
+import inno.edu.api.domain.appointment.feedback.exceptions.FeedbackNotFoundException;
+import inno.edu.api.domain.appointment.feedback.respositories.FeedbackRepository;
 import inno.edu.api.domain.common.assertions.EntityExistsAssertion;
 import inno.edu.api.infrastructure.annotations.Assertion;
 

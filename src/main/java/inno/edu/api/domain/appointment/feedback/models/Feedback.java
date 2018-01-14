@@ -1,4 +1,4 @@
-package inno.edu.api.domain.appointment.root.models;
+package inno.edu.api.domain.appointment.feedback.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

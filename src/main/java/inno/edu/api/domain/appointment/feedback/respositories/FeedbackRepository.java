@@ -1,6 +1,6 @@
-package inno.edu.api.domain.appointment.root.repositories;
+package inno.edu.api.domain.appointment.feedback.respositories;
 
-import inno.edu.api.domain.appointment.root.models.Feedback;
+import inno.edu.api.domain.appointment.feedback.models.Feedback;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

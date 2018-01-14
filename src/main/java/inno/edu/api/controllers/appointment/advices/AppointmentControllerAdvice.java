@@ -1,7 +1,7 @@
 package inno.edu.api.controllers.appointment.advices;
 
 import inno.edu.api.domain.appointment.root.exceptions.AppointmentNotFoundException;
-import inno.edu.api.domain.appointment.root.exceptions.InvalidRatingRangeException;
+import inno.edu.api.domain.appointment.feedback.exceptions.InvalidRatingRangeException;
 import inno.edu.api.domain.profile.root.exceptions.ProfileNotFoundException;
 import org.springframework.core.annotation.Order;
 import org.springframework.hateoas.VndErrors;

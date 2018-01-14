@@ -1,7 +1,8 @@
-package inno.edu.api.domain.appointment.root.commands;
+package inno.edu.api.domain.appointment.feedback.commands;
 
-import inno.edu.api.domain.appointment.root.assertions.FeedbackExistsAssertion;
-import inno.edu.api.domain.appointment.root.repositories.FeedbackRepository;
+import inno.edu.api.domain.appointment.feedback.assertions.FeedbackExistsAssertion;
+import inno.edu.api.domain.appointment.feedback.commands.DeleteFeedbackCommand;
+import inno.edu.api.domain.appointment.feedback.respositories.FeedbackRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

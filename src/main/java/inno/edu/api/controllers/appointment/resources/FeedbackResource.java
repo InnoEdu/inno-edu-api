@@ -2,7 +2,7 @@ package inno.edu.api.controllers.appointment.resources;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import inno.edu.api.controllers.appointment.FeedbackController;
-import inno.edu.api.domain.appointment.root.models.Feedback;
+import inno.edu.api.domain.appointment.feedback.models.Feedback;
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;

@@ -1,6 +1,7 @@
-package inno.edu.api.domain.appointment.root.assertions;
+package inno.edu.api.domain.appointment.feedback.assertions;
 
-import inno.edu.api.domain.appointment.root.exceptions.InvalidRatingRangeException;
+import inno.edu.api.domain.appointment.feedback.assertions.RatingInRangeAssertion;
+import inno.edu.api.domain.appointment.feedback.exceptions.InvalidRatingRangeException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

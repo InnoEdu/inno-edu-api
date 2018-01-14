@@ -1,6 +1,6 @@
-package inno.edu.api.domain.appointment.root.commands.dtos;
+package inno.edu.api.domain.appointment.feedback.commands.dtos;
 
-import inno.edu.api.domain.appointment.root.models.FeedbackSource;
+import inno.edu.api.domain.appointment.feedback.models.FeedbackSource;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

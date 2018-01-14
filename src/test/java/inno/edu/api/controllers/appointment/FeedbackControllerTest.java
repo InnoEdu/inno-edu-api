@@ -2,11 +2,11 @@ package inno.edu.api.controllers.appointment;
 
 import inno.edu.api.controllers.appointment.resources.FeedbackResource;
 import inno.edu.api.controllers.resources.ResourceBuilder;
-import inno.edu.api.domain.appointment.root.commands.CreateFeedbackCommand;
-import inno.edu.api.domain.appointment.root.commands.DeleteFeedbackCommand;
-import inno.edu.api.domain.appointment.root.models.Feedback;
-import inno.edu.api.domain.appointment.root.queries.GetFeedbackByIdQuery;
-import inno.edu.api.domain.appointment.root.queries.GetFeedbacksByAppointmentByIdQuery;
+import inno.edu.api.domain.appointment.feedback.commands.CreateFeedbackCommand;
+import inno.edu.api.domain.appointment.feedback.commands.DeleteFeedbackCommand;
+import inno.edu.api.domain.appointment.feedback.models.Feedback;
+import inno.edu.api.domain.appointment.feedback.queries.GetFeedbackByIdQuery;
+import inno.edu.api.domain.appointment.feedback.queries.GetFeedbacksByAppointmentByIdQuery;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

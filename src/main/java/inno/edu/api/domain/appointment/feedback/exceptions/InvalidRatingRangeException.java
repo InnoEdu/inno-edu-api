@@ -1,4 +1,4 @@
-package inno.edu.api.domain.appointment.root.exceptions;
+package inno.edu.api.domain.appointment.feedback.exceptions;
 
 public class InvalidRatingRangeException extends RuntimeException {
     public InvalidRatingRangeException(int rating) {

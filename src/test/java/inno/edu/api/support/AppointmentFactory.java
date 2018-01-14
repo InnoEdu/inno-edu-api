@@ -2,12 +2,12 @@ package inno.edu.api.support;
 
 import inno.edu.api.domain.appointment.root.commands.dtos.CalculateAppointmentFeeRequest;
 import inno.edu.api.domain.appointment.root.commands.dtos.CreateAppointmentRequest;
-import inno.edu.api.domain.appointment.root.commands.dtos.CreateFeedbackRequest;
+import inno.edu.api.domain.appointment.feedback.commands.dtos.CreateFeedbackRequest;
 import inno.edu.api.domain.appointment.root.commands.dtos.UpdateAppointmentRequest;
 import inno.edu.api.domain.appointment.root.commands.dtos.UpdateAppointmentStatusRequest;
 import inno.edu.api.domain.appointment.root.models.Appointment;
-import inno.edu.api.domain.appointment.root.models.Feedback;
-import inno.edu.api.domain.appointment.root.models.FeedbackSource;
+import inno.edu.api.domain.appointment.feedback.models.Feedback;
+import inno.edu.api.domain.appointment.feedback.models.FeedbackSource;
 
 import java.math.BigDecimal;
 import java.util.List;

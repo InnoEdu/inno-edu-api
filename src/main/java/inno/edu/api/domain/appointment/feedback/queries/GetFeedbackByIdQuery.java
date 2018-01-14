@@ -1,8 +1,8 @@
-package inno.edu.api.domain.appointment.root.queries;
+package inno.edu.api.domain.appointment.feedback.queries;
 
-import inno.edu.api.domain.appointment.root.exceptions.FeedbackNotFoundException;
-import inno.edu.api.domain.appointment.root.models.Feedback;
-import inno.edu.api.domain.appointment.root.repositories.FeedbackRepository;
+import inno.edu.api.domain.appointment.feedback.exceptions.FeedbackNotFoundException;
+import inno.edu.api.domain.appointment.feedback.models.Feedback;
+import inno.edu.api.domain.appointment.feedback.respositories.FeedbackRepository;
 import inno.edu.api.infrastructure.annotations.Query;
 
 import java.util.UUID;

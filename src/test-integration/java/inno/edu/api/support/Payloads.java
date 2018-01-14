@@ -1,7 +1,7 @@
 package inno.edu.api.support;
 
 import inno.edu.api.domain.appointment.root.commands.dtos.CreateAppointmentRequest;
-import inno.edu.api.domain.appointment.root.commands.dtos.CreateFeedbackRequest;
+import inno.edu.api.domain.appointment.feedback.commands.dtos.CreateFeedbackRequest;
 import inno.edu.api.domain.appointment.root.commands.dtos.UpdateAppointmentRequest;
 import inno.edu.api.domain.appointment.root.commands.dtos.UpdateAppointmentStatusRequest;
 import inno.edu.api.domain.attachment.commands.dtos.UpdateAttachmentRequest;

@@ -1,4 +1,4 @@
-package inno.edu.api.domain.appointment.root.exceptions;
+package inno.edu.api.domain.appointment.feedback.exceptions;
 
 import java.util.UUID;
 
