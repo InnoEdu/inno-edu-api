@@ -8,7 +8,7 @@ task generateQueryDSL(type: JavaCompile, group: 'build', description: 'Generates
 
     options.compilerArgs = [
             "-proc:only",
-            "-processor", "com.mysema.query.apt.jpa.JPAAnnotationProcessor"
+            "-processor", "com.querydsl.apt.jpa.JPAAnnotationProcessor"
     ]
     destinationDir = generatedSourcesDir
 }
