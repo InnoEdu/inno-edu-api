@@ -3,6 +3,19 @@ jar {
     version =  '0.1.0'
 }
 
+ext {
+    generatedSourcesDir = file("${buildDir}/generated-sources")
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir "src/main/java"
+            srcDir generatedSourcesDir
+        }
+    }
+}
+
 compileJava {
     options.compilerArgs = [
             '-Amapstruct.defaultComponentModel=spring',

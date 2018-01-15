@@ -1,0 +1,22 @@
+configurations {
+    querydslapt
+}
+
+task generateQueryDSL(type: JavaCompile, group: 'build', description: 'Generates the QueryDSL query types') {
+    source = sourceSets.main.java
+    classpath = configurations.compile + configurations.querydslapt
+
+    options.compilerArgs = [
+            "-proc:only",
+            "-processor", "com.mysema.query.apt.jpa.JPAAnnotationProcessor"
+    ]
+    destinationDir = generatedSourcesDir
+}
+compileJava {
+    doFirst {
+        generatedSourcesDir.mkdirs();
+    }
+    options.compilerArgs += ['-s', generatedSourcesDir]
+
+    dependsOn generateQueryDSL
+}

@@ -17,7 +17,7 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
 apply from: 'gradle/java.gradle'
+apply from: 'gradle/querydsl.gradle'
 apply from: 'gradle/integration-test.gradle'
 apply from: 'gradle/dependencies.gradle'
 apply from: 'gradle/heroku.gradle'
-
