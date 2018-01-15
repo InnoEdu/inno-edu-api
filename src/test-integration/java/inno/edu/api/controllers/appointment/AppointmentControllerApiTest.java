@@ -161,4 +161,35 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.fee", is(appointment().getFee().doubleValue())));
     }
+
+    @Test
+    public void shouldSearchAllAppointments() throws Exception {
+        this.mockMvc.perform(get("/api/appointments/search"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].id", hasItems(appointment().getId().toString(), otherAppointment().getId().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].mentorProfileId", hasItems(appointment().getMentorProfileId().toString(), otherAppointment().getMentorProfileId().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].menteeProfileId", hasItems(appointment().getMenteeProfileId().toString(), otherAppointment().getMenteeProfileId().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].fromDateTime", hasItems(appointment().getFromDateTime().toString(), otherAppointment().getFromDateTime().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].toDateTime", hasItems(appointment().getToDateTime().toString(), otherAppointment().getToDateTime().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].description", hasItems(appointment().getDescription(), otherAppointment().getDescription())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].fee", hasItems(appointment().getFee().doubleValue(), otherAppointment().getFee().doubleValue())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].status", hasItems(appointment().getStatus().toString(), otherAppointment().getStatus().toString())));
+    }
+
+    @Test
+    public void shouldSearchAppointmentsByStatusList() throws Exception {
+        this.mockMvc.perform(get("/api/appointments/search?status=PROPOSED,ACCEPTED"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].id", hasItems(appointment().getId().toString(), otherAppointment().getId().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].mentorProfileId", hasItems(appointment().getMentorProfileId().toString(), otherAppointment().getMentorProfileId().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].menteeProfileId", hasItems(appointment().getMenteeProfileId().toString(), otherAppointment().getMenteeProfileId().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].fromDateTime", hasItems(appointment().getFromDateTime().toString(), otherAppointment().getFromDateTime().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].toDateTime", hasItems(appointment().getToDateTime().toString(), otherAppointment().getToDateTime().toString())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].description", hasItems(appointment().getDescription(), otherAppointment().getDescription())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].fee", hasItems(appointment().getFee().doubleValue(), otherAppointment().getFee().doubleValue())))
+                .andExpect(jsonPath("$._embedded.appointmentResourceList[*].status", hasItems(appointment().getStatus().toString(), otherAppointment().getStatus().toString())));
+    }
+
 }

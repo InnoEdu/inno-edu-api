@@ -18,6 +18,8 @@ import inno.edu.api.domain.appointment.root.queries.GetAppointmentByIdQuery;
 import inno.edu.api.domain.appointment.root.queries.GetAppointmentsByMenteeProfileIdQuery;
 import inno.edu.api.domain.appointment.root.queries.GetAppointmentsByMentorProfileIdQuery;
 import inno.edu.api.domain.appointment.root.queries.GetAppointmentsQuery;
+import inno.edu.api.domain.appointment.root.queries.SearchAppointmentsQuery;
+import inno.edu.api.domain.appointment.root.queries.dto.SearchAppointmentsRequest;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -48,12 +50,13 @@ public class AppointmentController {
     private final UpdateAppointmentStatusCommand updateAppointmentStatusCommand;
     private final CalculateAppointmentFeeCommand calculateAppointmentFeeCommand;
 
+    private final SearchAppointmentsQuery searchAppointmentsQuery;
     private final GetAppointmentsQuery getAppointmentsQuery;
     private final GetAppointmentByIdQuery getAppointmentByIdQuery;
     private final GetAppointmentsByMentorProfileIdQuery getAppointmentsByMentorProfileIdQuery;
     private final GetAppointmentsByMenteeProfileIdQuery getAppointmentsByMenteeProfileIdQuery;
 
-    public AppointmentController(ResourceBuilder resourceBuilder, CreateAppointmentCommand createAppointmentCommand, UpdateAppointmentCommand updateAppointmentCommand, DeleteAppointmentCommand deleteAppointmentCommand, GetAppointmentsQuery getAppointmentsQuery, GetAppointmentByIdQuery getAppointmentByIdQuery, GetAppointmentsByMentorProfileIdQuery getAppointmentsByMentorProfileIdQuery, GetAppointmentsByMenteeProfileIdQuery getAppointmentsByMenteeProfileIdQuery, UpdateAppointmentStatusCommand updateAppointmentStatusCommand, CalculateAppointmentFeeCommand calculateAppointmentFeeCommand) {
+    public AppointmentController(ResourceBuilder resourceBuilder, CreateAppointmentCommand createAppointmentCommand, UpdateAppointmentCommand updateAppointmentCommand, DeleteAppointmentCommand deleteAppointmentCommand, GetAppointmentsQuery getAppointmentsQuery, GetAppointmentByIdQuery getAppointmentByIdQuery, GetAppointmentsByMentorProfileIdQuery getAppointmentsByMentorProfileIdQuery, GetAppointmentsByMenteeProfileIdQuery getAppointmentsByMenteeProfileIdQuery, UpdateAppointmentStatusCommand updateAppointmentStatusCommand, CalculateAppointmentFeeCommand calculateAppointmentFeeCommand, SearchAppointmentsQuery searchAppointmentsQuery) {
         this.resourceBuilder = resourceBuilder;
         this.createAppointmentCommand = createAppointmentCommand;
         this.updateAppointmentCommand = updateAppointmentCommand;
@@ -64,6 +67,7 @@ public class AppointmentController {
         this.getAppointmentsByMenteeProfileIdQuery = getAppointmentsByMenteeProfileIdQuery;
         this.updateAppointmentStatusCommand = updateAppointmentStatusCommand;
         this.calculateAppointmentFeeCommand = calculateAppointmentFeeCommand;
+        this.searchAppointmentsQuery = searchAppointmentsQuery;
     }
 
     @GetMapping
@@ -89,6 +93,12 @@ public class AppointmentController {
     @GetMapping("/{id}")
     public AppointmentResource get(@PathVariable UUID id) {
         return new AppointmentResource(getAppointmentByIdQuery.run(id));
+    }
+
+    @GetMapping("/search")
+    public Resources<Object> search(SearchAppointmentsRequest request) {
+        List<Appointment> appointments = searchAppointmentsQuery.run(request);
+        return resourceBuilder.wrappedFrom(appointments, AppointmentResource::new, AppointmentResource.class);
     }
 
     @PostMapping

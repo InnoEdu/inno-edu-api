@@ -16,6 +16,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static inno.edu.api.domain.appointment.root.models.AppointmentStatus.CANCELED;
 import static inno.edu.api.domain.appointment.root.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.support.AppointmentFactory.appointments;
+import static inno.edu.api.support.AppointmentFactory.searchAppointmentsByStatus;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -46,11 +47,7 @@ public class SearchAppointmentsQueryTest {
 
     @Test
     public void shouldSearchByStatus() {
-        SearchAppointmentsRequest request = SearchAppointmentsRequest.builder()
-                .status(newArrayList(PROPOSED, CANCELED))
-                .build();
-
-        searchAppointmentsQuery.run(request);
+        searchAppointmentsQuery.run(searchAppointmentsByStatus());
 
         BooleanExpression expectedPredicate = QAppointment.appointment.isNotNull()
                 .and(QAppointment.appointment.status.in(newArrayList(PROPOSED, CANCELED)));

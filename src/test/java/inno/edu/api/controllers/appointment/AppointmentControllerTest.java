@@ -11,6 +11,7 @@ import inno.edu.api.domain.appointment.root.queries.GetAppointmentByIdQuery;
 import inno.edu.api.domain.appointment.root.queries.GetAppointmentsByMenteeProfileIdQuery;
 import inno.edu.api.domain.appointment.root.queries.GetAppointmentsByMentorProfileIdQuery;
 import inno.edu.api.domain.appointment.root.queries.GetAppointmentsQuery;
+import inno.edu.api.domain.appointment.root.queries.SearchAppointmentsQuery;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +27,7 @@ import static inno.edu.api.support.AppointmentFactory.appointment;
 import static inno.edu.api.support.AppointmentFactory.appointments;
 import static inno.edu.api.support.AppointmentFactory.createAppointmentRequest;
 import static inno.edu.api.support.AppointmentFactory.proposedAppointments;
+import static inno.edu.api.support.AppointmentFactory.searchAppointmentsByStatus;
 import static inno.edu.api.support.AppointmentFactory.updateAppointmentRequest;
 import static inno.edu.api.support.AppointmentFactory.updateAppointmentStatusRequest;
 import static inno.edu.api.support.AppointmentFactory.updatedAppointment;
@@ -55,6 +57,9 @@ public class AppointmentControllerTest {
 
     @Mock
     private DeleteAppointmentCommand deleteAppointmentCommand;
+
+    @Mock
+    private SearchAppointmentsQuery searchAppointmentsQuery;
 
     @Mock
     private GetAppointmentByIdQuery getAppointmentByIdQuery;
@@ -160,5 +165,15 @@ public class AppointmentControllerTest {
         appointmentController.status(appointment().getId(), updateAppointmentStatusRequest());
 
         verify(updateAppointmentStatusCommand).run(appointment().getId(), updateAppointmentStatusRequest());
+    }
+
+    @Test
+    public void shouldSearchAppointments() {
+        when(searchAppointmentsQuery.run(searchAppointmentsByStatus())).thenReturn(appointments());
+
+        appointmentController.search(searchAppointmentsByStatus());
+
+        verify(resourceBuilder).wrappedFrom(eq(appointments()), any(), eq(AppointmentResource.class));
+
     }
 }

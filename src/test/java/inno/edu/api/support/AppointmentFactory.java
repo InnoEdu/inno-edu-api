@@ -1,13 +1,14 @@
 package inno.edu.api.support;
 
+import inno.edu.api.domain.appointment.feedback.commands.dtos.CreateFeedbackRequest;
+import inno.edu.api.domain.appointment.feedback.models.Feedback;
+import inno.edu.api.domain.appointment.feedback.models.FeedbackSource;
 import inno.edu.api.domain.appointment.root.commands.dtos.CalculateAppointmentFeeRequest;
 import inno.edu.api.domain.appointment.root.commands.dtos.CreateAppointmentRequest;
-import inno.edu.api.domain.appointment.feedback.commands.dtos.CreateFeedbackRequest;
 import inno.edu.api.domain.appointment.root.commands.dtos.UpdateAppointmentRequest;
 import inno.edu.api.domain.appointment.root.commands.dtos.UpdateAppointmentStatusRequest;
 import inno.edu.api.domain.appointment.root.models.Appointment;
-import inno.edu.api.domain.appointment.feedback.models.Feedback;
-import inno.edu.api.domain.appointment.feedback.models.FeedbackSource;
+import inno.edu.api.domain.appointment.root.queries.dto.SearchAppointmentsRequest;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.UUID;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static inno.edu.api.domain.appointment.root.models.AppointmentStatus.ACCEPTED;
+import static inno.edu.api.domain.appointment.root.models.AppointmentStatus.CANCELED;
 import static inno.edu.api.domain.appointment.root.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.support.ProfileFactory.alanProfile;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
@@ -155,5 +157,11 @@ public class AppointmentFactory {
 
     public static List<Feedback> feedbacks() {
         return singletonList(feedback());
+    }
+
+    public static SearchAppointmentsRequest searchAppointmentsByStatus() {
+        return SearchAppointmentsRequest.builder()
+                .status(newArrayList(PROPOSED, CANCELED))
+                .build();
     }
 }
