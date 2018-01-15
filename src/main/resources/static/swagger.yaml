@@ -1548,6 +1548,28 @@ paths:
           $ref: '#/responses/400'
         '403':
           $ref: '#/responses/403'
+  /appointments/search:
+    get:
+      tags:
+        - appointments
+      summary: Search appointments
+      produces:
+        - application/hal+json
+      parameters:
+        - in: query
+          name: status
+          type: array
+          items:
+              type: string
+              enum: [PROPOSED, ACCEPTED, DECLINED, CANCELED, MISSED, COMPLETED, STARTED, UNAVAILABLE]
+          description: List of status to search
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EmbeddedAppointmentResourceList'
+        '403':
+          $ref: '#/responses/403'
   /appointments/estimate:
     get:
       tags:
