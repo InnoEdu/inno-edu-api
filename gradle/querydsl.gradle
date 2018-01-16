@@ -12,6 +12,7 @@ task generateQueryDSL(type: JavaCompile, group: 'build', description: 'Generates
     ]
     destinationDir = generatedSourcesDir
 }
+
 compileJava {
     doFirst {
         generatedSourcesDir.mkdirs();
