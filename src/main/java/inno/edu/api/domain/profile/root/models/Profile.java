@@ -1,5 +1,6 @@
 package inno.edu.api.domain.profile.root.models;
 
+import inno.edu.api.domain.attachment.models.Attachment;
 import inno.edu.api.domain.profile.accomplishment.models.Accomplishment;
 import inno.edu.api.domain.profile.experience.models.Experience;
 import inno.edu.api.domain.profile.interest.models.Interest;
@@ -38,6 +39,11 @@ public class Profile {
     private String company;
 
     private UUID profileReferenceId;
+    private UUID photoId;
+
+    @OneToOne(fetch = LAZY)
+    @JoinColumn(name = "photoId", updatable = false, insertable = false)
+    private Attachment photo;
 
     @OneToOne(fetch = LAZY)
     @JoinColumn(name = "schoolId", updatable = false, insertable = false)

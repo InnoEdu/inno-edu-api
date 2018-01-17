@@ -23,6 +23,7 @@ CREATE TABLE Profile (
   id                   BINARY(16) PRIMARY KEY,
   user_id              BINARY(16)     NOT NULL,
   school_id            BINARY(16)     NULL,
+  photo_id             BINARY(16)     NULL,
   description          TEXT           NOT NULL,
   rate                 DECIMAL(15, 2) NULL,
   location             VARCHAR(255)   NOT NULL,
@@ -36,7 +37,10 @@ CREATE TABLE Profile (
   REFERENCES School (id),
 
   FOREIGN KEY (profile_reference_id)
-  REFERENCES Profile (id)
+  REFERENCES Profile (id),
+
+  FOREIGN KEY (photo_id)
+  REFERENCES Attachment (id)
 );
 
 CREATE TABLE Profile_Attachment (
@@ -53,7 +57,7 @@ CREATE TABLE Profile_Attachment (
 );
 
 CREATE TABLE School_Attachment (
-  school_id    BINARY(16),
+  school_id     BINARY(16),
   attachment_id BINARY(16),
 
   PRIMARY KEY (school_id, attachment_id),
