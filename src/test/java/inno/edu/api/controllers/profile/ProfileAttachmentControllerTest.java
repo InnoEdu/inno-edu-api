@@ -5,12 +5,16 @@ import inno.edu.api.controllers.resources.ResourceBuilder;
 import inno.edu.api.domain.attachment.commands.dtos.CreateAttachmentRequest;
 import inno.edu.api.domain.profile.attachment.commands.CreateProfileAttachmentCommand;
 import inno.edu.api.domain.profile.attachment.commands.DeleteProfileAttachmentCommand;
+import inno.edu.api.domain.profile.attachment.commands.UploadPhotoAttachmentCommand;
 import inno.edu.api.domain.profile.attachment.queries.GetProfileAttachmentsByProfileIdQuery;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static inno.edu.api.support.AttachmentFactory.attachment;
 import static inno.edu.api.support.AttachmentFactory.attachments;
@@ -22,6 +26,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.web.context.request.RequestContextHolder.setRequestAttributes;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProfileAttachmentControllerTest {
@@ -37,8 +42,16 @@ public class ProfileAttachmentControllerTest {
     @Mock
     private DeleteProfileAttachmentCommand deleteProfileAttachmentCommand;
 
+    @Mock
+    private UploadPhotoAttachmentCommand uploadPhotoAttachmentCommand;
+
     @InjectMocks
     private ProfileAttachmentController profileAttachmentController;
+
+    @Before
+    public void setup() {
+        setRequestAttributes(new ServletRequestAttributes(new MockHttpServletRequest()));
+    }
 
     @Test
     public void shouldListAttachments() {
@@ -70,4 +83,20 @@ public class ProfileAttachmentControllerTest {
 
         verify(deleteProfileAttachmentCommand).run(feiProfile().getId(), attachment().getId());
     }
+
+    @Test
+    public void shouldUploadPhoto() {
+        CreateAttachmentRequest request = createAttachmentRequest();
+
+        when(uploadPhotoAttachmentCommand.run(feiProfile().getId(), request.getFile()))
+                .thenReturn(attachment());
+
+        AttachmentResource attachmentResource = profileAttachmentController.upload(
+                feiProfile().getId(),
+                request.getFile()
+        );
+
+        assertThat(attachmentResource.getAttachment(), is(attachment()));
+    }
+
 }

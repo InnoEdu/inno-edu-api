@@ -3,19 +3,21 @@ package inno.edu.api.controllers.profile;
 import inno.edu.api.ApiTest;
 import org.junit.Test;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.web.servlet.MvcResult;
 
 import static inno.edu.api.support.AttachmentFactory.attachment;
 import static inno.edu.api.support.AttachmentFactory.createAttachmentRequest;
+import static inno.edu.api.support.MockMvcUtils.getIdentity;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 public class ProfileAttachmentControllerApiTest extends ApiTest {
     @Test
@@ -47,7 +49,6 @@ public class ProfileAttachmentControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.url", is(attachment().getUrl())));
     }
 
-
     @Test
     public void shouldDeleteAttachment() throws Exception {
         this.mockMvc.perform(
@@ -57,5 +58,25 @@ public class ProfileAttachmentControllerApiTest extends ApiTest {
                         + attachment().getId()))
                 .andDo(print())
                 .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void shouldUploadProfilePhoto() throws Exception {
+        MockMultipartFile file = new MockMultipartFile("file", "temporary.json", null, "bar".getBytes());
+
+        MvcResult mvcResult = this.mockMvc.perform(
+                fileUpload("/api/profiles/"
+                        + feiProfile().getId()
+                        + "/upload-photo")
+                        .file(file))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", not(attachment().getId().toString())))
+                .andExpect(jsonPath("$.url", is(attachment().getUrl())))
+                .andReturn();
+
+        this.mockMvc.perform(get("/api/profiles/" + feiProfile().getId().toString())).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.photoId", is(getIdentity(mvcResult))));
     }
 }
