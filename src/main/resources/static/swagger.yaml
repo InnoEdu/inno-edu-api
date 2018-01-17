@@ -1277,6 +1277,39 @@ paths:
             $ref: '#/definitions/VndErrors'
         '403':
           $ref: '#/responses/403'
+  /profiles/{profileId}/upload-photo:
+    post:
+      tags:
+        - profile-attachments
+      summary: Upload an attachment to be used as the profile photo
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: profileId
+          type: string
+          format: uuid
+          required: true
+        - in: formData
+          name: file
+          type: file
+          required: true
+      responses:
+        '201':
+          description: New attachment successfully created
+          schema:
+            $ref: '#/definitions/Attachment'
+          headers:
+            Location:
+              type: string
+              description: Link to the new resource created
+        '400':
+          $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
+
   /profiles/{profileId}/attachments:
     get:
       tags:
@@ -2218,6 +2251,9 @@ definitions:
         type: string
         format: uuid
       schoolId:
+        type: string
+        format: uuid
+      photoId:
         type: string
         format: uuid
       description:
