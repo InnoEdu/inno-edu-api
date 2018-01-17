@@ -4,6 +4,7 @@ import inno.edu.api.domain.attachment.commands.dtos.CreateAttachmentRequest;
 import inno.edu.api.domain.attachment.commands.dtos.UpdateAttachmentRequest;
 import inno.edu.api.domain.attachment.models.Attachment;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -44,6 +45,13 @@ public class AttachmentFactory {
         return CreateAttachmentRequest.builder()
                 .description(attachment().getDescription())
                 .file(new MockMultipartFile("file", attachment().getUrl(), null, "bar".getBytes()))
+                .build();
+    }
+
+    public static CreateAttachmentRequest createAttachmentRequestForFile(String description, MultipartFile multipartFile) {
+        return CreateAttachmentRequest.builder()
+                .description(description)
+                .file(multipartFile)
                 .build();
     }
 

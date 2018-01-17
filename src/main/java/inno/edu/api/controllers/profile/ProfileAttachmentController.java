@@ -6,6 +6,7 @@ import inno.edu.api.domain.attachment.commands.dtos.CreateAttachmentRequest;
 import inno.edu.api.domain.attachment.models.Attachment;
 import inno.edu.api.domain.profile.attachment.commands.CreateProfileAttachmentCommand;
 import inno.edu.api.domain.profile.attachment.commands.DeleteProfileAttachmentCommand;
+import inno.edu.api.domain.profile.attachment.commands.UploadPhotoAttachmentCommand;
 import inno.edu.api.domain.profile.attachment.queries.GetProfileAttachmentsByProfileIdQuery;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
@@ -30,12 +31,14 @@ public class ProfileAttachmentController {
     private final GetProfileAttachmentsByProfileIdQuery getProfileAttachmentsByProfileIdQuery;
     private final CreateProfileAttachmentCommand createProfileAttachmentCommand;
     private final DeleteProfileAttachmentCommand deleteProfileAttachmentCommand;
+    private final UploadPhotoAttachmentCommand uploadPhotoAttachmentCommand;
 
-    public ProfileAttachmentController(ResourceBuilder resourceBuilder, GetProfileAttachmentsByProfileIdQuery getProfileAttachmentsByProfileIdQuery, CreateProfileAttachmentCommand createProfileAttachmentCommand, DeleteProfileAttachmentCommand deleteProfileAttachmentCommand) {
+    public ProfileAttachmentController(ResourceBuilder resourceBuilder, GetProfileAttachmentsByProfileIdQuery getProfileAttachmentsByProfileIdQuery, CreateProfileAttachmentCommand createProfileAttachmentCommand, DeleteProfileAttachmentCommand deleteProfileAttachmentCommand, UploadPhotoAttachmentCommand uploadPhotoAttachmentCommand) {
         this.resourceBuilder = resourceBuilder;
         this.getProfileAttachmentsByProfileIdQuery = getProfileAttachmentsByProfileIdQuery;
         this.createProfileAttachmentCommand = createProfileAttachmentCommand;
         this.deleteProfileAttachmentCommand = deleteProfileAttachmentCommand;
+        this.uploadPhotoAttachmentCommand = uploadPhotoAttachmentCommand;
     }
 
     @GetMapping("/{profileId}/attachments")
@@ -52,6 +55,11 @@ public class ProfileAttachmentController {
                 .build();
 
         return new AttachmentResource(createProfileAttachmentCommand.run(profileId, request));
+    }
+
+    @PostMapping("/{profileId}/upload-photo")
+    public AttachmentResource upload(@PathVariable UUID profileId, @RequestParam MultipartFile file) {
+        return new AttachmentResource(uploadPhotoAttachmentCommand.run(profileId, file));
     }
 
     @DeleteMapping("/{profileId}/attachments/{id}")
