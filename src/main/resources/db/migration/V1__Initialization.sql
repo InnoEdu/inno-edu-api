@@ -169,6 +169,12 @@ CREATE TABLE Feedback (
   REFERENCES Appointment (id)
 );
 
+CREATE TABLE Skill (
+  id          BINARY(16) PRIMARY KEY,
+  title       VARCHAR(50)  NOT NULL,
+  description VARCHAR(255) NOT NULL,
+);
+
 -- Stub data
 
 -- Mentors
@@ -373,3 +379,11 @@ VALUES (${map}('f192270f2dad4bcd96c3c3765df77ce4'), ${map}('2744d1cbb25e4a61879d
 
 INSERT INTO Feedback (id, appointment_id, source, rating, description)
 VALUES (${map}('bd06f884b1264be8b637758519dea5a5'), ${map}('f192270f2dad4bcd96c3c3765df77ce3'), 0, 5, 'Great session');
+
+-- Skills
+
+INSERT INTO Skill (id, title, description)
+VALUES (${map}('52c048db062f42a6918de9aeea8d3a0d'), 'Communication', 'Description');
+
+INSERT INTO Skill (id, title, description)
+VALUES (${map}('094dad9244884b369c27dcfde9a1a32d'), 'Mentoring', 'Description');
