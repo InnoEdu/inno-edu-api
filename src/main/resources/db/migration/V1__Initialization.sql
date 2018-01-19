@@ -172,12 +172,12 @@ CREATE TABLE Feedback (
 CREATE TABLE Skill (
   id          BINARY(16) PRIMARY KEY,
   title       VARCHAR(50)  NOT NULL,
-  description VARCHAR(255) NOT NULL,
+  description VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE Profile_Skill (
-  profile_id    BINARY(16),
-  skill_id BINARY(16),
+  profile_id BINARY(16),
+  skill_id   BINARY(16),
 
   PRIMARY KEY (profile_id, skill_id),
 
