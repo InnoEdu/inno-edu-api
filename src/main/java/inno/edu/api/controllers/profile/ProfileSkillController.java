@@ -42,9 +42,9 @@ public class ProfileSkillController {
         return resourceBuilder.wrappedFrom(skills, SkillResource::new, SkillResource.class);
     }
 
-    @PostMapping("/{profileId}/skills/{skillId}")
-    public ProfileSkillResource post(@PathVariable UUID profileId, @PathVariable UUID skillId) {
-        return new ProfileSkillResource(createProfileSkillCommand.run(profileId, skillId));
+    @PostMapping("/{profileId}/skills/{id}")
+    public ProfileSkillResource post(@PathVariable UUID profileId, @PathVariable UUID id) {
+        return new ProfileSkillResource(createProfileSkillCommand.run(profileId, id));
     }
 
     @DeleteMapping("/{profileId}/skills/{id}")

@@ -20,6 +20,8 @@ tags:
     description: Profile management
   - name: profile-attachments
     description: Profile attachment management
+  - name: profile-skills
+    description: Profile skills management
   - name: profile-associations
     description: Profile association management
   - name: profile-experiences
@@ -1332,7 +1334,7 @@ paths:
           schema:
             $ref: '#/definitions/EmbeddedAttachmentResourceList'
         '404':
-          description: School not found
+          description: Attachment not found
           schema:
             $ref: '#/definitions/VndErrors'
         '403':
@@ -1368,6 +1370,10 @@ paths:
             Location:
               type: string
               description: Link to the new resource created
+        '404':
+          description: Profile not found
+          schema:
+            $ref: '#/definitions/VndErrors'
         '400':
           $ref: '#/responses/400'
         '403':
@@ -1376,7 +1382,7 @@ paths:
     delete:
       tags:
         - profile-attachments
-      summary: Delete attachment by profile id and id
+      summary: Delete attachment by profile id and attachment id
       parameters:
         - in: path
           name: profileId
@@ -1395,6 +1401,94 @@ paths:
           description: Attachment successfully removed
         '404':
           description: Attachment not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
+  /profiles/{profileId}/skills:
+    get:
+      tags:
+        - profile-skills
+      summary: Get profile skills
+      parameters:
+        - in: path
+          name: profileId
+          description: Profile id
+          required: true
+          type: string
+          format: uuid
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EmbeddedSkillResourceList'
+        '404':
+          description: Skill not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
+  /profiles/{profileId}/skills/{id}:
+    post:
+      tags:
+        - profile-skills
+      summary: Add a new skill for profile
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: profileId
+          type: string
+          format: uuid
+          required: true
+        - in: path
+          name: id
+          type: string
+          format: uuid
+          required: true
+      responses:
+        '201':
+          description: New profile skill successfully created
+          schema:
+            $ref: '#/definitions/ProfileSkillResource'
+          headers:
+            Location:
+              type: string
+              description: Link to the new resource created
+        '404':
+          description: Profile or Skill not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '400':
+          $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
+    delete:
+      tags:
+        - profile-skills
+      summary: Delete skill by profile id and skill id
+      parameters:
+        - in: path
+          name: profileId
+          description: Profile id
+          required: true
+          type: string
+          format: uuid
+        - in: path
+          name: id
+          description: Skill id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: Skill successfully removed
+        '404':
+          description: Skill not found
           schema:
             $ref: '#/definitions/VndErrors'
         '403':
@@ -2992,9 +3086,10 @@ definitions:
     properties:
       title:
         type: string
-        maxLength: 255
+        maxLength: 50
       description:
         type: string
+        maxLength: 255
     required:
       - title
       - description
@@ -3003,9 +3098,10 @@ definitions:
     properties:
       title:
         type: string
-        maxLength: 255
+        maxLength: 50
       description:
         type: string
+        maxLength: 255
     required:
       - title
       - description
@@ -3017,9 +3113,10 @@ definitions:
         format: uuid
       title:
         type: string
-        maxLength: 255
+        maxLength: 50
       description:
         type: string
+        maxLength: 255
   SkillResource:
     allOf:
         - $ref: '#/definitions/Skill'
@@ -3041,3 +3138,19 @@ definitions:
         $ref: '#/definitions/SkillResourceList'
       _links:
         type: object
+  ProfileSkill:
+    type: object
+    properties:
+      profileId:
+        type: string
+        format: uuid
+      skillId:
+        type: string
+        format: uuid
+  ProfileSkillResource:
+    allOf:
+        - $ref: '#/definitions/ProfileSkill'
+        - type: object
+          properties:
+            _links:
+              type: object

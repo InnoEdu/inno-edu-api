@@ -10,6 +10,7 @@ import inno.edu.api.domain.profile.root.exceptions.ProfileAlreadyCreatedExceptio
 import inno.edu.api.domain.profile.root.exceptions.ProfileNotFoundException;
 import inno.edu.api.domain.profile.service.exceptions.ServiceNotFoundException;
 import inno.edu.api.domain.school.root.exceptions.SchoolNotFoundException;
+import inno.edu.api.domain.skill.exceptions.SkillNotFoundException;
 import org.springframework.core.annotation.Order;
 import org.springframework.hateoas.VndErrors;
 import org.springframework.http.HttpStatus;
@@ -70,6 +71,13 @@ public class ProfileControllerAdvice {
     @ExceptionHandler(AttachmentNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     VndErrors profileAttachmentNotFoundExceptionHanlder(AttachmentNotFoundException ex) {
+        return new VndErrors("error", ex.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(SkillNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    VndErrors skillNotFoundExceptionHandler(SkillNotFoundException ex) {
         return new VndErrors("error", ex.getMessage());
     }
 
