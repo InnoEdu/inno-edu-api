@@ -12,6 +12,7 @@ DELETE FROM Profile;
 DELETE FROM School;
 DELETE FROM Attachment;
 DELETE FROM User;
+DELETE FROM Skill;
 
 INSERT INTO User (id, first_name, last_name, username, email, password)
 VALUES ('ba7c650519fd47c387a6c6af6e5322b7', 'Fei', 'Xiu', 'feixiu', 'feixiu@inno.edu', 'password');
@@ -114,3 +115,11 @@ VALUES ('22f81159e2114b9594166648c339ce3a', '0e9e40c0b44b438792a99d75d10e3d42',
 
 INSERT INTO Feedback (id, appointment_id, source, rating, description)
 VALUES ('bd06f884b1264be8b637758519dea5a5', 'f192270f2dad4bcd96c3c3765df77ce8', 0, 5, 'Great session');
+
+-- Skills
+
+INSERT INTO Skill (id, title, description)
+VALUES ('52c048db062f42a6918de9aeea8d3a0d', 'Communication', 'Description.');
+
+INSERT INTO Skill (id, title, description)
+VALUES ('094dad9244884b369c27dcfde9a1a32d', 'Mentoring', 'Description.');

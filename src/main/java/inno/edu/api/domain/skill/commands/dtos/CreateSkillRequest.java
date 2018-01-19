@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 public class CreateSkillRequest {
     @NotNull
     @Size(max = 50)
-    private String name;
+    private String title;
 
     @NotNull
     @Size(max = 255)

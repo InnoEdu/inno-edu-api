@@ -1,7 +1,7 @@
 package inno.edu.api.support;
 
-import inno.edu.api.domain.appointment.root.commands.dtos.CreateAppointmentRequest;
 import inno.edu.api.domain.appointment.feedback.commands.dtos.CreateFeedbackRequest;
+import inno.edu.api.domain.appointment.root.commands.dtos.CreateAppointmentRequest;
 import inno.edu.api.domain.appointment.root.commands.dtos.UpdateAppointmentRequest;
 import inno.edu.api.domain.appointment.root.commands.dtos.UpdateAppointmentStatusRequest;
 import inno.edu.api.domain.attachment.commands.dtos.UpdateAttachmentRequest;
@@ -23,6 +23,8 @@ import inno.edu.api.domain.profile.service.commands.dtos.CreateServiceRequest;
 import inno.edu.api.domain.profile.service.commands.dtos.UpdateServiceRequest;
 import inno.edu.api.domain.school.root.commands.dtos.CreateSchoolRequest;
 import inno.edu.api.domain.school.root.commands.dtos.UpdateSchoolRequest;
+import inno.edu.api.domain.skill.commands.dtos.CreateSkillRequest;
+import inno.edu.api.domain.skill.commands.dtos.UpdateSkillRequest;
 import inno.edu.api.domain.user.commands.dtos.CreateUserRequest;
 import inno.edu.api.domain.user.commands.dtos.LoginRequest;
 import inno.edu.api.domain.user.commands.dtos.UpdateUserRequest;
@@ -115,6 +117,14 @@ public class Payloads {
 
     public static String putSchoolPayload(UpdateSchoolRequest updateSchoolRequest) {
         return format(loadPayload("payloads/school/put-school.json"), updateSchoolRequest.getName(), updateSchoolRequest.getDescription());
+    }
+
+    public static String postSkillPayload(CreateSkillRequest createSkillRequest) {
+        return format(loadPayload("payloads/skill/post-skill.json"), createSkillRequest.getTitle(), createSkillRequest.getDescription());
+    }
+
+    public static String putSkillPayload(UpdateSkillRequest updateSkillRequest) {
+        return format(loadPayload("payloads/skill/put-skill.json"), updateSkillRequest.getTitle(), updateSkillRequest.getDescription());
     }
 
     public static String postAvailabilityPayload(CreateAvailabilityRequest createAvailabilityRequest) {

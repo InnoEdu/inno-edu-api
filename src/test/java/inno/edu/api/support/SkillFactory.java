@@ -33,8 +33,8 @@ public class SkillFactory {
 
     public static CreateSkillRequest createSkillRequest() {
         return CreateSkillRequest.builder()
-                .name("Skill")
-                .description("Description.")
+                .title(skill().getTitle())
+                .description(skill().getDescription())
                 .build();
     }
 
