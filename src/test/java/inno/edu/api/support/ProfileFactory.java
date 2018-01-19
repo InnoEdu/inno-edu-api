@@ -20,6 +20,7 @@ import inno.edu.api.domain.profile.root.models.Profile;
 import inno.edu.api.domain.profile.service.commands.dtos.CreateServiceRequest;
 import inno.edu.api.domain.profile.service.commands.dtos.UpdateServiceRequest;
 import inno.edu.api.domain.profile.service.models.Service;
+import inno.edu.api.domain.profile.skill.models.ProfileSkill;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -32,6 +33,7 @@ import static inno.edu.api.domain.profile.experience.models.ExperienceType.PROFE
 import static inno.edu.api.support.AttachmentFactory.attachment;
 import static inno.edu.api.support.SchoolFactory.berkeley;
 import static inno.edu.api.support.SchoolFactory.stanford;
+import static inno.edu.api.support.SkillFactory.skill;
 import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.fei;
 import static inno.edu.api.support.UserFactory.gustavo;
@@ -371,9 +373,24 @@ public class ProfileFactory {
                 .attachment(attachment())
                 .build();
     }
+    
     public static List<ProfileAttachment> feiProfileAttachments() {
         return singletonList(feiProfileAttachment());
     }
+
+    public static ProfileSkill feiProfileSkill() {
+        return ProfileSkill.builder()
+                .skillId(skill().getId())
+                .profileId(feiProfile().getId())
+                .skill(skill())
+                .build();
+    }
+
+    public static List<ProfileSkill> feiProfileSkills() {
+        return singletonList(feiProfileSkill());
+    }
+
+
 
 
 }
