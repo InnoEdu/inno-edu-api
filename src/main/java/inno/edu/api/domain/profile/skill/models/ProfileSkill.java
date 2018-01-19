@@ -4,6 +4,7 @@ import inno.edu.api.domain.skill.models.Skill;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
@@ -21,6 +22,7 @@ import static javax.persistence.FetchType.LAZY;
 @NoArgsConstructor
 @AllArgsConstructor
 @IdClass(ProfileSkillPrimaryKey.class)
+@EqualsAndHashCode(exclude = {"skill"})
 public class ProfileSkill {
     @Id
     private UUID profileId;

@@ -1,11 +1,9 @@
 package inno.edu.api.domain.profile.skill.commands;
 
-import inno.edu.api.domain.skill.commands.CreateSkillCommand;
-import inno.edu.api.domain.skill.commands.dtos.CreateSkillRequest;
-import inno.edu.api.domain.skill.models.Skill;
+import inno.edu.api.domain.profile.root.assertions.ProfileExistsAssertion;
 import inno.edu.api.domain.profile.skill.models.ProfileSkill;
 import inno.edu.api.domain.profile.skill.repositories.ProfileSkillRepository;
-import inno.edu.api.domain.profile.root.assertions.ProfileExistsAssertion;
+import inno.edu.api.domain.skill.assertions.SkillExistsAssertion;
 import inno.edu.api.infrastructure.annotations.Command;
 
 import java.util.UUID;
@@ -13,27 +11,24 @@ import java.util.UUID;
 @Command
 public class CreateProfileSkillCommand {
     private final ProfileExistsAssertion profileExistsAssertion;
-    private final CreateSkillCommand createSkillCommand;
+    private final SkillExistsAssertion skillExistsAssertion;
     private final ProfileSkillRepository profileSkillRepository;
 
-    public CreateProfileSkillCommand(ProfileExistsAssertion profileExistsAssertion, CreateSkillCommand createSkillCommand, ProfileSkillRepository profileSkillRepository) {
+    public CreateProfileSkillCommand(ProfileExistsAssertion profileExistsAssertion, SkillExistsAssertion skillExistsAssertion, ProfileSkillRepository profileSkillRepository) {
         this.profileExistsAssertion = profileExistsAssertion;
-        this.createSkillCommand = createSkillCommand;
+        this.skillExistsAssertion = skillExistsAssertion;
         this.profileSkillRepository = profileSkillRepository;
     }
 
-    public Skill run(UUID profileId, CreateSkillRequest request) {
+    public ProfileSkill run(UUID profileId, UUID skillId) {
         profileExistsAssertion.run(profileId);
-
-        Skill skill = createSkillCommand.run(request);
+        skillExistsAssertion.run(skillId);
 
         ProfileSkill profileSkill = ProfileSkill.builder()
                 .profileId(profileId)
-                .skillId(skill.getId())
+                .skillId(skillId)
                 .build();
 
-        profileSkillRepository.save(profileSkill);
-
-        return skill;
+        return profileSkillRepository.save(profileSkill);
     }
 }

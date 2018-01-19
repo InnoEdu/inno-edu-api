@@ -19,6 +19,14 @@ public class SkillFactory {
                 .build();
     }
 
+    public static Skill otherSkill() {
+        return Skill.builder()
+                .id(fromString("99c18e49-8d2b-423b-bd8d-9be81f18edde"))
+                .title("Synthesis")
+                .description("Description.")
+                .build();
+    }
+
     public static Skill skillToDelete() {
         return skill().toBuilder()
                 .id(fromString("094dad92-4488-4b36-9c27-dcfde9a1a32d"))

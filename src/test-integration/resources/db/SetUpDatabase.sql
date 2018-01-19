@@ -123,6 +123,9 @@ INSERT INTO Skill (id, title, description)
 VALUES ('52c048db062f42a6918de9aeea8d3a0d', 'Communication', 'Description.');
 
 INSERT INTO Skill (id, title, description)
+VALUES ('99c18e498d2b423bbd8d9be81f18edde', 'Synthesis', 'Description.');
+
+INSERT INTO Skill (id, title, description)
 VALUES ('094dad9244884b369c27dcfde9a1a32d', 'Mentoring', 'Description.');
 
 -- Profile Skills
