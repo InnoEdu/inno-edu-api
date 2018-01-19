@@ -2,9 +2,11 @@ package inno.edu.api.domain.profile.root.models;
 
 import inno.edu.api.domain.attachment.models.Attachment;
 import inno.edu.api.domain.profile.accomplishment.models.Accomplishment;
+import inno.edu.api.domain.profile.attachment.models.ProfileAttachment;
 import inno.edu.api.domain.profile.experience.models.Experience;
 import inno.edu.api.domain.profile.interest.models.Interest;
 import inno.edu.api.domain.profile.service.models.Service;
+import inno.edu.api.domain.profile.skill.models.ProfileSkill;
 import inno.edu.api.domain.school.root.models.School;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -64,4 +66,13 @@ public class Profile {
     @OneToMany(fetch = LAZY)
     @JoinColumn(name = "profileId", updatable = false, insertable = false)
     private List<Experience> experiences;
+
+    @OneToMany(fetch = LAZY)
+    @JoinColumn(name = "profileId", updatable = false, insertable = false)
+    private List<ProfileAttachment> attachments;
+
+    @OneToMany(fetch = LAZY)
+    @JoinColumn(name = "profileId", updatable = false, insertable = false)
+    private List<ProfileSkill> skills;
+
 }
