@@ -5,6 +5,7 @@ DELETE FROM Service;
 DELETE FROM Accomplishment;
 DELETE FROM Interest;
 DELETE FROM Profile_Association;
+DELETE FROM Profile_Skill;
 DELETE FROM Experience;
 DELETE FROM Profile_Attachment;
 DELETE FROM School_Attachment;
@@ -123,3 +124,8 @@ VALUES ('52c048db062f42a6918de9aeea8d3a0d', 'Communication', 'Description.');
 
 INSERT INTO Skill (id, title, description)
 VALUES ('094dad9244884b369c27dcfde9a1a32d', 'Mentoring', 'Description.');
+
+-- Profile Skills
+
+INSERT INTO Profile_Skill (profile_id, skill_id)
+VALUES ('0e9e40c0b44b438792a99d75d10e3d42', '52c048db062f42a6918de9aeea8d3a0d');

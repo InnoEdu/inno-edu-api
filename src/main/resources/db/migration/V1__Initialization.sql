@@ -175,6 +175,19 @@ CREATE TABLE Skill (
   description VARCHAR(255) NOT NULL,
 );
 
+CREATE TABLE Profile_Skill (
+  profile_id    BINARY(16),
+  skill_id BINARY(16),
+
+  PRIMARY KEY (profile_id, skill_id),
+
+  FOREIGN KEY (profile_id)
+  REFERENCES Profile (id),
+
+  FOREIGN KEY (skill_id)
+  REFERENCES Skill (id)
+);
+
 -- Stub data
 
 -- Mentors
@@ -387,3 +400,12 @@ VALUES (${map}('52c048db062f42a6918de9aeea8d3a0d'), 'Communication', 'Descriptio
 
 INSERT INTO Skill (id, title, description)
 VALUES (${map}('094dad9244884b369c27dcfde9a1a32d'), 'Mentoring', 'Description');
+
+-- Profile Skills
+
+INSERT INTO Profile_Skill (profile_id, skill_id)
+VALUES (${map}('0e9e40c0b44b438792a99d75d10e3d42'), ${map}('094dad9244884b369c27dcfde9a1a32d'));
+
+INSERT INTO Profile_Skill (profile_id, skill_id)
+VALUES (${map}('0e9e40c0b44b438792a99d75d10e3d42'), ${map}('52c048db062f42a6918de9aeea8d3a0d'));
+
