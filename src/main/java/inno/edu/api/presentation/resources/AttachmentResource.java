@@ -1,10 +1,11 @@
-package inno.edu.api.controllers.resources;
+package inno.edu.api.presentation.resources;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import inno.edu.api.controllers.AttachmentController;
 import inno.edu.api.domain.attachment.models.Attachment;
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
 
 import java.net.URI;
@@ -22,7 +23,7 @@ public class AttachmentResource extends ResourceSupport {
     public AttachmentResource(Attachment attachment) {
         this.attachment = attachment;
 
-        add(linkTo(methodOn(AttachmentController.class).get(attachment.getId())).withSelfRel());
+        add(ControllerLinkBuilder.linkTo(methodOn(AttachmentController.class).get(attachment.getId())).withSelfRel());
     }
 
     public ResponseEntity<Attachment> toCreated() {

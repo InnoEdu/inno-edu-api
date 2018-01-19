@@ -1,7 +1,7 @@
 package inno.edu.api.controllers.profile;
 
-import inno.edu.api.controllers.profile.resources.ProfileResource;
-import inno.edu.api.controllers.resources.ResourceBuilder;
+import inno.edu.api.presentation.resources.profile.ProfileResource;
+import inno.edu.api.presentation.resources.ResourceBuilder;
 import inno.edu.api.domain.attachment.commands.CreateAttachmentCommand;
 import inno.edu.api.domain.profile.root.commands.CreateProfileCommand;
 import inno.edu.api.domain.profile.root.commands.DeleteProfileCommand;

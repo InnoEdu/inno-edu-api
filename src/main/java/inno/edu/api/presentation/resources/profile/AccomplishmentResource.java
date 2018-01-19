@@ -1,4 +1,4 @@
-package inno.edu.api.controllers.profile.resources;
+package inno.edu.api.presentation.resources.profile;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import inno.edu.api.controllers.profile.AccomplishmentController;
@@ -6,6 +6,7 @@ import inno.edu.api.controllers.profile.ProfileController;
 import inno.edu.api.domain.profile.accomplishment.models.Accomplishment;
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
 
 import java.net.URI;
@@ -23,8 +24,8 @@ public class AccomplishmentResource extends ResourceSupport {
     public AccomplishmentResource(Accomplishment accomplishment) {
         this.accomplishment = accomplishment;
 
-        add(linkTo(methodOn(AccomplishmentController.class).get(accomplishment.getId())).withSelfRel());
-        add(linkTo(methodOn(ProfileController.class).get(accomplishment.getProfileId())).withRel("profile"));
+        add(ControllerLinkBuilder.linkTo(methodOn(AccomplishmentController.class).get(accomplishment.getId())).withSelfRel());
+        add(ControllerLinkBuilder.linkTo(methodOn(ProfileController.class).get(accomplishment.getProfileId())).withRel("profile"));
     }
 
     public ResponseEntity<Accomplishment> toCreated() {

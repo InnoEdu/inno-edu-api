@@ -1,7 +1,7 @@
 package inno.edu.api.controllers.profile;
 
-import inno.edu.api.controllers.profile.resources.ProfileAssociationResource;
-import inno.edu.api.controllers.resources.ResourceBuilder;
+import inno.edu.api.presentation.resources.profile.ProfileAssociationResource;
+import inno.edu.api.presentation.resources.ResourceBuilder;
 import inno.edu.api.domain.profile.association.commands.ApproveProfileAssociationCommand;
 import inno.edu.api.domain.profile.association.commands.AssociateProfileCommand;
 import inno.edu.api.domain.profile.association.commands.RejectProfileAssociationCommand;

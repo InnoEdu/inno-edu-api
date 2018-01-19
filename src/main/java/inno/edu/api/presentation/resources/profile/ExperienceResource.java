@@ -1,4 +1,4 @@
-package inno.edu.api.controllers.profile.resources;
+package inno.edu.api.presentation.resources.profile;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import inno.edu.api.controllers.profile.ExperienceController;
@@ -25,7 +25,7 @@ public class ExperienceResource extends ResourceSupport {
         this.experience = experience;
 
         add(ControllerLinkBuilder.linkTo(methodOn(ExperienceController.class).get(experience.getId())).withSelfRel());
-        add(linkTo(methodOn(ProfileController.class).get(experience.getProfileId())).withRel("profile"));
+        add(ControllerLinkBuilder.linkTo(methodOn(ProfileController.class).get(experience.getProfileId())).withRel("profile"));
     }
 
     public ResponseEntity<Experience> toCreated() {

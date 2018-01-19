@@ -1,4 +1,4 @@
-package inno.edu.api.controllers.profile.resources;
+package inno.edu.api.presentation.resources.profile;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import inno.edu.api.controllers.profile.ServiceController;
@@ -6,6 +6,7 @@ import inno.edu.api.controllers.profile.ProfileController;
 import inno.edu.api.domain.profile.service.models.Service;
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
 
 import java.net.URI;
@@ -23,7 +24,7 @@ public class ServiceResource extends ResourceSupport {
     public ServiceResource(Service service) {
         this.service = service;
 
-        add(linkTo(methodOn(ServiceController.class).get(service.getId())).withSelfRel());
+        add(ControllerLinkBuilder.linkTo(methodOn(ServiceController.class).get(service.getId())).withSelfRel());
         add(linkTo(methodOn(ProfileController.class).get(service.getProfileId())).withRel("profile"));
     }
 

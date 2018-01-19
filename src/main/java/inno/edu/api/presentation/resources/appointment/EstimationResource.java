@@ -1,4 +1,4 @@
-package inno.edu.api.controllers.appointment.resources;
+package inno.edu.api.presentation.resources.appointment;
 
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;

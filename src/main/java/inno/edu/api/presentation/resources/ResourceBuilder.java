@@ -1,4 +1,4 @@
-package inno.edu.api.controllers.resources;
+package inno.edu.api.presentation.resources;
 
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.ResourceSupport;

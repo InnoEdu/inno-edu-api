@@ -1,7 +1,7 @@
 package inno.edu.api.controllers.appointment;
 
-import inno.edu.api.controllers.appointment.resources.AppointmentResource;
-import inno.edu.api.controllers.resources.ResourceBuilder;
+import inno.edu.api.presentation.resources.appointment.AppointmentResource;
+import inno.edu.api.presentation.resources.ResourceBuilder;
 import inno.edu.api.domain.appointment.root.commands.CreateAppointmentCommand;
 import inno.edu.api.domain.appointment.root.commands.DeleteAppointmentCommand;
 import inno.edu.api.domain.appointment.root.commands.UpdateAppointmentCommand;

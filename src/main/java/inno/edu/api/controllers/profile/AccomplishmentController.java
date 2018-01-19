@@ -1,7 +1,7 @@
 package inno.edu.api.controllers.profile;
 
-import inno.edu.api.controllers.profile.resources.AccomplishmentResource;
-import inno.edu.api.controllers.resources.ResourceBuilder;
+import inno.edu.api.presentation.resources.profile.AccomplishmentResource;
+import inno.edu.api.presentation.resources.ResourceBuilder;
 import inno.edu.api.domain.profile.accomplishment.commands.CreateAccomplishmentCommand;
 import inno.edu.api.domain.profile.accomplishment.commands.DeleteAccomplishmentCommand;
 import inno.edu.api.domain.profile.accomplishment.commands.UpdateAccomplishmentCommand;

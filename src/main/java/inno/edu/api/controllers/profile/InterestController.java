@@ -1,7 +1,7 @@
 package inno.edu.api.controllers.profile;
 
-import inno.edu.api.controllers.profile.resources.InterestResource;
-import inno.edu.api.controllers.resources.ResourceBuilder;
+import inno.edu.api.presentation.resources.profile.InterestResource;
+import inno.edu.api.presentation.resources.ResourceBuilder;
 import inno.edu.api.domain.profile.interest.commands.CreateInterestCommand;
 import inno.edu.api.domain.profile.interest.commands.DeleteInterestCommand;
 import inno.edu.api.domain.profile.interest.commands.UpdateInterestCommand;
