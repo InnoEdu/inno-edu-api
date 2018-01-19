@@ -1,4 +1,4 @@
-package inno.edu.api.domain.appointment.root.queries.dto;
+package inno.edu.api.domain.appointment.root.queries.dtos;
 
 import inno.edu.api.domain.appointment.root.models.AppointmentStatus;
 import lombok.AllArgsConstructor;

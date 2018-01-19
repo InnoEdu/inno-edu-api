@@ -7,7 +7,6 @@ import inno.edu.api.controllers.profile.ProfileController;
 import inno.edu.api.domain.appointment.root.models.Appointment;
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
 
 import java.net.URI;
@@ -25,7 +24,7 @@ public class AppointmentResource extends ResourceSupport {
     public AppointmentResource(Appointment appointment) {
         this.appointment = appointment;
 
-        add(ControllerLinkBuilder.linkTo(methodOn(AppointmentController.class).get(appointment.getId())).withSelfRel());
+        add(linkTo(methodOn(AppointmentController.class).get(appointment.getId())).withSelfRel());
         add(linkTo(methodOn(FeedbackController.class).allFeedbacks(appointment.getId())).withRel("feedbacks"));
         add(linkTo(methodOn(ProfileController.class).get(appointment.getMentorProfileId())).withRel("mentor"));
         add(linkTo(methodOn(ProfileController.class).get(appointment.getMenteeProfileId())).withRel("mentee"));

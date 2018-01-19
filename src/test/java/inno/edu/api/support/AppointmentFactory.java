@@ -8,7 +8,7 @@ import inno.edu.api.domain.appointment.root.commands.dtos.CreateAppointmentReque
 import inno.edu.api.domain.appointment.root.commands.dtos.UpdateAppointmentRequest;
 import inno.edu.api.domain.appointment.root.commands.dtos.UpdateAppointmentStatusRequest;
 import inno.edu.api.domain.appointment.root.models.Appointment;
-import inno.edu.api.domain.appointment.root.queries.dto.SearchAppointmentsRequest;
+import inno.edu.api.domain.appointment.root.queries.dtos.SearchAppointmentsRequest;
 
 import java.math.BigDecimal;
 import java.util.List;
