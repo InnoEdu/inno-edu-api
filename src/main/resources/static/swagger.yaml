@@ -38,6 +38,8 @@ tags:
     description: Apointment feedbacks
   - name: attachments
     description: Attachment management
+  - name: skills
+    description: Skill management
 responses:
   400:
     description: Bad request, additional info provided in the response body
@@ -2035,6 +2037,127 @@ paths:
             $ref: '#/definitions/VndErrors'
         '403':
           $ref: '#/responses/403'
+  /skills:
+    get:
+      tags:
+        - skills
+      summary: Get all skills
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EmbeddedSkillResourceList'
+        '403':
+          $ref: '#/responses/403'
+    post:
+      tags:
+        - skills
+      summary: Add a new skill
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: body
+          name: request
+          description: Request object with the skill information to be created
+          required: true
+          schema:
+            $ref: '#/definitions/CreateSkillRequest'
+      responses:
+        '201':
+          description: New skill successfully created
+          schema:
+            $ref: '#/definitions/Skill'
+          headers:
+            Location:
+              type: string
+              description: Link to the new resource created
+        '400':
+          $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
+  /skills/{id}:
+    get:
+      tags:
+        - skills
+      summary: Get skill by id
+      parameters:
+        - in: path
+          name: id
+          description: Skill id
+          required: true
+          type: string
+          format: uuid
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/SkillResource'
+        '404':
+          description: Skill not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
+    put:
+      tags:
+        - skills
+      summary: Update skill by id
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: id
+          description: Skill id
+          required: true
+          type: string
+          format: uuid
+        - in: body
+          name: request
+          description: Request object with the skill information to be updated
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateSkillRequest'
+      responses:
+        '201':
+          description: Skill successfully updated
+          schema:
+            $ref: '#/definitions/Skill'
+        '404':
+          description: Skill not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '400':
+          $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
+    delete:
+      tags:
+        - skills
+      summary: Delete skill by id
+      parameters:
+        - in: path
+          name: id
+          description: Skill id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: Skill successfully removed
+        '404':
+          description: Skill not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
 definitions:
   VndError:
     type: object
@@ -2864,3 +2987,57 @@ definitions:
       status:
         type: string
         enum: [PROPOSED, ACCEPTED, DECLINED, CANCELED, MISSED, COMPLETED, STARTED, UNAVAILABLE]
+  CreateSkillRequest:
+    type: object
+    properties:
+      title:
+        type: string
+        maxLength: 255
+      description:
+        type: string
+    required:
+      - title
+      - description
+  UpdateSkillRequest:
+    type: object
+    properties:
+      title:
+        type: string
+        maxLength: 255
+      description:
+        type: string
+    required:
+      - title
+      - description
+  Skill:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      title:
+        type: string
+        maxLength: 255
+      description:
+        type: string
+  SkillResource:
+    allOf:
+        - $ref: '#/definitions/Skill'
+        - type: object
+          properties:
+            _links:
+              type: object
+  SkillResourceList:
+    type: object
+    properties:
+      skillResourceList:
+        type: array
+        items:
+          $ref: '#/definitions/SkillResource'
+  EmbeddedSkillResourceList:
+    type: object
+    properties:
+      _embedded:
+        $ref: '#/definitions/SkillResourceList'
+      _links:
+        type: object
