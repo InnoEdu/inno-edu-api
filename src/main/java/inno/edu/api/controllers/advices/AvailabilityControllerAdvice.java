@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import static inno.edu.api.infrastructure.configuration.StaticConstants.ERROR;
 import static org.springframework.core.Ordered.HIGHEST_PRECEDENCE;
 
 @ControllerAdvice
@@ -19,7 +20,7 @@ public class AvailabilityControllerAdvice {
     @ExceptionHandler(AvailabilityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     VndErrors availabilityNotFoundExceptionHandler(AvailabilityNotFoundException ex) {
-        return new VndErrors("error", ex.getMessage());
+        return new VndErrors(ERROR, ex.getMessage());
     }
 
 }

@@ -7,7 +7,6 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.hateoas.VndErrors;
 import org.springframework.hateoas.VndErrors.VndError;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -19,47 +18,50 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.time.DateTimeException;
 import java.util.List;
 
+import static inno.edu.api.infrastructure.configuration.StaticConstants.ERROR;
 import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
 import static org.apache.commons.lang3.StringUtils.substringBetween;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 
 @ControllerAdvice
 @Order(Ordered.LOWEST_PRECEDENCE)
 public class GlobalControllerExceptionHandler {
     @ResponseBody
     @ExceptionHandler(RuntimeException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(BAD_REQUEST)
     VndErrors exceptionHandler(RuntimeException ex) {
-        return new VndErrors("error", ex.getMessage());
+        return new VndErrors(ERROR, ex.getMessage());
     }
 
     @ResponseBody
     @ExceptionHandler(S3StorageException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(BAD_REQUEST)
     VndErrors s3StorageExceptionHandler(S3StorageException ex) {
-        return new VndErrors("error", ex.getMessage());
+        return new VndErrors(ERROR, ex.getMessage());
     }
 
     @ResponseBody
     @ExceptionHandler(AccessDeniedException.class)
-    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ResponseStatus(FORBIDDEN)
     VndErrors accessDeniedExceptionHandler(AccessDeniedException ex) {
-        return new VndErrors("error", ex.getMessage());
+        return new VndErrors(ERROR, ex.getMessage());
     }
 
     @ResponseBody
     @ExceptionHandler(ExpiredJwtException.class)
-    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ResponseStatus(FORBIDDEN)
     VndErrors expiredJwtExceptionHandler(ExpiredJwtException ex) {
-        return new VndErrors("error", ex.getMessage());
+        return new VndErrors(ERROR, ex.getMessage());
     }
 
     @ResponseBody
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(BAD_REQUEST)
     VndErrors methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException ex) {
         List<VndError> errors =
-                ex.getBindingResult().getFieldErrors().stream().map(fieldError -> new VndError("error",
+                ex.getBindingResult().getFieldErrors().stream().map(fieldError -> new VndError(ERROR,
                         format("Invalid value '%s' supplied for field '%s', %s.",
                                 fieldError.getRejectedValue(),
                                 fieldError.getField(),
@@ -69,7 +71,7 @@ public class GlobalControllerExceptionHandler {
 
     @ResponseBody
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(BAD_REQUEST)
     VndErrors invalidFormatExceptionHandler(HttpMessageNotReadableException ex) {
         String errors = ex.getMessage();
 
