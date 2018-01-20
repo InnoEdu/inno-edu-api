@@ -1,6 +1,6 @@
-package inno.edu.api.domain.profile.accomplishment.commands.mappers;
+package inno.edu.api.domain.profile.accomplishment.models.mappers;
 
-import inno.edu.api.domain.profile.accomplishment.commands.dtos.CreateAccomplishmentRequest;
+import inno.edu.api.domain.profile.accomplishment.models.dtos.CreateAccomplishmentRequest;
 import inno.edu.api.domain.profile.accomplishment.models.Accomplishment;
 import org.mapstruct.Mapper;
 

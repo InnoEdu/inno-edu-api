@@ -1,7 +1,7 @@
 package inno.edu.api.domain.profile.accomplishment.commands;
 
-import inno.edu.api.domain.profile.accomplishment.commands.dtos.CreateAccomplishmentRequest;
-import inno.edu.api.domain.profile.accomplishment.commands.mappers.CreateAccomplishmentRequestMapper;
+import inno.edu.api.domain.profile.accomplishment.models.dtos.CreateAccomplishmentRequest;
+import inno.edu.api.domain.profile.accomplishment.models.mappers.CreateAccomplishmentRequestMapper;
 import inno.edu.api.domain.profile.accomplishment.models.Accomplishment;
 import inno.edu.api.domain.profile.accomplishment.repositories.AccomplishmentRepository;
 import inno.edu.api.domain.profile.root.assertions.ProfileExistsAssertion;

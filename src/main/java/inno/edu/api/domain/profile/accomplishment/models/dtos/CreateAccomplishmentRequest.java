@@ -1,4 +1,4 @@
-package inno.edu.api.domain.profile.accomplishment.commands.dtos;
+package inno.edu.api.domain.profile.accomplishment.models.dtos;
 
 import inno.edu.api.domain.profile.accomplishment.models.AccomplishmentType;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,6 @@
 package inno.edu.api.domain.profile.accomplishment.commands;
 
-import inno.edu.api.domain.profile.accomplishment.commands.mappers.UpdateAccomplishmentRequestMapper;
+import inno.edu.api.domain.profile.accomplishment.models.mappers.UpdateAccomplishmentRequestMapper;
 import inno.edu.api.domain.profile.accomplishment.models.Accomplishment;
 import inno.edu.api.domain.profile.accomplishment.queries.GetAccomplishmentByIdQuery;
 import inno.edu.api.domain.profile.accomplishment.repositories.AccomplishmentRepository;

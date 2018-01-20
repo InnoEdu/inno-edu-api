@@ -1,12 +1,12 @@
 package inno.edu.api.controllers.profile;
 
-import inno.edu.api.presentation.resources.profile.AccomplishmentResource;
+import inno.edu.api.domain.profile.accomplishment.models.resources.AccomplishmentResource;
 import inno.edu.api.presentation.resources.ResourceBuilder;
 import inno.edu.api.domain.profile.accomplishment.commands.CreateAccomplishmentCommand;
 import inno.edu.api.domain.profile.accomplishment.commands.DeleteAccomplishmentCommand;
 import inno.edu.api.domain.profile.accomplishment.commands.UpdateAccomplishmentCommand;
-import inno.edu.api.domain.profile.accomplishment.commands.dtos.CreateAccomplishmentRequest;
-import inno.edu.api.domain.profile.accomplishment.commands.dtos.UpdateAccomplishmentRequest;
+import inno.edu.api.domain.profile.accomplishment.models.dtos.CreateAccomplishmentRequest;
+import inno.edu.api.domain.profile.accomplishment.models.dtos.UpdateAccomplishmentRequest;
 import inno.edu.api.domain.profile.accomplishment.models.Accomplishment;
 import inno.edu.api.domain.profile.accomplishment.queries.GetAccomplishmentByIdQuery;
 import inno.edu.api.domain.profile.accomplishment.queries.GetAccomplishmentsByProfileIdQuery;

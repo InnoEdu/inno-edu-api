@@ -1,7 +1,7 @@
 package inno.edu.api.support;
 
-import inno.edu.api.domain.profile.accomplishment.commands.dtos.CreateAccomplishmentRequest;
-import inno.edu.api.domain.profile.accomplishment.commands.dtos.UpdateAccomplishmentRequest;
+import inno.edu.api.domain.profile.accomplishment.models.dtos.CreateAccomplishmentRequest;
+import inno.edu.api.domain.profile.accomplishment.models.dtos.UpdateAccomplishmentRequest;
 import inno.edu.api.domain.profile.accomplishment.models.Accomplishment;
 import inno.edu.api.domain.profile.association.models.ProfileAssociation;
 import inno.edu.api.domain.profile.attachment.models.ProfileAttachment;
