@@ -1,6 +1,6 @@
 package inno.edu.api.domain.school.root.commands;
 
-import inno.edu.api.domain.school.root.commands.mappers.UpdateSchoolRequestMapper;
+import inno.edu.api.domain.school.root.models.dtos.mappers.UpdateSchoolRequestMapper;
 import inno.edu.api.domain.school.root.models.School;
 import inno.edu.api.domain.school.root.queries.GetSchoolByIdQuery;
 import inno.edu.api.domain.school.root.repositories.SchoolRepository;

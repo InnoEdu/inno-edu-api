@@ -1,4 +1,4 @@
-package inno.edu.api.domain.school.root.commands.dtos;
+package inno.edu.api.domain.school.root.models.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

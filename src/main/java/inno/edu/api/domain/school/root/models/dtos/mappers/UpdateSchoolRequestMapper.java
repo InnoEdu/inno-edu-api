@@ -1,6 +1,6 @@
-package inno.edu.api.domain.school.root.commands.mappers;
+package inno.edu.api.domain.school.root.models.dtos.mappers;
 
-import inno.edu.api.domain.school.root.commands.dtos.UpdateSchoolRequest;
+import inno.edu.api.domain.school.root.models.dtos.UpdateSchoolRequest;
 import inno.edu.api.domain.school.root.models.School;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

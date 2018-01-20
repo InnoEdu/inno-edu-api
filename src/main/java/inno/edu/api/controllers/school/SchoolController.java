@@ -2,13 +2,13 @@ package inno.edu.api.controllers.school;
 
 import inno.edu.api.domain.profile.root.models.resources.ProfileResource;
 import inno.edu.api.presentation.resources.ResourceBuilder;
-import inno.edu.api.presentation.resources.SchoolResource;
+import inno.edu.api.domain.school.root.models.resources.SchoolResource;
 import inno.edu.api.domain.profile.root.queries.GetProfilesBySchoolIdQuery;
 import inno.edu.api.domain.school.root.commands.CreateSchoolCommand;
 import inno.edu.api.domain.school.root.commands.DeleteSchoolCommand;
 import inno.edu.api.domain.school.root.commands.UpdateSchoolCommand;
-import inno.edu.api.domain.school.root.commands.dtos.CreateSchoolRequest;
-import inno.edu.api.domain.school.root.commands.dtos.UpdateSchoolRequest;
+import inno.edu.api.domain.school.root.models.dtos.CreateSchoolRequest;
+import inno.edu.api.domain.school.root.models.dtos.UpdateSchoolRequest;
 import inno.edu.api.domain.school.root.models.School;
 import inno.edu.api.domain.school.root.queries.GetSchoolByIdQuery;
 import inno.edu.api.domain.school.root.queries.GetSchoolsQuery;

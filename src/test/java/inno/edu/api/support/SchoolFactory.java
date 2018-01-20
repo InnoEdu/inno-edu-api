@@ -1,8 +1,8 @@
 package inno.edu.api.support;
 
 import inno.edu.api.domain.school.attachment.models.SchoolAttachment;
-import inno.edu.api.domain.school.root.commands.dtos.CreateSchoolRequest;
-import inno.edu.api.domain.school.root.commands.dtos.UpdateSchoolRequest;
+import inno.edu.api.domain.school.root.models.dtos.CreateSchoolRequest;
+import inno.edu.api.domain.school.root.models.dtos.UpdateSchoolRequest;
 import inno.edu.api.domain.school.root.models.School;
 
 import java.util.List;
