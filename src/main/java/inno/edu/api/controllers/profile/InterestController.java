@@ -1,12 +1,12 @@
 package inno.edu.api.controllers.profile;
 
-import inno.edu.api.presentation.resources.profile.InterestResource;
+import inno.edu.api.domain.profile.interest.models.resources.InterestResource;
 import inno.edu.api.presentation.resources.ResourceBuilder;
 import inno.edu.api.domain.profile.interest.commands.CreateInterestCommand;
 import inno.edu.api.domain.profile.interest.commands.DeleteInterestCommand;
 import inno.edu.api.domain.profile.interest.commands.UpdateInterestCommand;
-import inno.edu.api.domain.profile.interest.commands.dtos.CreateInterestRequest;
-import inno.edu.api.domain.profile.interest.commands.dtos.UpdateInterestRequest;
+import inno.edu.api.domain.profile.interest.models.dtos.CreateInterestRequest;
+import inno.edu.api.domain.profile.interest.models.dtos.UpdateInterestRequest;
 import inno.edu.api.domain.profile.interest.models.Interest;
 import inno.edu.api.domain.profile.interest.queries.GetInterestByIdQuery;
 import inno.edu.api.domain.profile.interest.queries.GetInterestsByProfileIdQuery;

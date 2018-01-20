@@ -1,4 +1,4 @@
-package inno.edu.api.domain.profile.interest.commands.dtos;
+package inno.edu.api.domain.profile.interest.models.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

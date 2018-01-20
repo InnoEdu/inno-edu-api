@@ -12,8 +12,8 @@ import inno.edu.api.domain.profile.accomplishment.models.dtos.CreateAccomplishme
 import inno.edu.api.domain.profile.accomplishment.models.dtos.UpdateAccomplishmentRequest;
 import inno.edu.api.domain.profile.experience.models.dtos.CreateExperienceRequest;
 import inno.edu.api.domain.profile.experience.models.dtos.UpdateExperienceRequest;
-import inno.edu.api.domain.profile.interest.commands.dtos.CreateInterestRequest;
-import inno.edu.api.domain.profile.interest.commands.dtos.UpdateInterestRequest;
+import inno.edu.api.domain.profile.interest.models.dtos.CreateInterestRequest;
+import inno.edu.api.domain.profile.interest.models.dtos.UpdateInterestRequest;
 import inno.edu.api.domain.profile.root.commands.dtos.ApproveProfileAssociationRequest;
 import inno.edu.api.domain.profile.root.commands.dtos.CreateProfileRequest;
 import inno.edu.api.domain.profile.root.commands.dtos.ProfileAssociationRequest;

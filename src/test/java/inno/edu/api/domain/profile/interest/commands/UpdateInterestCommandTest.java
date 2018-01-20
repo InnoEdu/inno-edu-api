@@ -1,6 +1,6 @@
 package inno.edu.api.domain.profile.interest.commands;
 
-import inno.edu.api.domain.profile.interest.commands.mappers.UpdateInterestRequestMapper;
+import inno.edu.api.domain.profile.interest.models.dtos.mappers.UpdateInterestRequestMapper;
 import inno.edu.api.domain.profile.interest.models.Interest;
 import inno.edu.api.domain.profile.interest.queries.GetInterestByIdQuery;
 import inno.edu.api.domain.profile.interest.repositories.InterestRepository;

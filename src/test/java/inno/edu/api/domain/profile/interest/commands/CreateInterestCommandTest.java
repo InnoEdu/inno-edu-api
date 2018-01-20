@@ -1,6 +1,6 @@
 package inno.edu.api.domain.profile.interest.commands;
 
-import inno.edu.api.domain.profile.interest.commands.mappers.CreateInterestRequestMapper;
+import inno.edu.api.domain.profile.interest.models.dtos.mappers.CreateInterestRequestMapper;
 import inno.edu.api.domain.profile.interest.models.Interest;
 import inno.edu.api.domain.profile.interest.repositories.InterestRepository;
 import inno.edu.api.domain.profile.root.assertions.ProfileExistsAssertion;
