@@ -1,7 +1,7 @@
 package inno.edu.api.domain.attachment.commands;
 
-import inno.edu.api.domain.attachment.commands.dtos.UpdateAttachmentRequest;
-import inno.edu.api.domain.attachment.commands.mappers.UpdateAttachmentRequestMapper;
+import inno.edu.api.domain.attachment.models.dtos.UpdateAttachmentRequest;
+import inno.edu.api.domain.attachment.models.dtos.mappers.UpdateAttachmentRequestMapper;
 import inno.edu.api.domain.attachment.models.Attachment;
 import inno.edu.api.domain.attachment.queries.GetAttachmentByIdQuery;
 import inno.edu.api.domain.attachment.repositories.AttachmentRepository;

@@ -1,6 +1,6 @@
-package inno.edu.api.domain.attachment.commands.mappers;
+package inno.edu.api.domain.attachment.models.dtos.mappers;
 
-import inno.edu.api.domain.attachment.commands.dtos.UpdateAttachmentRequest;
+import inno.edu.api.domain.attachment.models.dtos.UpdateAttachmentRequest;
 import inno.edu.api.domain.attachment.models.Attachment;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

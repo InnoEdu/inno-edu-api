@@ -1,11 +1,11 @@
 package inno.edu.api.controllers;
 
-import inno.edu.api.presentation.resources.AttachmentResource;
+import inno.edu.api.domain.attachment.models.resources.AttachmentResource;
 import inno.edu.api.presentation.resources.ResourceBuilder;
 import inno.edu.api.domain.attachment.commands.CreateAttachmentCommand;
 import inno.edu.api.domain.attachment.commands.DeleteAttachmentCommand;
 import inno.edu.api.domain.attachment.commands.UpdateAttachmentCommand;
-import inno.edu.api.domain.attachment.commands.dtos.CreateAttachmentRequest;
+import inno.edu.api.domain.attachment.models.dtos.CreateAttachmentRequest;
 import inno.edu.api.domain.attachment.models.Attachment;
 import inno.edu.api.domain.attachment.queries.GetAttachmentByIdQuery;
 import inno.edu.api.domain.attachment.queries.GetAttachmentsQuery;

@@ -1,7 +1,7 @@
 package inno.edu.api.domain.profile.attachment.commands;
 
 import inno.edu.api.domain.attachment.commands.CreateAttachmentCommand;
-import inno.edu.api.domain.attachment.commands.dtos.CreateAttachmentRequest;
+import inno.edu.api.domain.attachment.models.dtos.CreateAttachmentRequest;
 import inno.edu.api.domain.profile.attachment.models.ProfileAttachment;
 import inno.edu.api.domain.profile.attachment.repositories.ProfileAttachmentRepository;
 import inno.edu.api.domain.profile.root.assertions.ProfileExistsAssertion;

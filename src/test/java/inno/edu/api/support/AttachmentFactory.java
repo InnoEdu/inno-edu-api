@@ -1,7 +1,7 @@
 package inno.edu.api.support;
 
-import inno.edu.api.domain.attachment.commands.dtos.CreateAttachmentRequest;
-import inno.edu.api.domain.attachment.commands.dtos.UpdateAttachmentRequest;
+import inno.edu.api.domain.attachment.models.dtos.CreateAttachmentRequest;
+import inno.edu.api.domain.attachment.models.dtos.UpdateAttachmentRequest;
 import inno.edu.api.domain.attachment.models.Attachment;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;

@@ -1,4 +1,4 @@
-package inno.edu.api.domain.attachment.commands.dtos;
+package inno.edu.api.domain.attachment.models.dtos;
 
 import lombok.Builder;
 import lombok.Value;

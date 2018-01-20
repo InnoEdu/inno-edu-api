@@ -2,7 +2,7 @@ package inno.edu.api.domain.profile.attachment.commands;
 
 import inno.edu.api.domain.attachment.commands.CreateAttachmentCommand;
 import inno.edu.api.domain.attachment.commands.DeleteAttachmentCommand;
-import inno.edu.api.domain.attachment.commands.dtos.CreateAttachmentRequest;
+import inno.edu.api.domain.attachment.models.dtos.CreateAttachmentRequest;
 import inno.edu.api.domain.attachment.models.Attachment;
 import inno.edu.api.domain.profile.root.models.Profile;
 import inno.edu.api.domain.profile.root.queries.GetProfileByIdQuery;

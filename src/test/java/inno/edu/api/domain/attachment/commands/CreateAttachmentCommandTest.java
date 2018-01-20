@@ -1,7 +1,7 @@
 package inno.edu.api.domain.attachment.commands;
 
-import inno.edu.api.domain.attachment.commands.dtos.CreateAttachmentRequest;
-import inno.edu.api.domain.attachment.commands.mappers.CreateAttachmentRequestMapper;
+import inno.edu.api.domain.attachment.models.dtos.CreateAttachmentRequest;
+import inno.edu.api.domain.attachment.models.dtos.mappers.CreateAttachmentRequestMapper;
 import inno.edu.api.domain.attachment.models.Attachment;
 import inno.edu.api.domain.attachment.repositories.AttachmentRepository;
 import inno.edu.api.infrastructure.services.UUIDGeneratorService;
