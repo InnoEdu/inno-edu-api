@@ -1,6 +1,5 @@
-package inno.edu.api.domain.profile.experience.commands.dtos;
+package inno.edu.api.domain.profile.experience.models.dtos;
 
-import inno.edu.api.domain.profile.experience.models.ExperienceType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +16,7 @@ import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE;
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateExperienceRequest {
+public class UpdateExperienceRequest {
     @NotNull
     @Size(max = 100)
     private String title;
@@ -40,7 +39,4 @@ public class CreateExperienceRequest {
     private LocalDate toDate;
 
     private String description;
-
-    @NotNull
-    private ExperienceType type;
 }

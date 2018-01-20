@@ -1,4 +1,4 @@
-package inno.edu.api.domain.profile.accomplishment.models.mappers;
+package inno.edu.api.domain.profile.accomplishment.models.dtos.mappers;
 
 import inno.edu.api.domain.profile.accomplishment.models.dtos.UpdateAccomplishmentRequest;
 import inno.edu.api.domain.profile.accomplishment.models.Accomplishment;

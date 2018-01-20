@@ -1,6 +1,6 @@
 package inno.edu.api.domain.profile.experience.commands;
 
-import inno.edu.api.domain.profile.experience.commands.mappers.UpdateExperienceRequestMapper;
+import inno.edu.api.domain.profile.experience.models.dtos.mappers.UpdateExperienceRequestMapper;
 import inno.edu.api.domain.profile.experience.models.Experience;
 import inno.edu.api.domain.profile.experience.queries.GetExperienceByIdQuery;
 import inno.edu.api.domain.profile.experience.repositories.ExperienceRepository;

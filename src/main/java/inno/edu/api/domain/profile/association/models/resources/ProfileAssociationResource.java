@@ -1,4 +1,4 @@
-package inno.edu.api.presentation.resources.profile;
+package inno.edu.api.domain.profile.association.models.resources;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import inno.edu.api.domain.profile.association.models.ProfileAssociation;

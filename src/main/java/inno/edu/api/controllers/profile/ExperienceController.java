@@ -1,12 +1,12 @@
 package inno.edu.api.controllers.profile;
 
-import inno.edu.api.presentation.resources.profile.ExperienceResource;
+import inno.edu.api.domain.profile.experience.models.resources.ExperienceResource;
 import inno.edu.api.presentation.resources.ResourceBuilder;
 import inno.edu.api.domain.profile.experience.commands.CreateExperienceCommand;
 import inno.edu.api.domain.profile.experience.commands.DeleteExperienceCommand;
 import inno.edu.api.domain.profile.experience.commands.UpdateExperienceCommand;
-import inno.edu.api.domain.profile.experience.commands.dtos.CreateExperienceRequest;
-import inno.edu.api.domain.profile.experience.commands.dtos.UpdateExperienceRequest;
+import inno.edu.api.domain.profile.experience.models.dtos.CreateExperienceRequest;
+import inno.edu.api.domain.profile.experience.models.dtos.UpdateExperienceRequest;
 import inno.edu.api.domain.profile.experience.models.Experience;
 import inno.edu.api.domain.profile.experience.queries.GetExperienceByIdQuery;
 import inno.edu.api.domain.profile.experience.queries.GetExperiencesByProfileIdQuery;

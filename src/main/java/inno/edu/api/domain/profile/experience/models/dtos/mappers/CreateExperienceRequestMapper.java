@@ -1,6 +1,6 @@
-package inno.edu.api.domain.profile.experience.commands.mappers;
+package inno.edu.api.domain.profile.experience.models.dtos.mappers;
 
-import inno.edu.api.domain.profile.experience.commands.dtos.CreateExperienceRequest;
+import inno.edu.api.domain.profile.experience.models.dtos.CreateExperienceRequest;
 import inno.edu.api.domain.profile.experience.models.Experience;
 import org.mapstruct.Mapper;
 
