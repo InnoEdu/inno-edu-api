@@ -1,6 +1,6 @@
 package inno.edu.api.domain.appointment.root.commands;
 
-import inno.edu.api.domain.appointment.root.commands.dtos.CalculateAppointmentFeeRequest;
+import inno.edu.api.domain.appointment.root.models.dtos.CalculateAppointmentFeeRequest;
 import inno.edu.api.domain.common.assertions.DateTimeRangeAssertion;
 import inno.edu.api.domain.profile.root.models.Profile;
 import inno.edu.api.domain.profile.root.queries.GetProfileByIdQuery;

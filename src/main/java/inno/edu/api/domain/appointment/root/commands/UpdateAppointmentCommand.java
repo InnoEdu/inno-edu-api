@@ -1,9 +1,9 @@
 package inno.edu.api.domain.appointment.root.commands;
 
-import inno.edu.api.domain.appointment.root.commands.dtos.CalculateAppointmentFeeRequest;
-import inno.edu.api.domain.appointment.root.commands.dtos.UpdateAppointmentRequest;
-import inno.edu.api.domain.appointment.root.commands.mappers.CalculateAppointmentFeeRequestMapper;
-import inno.edu.api.domain.appointment.root.commands.mappers.UpdateAppointmentRequestMapper;
+import inno.edu.api.domain.appointment.root.models.dtos.CalculateAppointmentFeeRequest;
+import inno.edu.api.domain.appointment.root.models.dtos.UpdateAppointmentRequest;
+import inno.edu.api.domain.appointment.root.models.dtos.mappers.CalculateAppointmentFeeRequestMapper;
+import inno.edu.api.domain.appointment.root.models.dtos.mappers.UpdateAppointmentRequestMapper;
 import inno.edu.api.domain.appointment.root.models.Appointment;
 import inno.edu.api.domain.appointment.root.queries.GetAppointmentByIdQuery;
 import inno.edu.api.domain.appointment.root.repositories.AppointmentRepository;

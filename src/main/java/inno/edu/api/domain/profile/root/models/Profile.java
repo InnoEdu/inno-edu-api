@@ -8,6 +8,7 @@ import inno.edu.api.domain.profile.interest.models.Interest;
 import inno.edu.api.domain.profile.service.models.Service;
 import inno.edu.api.domain.profile.skill.models.ProfileSkill;
 import inno.edu.api.domain.school.root.models.School;
+import inno.edu.api.domain.user.models.ApplicationUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -44,6 +45,10 @@ public class Profile {
     private UUID photoId;
 
     @OneToOne(fetch = LAZY)
+    @JoinColumn(name = "userId", updatable = false, insertable = false)
+    private ApplicationUser user;
+
+    @OneToOne(fetch = LAZY)
     @JoinColumn(name = "photoId", updatable = false, insertable = false)
     private Attachment photo;
 
@@ -74,5 +79,4 @@ public class Profile {
     @OneToMany(fetch = LAZY)
     @JoinColumn(name = "profileId", updatable = false, insertable = false)
     private List<ProfileSkill> skills;
-
 }

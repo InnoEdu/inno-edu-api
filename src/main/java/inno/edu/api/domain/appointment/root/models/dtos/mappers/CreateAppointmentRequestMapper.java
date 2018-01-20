@@ -1,6 +1,6 @@
-package inno.edu.api.domain.appointment.root.commands.mappers;
+package inno.edu.api.domain.appointment.root.models.dtos.mappers;
 
-import inno.edu.api.domain.appointment.root.commands.dtos.CreateAppointmentRequest;
+import inno.edu.api.domain.appointment.root.models.dtos.CreateAppointmentRequest;
 import inno.edu.api.domain.appointment.root.models.Appointment;
 import org.mapstruct.Mapper;
 

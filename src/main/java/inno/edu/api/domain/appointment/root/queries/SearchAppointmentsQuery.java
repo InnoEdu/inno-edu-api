@@ -3,7 +3,7 @@ package inno.edu.api.domain.appointment.root.queries;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import inno.edu.api.domain.appointment.root.models.Appointment;
 import inno.edu.api.domain.appointment.root.models.QAppointment;
-import inno.edu.api.domain.appointment.root.queries.dtos.SearchAppointmentsRequest;
+import inno.edu.api.domain.appointment.root.models.dtos.SearchAppointmentsRequest;
 import inno.edu.api.domain.appointment.root.repositories.AppointmentRepository;
 import inno.edu.api.infrastructure.annotations.Query;
 

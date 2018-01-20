@@ -1,7 +1,7 @@
 package inno.edu.api.domain.appointment.root.commands;
 
-import inno.edu.api.domain.appointment.root.commands.mappers.CalculateAppointmentFeeRequestMapper;
-import inno.edu.api.domain.appointment.root.commands.mappers.CreateAppointmentRequestMapper;
+import inno.edu.api.domain.appointment.root.models.dtos.mappers.CalculateAppointmentFeeRequestMapper;
+import inno.edu.api.domain.appointment.root.models.dtos.mappers.CreateAppointmentRequestMapper;
 import inno.edu.api.domain.appointment.root.models.Appointment;
 import inno.edu.api.domain.appointment.root.repositories.AppointmentRepository;
 import inno.edu.api.domain.profile.root.assertions.ProfileExistsAssertion;

@@ -1,7 +1,7 @@
 package inno.edu.api.domain.appointment.root.commands;
 
 import inno.edu.api.domain.appointment.root.assertions.AppointmentExistsAssertion;
-import inno.edu.api.domain.appointment.root.commands.mappers.UpdateAppointmentStatusRequestMapper;
+import inno.edu.api.domain.appointment.root.models.dtos.mappers.UpdateAppointmentStatusRequestMapper;
 import inno.edu.api.domain.appointment.root.queries.GetAppointmentByIdQuery;
 import inno.edu.api.domain.appointment.root.repositories.AppointmentRepository;
 import org.junit.Before;

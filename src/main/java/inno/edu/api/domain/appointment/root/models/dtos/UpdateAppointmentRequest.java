@@ -1,4 +1,4 @@
-package inno.edu.api.domain.appointment.root.commands.dtos;
+package inno.edu.api.domain.appointment.root.models.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,8 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME;
 
@@ -15,12 +15,15 @@ import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class CalculateAppointmentFeeRequest {
-    private UUID mentorProfileId;
-
-    @DateTimeFormat(iso = DATE_TIME)
+public class UpdateAppointmentRequest {
+    @NotNull
     private LocalDateTime fromDateTime;
 
+    @NotNull
     @DateTimeFormat(iso = DATE_TIME)
     private LocalDateTime toDateTime;
+
+    @NotNull
+    @DateTimeFormat(iso = DATE_TIME)
+    private String description;
 }

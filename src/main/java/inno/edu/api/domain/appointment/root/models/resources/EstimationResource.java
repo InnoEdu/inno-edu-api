@@ -1,4 +1,4 @@
-package inno.edu.api.presentation.resources.appointment;
+package inno.edu.api.domain.appointment.root.models.resources;
 
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;

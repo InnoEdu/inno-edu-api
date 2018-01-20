@@ -1,4 +1,4 @@
-package inno.edu.api.presentation.resources.appointment;
+package inno.edu.api.domain.appointment.root.models.resources;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import inno.edu.api.controllers.appointment.FeedbackController;
@@ -18,9 +18,12 @@ public class FeedbackResource extends ResourceSupport {
     @JsonUnwrapped
     private final Feedback feedback;
 
+    public FeedbackResource() {
+        this.feedback = null;
+    }
+
     public FeedbackResource(Feedback feedback) {
         this.feedback = feedback;
-
         add(ControllerLinkBuilder.linkTo(methodOn(FeedbackController.class).getFeedback(feedback.getId())).withSelfRel());
     }
 
