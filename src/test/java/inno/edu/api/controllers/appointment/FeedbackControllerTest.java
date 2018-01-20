@@ -1,7 +1,7 @@
 package inno.edu.api.controllers.appointment;
 
 import inno.edu.api.domain.appointment.root.models.resources.FeedbackResource;
-import inno.edu.api.presentation.resources.ResourceBuilder;
+import inno.edu.api.infrastructure.web.ResourceBuilder;
 import inno.edu.api.domain.appointment.feedback.commands.CreateFeedbackCommand;
 import inno.edu.api.domain.appointment.feedback.commands.DeleteFeedbackCommand;
 import inno.edu.api.domain.appointment.feedback.models.Feedback;

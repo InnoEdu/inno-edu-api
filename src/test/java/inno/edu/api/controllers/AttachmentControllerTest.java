@@ -1,7 +1,7 @@
 package inno.edu.api.controllers;
 
 import inno.edu.api.domain.attachment.models.resources.AttachmentResource;
-import inno.edu.api.presentation.resources.ResourceBuilder;
+import inno.edu.api.infrastructure.web.ResourceBuilder;
 import inno.edu.api.domain.attachment.commands.CreateAttachmentCommand;
 import inno.edu.api.domain.attachment.commands.DeleteAttachmentCommand;
 import inno.edu.api.domain.attachment.commands.UpdateAttachmentCommand;

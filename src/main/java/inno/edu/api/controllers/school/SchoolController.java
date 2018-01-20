@@ -1,7 +1,7 @@
 package inno.edu.api.controllers.school;
 
 import inno.edu.api.domain.profile.root.models.resources.ProfileResource;
-import inno.edu.api.presentation.resources.ResourceBuilder;
+import inno.edu.api.infrastructure.web.ResourceBuilder;
 import inno.edu.api.domain.school.root.models.resources.SchoolResource;
 import inno.edu.api.domain.profile.root.queries.GetProfilesBySchoolIdQuery;
 import inno.edu.api.domain.school.root.commands.CreateSchoolCommand;

@@ -19,7 +19,7 @@ import inno.edu.api.domain.appointment.root.queries.GetAppointmentsByMenteeProfi
 import inno.edu.api.domain.appointment.root.queries.GetAppointmentsByMentorProfileIdQuery;
 import inno.edu.api.domain.appointment.root.queries.GetAppointmentsQuery;
 import inno.edu.api.domain.appointment.root.queries.SearchAppointmentsQuery;
-import inno.edu.api.presentation.resources.ResourceBuilder;
+import inno.edu.api.infrastructure.web.ResourceBuilder;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;

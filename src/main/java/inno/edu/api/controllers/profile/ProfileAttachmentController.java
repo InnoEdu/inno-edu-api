@@ -1,7 +1,7 @@
 package inno.edu.api.controllers.profile;
 
 import inno.edu.api.domain.attachment.models.resources.AttachmentResource;
-import inno.edu.api.presentation.resources.ResourceBuilder;
+import inno.edu.api.infrastructure.web.ResourceBuilder;
 import inno.edu.api.domain.attachment.models.dtos.CreateAttachmentRequest;
 import inno.edu.api.domain.attachment.models.Attachment;
 import inno.edu.api.domain.profile.attachment.commands.CreateProfileAttachmentCommand;

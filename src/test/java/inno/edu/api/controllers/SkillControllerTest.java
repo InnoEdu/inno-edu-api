@@ -1,6 +1,6 @@
 package inno.edu.api.controllers;
 
-import inno.edu.api.presentation.resources.ResourceBuilder;
+import inno.edu.api.infrastructure.web.ResourceBuilder;
 import inno.edu.api.domain.skill.models.resources.SkillResource;
 import inno.edu.api.domain.skill.commands.CreateSkillCommand;
 import inno.edu.api.domain.skill.commands.DeleteSkillCommand;

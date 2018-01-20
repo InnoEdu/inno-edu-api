@@ -1,7 +1,7 @@
 package inno.edu.api.controllers;
 
 import inno.edu.api.domain.profile.root.models.resources.ProfileResource;
-import inno.edu.api.presentation.resources.ResourceBuilder;
+import inno.edu.api.infrastructure.web.ResourceBuilder;
 import inno.edu.api.domain.user.models.resources.UserResource;
 import inno.edu.api.domain.profile.root.queries.GetProfileByUserIdQuery;
 import inno.edu.api.domain.user.commands.CreateUserCommand;
