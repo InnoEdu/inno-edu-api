@@ -28,6 +28,10 @@ import static org.springframework.http.HttpStatus.FORBIDDEN;
 @ControllerAdvice
 @Order(Ordered.LOWEST_PRECEDENCE)
 public class GlobalControllerExceptionHandler {
+    private static final String INVALID_VALUE = "Invalid value '%s' supplied for field '%s', %s.";
+    private static final String INVALID_ISO_DATETIME_FORMAT = "invalid ISO datetime format";
+    private static final String UNKNOWN_REASON = "unknown reason: %s";
+
     @ResponseBody
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(BAD_REQUEST)
@@ -62,7 +66,7 @@ public class GlobalControllerExceptionHandler {
     VndErrors methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException ex) {
         List<VndError> errors =
                 ex.getBindingResult().getFieldErrors().stream().map(fieldError -> new VndError(ERROR,
-                        format("Invalid value '%s' supplied for field '%s', %s.",
+                        format(INVALID_VALUE,
                                 fieldError.getRejectedValue(),
                                 fieldError.getField(),
                                 fieldError.getDefaultMessage()))).collect(toList());
@@ -78,12 +82,12 @@ public class GlobalControllerExceptionHandler {
         if (ex.getCause() instanceof InvalidFormatException) {
             InvalidFormatException rootException = (InvalidFormatException) ex.getCause();
 
-            String typeMismatch = "unknown reason: " + ex.getRootCause().toString();
+            String typeMismatch = format(UNKNOWN_REASON, ex.getRootCause().toString());
             if (ex.getRootCause() instanceof DateTimeException) {
-                typeMismatch = "invalid ISO datetime format";
+                typeMismatch = INVALID_ISO_DATETIME_FORMAT;
             }
 
-            errors = format("Invalid value '%s' supplied for field '%s', %s.",
+            errors = format(INVALID_VALUE,
                     rootException.getValue(),
                     substringBetween(rootException.getPath().toString(), "\"", "\""),
                     typeMismatch);
