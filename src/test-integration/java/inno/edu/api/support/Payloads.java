@@ -14,11 +14,11 @@ import inno.edu.api.domain.profile.experience.models.dtos.CreateExperienceReques
 import inno.edu.api.domain.profile.experience.models.dtos.UpdateExperienceRequest;
 import inno.edu.api.domain.profile.interest.models.dtos.CreateInterestRequest;
 import inno.edu.api.domain.profile.interest.models.dtos.UpdateInterestRequest;
-import inno.edu.api.domain.profile.root.commands.dtos.ApproveProfileAssociationRequest;
-import inno.edu.api.domain.profile.root.commands.dtos.CreateProfileRequest;
-import inno.edu.api.domain.profile.root.commands.dtos.ProfileAssociationRequest;
-import inno.edu.api.domain.profile.root.commands.dtos.RejectProfileAssociationRequest;
-import inno.edu.api.domain.profile.root.commands.dtos.UpdateProfileRequest;
+import inno.edu.api.domain.profile.root.models.dtos.ApproveProfileAssociationRequest;
+import inno.edu.api.domain.profile.root.models.dtos.CreateProfileRequest;
+import inno.edu.api.domain.profile.root.models.dtos.ProfileAssociationRequest;
+import inno.edu.api.domain.profile.root.models.dtos.RejectProfileAssociationRequest;
+import inno.edu.api.domain.profile.root.models.dtos.UpdateProfileRequest;
 import inno.edu.api.domain.profile.service.models.dtos.CreateServiceRequest;
 import inno.edu.api.domain.profile.service.models.dtos.UpdateServiceRequest;
 import inno.edu.api.domain.school.root.commands.dtos.CreateSchoolRequest;

@@ -1,13 +1,13 @@
 package inno.edu.api.controllers.profile;
 
-import inno.edu.api.presentation.resources.profile.ProfileResource;
+import inno.edu.api.domain.profile.root.models.resources.ProfileResource;
 import inno.edu.api.presentation.resources.ResourceBuilder;
 import inno.edu.api.domain.attachment.commands.CreateAttachmentCommand;
 import inno.edu.api.domain.profile.root.commands.CreateProfileCommand;
 import inno.edu.api.domain.profile.root.commands.DeleteProfileCommand;
 import inno.edu.api.domain.profile.root.commands.UpdateProfileCommand;
-import inno.edu.api.domain.profile.root.commands.dtos.CreateProfileRequest;
-import inno.edu.api.domain.profile.root.commands.dtos.UpdateProfileRequest;
+import inno.edu.api.domain.profile.root.models.dtos.CreateProfileRequest;
+import inno.edu.api.domain.profile.root.models.dtos.UpdateProfileRequest;
 import inno.edu.api.domain.profile.root.models.Profile;
 import inno.edu.api.domain.profile.root.queries.GetProfileByIdQuery;
 import inno.edu.api.domain.profile.root.queries.GetProfilesQuery;

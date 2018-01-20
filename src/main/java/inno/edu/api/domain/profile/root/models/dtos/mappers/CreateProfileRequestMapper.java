@@ -1,6 +1,6 @@
-package inno.edu.api.domain.profile.root.commands.mappers;
+package inno.edu.api.domain.profile.root.models.dtos.mappers;
 
-import inno.edu.api.domain.profile.root.commands.dtos.CreateProfileRequest;
+import inno.edu.api.domain.profile.root.models.dtos.CreateProfileRequest;
 import inno.edu.api.domain.profile.root.models.Profile;
 import org.mapstruct.Mapper;
 

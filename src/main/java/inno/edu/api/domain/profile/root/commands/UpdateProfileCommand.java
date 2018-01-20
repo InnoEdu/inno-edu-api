@@ -1,7 +1,7 @@
 package inno.edu.api.domain.profile.root.commands;
 
-import inno.edu.api.domain.profile.root.commands.dtos.UpdateProfileRequest;
-import inno.edu.api.domain.profile.root.commands.mappers.UpdateProfileRequestMapper;
+import inno.edu.api.domain.profile.root.models.dtos.UpdateProfileRequest;
+import inno.edu.api.domain.profile.root.models.dtos.mappers.UpdateProfileRequestMapper;
 import inno.edu.api.domain.profile.root.models.Profile;
 import inno.edu.api.domain.profile.root.queries.GetProfileByIdQuery;
 import inno.edu.api.domain.profile.root.repositories.ProfileRepository;

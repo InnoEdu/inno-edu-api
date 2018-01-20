@@ -8,9 +8,9 @@ import inno.edu.api.domain.profile.association.commands.RejectProfileAssociation
 import inno.edu.api.domain.profile.association.models.ProfileAssociation;
 import inno.edu.api.domain.profile.association.models.RequestStatus;
 import inno.edu.api.domain.profile.association.queries.GetAssociationsByProfileIdQuery;
-import inno.edu.api.domain.profile.root.commands.dtos.ApproveProfileAssociationRequest;
-import inno.edu.api.domain.profile.root.commands.dtos.ProfileAssociationRequest;
-import inno.edu.api.domain.profile.root.commands.dtos.RejectProfileAssociationRequest;
+import inno.edu.api.domain.profile.root.models.dtos.ApproveProfileAssociationRequest;
+import inno.edu.api.domain.profile.root.models.dtos.ProfileAssociationRequest;
+import inno.edu.api.domain.profile.root.models.dtos.RejectProfileAssociationRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;

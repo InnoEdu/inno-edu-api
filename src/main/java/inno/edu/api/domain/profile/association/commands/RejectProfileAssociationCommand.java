@@ -1,7 +1,7 @@
 package inno.edu.api.domain.profile.association.commands;
 
 import inno.edu.api.domain.profile.association.assertions.ProfileAssociationExistsAssertion;
-import inno.edu.api.domain.profile.root.commands.dtos.RejectProfileAssociationRequest;
+import inno.edu.api.domain.profile.root.models.dtos.RejectProfileAssociationRequest;
 import inno.edu.api.domain.profile.association.models.ProfileAssociation;
 import inno.edu.api.domain.profile.association.repositories.ProfileAssociationRepository;
 import inno.edu.api.infrastructure.annotations.Command;

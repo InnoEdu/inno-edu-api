@@ -1,4 +1,4 @@
-package inno.edu.api.domain.profile.root.commands.dtos;
+package inno.edu.api.domain.profile.root.models.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,14 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import java.util.UUID;
 
 @Data
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class RejectProfileAssociationRequest {
+public class ProfileAssociationRequest {
     @NotNull
-    @Size(max = 255)
-    private String description;
+    private UUID schoolId;
 }

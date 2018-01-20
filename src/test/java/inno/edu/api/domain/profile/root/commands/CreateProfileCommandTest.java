@@ -1,6 +1,6 @@
 package inno.edu.api.domain.profile.root.commands;
 
-import inno.edu.api.domain.profile.root.commands.mappers.CreateProfileRequestMapper;
+import inno.edu.api.domain.profile.root.models.dtos.mappers.CreateProfileRequestMapper;
 import inno.edu.api.domain.profile.root.exceptions.ProfileAlreadyCreatedException;
 import inno.edu.api.domain.profile.root.models.Profile;
 import inno.edu.api.domain.profile.root.repositories.ProfileRepository;
