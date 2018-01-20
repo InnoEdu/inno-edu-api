@@ -17,8 +17,8 @@ import inno.edu.api.domain.profile.root.commands.dtos.ProfileAssociationRequest;
 import inno.edu.api.domain.profile.root.commands.dtos.RejectProfileAssociationRequest;
 import inno.edu.api.domain.profile.root.commands.dtos.UpdateProfileRequest;
 import inno.edu.api.domain.profile.root.models.Profile;
-import inno.edu.api.domain.profile.service.commands.dtos.CreateServiceRequest;
-import inno.edu.api.domain.profile.service.commands.dtos.UpdateServiceRequest;
+import inno.edu.api.domain.profile.service.models.dtos.CreateServiceRequest;
+import inno.edu.api.domain.profile.service.models.dtos.UpdateServiceRequest;
 import inno.edu.api.domain.profile.service.models.Service;
 import inno.edu.api.domain.profile.skill.models.ProfileSkill;
 

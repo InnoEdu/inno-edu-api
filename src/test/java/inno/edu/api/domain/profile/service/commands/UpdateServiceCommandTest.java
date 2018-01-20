@@ -1,6 +1,6 @@
 package inno.edu.api.domain.profile.service.commands;
 
-import inno.edu.api.domain.profile.service.commands.mappers.UpdateServiceRequestMapper;
+import inno.edu.api.domain.profile.service.models.dtos.mappers.UpdateServiceRequestMapper;
 import inno.edu.api.domain.profile.service.models.Service;
 import inno.edu.api.domain.profile.service.queries.GetServiceByIdQuery;
 import inno.edu.api.domain.profile.service.repositories.ServiceRepository;

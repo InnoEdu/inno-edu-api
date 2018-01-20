@@ -1,12 +1,12 @@
 package inno.edu.api.controllers.profile;
 
-import inno.edu.api.presentation.resources.profile.ServiceResource;
+import inno.edu.api.domain.profile.service.models.resources.ServiceResource;
 import inno.edu.api.presentation.resources.ResourceBuilder;
 import inno.edu.api.domain.profile.service.commands.CreateServiceCommand;
 import inno.edu.api.domain.profile.service.commands.DeleteServiceCommand;
 import inno.edu.api.domain.profile.service.commands.UpdateServiceCommand;
-import inno.edu.api.domain.profile.service.commands.dtos.CreateServiceRequest;
-import inno.edu.api.domain.profile.service.commands.dtos.UpdateServiceRequest;
+import inno.edu.api.domain.profile.service.models.dtos.CreateServiceRequest;
+import inno.edu.api.domain.profile.service.models.dtos.UpdateServiceRequest;
 import inno.edu.api.domain.profile.service.models.Service;
 import inno.edu.api.domain.profile.service.queries.GetServiceByIdQuery;
 import inno.edu.api.domain.profile.service.queries.GetServicesByProfileIdQuery;

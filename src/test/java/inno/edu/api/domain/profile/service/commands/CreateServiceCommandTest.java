@@ -1,7 +1,7 @@
 package inno.edu.api.domain.profile.service.commands;
 
 import inno.edu.api.domain.profile.root.assertions.ProfileExistsAssertion;
-import inno.edu.api.domain.profile.service.commands.mappers.CreateServiceRequestMapper;
+import inno.edu.api.domain.profile.service.models.dtos.mappers.CreateServiceRequestMapper;
 import inno.edu.api.domain.profile.service.models.Service;
 import inno.edu.api.domain.profile.service.repositories.ServiceRepository;
 import inno.edu.api.infrastructure.services.UUIDGeneratorService;
