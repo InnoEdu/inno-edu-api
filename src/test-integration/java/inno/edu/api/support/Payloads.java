@@ -5,9 +5,9 @@ import inno.edu.api.domain.appointment.root.models.dtos.CreateAppointmentRequest
 import inno.edu.api.domain.appointment.root.models.dtos.UpdateAppointmentRequest;
 import inno.edu.api.domain.appointment.root.models.dtos.UpdateAppointmentStatusRequest;
 import inno.edu.api.domain.attachment.models.dtos.UpdateAttachmentRequest;
-import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityByMentorIdRequest;
-import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityRequest;
-import inno.edu.api.domain.availability.commands.dtos.UpdateAvailabilityRequest;
+import inno.edu.api.domain.availability.models.dtos.CreateAvailabilityByMentorIdRequest;
+import inno.edu.api.domain.availability.models.dtos.CreateAvailabilityRequest;
+import inno.edu.api.domain.availability.models.dtos.UpdateAvailabilityRequest;
 import inno.edu.api.domain.profile.accomplishment.commands.dtos.CreateAccomplishmentRequest;
 import inno.edu.api.domain.profile.accomplishment.commands.dtos.UpdateAccomplishmentRequest;
 import inno.edu.api.domain.profile.experience.commands.dtos.CreateExperienceRequest;

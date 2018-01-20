@@ -1,4 +1,4 @@
-package inno.edu.api.domain.availability.commands.dtos;
+package inno.edu.api.domain.availability.models.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

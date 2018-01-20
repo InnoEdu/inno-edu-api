@@ -1,6 +1,6 @@
 package inno.edu.api.controllers;
 
-import inno.edu.api.presentation.resources.AvailabilityResource;
+import inno.edu.api.domain.availability.models.resources.AvailabilityResource;
 import inno.edu.api.presentation.resources.ResourceBuilder;
 import inno.edu.api.domain.availability.commands.CreateAvailabilityCommand;
 import inno.edu.api.domain.availability.commands.DeleteAvailabilityCommand;

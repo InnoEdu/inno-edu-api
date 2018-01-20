@@ -1,8 +1,8 @@
 package inno.edu.api.support;
 
-import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityByMentorIdRequest;
-import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityRequest;
-import inno.edu.api.domain.availability.commands.dtos.UpdateAvailabilityRequest;
+import inno.edu.api.domain.availability.models.dtos.CreateAvailabilityByMentorIdRequest;
+import inno.edu.api.domain.availability.models.dtos.CreateAvailabilityRequest;
+import inno.edu.api.domain.availability.models.dtos.UpdateAvailabilityRequest;
 import inno.edu.api.domain.availability.models.Availability;
 
 import java.time.LocalDateTime;

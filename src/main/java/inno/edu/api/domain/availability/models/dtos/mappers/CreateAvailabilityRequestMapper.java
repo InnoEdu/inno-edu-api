@@ -1,6 +1,6 @@
-package inno.edu.api.domain.availability.commands.mappers;
+package inno.edu.api.domain.availability.models.dtos.mappers;
 
-import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityRequest;
+import inno.edu.api.domain.availability.models.dtos.CreateAvailabilityRequest;
 import inno.edu.api.domain.availability.models.Availability;
 import org.mapstruct.Mapper;
 

@@ -1,7 +1,7 @@
 package inno.edu.api.domain.availability.commands;
 
-import inno.edu.api.domain.availability.commands.dtos.UpdateAvailabilityRequest;
-import inno.edu.api.domain.availability.commands.mappers.UpdateAvailabilityRequestMapper;
+import inno.edu.api.domain.availability.models.dtos.UpdateAvailabilityRequest;
+import inno.edu.api.domain.availability.models.dtos.mappers.UpdateAvailabilityRequestMapper;
 import inno.edu.api.domain.availability.models.Availability;
 import inno.edu.api.domain.availability.queries.GetAvailabilityByIdQuery;
 import inno.edu.api.domain.availability.repositories.AvailabilityRepository;

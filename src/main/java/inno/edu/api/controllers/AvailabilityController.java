@@ -1,12 +1,12 @@
 package inno.edu.api.controllers;
 
-import inno.edu.api.presentation.resources.AvailabilityResource;
+import inno.edu.api.domain.availability.models.resources.AvailabilityResource;
 import inno.edu.api.presentation.resources.ResourceBuilder;
 import inno.edu.api.domain.availability.commands.CreateAvailabilityCommand;
 import inno.edu.api.domain.availability.commands.DeleteAvailabilityCommand;
 import inno.edu.api.domain.availability.commands.UpdateAvailabilityCommand;
-import inno.edu.api.domain.availability.commands.dtos.CreateAvailabilityRequest;
-import inno.edu.api.domain.availability.commands.dtos.UpdateAvailabilityRequest;
+import inno.edu.api.domain.availability.models.dtos.CreateAvailabilityRequest;
+import inno.edu.api.domain.availability.models.dtos.UpdateAvailabilityRequest;
 import inno.edu.api.domain.availability.models.Availability;
 import inno.edu.api.domain.availability.queries.GetAvailabilityByIdQuery;
 import inno.edu.api.domain.availability.queries.GetAvailabilityByProfileId;
