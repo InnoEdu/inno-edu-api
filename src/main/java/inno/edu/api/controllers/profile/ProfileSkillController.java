@@ -2,7 +2,7 @@ package inno.edu.api.controllers.profile;
 
 import inno.edu.api.domain.profile.skill.models.resources.ProfileSkillResource;
 import inno.edu.api.presentation.resources.ResourceBuilder;
-import inno.edu.api.presentation.resources.SkillResource;
+import inno.edu.api.domain.skill.models.resources.SkillResource;
 import inno.edu.api.domain.profile.skill.commands.CreateProfileSkillCommand;
 import inno.edu.api.domain.profile.skill.commands.DeleteProfileSkillCommand;
 import inno.edu.api.domain.profile.skill.queries.GetProfileSkillsByProfileIdQuery;

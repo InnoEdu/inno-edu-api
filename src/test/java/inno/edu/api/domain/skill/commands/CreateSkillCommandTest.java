@@ -1,6 +1,6 @@
 package inno.edu.api.domain.skill.commands;
 
-import inno.edu.api.domain.skill.commands.mappers.CreateSkillRequestMapper;
+import inno.edu.api.domain.skill.models.dtos.mappers.CreateSkillRequestMapper;
 import inno.edu.api.domain.skill.models.Skill;
 import inno.edu.api.domain.skill.repositories.SkillRepository;
 import inno.edu.api.infrastructure.services.UUIDGeneratorService;

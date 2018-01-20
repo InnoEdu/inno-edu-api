@@ -1,6 +1,6 @@
 package inno.edu.api.domain.user.commands;
 
-import inno.edu.api.domain.user.commands.dtos.LoginResponse;
+import inno.edu.api.domain.user.models.dtos.LoginResponse;
 import inno.edu.api.domain.user.exceptions.InvalidUsernameOrPasswordException;
 import inno.edu.api.domain.user.repositories.UserRepository;
 import inno.edu.api.infrastructure.security.services.TokenGeneratorService;

@@ -23,11 +23,11 @@ import inno.edu.api.domain.profile.service.models.dtos.CreateServiceRequest;
 import inno.edu.api.domain.profile.service.models.dtos.UpdateServiceRequest;
 import inno.edu.api.domain.school.root.models.dtos.CreateSchoolRequest;
 import inno.edu.api.domain.school.root.models.dtos.UpdateSchoolRequest;
-import inno.edu.api.domain.skill.commands.dtos.CreateSkillRequest;
-import inno.edu.api.domain.skill.commands.dtos.UpdateSkillRequest;
-import inno.edu.api.domain.user.commands.dtos.CreateUserRequest;
-import inno.edu.api.domain.user.commands.dtos.LoginRequest;
-import inno.edu.api.domain.user.commands.dtos.UpdateUserRequest;
+import inno.edu.api.domain.skill.models.dtos.CreateSkillRequest;
+import inno.edu.api.domain.skill.models.dtos.UpdateSkillRequest;
+import inno.edu.api.domain.user.models.dtos.CreateUserRequest;
+import inno.edu.api.domain.user.models.dtos.LoginRequest;
+import inno.edu.api.domain.user.models.dtos.UpdateUserRequest;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;

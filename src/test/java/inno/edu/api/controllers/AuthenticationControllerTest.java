@@ -1,7 +1,7 @@
 package inno.edu.api.controllers;
 
 import inno.edu.api.domain.user.commands.LoginCommand;
-import inno.edu.api.domain.user.commands.dtos.LoginResponse;
+import inno.edu.api.domain.user.models.dtos.LoginResponse;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,7 +1,7 @@
 package inno.edu.api.domain.user.commands;
 
-import inno.edu.api.domain.user.commands.dtos.CreateUserRequest;
-import inno.edu.api.domain.user.commands.mappers.CreateUserRequestMapper;
+import inno.edu.api.domain.user.models.dtos.CreateUserRequest;
+import inno.edu.api.domain.user.models.dtos.mappers.CreateUserRequestMapper;
 import inno.edu.api.domain.user.exceptions.PasswordMismatchException;
 import inno.edu.api.domain.user.exceptions.UsernameAlreadyExistsException;
 import inno.edu.api.domain.user.models.ApplicationUser;

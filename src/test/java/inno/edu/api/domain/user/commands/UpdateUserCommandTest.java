@@ -1,6 +1,6 @@
 package inno.edu.api.domain.user.commands;
 
-import inno.edu.api.domain.user.commands.mappers.UpdateUserRequestMapper;
+import inno.edu.api.domain.user.models.dtos.mappers.UpdateUserRequestMapper;
 import inno.edu.api.domain.user.models.ApplicationUser;
 import inno.edu.api.domain.user.queries.GetUserByIdQuery;
 import inno.edu.api.domain.user.repositories.UserRepository;

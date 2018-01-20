@@ -1,4 +1,4 @@
-package inno.edu.api.presentation.resources;
+package inno.edu.api.domain.skill.models.resources;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import inno.edu.api.controllers.SkillController;

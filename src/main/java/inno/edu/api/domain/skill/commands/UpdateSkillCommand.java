@@ -1,7 +1,7 @@
 package inno.edu.api.domain.skill.commands;
 
-import inno.edu.api.domain.skill.commands.dtos.UpdateSkillRequest;
-import inno.edu.api.domain.skill.commands.mappers.UpdateSkillRequestMapper;
+import inno.edu.api.domain.skill.models.dtos.UpdateSkillRequest;
+import inno.edu.api.domain.skill.models.dtos.mappers.UpdateSkillRequestMapper;
 import inno.edu.api.domain.skill.models.Skill;
 import inno.edu.api.domain.skill.queries.GetSkillByIdQuery;
 import inno.edu.api.domain.skill.repositories.SkillRepository;

@@ -1,6 +1,6 @@
-package inno.edu.api.domain.skill.commands.mappers;
+package inno.edu.api.domain.skill.models.dtos.mappers;
 
-import inno.edu.api.domain.skill.commands.dtos.CreateSkillRequest;
+import inno.edu.api.domain.skill.models.dtos.CreateSkillRequest;
 import inno.edu.api.domain.skill.models.Skill;
 import org.mapstruct.Mapper;
 

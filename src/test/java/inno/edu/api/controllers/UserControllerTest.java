@@ -1,13 +1,13 @@
 package inno.edu.api.controllers;
 
 import inno.edu.api.presentation.resources.ResourceBuilder;
-import inno.edu.api.presentation.resources.UserResource;
+import inno.edu.api.domain.user.models.resources.UserResource;
 import inno.edu.api.domain.profile.root.queries.GetProfileByUserIdQuery;
 import inno.edu.api.domain.user.commands.CreateUserCommand;
 import inno.edu.api.domain.user.commands.DeleteUserCommand;
 import inno.edu.api.domain.user.commands.LoginCommand;
 import inno.edu.api.domain.user.commands.UpdateUserCommand;
-import inno.edu.api.domain.user.commands.dtos.LoginResponse;
+import inno.edu.api.domain.user.models.dtos.LoginResponse;
 import inno.edu.api.domain.user.models.ApplicationUser;
 import inno.edu.api.domain.user.queries.GetUserByIdQuery;
 import inno.edu.api.domain.user.queries.GetUsersQuery;

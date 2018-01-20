@@ -1,7 +1,7 @@
 package inno.edu.api.support;
 
-import inno.edu.api.domain.skill.commands.dtos.CreateSkillRequest;
-import inno.edu.api.domain.skill.commands.dtos.UpdateSkillRequest;
+import inno.edu.api.domain.skill.models.dtos.CreateSkillRequest;
+import inno.edu.api.domain.skill.models.dtos.UpdateSkillRequest;
 import inno.edu.api.domain.skill.models.Skill;
 
 import java.util.List;

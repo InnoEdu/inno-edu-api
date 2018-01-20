@@ -1,6 +1,6 @@
-package inno.edu.api.domain.user.commands.mappers;
+package inno.edu.api.domain.user.models.dtos.mappers;
 
-import inno.edu.api.domain.user.commands.dtos.UpdateUserRequest;
+import inno.edu.api.domain.user.models.dtos.UpdateUserRequest;
 import inno.edu.api.domain.user.models.ApplicationUser;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
