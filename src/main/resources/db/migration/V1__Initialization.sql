@@ -7,16 +7,20 @@ CREATE TABLE User (
   password   VARCHAR(30)  NOT NULL
 );
 
-CREATE TABLE School (
-  id          BINARY(16) PRIMARY KEY,
-  name        VARCHAR(255) NOT NULL,
-  description TEXT         NOT NULL
-);
-
 CREATE TABLE Attachment (
   id          BINARY(16) PRIMARY KEY,
   description VARCHAR(100) NOT NULL,
   url         VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE School (
+  id          BINARY(16) PRIMARY KEY,
+  photo_id    BINARY(16)   NULL,
+  name        VARCHAR(255) NOT NULL,
+  description TEXT         NOT NULL,
+
+  FOREIGN KEY (photo_id)
+  REFERENCES Attachment (id)
 );
 
 CREATE TABLE Profile (
