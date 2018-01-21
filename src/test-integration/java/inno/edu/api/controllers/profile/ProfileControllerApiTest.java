@@ -46,13 +46,11 @@ public class ProfileControllerApiTest extends ApiTest {
         this.mockMvc.perform(get("/api/profiles/" + gustavoProfile().getId().toString())).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(gustavoProfile().getId().toString())))
-                .andExpect(jsonPath("$.userId", is(gustavoProfile().getUserId().toString())))
-                .andExpect(jsonPath("$.schoolId", is(gustavoProfile().getSchoolId().toString())))
                 .andExpect(jsonPath("$.description", is(gustavoProfile().getDescription())))
                 .andExpect(jsonPath("$.location", is(gustavoProfile().getLocation())))
                 .andExpect(jsonPath("$.company", is(gustavoProfile().getCompany())))
                 .andExpect(jsonPath("$.rate", is(gustavoProfile().getRate().doubleValue())))
-                .andExpect(jsonPath("$.profileReferenceId", is(gustavoProfile().getProfileReferenceId().toString())));
+                .andExpect(jsonPath("$.mentor", is(true)));
     }
 
     @Test

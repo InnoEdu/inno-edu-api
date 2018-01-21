@@ -6,6 +6,8 @@ import inno.edu.api.domain.profile.root.commands.UpdateProfileCommand;
 import inno.edu.api.domain.profile.root.models.Profile;
 import inno.edu.api.domain.profile.root.models.dtos.CreateProfileRequest;
 import inno.edu.api.domain.profile.root.models.dtos.UpdateProfileRequest;
+import inno.edu.api.domain.profile.root.models.projections.mappers.ProfileProjectionMapper;
+import inno.edu.api.domain.profile.root.models.resources.ProfileProjectionResource;
 import inno.edu.api.domain.profile.root.models.resources.ProfileResource;
 import inno.edu.api.domain.profile.root.queries.GetProfileByIdQuery;
 import inno.edu.api.domain.profile.root.queries.GetProfilesQuery;
@@ -41,14 +43,17 @@ public class ProfileController {
     private final CreateProfileCommand createProfileCommand;
     private final DeleteProfileCommand deleteProfileCommand;
 
+    private final ProfileProjectionMapper profileProjectionMapper;
+
     @Autowired
-    public ProfileController(ResourceBuilder resourceBuilder, GetProfilesQuery getProfilesQuery, GetProfileByIdQuery getProfileByIdQuery, UpdateProfileCommand updateProfileCommand, CreateProfileCommand createProfileCommand, DeleteProfileCommand deleteProfileCommand) {
+    public ProfileController(ResourceBuilder resourceBuilder, GetProfilesQuery getProfilesQuery, GetProfileByIdQuery getProfileByIdQuery, UpdateProfileCommand updateProfileCommand, CreateProfileCommand createProfileCommand, DeleteProfileCommand deleteProfileCommand, ProfileProjectionMapper profileProjectionMapper) {
         this.resourceBuilder = resourceBuilder;
         this.getProfilesQuery = getProfilesQuery;
         this.getProfileByIdQuery = getProfileByIdQuery;
         this.updateProfileCommand = updateProfileCommand;
         this.createProfileCommand = createProfileCommand;
         this.deleteProfileCommand = deleteProfileCommand;
+        this.profileProjectionMapper = profileProjectionMapper;
     }
 
     @GetMapping
@@ -58,8 +63,8 @@ public class ProfileController {
     }
 
     @GetMapping("/{id}")
-    public ProfileResource get(@PathVariable UUID id) {
-        return new ProfileResource(getProfileByIdQuery.run(id));
+    public ProfileProjectionResource get(@PathVariable UUID id) {
+        return profileProjectionMapper.toProfileProjectionResource(getProfileByIdQuery.run(id));
     }
 
     @PostMapping

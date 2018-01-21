@@ -1,5 +1,6 @@
 package inno.edu.api.domain.profile.root.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import inno.edu.api.domain.attachment.models.Attachment;
 import inno.edu.api.domain.profile.accomplishment.models.Accomplishment;
 import inno.edu.api.domain.profile.attachment.models.ProfileAttachment;
@@ -58,25 +59,31 @@ public class Profile {
 
     @OneToMany(fetch = LAZY)
     @JoinColumn(name = "profileId", updatable = false, insertable = false)
+    @JsonIgnore
     private List<Service> services;
 
     @OneToMany(fetch = LAZY)
     @JoinColumn(name = "profileId", updatable = false, insertable = false)
+    @JsonIgnore
     private List<Interest> interests;
 
     @OneToMany(fetch = LAZY)
     @JoinColumn(name = "profileId", updatable = false, insertable = false)
+    @JsonIgnore
     private List<Accomplishment> accomplishments;
 
     @OneToMany(fetch = LAZY)
     @JoinColumn(name = "profileId", updatable = false, insertable = false)
+    @JsonIgnore
     private List<Experience> experiences;
 
     @OneToMany(fetch = LAZY)
     @JoinColumn(name = "profileId", updatable = false, insertable = false)
+    @JsonIgnore
     private List<ProfileAttachment> attachments;
 
     @OneToMany(fetch = LAZY)
     @JoinColumn(name = "profileId", updatable = false, insertable = false)
+    @JsonIgnore
     private List<ProfileSkill> skills;
 }

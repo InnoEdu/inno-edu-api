@@ -1,6 +1,8 @@
 package inno.edu.api.controllers;
 
 import inno.edu.api.controllers.profile.ProfileController;
+import inno.edu.api.domain.profile.root.models.projections.mappers.ProfileProjectionMapper;
+import inno.edu.api.domain.profile.root.models.resources.ProfileProjectionResource;
 import inno.edu.api.domain.profile.root.models.resources.ProfileResource;
 import inno.edu.api.infrastructure.web.ResourceBuilder;
 import inno.edu.api.domain.profile.root.commands.CreateProfileCommand;
@@ -20,6 +22,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static inno.edu.api.support.ProfileFactory.alanProfile;
+import static inno.edu.api.support.ProfileFactory.alanProfileProjection;
 import static inno.edu.api.support.ProfileFactory.createAlanProfileRequest;
 import static inno.edu.api.support.ProfileFactory.profiles;
 import static inno.edu.api.support.ProfileFactory.updateAlanProfileRequest;
@@ -52,6 +55,9 @@ public class ProfileControllerTest {
     @Mock
     private UpdateProfileCommand updateProfileCommand;
 
+    @Mock
+    private ProfileProjectionMapper profileProjectionMapper;
+
     @InjectMocks
     private ProfileController profileController;
 
@@ -72,10 +78,12 @@ public class ProfileControllerTest {
     @Test
     public void shouldGetProfileById() {
         when(getProfileByIdQuery.run(eq(alanProfile().getId()))).thenReturn(alanProfile());
+        when(profileProjectionMapper.toProfileProjectionResource(alanProfile()))
+                .thenReturn(new ProfileProjectionResource(alanProfileProjection()));
 
-        ProfileResource profileResource = profileController.get(alanProfile().getId());
+        ProfileProjectionResource profileResource = profileController.get(alanProfile().getId());
 
-        assertThat(profileResource.getProfile(), is(alanProfile()));
+        assertThat(profileResource.getProfileProjection(), is(alanProfileProjection()));
     }
 
     @Test

@@ -78,6 +78,6 @@ public class ProfileAttachmentControllerApiTest extends ApiTest {
 
         this.mockMvc.perform(get("/api/profiles/" + feiProfile().getId().toString())).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.photoId", is(getIdentity(mvcResult))));
+                .andExpect(jsonPath("$.photo.id", is(getIdentity(mvcResult))));
     }
 }

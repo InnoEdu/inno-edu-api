@@ -17,6 +17,7 @@ import inno.edu.api.domain.profile.root.models.dtos.CreateProfileRequest;
 import inno.edu.api.domain.profile.root.models.dtos.ProfileAssociationRequest;
 import inno.edu.api.domain.profile.root.models.dtos.RejectProfileAssociationRequest;
 import inno.edu.api.domain.profile.root.models.dtos.UpdateProfileRequest;
+import inno.edu.api.domain.profile.root.models.projections.ProfileProjection;
 import inno.edu.api.domain.profile.service.models.Service;
 import inno.edu.api.domain.profile.service.models.dtos.CreateServiceRequest;
 import inno.edu.api.domain.profile.service.models.dtos.UpdateServiceRequest;
@@ -76,6 +77,15 @@ public class ProfileFactory {
                 .userId(alan().getId())
                 .description("Alan is a great mentee.")
                 .location("San Francisco, CA")
+                .build();
+    }
+
+    public static ProfileProjection alanProfileProjection() {
+        return ProfileProjection.builder().id(alanProfile().getId())
+                .description(alanProfile().getDescription())
+                .location(alanProfile().getLocation())
+                .isMentor(false)
+                .user(alan())
                 .build();
     }
 
