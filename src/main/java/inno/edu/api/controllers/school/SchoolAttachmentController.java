@@ -1,6 +1,7 @@
 package inno.edu.api.controllers.school;
 
 import inno.edu.api.domain.attachment.models.resources.AttachmentResource;
+import inno.edu.api.domain.school.attachment.commands.UploadSchoolPhotoCommand;
 import inno.edu.api.infrastructure.web.ResourceBuilder;
 import inno.edu.api.domain.attachment.models.dtos.CreateAttachmentRequest;
 import inno.edu.api.domain.attachment.models.Attachment;
@@ -27,15 +28,19 @@ import static org.springframework.http.ResponseEntity.noContent;
 @RequestMapping(value = "/api/schools", produces = "application/hal+json")
 public class SchoolAttachmentController {
     private final ResourceBuilder resourceBuilder;
+
     private final GetSchoolAttachmentsBySchoolIdQuery getSchoolAttachmentsBySchoolIdQuery;
+
     private final CreateSchoolAttachmentCommand createSchoolAttachmentCommand;
     private final DeleteSchoolAttachmentCommand deleteSchoolAttachmentCommand;
+    private final UploadSchoolPhotoCommand uploadSchoolPhotoCommand;
 
-    public SchoolAttachmentController(ResourceBuilder resourceBuilder, GetSchoolAttachmentsBySchoolIdQuery getSchoolAttachmentsBySchoolIdQuery, CreateSchoolAttachmentCommand createSchoolAttachmentCommand, DeleteSchoolAttachmentCommand deleteSchoolAttachmentCommand) {
+    public SchoolAttachmentController(ResourceBuilder resourceBuilder, GetSchoolAttachmentsBySchoolIdQuery getSchoolAttachmentsBySchoolIdQuery, CreateSchoolAttachmentCommand createSchoolAttachmentCommand, DeleteSchoolAttachmentCommand deleteSchoolAttachmentCommand, UploadSchoolPhotoCommand uploadSchoolPhotoCommand) {
         this.resourceBuilder = resourceBuilder;
         this.getSchoolAttachmentsBySchoolIdQuery = getSchoolAttachmentsBySchoolIdQuery;
         this.createSchoolAttachmentCommand = createSchoolAttachmentCommand;
         this.deleteSchoolAttachmentCommand = deleteSchoolAttachmentCommand;
+        this.uploadSchoolPhotoCommand = uploadSchoolPhotoCommand;
     }
 
     @GetMapping("/{schoolId}/attachments")
@@ -52,6 +57,11 @@ public class SchoolAttachmentController {
                 .build();
 
         return new AttachmentResource(createSchoolAttachmentCommand.run(schoolId, request));
+    }
+
+    @PostMapping("/{schoolId}/upload-photo")
+    public AttachmentResource upload(@PathVariable UUID schoolId, @RequestParam MultipartFile file) {
+        return new AttachmentResource(uploadSchoolPhotoCommand.run(schoolId, file));
     }
 
     @DeleteMapping("/{schoolId}/attachments/{id}")
