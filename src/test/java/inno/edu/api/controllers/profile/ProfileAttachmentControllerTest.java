@@ -98,5 +98,4 @@ public class ProfileAttachmentControllerTest {
 
         assertThat(attachmentResource.getAttachment(), is(attachment()));
     }
-
 }

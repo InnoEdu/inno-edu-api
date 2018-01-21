@@ -1,11 +1,12 @@
 package inno.edu.api.controllers.school;
 
-import inno.edu.api.domain.attachment.models.resources.AttachmentResource;
-import inno.edu.api.infrastructure.web.ResourceBuilder;
 import inno.edu.api.domain.attachment.models.dtos.CreateAttachmentRequest;
+import inno.edu.api.domain.attachment.models.resources.AttachmentResource;
 import inno.edu.api.domain.school.attachment.commands.CreateSchoolAttachmentCommand;
 import inno.edu.api.domain.school.attachment.commands.DeleteSchoolAttachmentCommand;
+import inno.edu.api.domain.school.attachment.commands.UploadSchoolPhotoCommand;
 import inno.edu.api.domain.school.attachment.queries.GetSchoolAttachmentsBySchoolIdQuery;
+import inno.edu.api.infrastructure.web.ResourceBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -36,6 +37,9 @@ public class SchoolAttachmentControllerTest {
 
     @Mock
     private DeleteSchoolAttachmentCommand deleteSchoolAttachmentCommand;
+
+    @Mock
+    private UploadSchoolPhotoCommand uploadSchoolPhotoCommand;
 
     @InjectMocks
     private SchoolAttachmentController schoolAttachmentController;
@@ -69,5 +73,20 @@ public class SchoolAttachmentControllerTest {
         schoolAttachmentController.delete(stanford().getId(), attachment().getId());
 
         verify(deleteSchoolAttachmentCommand).run(stanford().getId(), attachment().getId());
+    }
+
+    @Test
+    public void shouldUploadPhoto() {
+        CreateAttachmentRequest request = createAttachmentRequest();
+
+        when(uploadSchoolPhotoCommand.run(stanford().getId(), request.getFile()))
+                .thenReturn(attachment());
+
+        AttachmentResource attachmentResource = schoolAttachmentController.upload(
+                stanford().getId(),
+                request.getFile()
+        );
+
+        assertThat(attachmentResource.getAttachment(), is(attachment()));
     }
 }

@@ -1,16 +1,15 @@
 package inno.edu.api.controllers.profile;
 
-import inno.edu.api.domain.profile.root.models.resources.ProfileResource;
-import inno.edu.api.infrastructure.web.ResourceBuilder;
-import inno.edu.api.domain.attachment.commands.CreateAttachmentCommand;
 import inno.edu.api.domain.profile.root.commands.CreateProfileCommand;
 import inno.edu.api.domain.profile.root.commands.DeleteProfileCommand;
 import inno.edu.api.domain.profile.root.commands.UpdateProfileCommand;
+import inno.edu.api.domain.profile.root.models.Profile;
 import inno.edu.api.domain.profile.root.models.dtos.CreateProfileRequest;
 import inno.edu.api.domain.profile.root.models.dtos.UpdateProfileRequest;
-import inno.edu.api.domain.profile.root.models.Profile;
+import inno.edu.api.domain.profile.root.models.resources.ProfileResource;
 import inno.edu.api.domain.profile.root.queries.GetProfileByIdQuery;
 import inno.edu.api.domain.profile.root.queries.GetProfilesQuery;
+import inno.edu.api.infrastructure.web.ResourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
@@ -41,17 +40,15 @@ public class ProfileController {
     private final UpdateProfileCommand updateProfileCommand;
     private final CreateProfileCommand createProfileCommand;
     private final DeleteProfileCommand deleteProfileCommand;
-    private final CreateAttachmentCommand uploadProfileContentCommand;
 
     @Autowired
-    public ProfileController(ResourceBuilder resourceBuilder, GetProfilesQuery getProfilesQuery, GetProfileByIdQuery getProfileByIdQuery, UpdateProfileCommand updateProfileCommand, CreateProfileCommand createProfileCommand, DeleteProfileCommand deleteProfileCommand, CreateAttachmentCommand uploadProfileContentCommand) {
+    public ProfileController(ResourceBuilder resourceBuilder, GetProfilesQuery getProfilesQuery, GetProfileByIdQuery getProfileByIdQuery, UpdateProfileCommand updateProfileCommand, CreateProfileCommand createProfileCommand, DeleteProfileCommand deleteProfileCommand) {
         this.resourceBuilder = resourceBuilder;
         this.getProfilesQuery = getProfilesQuery;
         this.getProfileByIdQuery = getProfileByIdQuery;
         this.updateProfileCommand = updateProfileCommand;
         this.createProfileCommand = createProfileCommand;
         this.deleteProfileCommand = deleteProfileCommand;
-        this.uploadProfileContentCommand = uploadProfileContentCommand;
     }
 
     @GetMapping
