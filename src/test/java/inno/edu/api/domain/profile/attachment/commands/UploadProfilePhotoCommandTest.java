@@ -15,7 +15,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockMultipartFile;
 
-import static inno.edu.api.domain.profile.attachment.commands.UploadPhotoAttachmentCommand.DESCRIPTION;
+import static inno.edu.api.domain.profile.attachment.commands.UploadProfilePhotoCommand.DESCRIPTION;
 import static inno.edu.api.support.AttachmentFactory.attachment;
 import static inno.edu.api.support.AttachmentFactory.createAttachmentRequestForFile;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
@@ -28,7 +28,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UploadPhotoAttachmentCommandTest {
+public class UploadProfilePhotoCommandTest {
     @Mock
     private CreateAttachmentCommand createAttachmentCommand;
 
@@ -45,7 +45,7 @@ public class UploadPhotoAttachmentCommandTest {
     private MockMultipartFile multipartFile;
 
     @InjectMocks
-    private UploadPhotoAttachmentCommand uploadPhotoAttachmentCommand;
+    private UploadProfilePhotoCommand uploadPhotoAttachmentCommand;
 
     @Before
     public void setUp() {

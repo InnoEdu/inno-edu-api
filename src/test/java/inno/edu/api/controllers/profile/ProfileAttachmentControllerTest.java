@@ -5,7 +5,7 @@ import inno.edu.api.infrastructure.web.ResourceBuilder;
 import inno.edu.api.domain.attachment.models.dtos.CreateAttachmentRequest;
 import inno.edu.api.domain.profile.attachment.commands.CreateProfileAttachmentCommand;
 import inno.edu.api.domain.profile.attachment.commands.DeleteProfileAttachmentCommand;
-import inno.edu.api.domain.profile.attachment.commands.UploadPhotoAttachmentCommand;
+import inno.edu.api.domain.profile.attachment.commands.UploadProfilePhotoCommand;
 import inno.edu.api.domain.profile.attachment.queries.GetProfileAttachmentsByProfileIdQuery;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,7 +43,7 @@ public class ProfileAttachmentControllerTest {
     private DeleteProfileAttachmentCommand deleteProfileAttachmentCommand;
 
     @Mock
-    private UploadPhotoAttachmentCommand uploadPhotoAttachmentCommand;
+    private UploadProfilePhotoCommand uploadPhotoAttachmentCommand;
 
     @InjectMocks
     private ProfileAttachmentController profileAttachmentController;

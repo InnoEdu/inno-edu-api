@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.UUID;
 
 @Command
-public class UploadPhotoAttachmentCommand {
+public class UploadProfilePhotoCommand {
     static final String DESCRIPTION = "Profile photo";
 
     private final CreateAttachmentCommand createAttachmentCommand;
@@ -22,7 +22,7 @@ public class UploadPhotoAttachmentCommand {
     private final GetProfileByIdQuery getProfileByIdQuery;
     private final ProfileRepository profileRepository;
 
-    public UploadPhotoAttachmentCommand(CreateAttachmentCommand createAttachmentCommand, DeleteAttachmentCommand deleteAttachmentCommand, GetProfileByIdQuery getProfileByIdQuery, ProfileRepository profileRepository) {
+    public UploadProfilePhotoCommand(CreateAttachmentCommand createAttachmentCommand, DeleteAttachmentCommand deleteAttachmentCommand, GetProfileByIdQuery getProfileByIdQuery, ProfileRepository profileRepository) {
         this.createAttachmentCommand = createAttachmentCommand;
         this.deleteAttachmentCommand = deleteAttachmentCommand;
         this.getProfileByIdQuery = getProfileByIdQuery;
