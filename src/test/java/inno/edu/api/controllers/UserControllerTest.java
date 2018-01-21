@@ -1,16 +1,16 @@
 package inno.edu.api.controllers;
 
 import inno.edu.api.infrastructure.web.ResourceBuilder;
-import inno.edu.api.domain.user.models.resources.UserResource;
+import inno.edu.api.domain.user.root.models.resources.UserResource;
 import inno.edu.api.domain.profile.root.queries.GetProfileByUserIdQuery;
-import inno.edu.api.domain.user.commands.CreateUserCommand;
-import inno.edu.api.domain.user.commands.DeleteUserCommand;
-import inno.edu.api.domain.user.commands.LoginCommand;
-import inno.edu.api.domain.user.commands.UpdateUserCommand;
-import inno.edu.api.domain.user.models.dtos.LoginResponse;
-import inno.edu.api.domain.user.models.ApplicationUser;
-import inno.edu.api.domain.user.queries.GetUserByIdQuery;
-import inno.edu.api.domain.user.queries.GetUsersQuery;
+import inno.edu.api.domain.user.root.commands.CreateUserCommand;
+import inno.edu.api.domain.user.root.commands.DeleteUserCommand;
+import inno.edu.api.domain.user.root.commands.LoginCommand;
+import inno.edu.api.domain.user.root.commands.UpdateUserCommand;
+import inno.edu.api.domain.user.root.models.dtos.LoginResponse;
+import inno.edu.api.domain.user.root.models.ApplicationUser;
+import inno.edu.api.domain.user.root.queries.GetUserByIdQuery;
+import inno.edu.api.domain.user.root.queries.GetUsersQuery;
 import inno.edu.api.support.ProfileFactory;
 import org.junit.Before;
 import org.junit.Test;

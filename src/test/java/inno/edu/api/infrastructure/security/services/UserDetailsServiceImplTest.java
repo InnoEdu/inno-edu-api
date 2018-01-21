@@ -1,6 +1,6 @@
 package inno.edu.api.infrastructure.security.services;
 
-import inno.edu.api.domain.user.repositories.UserRepository;
+import inno.edu.api.domain.user.root.repositories.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

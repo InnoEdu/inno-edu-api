@@ -1,10 +1,10 @@
 package inno.edu.api.controllers.advices;
 
 import inno.edu.api.domain.profile.root.exceptions.UserProfileNotFoundException;
-import inno.edu.api.domain.user.exceptions.InvalidUsernameOrPasswordException;
-import inno.edu.api.domain.user.exceptions.UserIsNotMentorException;
-import inno.edu.api.domain.user.exceptions.UserNotFoundException;
-import inno.edu.api.domain.user.exceptions.UsernameAlreadyExistsException;
+import inno.edu.api.domain.user.root.exceptions.InvalidUsernameOrPasswordException;
+import inno.edu.api.domain.user.root.exceptions.UserIsNotMentorException;
+import inno.edu.api.domain.user.root.exceptions.UserNotFoundException;
+import inno.edu.api.domain.user.root.exceptions.UsernameAlreadyExistsException;
 import org.springframework.core.annotation.Order;
 import org.springframework.hateoas.VndErrors;
 import org.springframework.web.bind.annotation.ControllerAdvice;

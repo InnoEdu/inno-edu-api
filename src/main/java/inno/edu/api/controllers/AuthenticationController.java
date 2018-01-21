@@ -1,8 +1,8 @@
 package inno.edu.api.controllers;
 
-import inno.edu.api.domain.user.commands.LoginCommand;
-import inno.edu.api.domain.user.models.dtos.LoginRequest;
-import inno.edu.api.domain.user.models.dtos.LoginResponse;
+import inno.edu.api.domain.user.root.commands.LoginCommand;
+import inno.edu.api.domain.user.root.models.dtos.LoginRequest;
+import inno.edu.api.domain.user.root.models.dtos.LoginResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -1,7 +1,7 @@
 package inno.edu.api.infrastructure.security.services;
 
-import inno.edu.api.domain.user.models.ApplicationUser;
-import inno.edu.api.domain.user.repositories.UserRepository;
+import inno.edu.api.domain.user.root.models.ApplicationUser;
+import inno.edu.api.domain.user.root.repositories.UserRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

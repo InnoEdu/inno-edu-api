@@ -4,7 +4,7 @@ import inno.edu.api.domain.profile.root.models.dtos.mappers.CreateProfileRequest
 import inno.edu.api.domain.profile.root.exceptions.ProfileAlreadyCreatedException;
 import inno.edu.api.domain.profile.root.models.Profile;
 import inno.edu.api.domain.profile.root.repositories.ProfileRepository;
-import inno.edu.api.domain.user.assertions.UserExistsAssertion;
+import inno.edu.api.domain.user.root.assertions.UserExistsAssertion;
 import inno.edu.api.infrastructure.services.UUIDGeneratorService;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,10 +1,10 @@
 package inno.edu.api.support;
 
-import inno.edu.api.domain.user.models.dtos.CreateUserRequest;
-import inno.edu.api.domain.user.models.dtos.LoginRequest;
-import inno.edu.api.domain.user.models.dtos.LoginResponse;
-import inno.edu.api.domain.user.models.dtos.UpdateUserRequest;
-import inno.edu.api.domain.user.models.ApplicationUser;
+import inno.edu.api.domain.user.root.models.dtos.CreateUserRequest;
+import inno.edu.api.domain.user.root.models.dtos.LoginRequest;
+import inno.edu.api.domain.user.root.models.dtos.LoginResponse;
+import inno.edu.api.domain.user.root.models.dtos.UpdateUserRequest;
+import inno.edu.api.domain.user.root.models.ApplicationUser;
 
 import java.util.List;
 import java.util.UUID;

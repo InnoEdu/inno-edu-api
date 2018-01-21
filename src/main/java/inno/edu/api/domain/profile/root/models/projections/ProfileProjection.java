@@ -8,7 +8,7 @@ import inno.edu.api.domain.profile.interest.models.Interest;
 import inno.edu.api.domain.profile.service.models.Service;
 import inno.edu.api.domain.profile.skill.models.ProfileSkill;
 import inno.edu.api.domain.school.root.models.School;
-import inno.edu.api.domain.user.models.ApplicationUser;
+import inno.edu.api.domain.user.root.models.ApplicationUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

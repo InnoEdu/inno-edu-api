@@ -1,7 +1,7 @@
 package inno.edu.api.infrastructure.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import inno.edu.api.domain.user.models.ApplicationUser;
+import inno.edu.api.domain.user.root.models.ApplicationUser;
 import inno.edu.api.infrastructure.security.SecurityConstants;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
