@@ -214,10 +214,21 @@ VALUES (${map}('e3495a43a0af42b7ab91a3801b1b56ab'), 'Tuany', 'Di Domenico', 'tua
 INSERT INTO User (id, first_name, last_name, username, email, password)
 VALUES (${map}('c5e6b39233e14255a249f777b6ab355d'), 'Elisete', 'Muller', 'elisete', 'eluisete@inno.edu', 'password');
 
+-- Attachments
+
+INSERT INTO Attachment (id, description, url)
+VALUES (${map}('0e69db46172a4fa7ab0980ca8dee0030'), 'Profile photo',
+        'https://s3-us-west-1.amazonaws.com/inno-edu/0e69db46-172a-4fa7-ab09-80ca8dee0030.jpg');
+
+INSERT INTO Attachment (id, description, url)
+VALUES (${map}('ed814b4147214f94bc44e5079a99c531'), 'School photo',
+        'https://s3-us-west-1.amazonaws.com/inno-edu/ed814b41-4721-4f94-bc44-e5079a99c531.png');
+
 -- Schools
 
-INSERT INTO School (id, name, description)
-VALUES (${map}('0a58153cc15f4e5b802cbbf5d6c1c55c'), 'Stanford', 'Stanford is an amazing university.');
+INSERT INTO School (id, photo_id, name, description)
+VALUES (${map}('0a58153cc15f4e5b802cbbf5d6c1c55c'), ${map}('ed814b4147214f94bc44e5079a99c531'), 'Stanford',
+        'Stanford is an amazing university.');
 
 INSERT INTO School (id, name, description)
 VALUES (${map}('a10afaca201644b8940b5b88323901b9'), 'Berkeley', 'Berkeley is an outstanding university.');
@@ -231,8 +242,9 @@ VALUES (${map}('83768bb035514586bbba03efb5f8d7bd'), 'Massachusetts Institute of 
 
 -- Profiles
 
-INSERT INTO Profile (id, user_id, school_id, description, rate, location)
+INSERT INTO Profile (id, user_id, photo_id, school_id, description, rate, location)
 VALUES (${map}('0e9e40c0b44b438792a99d75d10e3d42'), ${map}('ba7c650519fd47c387a6c6af6e5322b7'),
+        ${map}('0e69db46172a4fa7ab0980ca8dee0030'),
         ${map}('0a58153cc15f4e5b802cbbf5d6c1c55c'), 'Fei is a great mentor.', 5.0, 'San Francisco, CA');
 
 INSERT INTO Profile (id, user_id, school_id, description, rate, location)
