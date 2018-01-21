@@ -564,7 +564,7 @@ paths:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/ProfileResource'
+            $ref: '#/definitions/ProfileProjectionResource'
         '404':
           description: Profile not found
           schema:
@@ -1787,7 +1787,7 @@ paths:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/AppointmentResource'
+            $ref: '#/definitions/AppointmentProjectionResource'
         '404':
           description: Appointment not found
           schema:
@@ -2511,7 +2511,6 @@ definitions:
         type: string
         format: uuid
       photo:
-        type: object
         $ref: '#/definitions/Attachment'
       description:
         type: string
@@ -2524,6 +2523,59 @@ definitions:
       profileReferenceId:
         type: string
         format: uuid
+  ProfileProjection:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      description:
+        type: string
+      location:
+        type: string
+      rate:
+        type: number
+      company:
+        type: string
+      mentor:
+        type: boolean
+      photo:
+        $ref: '#/definitions/Attachment'
+      user:
+        $ref: '#/definitions/User'
+      school:
+        $ref: '#/definitions/School'
+      services:
+        type: array
+        items:
+          $ref: '#/definitions/Service'
+      interests:
+        type: array
+        items:
+          $ref: '#/definitions/Interest'
+      accomplishments:
+        type: array
+        items:
+          $ref: '#/definitions/Accomplishment'
+      experiences:
+        type: array
+        items:
+          $ref: '#/definitions/Experience'
+      attachments:
+        type: array
+        items:
+          $ref: '#/definitions/ProfileAttachment'
+      skills:
+        type: array
+        items:
+          $ref: '#/definitions/ProfileSkill'
+  ProfileProjectionResource:
+      allOf:
+        - $ref: '#/definitions/ProfileProjection'
+        - type: object
+          properties:
+            _links:
+              type: object
   ProfileResource:
       allOf:
         - $ref: '#/definitions/Profile'
@@ -2674,12 +2726,62 @@ definitions:
         enum: [PROPOSED, ACCEPTED, DECLINED, CANCELED, MISSED, COMPLETED, STARTED, UNAVAILABLE]
       reason:
         type: string
+  AppointmentProjection:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      mentorProfileId:
+        type: string
+        format: uuid
+      menteeProfileId:
+        type: string
+        format: uuid
+      fromDateTime:
+        type: string
+        format: date-time
+      toDateTime:
+        type: string
+        format: date-time
+      description:
+        type: string
+      fee:
+        type: number
+      status:
+        type: string
+        enum: [PROPOSED, ACCEPTED, DECLINED, CANCELED, MISSED, COMPLETED, STARTED, UNAVAILABLE]
+      reason:
+        type: string
+      mentorFirstName:
+        type: string
+      mentorLastName:
+        type: string
+      menteeFirstName:
+        type: string
+      menteeLastName:
+        type: string
+      mentorPhotoUrl:
+        type: string
+      menteePhotoUrl:
+        type: string
+      feedbacks:
+        type: array
+        items:
+          $ref: '#/definitions/Feedback'
   AppointmentReason:
     type: object
     properties:
       reason:
         type: string
         maxLength: 255
+  AppointmentProjectionResource:
+    allOf:
+        - $ref: '#/definitions/AppointmentProjection'
+        - type: object
+          properties:
+            _links:
+              type: object
   AppointmentResource:
     allOf:
         - $ref: '#/definitions/Appointment'
@@ -3187,6 +3289,8 @@ definitions:
       skillId:
         type: string
         format: uuid
+      skill:
+        $ref: '#/definitions/Skill'
   ProfileSkillResource:
     allOf:
         - $ref: '#/definitions/ProfileSkill'
@@ -3194,3 +3298,14 @@ definitions:
           properties:
             _links:
               type: object
+  ProfileAttachment:
+    type: object
+    properties:
+      profileId:
+        type: string
+        format: uuid
+      attachmentId:
+        type: string
+        format: uuid
+      attachment:
+        $ref: '#/definitions/Attachment'
