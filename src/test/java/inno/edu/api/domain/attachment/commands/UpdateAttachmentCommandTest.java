@@ -10,7 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static inno.edu.api.support.AttachmentFactory.attachment;
+import static inno.edu.api.support.AttachmentFactory.feiProfilePhoto;
 import static inno.edu.api.support.AttachmentFactory.updateAttachmentRequest;
 import static inno.edu.api.support.AttachmentFactory.updatedAttachment;
 import static org.hamcrest.CoreMatchers.is;
@@ -34,12 +34,12 @@ public class UpdateAttachmentCommandTest {
 
     @Test
     public void shouldReturnUpdatedAttachment() {
-        when(getAttachmentByIdQuery.run(attachment().getId())).thenReturn(attachment());
-        when(attachmentRepository.save(attachment())).thenReturn(updatedAttachment());
+        when(getAttachmentByIdQuery.run(feiProfilePhoto().getId())).thenReturn(feiProfilePhoto());
+        when(attachmentRepository.save(feiProfilePhoto())).thenReturn(updatedAttachment());
 
-        Attachment attachment = updateAttachmentCommand.run(attachment().getId(), updateAttachmentRequest());
+        Attachment attachment = updateAttachmentCommand.run(feiProfilePhoto().getId(), updateAttachmentRequest());
 
-        verify(updateAttachmentRequestMapper).setAttachment(updateAttachmentRequest(), attachment());
+        verify(updateAttachmentRequestMapper).setAttachment(updateAttachmentRequest(), feiProfilePhoto());
 
         assertThat(attachment, is(updatedAttachment()));
     }

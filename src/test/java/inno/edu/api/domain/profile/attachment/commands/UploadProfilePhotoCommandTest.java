@@ -16,7 +16,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockMultipartFile;
 
 import static inno.edu.api.domain.profile.attachment.commands.UploadProfilePhotoCommand.DESCRIPTION;
-import static inno.edu.api.support.AttachmentFactory.attachment;
+import static inno.edu.api.support.AttachmentFactory.feiProfilePhoto;
 import static inno.edu.api.support.AttachmentFactory.createAttachmentRequestForFile;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static org.hamcrest.CoreMatchers.is;
@@ -52,7 +52,7 @@ public class UploadProfilePhotoCommandTest {
         when(getProfileByIdQuery.run(feiProfile().getId())).thenReturn(feiProfile());
 
         when(createAttachmentCommand.run(createAttachmentRequestForFile(DESCRIPTION, multipartFile)))
-                .thenReturn(attachment());
+                .thenReturn(feiProfilePhoto());
     }
 
     @Test
@@ -61,7 +61,7 @@ public class UploadProfilePhotoCommandTest {
 
         verify(deleteAttachmentCommand, never()).run(any());
 
-        assertThat(attachment, is(attachment()));
+        assertThat(attachment, is(feiProfilePhoto()));
     }
 
     @Test
@@ -72,19 +72,19 @@ public class UploadProfilePhotoCommandTest {
 
         verify(profileRepository).save(profileArgumentCaptor.capture());
 
-        assertThat(profileArgumentCaptor.getValue().getPhotoId(), is(attachment().getId()));
+        assertThat(profileArgumentCaptor.getValue().getPhotoId(), is(feiProfilePhoto().getId()));
     }
 
     @Test
     public void shouldDeleteOldAttachmentIfItExists() {
         Profile profileWithPhoto = feiProfile().toBuilder()
-                .photoId(attachment().getId())
+                .photoId(feiProfilePhoto().getId())
                 .build();
 
         when(getProfileByIdQuery.run(feiProfile().getId())).thenReturn(profileWithPhoto);
 
         uploadPhotoAttachmentCommand.run(feiProfile().getId(), multipartFile);
 
-        verify(deleteAttachmentCommand).run(attachment().getId());
+        verify(deleteAttachmentCommand).run(feiProfilePhoto().getId());
     }
 }

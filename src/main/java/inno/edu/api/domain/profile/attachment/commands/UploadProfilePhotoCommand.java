@@ -33,7 +33,12 @@ public class UploadProfilePhotoCommand {
         Profile profile = getProfileByIdQuery.run(profileId);
 
         if (profile.getPhotoId() != null) {
-            deleteAttachmentCommand.run(profile.getPhotoId());
+            UUID attachmentId = profile.getPhotoId();
+
+            profile.setPhotoId(null);
+            profileRepository.save(profile);
+
+            deleteAttachmentCommand.run(attachmentId);
         }
 
         Attachment attachment = createAttachment(file);

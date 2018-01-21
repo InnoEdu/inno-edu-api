@@ -30,6 +30,21 @@ VALUES ('df54ff863caa4145b228284f5d4a908a', 'Gustavo', 'Di Domenico', 'gdomenico
 INSERT INTO User (id, first_name, last_name, username, email, password)
 VALUES ('1e4cc51c767f4524b4e04f2e4bd249da', 'Tuany', 'Di Domenico', 'tdomenico', 'tuany@inno.edu', 'password');
 
+INSERT INTO Attachment(id, description, url)
+VALUES ('0a2de2db3997408282b656aad9746af9', 'Fei profile photo', 'Fei profile photo url');
+
+INSERT INTO Attachment(id, description, url)
+VALUES ('542aba26c9c64693a4263fcf11d2fbdf', 'Fei attachment', 'Fei attachment url');
+
+INSERT INTO Attachment(id, description, url)
+VALUES ('a58c72bf8444491ea887f2a8c6345520', 'Alan profile photo', 'Alan profile photo url');
+
+INSERT INTO Attachment(id, description, url)
+VALUES ('b192eba5264b4c329bfee72d1f7a244b', 'File to delete', 'MyFileUrl');
+
+INSERT INTO Attachment(id, description, url)
+VALUES ('02122a2515914ced8c879b5c684e36c0', 'Stanford attachment', 'Stanford attachment url');
+
 INSERT INTO School (id, name, description)
 VALUES ('0a58153cc15f4e5b802cbbf5d6c1c55c', 'Stanford', 'Stanford is an amazing university.');
 
@@ -39,36 +54,27 @@ VALUES ('46ddda8ee01e430f99ede8aee71db79a', 'Stanford to delete', 'Stanford is a
 INSERT INTO School (id, name, description)
 VALUES ('a10afaca201644b8940b5b88323901b9', 'Berkeley', 'Berkeley is an outstanding university.');
 
-INSERT INTO Profile (id, user_id, description, location)
-VALUES ('c5f473b4331140b18fb3f70357894754', '8d6153fc83e54b3a90acd081ff789cef',
+INSERT INTO School_Attachment(school_id, attachment_id)
+VALUES ('0a58153cc15f4e5b802cbbf5d6c1c55c', '02122a2515914ced8c879b5c684e36c0');
+
+INSERT INTO Profile (id, user_id, photo_id, description, location)
+VALUES ('c5f473b4331140b18fb3f70357894754', '8d6153fc83e54b3a90acd081ff789cef', 'a58c72bf8444491ea887f2a8c6345520',
         'Alan is a great mentee.', 'San Francisco, CA');
 
 INSERT INTO Profile (id, user_id, description, location)
 VALUES ('88447c0d3f2e48d9ae5183037465ab47', 'ba7c650519fd47c387a6c6af6e5322b7',
         'Fei to delete is a great mentor.', 'San Francisco, CA');
 
-INSERT INTO Profile (id, user_id, school_id, description, rate, location)
-VALUES ('0e9e40c0b44b438792a99d75d10e3d42', 'ba7c650519fd47c387a6c6af6e5322b7',
+INSERT INTO Profile (id, user_id, photo_id, school_id, description, rate, location)
+VALUES ('0e9e40c0b44b438792a99d75d10e3d42', 'ba7c650519fd47c387a6c6af6e5322b7', '0a2de2db3997408282b656aad9746af9',
         '0a58153cc15f4e5b802cbbf5d6c1c55c', 'Fei is a great mentor.', 10.5, 'San Francisco, CA');
 
 INSERT INTO Profile (id, user_id, school_id, description, rate, location, company, profile_reference_id)
 VALUES ('e1b66612a94a4db386a104f3a102227b', 'df54ff863caa4145b228284f5d4a908a',
         '0a58153cc15f4e5b802cbbf5d6c1c55c', 'Gustavo is a great mentor.', 20.5, 'San Francisco, CA', 'Company', '0e9e40c0b44b438792a99d75d10e3d42');
 
-INSERT INTO Attachment(id, description, url)
-VALUES ('0a2de2db3997408282b656aad9746af9', 'My file', '');
-
-INSERT INTO Attachment(id, description, url)
-VALUES ('a58c72bf8444491ea887f2a8c6345520', 'My second file', '');
-
-INSERT INTO Attachment(id, description, url)
-VALUES ('b192eba5264b4c329bfee72d1f7a244b', 'My file to delete', '');
-
 INSERT INTO Profile_Attachment(profile_id, attachment_id)
-VALUES ('0e9e40c0b44b438792a99d75d10e3d42', '0a2de2db3997408282b656aad9746af9');
-
-INSERT INTO School_Attachment(school_id, attachment_id)
-VALUES ('0a58153cc15f4e5b802cbbf5d6c1c55c', 'a58c72bf8444491ea887f2a8c6345520');
+VALUES ('0e9e40c0b44b438792a99d75d10e3d42', '542aba26c9c64693a4263fcf11d2fbdf');
 
 INSERT INTO Profile_Association (id, profile_id, school_id, status, description)
 VALUES ('a29aab9470044ac69081ebea3890df51', '0e9e40c0b44b438792a99d75d10e3d42',

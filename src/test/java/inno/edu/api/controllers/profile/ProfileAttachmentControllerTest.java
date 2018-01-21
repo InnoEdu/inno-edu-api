@@ -16,7 +16,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import static inno.edu.api.support.AttachmentFactory.attachment;
+import static inno.edu.api.support.AttachmentFactory.feiProfilePhoto;
 import static inno.edu.api.support.AttachmentFactory.attachments;
 import static inno.edu.api.support.AttachmentFactory.createAttachmentRequest;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
@@ -66,7 +66,7 @@ public class ProfileAttachmentControllerTest {
     public void shouldCreateAttachment() {
         CreateAttachmentRequest request = createAttachmentRequest();
 
-        when(createProfileAttachmentCommand.run(feiProfile().getId(), request)).thenReturn(attachment());
+        when(createProfileAttachmentCommand.run(feiProfile().getId(), request)).thenReturn(feiProfilePhoto());
 
         AttachmentResource attachmentResource = profileAttachmentController.post(
                 feiProfile().getId(),
@@ -74,14 +74,14 @@ public class ProfileAttachmentControllerTest {
                 request.getFile()
         );
 
-        assertThat(attachmentResource.getAttachment(), is(attachment()));
+        assertThat(attachmentResource.getAttachment(), is(feiProfilePhoto()));
     }
 
     @Test
     public void shouldDeleteAttachment() {
-        profileAttachmentController.delete(feiProfile().getId(), attachment().getId());
+        profileAttachmentController.delete(feiProfile().getId(), feiProfilePhoto().getId());
 
-        verify(deleteProfileAttachmentCommand).run(feiProfile().getId(), attachment().getId());
+        verify(deleteProfileAttachmentCommand).run(feiProfile().getId(), feiProfilePhoto().getId());
     }
 
     @Test
@@ -89,13 +89,13 @@ public class ProfileAttachmentControllerTest {
         CreateAttachmentRequest request = createAttachmentRequest();
 
         when(uploadPhotoAttachmentCommand.run(feiProfile().getId(), request.getFile()))
-                .thenReturn(attachment());
+                .thenReturn(feiProfilePhoto());
 
         AttachmentResource attachmentResource = profileAttachmentController.upload(
                 feiProfile().getId(),
                 request.getFile()
         );
 
-        assertThat(attachmentResource.getAttachment(), is(attachment()));
+        assertThat(attachmentResource.getAttachment(), is(feiProfilePhoto()));
     }
 }

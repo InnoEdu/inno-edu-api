@@ -12,7 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static inno.edu.api.support.AttachmentFactory.attachment;
+import static inno.edu.api.support.AttachmentFactory.feiProfilePhoto;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -38,27 +38,27 @@ public class DeleteProfileAttachmentCommandTest {
 
     @Test
     public void shouldDeleteAttachment() {
-        deleteProfileAttachmentCommand.run(feiProfile().getId(), attachment().getId());
+        deleteProfileAttachmentCommand.run(feiProfile().getId(), feiProfilePhoto().getId());
 
-        verify(deleteAttachmentCommand).run(attachment().getId());
+        verify(deleteAttachmentCommand).run(feiProfilePhoto().getId());
     }
 
     @Test
     public void shouldDeleteProfileAttachment() {
-        deleteProfileAttachmentCommand.run(feiProfile().getId(), attachment().getId());
+        deleteProfileAttachmentCommand.run(feiProfile().getId(), feiProfilePhoto().getId());
 
         ArgumentCaptor<ProfileAttachmentPrimaryKey> primaryKeyArgumentCaptor = forClass(ProfileAttachmentPrimaryKey.class);
         verify(profileAttachmentRepository).delete(primaryKeyArgumentCaptor.capture());
 
         assertThat(primaryKeyArgumentCaptor.getValue().getProfileId(), is(feiProfile().getId()));
-        assertThat(primaryKeyArgumentCaptor.getValue().getAttachmentId(), is(attachment().getId()));
+        assertThat(primaryKeyArgumentCaptor.getValue().getAttachmentId(), is(feiProfilePhoto().getId()));
     }
 
     @Test
     public void shouldRunAllAssertions() {
-        deleteProfileAttachmentCommand.run(feiProfile().getId(), attachment().getId());
+        deleteProfileAttachmentCommand.run(feiProfile().getId(), feiProfilePhoto().getId());
 
         verify(profileExistsAssertion).run(feiProfile().getId());
-        verify(attachmentExistsAssertion).run(attachment().getId());
+        verify(attachmentExistsAssertion).run(feiProfilePhoto().getId());
     }
 }

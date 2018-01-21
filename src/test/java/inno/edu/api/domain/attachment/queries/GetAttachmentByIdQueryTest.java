@@ -9,7 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static inno.edu.api.support.AttachmentFactory.attachment;
+import static inno.edu.api.support.AttachmentFactory.feiProfilePhoto;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
@@ -24,17 +24,17 @@ public class GetAttachmentByIdQueryTest {
 
     @Test(expected = AttachmentNotFoundException.class)
     public void shouldThrowExceptionIfAttachmentDoesNotExist() {
-        when(attachmentRepository.findOne(attachment().getId())).thenReturn(null);
+        when(attachmentRepository.findOne(feiProfilePhoto().getId())).thenReturn(null);
 
-        getAttachmentByIdQuery.run(attachment().getId());
+        getAttachmentByIdQuery.run(feiProfilePhoto().getId());
     }
 
     @Test
     public void shouldReturnAttachment() {
-        when(attachmentRepository.findOne(attachment().getId())).thenReturn(attachment());
+        when(attachmentRepository.findOne(feiProfilePhoto().getId())).thenReturn(feiProfilePhoto());
 
-        Attachment attachment = getAttachmentByIdQuery.run(attachment().getId());
+        Attachment attachment = getAttachmentByIdQuery.run(feiProfilePhoto().getId());
 
-        assertThat(attachment, is(attachment()));
+        assertThat(attachment, is(feiProfilePhoto()));
     }
 }

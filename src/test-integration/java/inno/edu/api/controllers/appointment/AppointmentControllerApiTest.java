@@ -2,6 +2,7 @@ package inno.edu.api.controllers.appointment;
 
 import inno.edu.api.ApiTest;
 import inno.edu.api.domain.appointment.root.models.Appointment;
+import inno.edu.api.domain.appointment.root.models.projections.AppointmentProjection;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
@@ -12,6 +13,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static inno.edu.api.domain.appointment.root.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.domain.appointment.root.models.AppointmentStatus.UNAVAILABLE;
 import static inno.edu.api.support.AppointmentFactory.appointment;
+import static inno.edu.api.support.AppointmentFactory.appointmentProjection;
 import static inno.edu.api.support.AppointmentFactory.appointmentToDelete;
 import static inno.edu.api.support.AppointmentFactory.appointments;
 import static inno.edu.api.support.AppointmentFactory.conflictAppointment;
@@ -71,7 +73,7 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        assertAppointment(resultActions, appointment());
+        assertAppointmentProjection(resultActions, appointmentProjection());
     }
 
     @Test
@@ -182,5 +184,23 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.description", is(appointment.getDescription())))
                 .andExpect(jsonPath("$.fee", is(appointment.getFee().doubleValue())))
                 .andExpect(jsonPath("$.status", is(appointment.getStatus().toString())));
+    }
+
+    private void assertAppointmentProjection(ResultActions resultActions, AppointmentProjection appointmentProjection) throws Exception {
+        resultActions
+                .andExpect(jsonPath("$.id", is(appointmentProjection.getId().toString())))
+                .andExpect(jsonPath("$.mentorProfileId", is(appointmentProjection.getMentorProfileId().toString())))
+                .andExpect(jsonPath("$.menteeProfileId", is(appointmentProjection.getMenteeProfileId().toString())))
+                .andExpect(jsonPath("$.fromDateTime", is(appointmentProjection.getFromDateTime().toString())))
+                .andExpect(jsonPath("$.toDateTime", is(appointmentProjection.getToDateTime().toString())))
+                .andExpect(jsonPath("$.description", is(appointmentProjection.getDescription())))
+                .andExpect(jsonPath("$.fee", is(appointmentProjection.getFee().doubleValue())))
+                .andExpect(jsonPath("$.status", is(appointmentProjection.getStatus().toString())))
+                .andExpect(jsonPath("$.mentorFirstName", is(appointmentProjection.getMentorFirstName())))
+                .andExpect(jsonPath("$.mentorLastName", is(appointmentProjection.getMentorLastName())))
+                .andExpect(jsonPath("$.menteeFirstName", is(appointmentProjection.getMenteeFirstName())))
+                .andExpect(jsonPath("$.menteeLastName", is(appointmentProjection.getMenteeLastName())))
+                .andExpect(jsonPath("$.mentorPhotoUrl", is(appointmentProjection.getMentorPhotoUrl())))
+                .andExpect(jsonPath("$.menteePhotoUrl", is(appointmentProjection.getMenteePhotoUrl())));
     }
 }

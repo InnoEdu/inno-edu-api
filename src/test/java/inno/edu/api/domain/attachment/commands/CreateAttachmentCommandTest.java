@@ -13,7 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static inno.edu.api.support.AttachmentFactory.attachment;
+import static inno.edu.api.support.AttachmentFactory.feiProfilePhoto;
 import static inno.edu.api.support.AttachmentFactory.createAttachmentRequest;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -41,12 +41,12 @@ public class CreateAttachmentCommandTest {
     @Before
     public void setUp() {
         when(createAttachmentRequestMapper.toAttachment(any(), any()))
-                .thenReturn(attachment());
+                .thenReturn(feiProfilePhoto());
 
-        when(attachmentRepository.save(attachment()))
+        when(attachmentRepository.save(feiProfilePhoto()))
                 .then((answer) -> answer.getArguments()[0]);
 
-        when(uuidGeneratorService.generate()).thenReturn(attachment().getId());
+        when(uuidGeneratorService.generate()).thenReturn(feiProfilePhoto().getId());
     }
 
     @Test
@@ -55,7 +55,7 @@ public class CreateAttachmentCommandTest {
 
         createAttachmentCommand.run(request);
 
-        verify(storageService).save(attachment().getId(), request.getFile());
+        verify(storageService).save(feiProfilePhoto().getId(), request.getFile());
     }
 
     @Test
@@ -64,6 +64,6 @@ public class CreateAttachmentCommandTest {
 
         Attachment attachment = createAttachmentCommand.run(request);
 
-        assertThat(attachment, is(attachment()));
+        assertThat(attachment, is(feiProfilePhoto()));
     }
 }

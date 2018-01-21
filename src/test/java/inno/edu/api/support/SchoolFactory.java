@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static inno.edu.api.support.AttachmentFactory.otherAttachment;
+import static inno.edu.api.support.AttachmentFactory.alanProfilePhoto;
 import static java.util.Collections.singletonList;
 import static java.util.UUID.fromString;
 
@@ -69,9 +69,9 @@ public class SchoolFactory {
 
     public static SchoolAttachment stanfordAttachment() {
         return SchoolAttachment.builder()
-                .attachmentId(otherAttachment().getId())
+                .attachmentId(alanProfilePhoto().getId())
                 .schoolId(stanford().getId())
-                .attachment(otherAttachment())
+                .attachment(alanProfilePhoto())
                 .build();
     }
 

@@ -13,7 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static inno.edu.api.support.AttachmentFactory.attachment;
+import static inno.edu.api.support.AttachmentFactory.feiProfilePhoto;
 import static inno.edu.api.support.AttachmentFactory.attachments;
 import static inno.edu.api.support.AttachmentFactory.createAttachmentRequest;
 import static inno.edu.api.support.SchoolFactory.stanford;
@@ -57,7 +57,7 @@ public class SchoolAttachmentControllerTest {
     public void shouldCreateAttachment() {
         CreateAttachmentRequest request = createAttachmentRequest();
 
-        when(createSchoolAttachmentCommand.run(stanford().getId(), request)).thenReturn(attachment());
+        when(createSchoolAttachmentCommand.run(stanford().getId(), request)).thenReturn(feiProfilePhoto());
 
         AttachmentResource attachmentResource = schoolAttachmentController.post(
                 stanford().getId(),
@@ -65,14 +65,14 @@ public class SchoolAttachmentControllerTest {
                 request.getFile()
         );
 
-        assertThat(attachmentResource.getAttachment(), is(attachment()));
+        assertThat(attachmentResource.getAttachment(), is(feiProfilePhoto()));
     }
 
     @Test
     public void shouldDeleteAttachment() {
-        schoolAttachmentController.delete(stanford().getId(), attachment().getId());
+        schoolAttachmentController.delete(stanford().getId(), feiProfilePhoto().getId());
 
-        verify(deleteSchoolAttachmentCommand).run(stanford().getId(), attachment().getId());
+        verify(deleteSchoolAttachmentCommand).run(stanford().getId(), feiProfilePhoto().getId());
     }
 
     @Test
@@ -80,13 +80,13 @@ public class SchoolAttachmentControllerTest {
         CreateAttachmentRequest request = createAttachmentRequest();
 
         when(uploadSchoolPhotoCommand.run(stanford().getId(), request.getFile()))
-                .thenReturn(attachment());
+                .thenReturn(feiProfilePhoto());
 
         AttachmentResource attachmentResource = schoolAttachmentController.upload(
                 stanford().getId(),
                 request.getFile()
         );
 
-        assertThat(attachmentResource.getAttachment(), is(attachment()));
+        assertThat(attachmentResource.getAttachment(), is(feiProfilePhoto()));
     }
 }

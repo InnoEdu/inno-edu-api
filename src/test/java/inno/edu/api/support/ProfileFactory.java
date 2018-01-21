@@ -1,25 +1,25 @@
 package inno.edu.api.support;
 
+import inno.edu.api.domain.profile.accomplishment.models.Accomplishment;
 import inno.edu.api.domain.profile.accomplishment.models.dtos.CreateAccomplishmentRequest;
 import inno.edu.api.domain.profile.accomplishment.models.dtos.UpdateAccomplishmentRequest;
-import inno.edu.api.domain.profile.accomplishment.models.Accomplishment;
 import inno.edu.api.domain.profile.association.models.ProfileAssociation;
 import inno.edu.api.domain.profile.attachment.models.ProfileAttachment;
+import inno.edu.api.domain.profile.experience.models.Experience;
 import inno.edu.api.domain.profile.experience.models.dtos.CreateExperienceRequest;
 import inno.edu.api.domain.profile.experience.models.dtos.UpdateExperienceRequest;
-import inno.edu.api.domain.profile.experience.models.Experience;
+import inno.edu.api.domain.profile.interest.models.Interest;
 import inno.edu.api.domain.profile.interest.models.dtos.CreateInterestRequest;
 import inno.edu.api.domain.profile.interest.models.dtos.UpdateInterestRequest;
-import inno.edu.api.domain.profile.interest.models.Interest;
+import inno.edu.api.domain.profile.root.models.Profile;
 import inno.edu.api.domain.profile.root.models.dtos.ApproveProfileAssociationRequest;
 import inno.edu.api.domain.profile.root.models.dtos.CreateProfileRequest;
 import inno.edu.api.domain.profile.root.models.dtos.ProfileAssociationRequest;
 import inno.edu.api.domain.profile.root.models.dtos.RejectProfileAssociationRequest;
 import inno.edu.api.domain.profile.root.models.dtos.UpdateProfileRequest;
-import inno.edu.api.domain.profile.root.models.Profile;
+import inno.edu.api.domain.profile.service.models.Service;
 import inno.edu.api.domain.profile.service.models.dtos.CreateServiceRequest;
 import inno.edu.api.domain.profile.service.models.dtos.UpdateServiceRequest;
-import inno.edu.api.domain.profile.service.models.Service;
 import inno.edu.api.domain.profile.skill.models.ProfileSkill;
 
 import java.math.BigDecimal;
@@ -30,7 +30,7 @@ import static inno.edu.api.domain.profile.accomplishment.models.AccomplishmentTy
 import static inno.edu.api.domain.profile.association.models.RequestStatus.APPROVED;
 import static inno.edu.api.domain.profile.association.models.RequestStatus.PENDING;
 import static inno.edu.api.domain.profile.experience.models.ExperienceType.PROFESSIONAL;
-import static inno.edu.api.support.AttachmentFactory.attachment;
+import static inno.edu.api.support.AttachmentFactory.feiAttachment;
 import static inno.edu.api.support.SchoolFactory.berkeley;
 import static inno.edu.api.support.SchoolFactory.stanford;
 import static inno.edu.api.support.SkillFactory.skill;
@@ -368,9 +368,9 @@ public class ProfileFactory {
 
     public static ProfileAttachment feiProfileAttachment() {
         return ProfileAttachment.builder()
-                .attachmentId(attachment().getId())
+                .attachmentId(feiAttachment().getId())
                 .profileId(feiProfile().getId())
-                .attachment(attachment())
+                .attachment(feiAttachment())
                 .build();
     }
     

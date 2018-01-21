@@ -5,8 +5,9 @@ import org.junit.Test;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MvcResult;
 
-import static inno.edu.api.support.AttachmentFactory.attachment;
+import static inno.edu.api.infrastructure.configuration.StaticConstants.NO_FILE;
 import static inno.edu.api.support.AttachmentFactory.createAttachmentRequest;
+import static inno.edu.api.support.AttachmentFactory.feiAttachment;
 import static inno.edu.api.support.MockMvcUtils.getIdentity;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static org.hamcrest.CoreMatchers.not;
@@ -27,9 +28,9 @@ public class ProfileAttachmentControllerApiTest extends ApiTest {
                 + "/attachments"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].id", containsInAnyOrder(attachment().getId().toString())))
-                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].description", containsInAnyOrder(attachment().getDescription())))
-                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].url", containsInAnyOrder(attachment().getUrl())));
+                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].id", containsInAnyOrder(feiAttachment().getId().toString())))
+                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].description", containsInAnyOrder(feiAttachment().getDescription())))
+                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].url", containsInAnyOrder(feiAttachment().getUrl())));
     }
 
     @Test
@@ -44,9 +45,9 @@ public class ProfileAttachmentControllerApiTest extends ApiTest {
                         .file(file))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", not(attachment().getId().toString())))
-                .andExpect(jsonPath("$.description", is(attachment().getDescription())))
-                .andExpect(jsonPath("$.url", is(attachment().getUrl())));
+                .andExpect(jsonPath("$.id", not(feiAttachment().getId().toString())))
+                .andExpect(jsonPath("$.description", is(feiAttachment().getDescription())))
+                .andExpect(jsonPath("$.url", is(NO_FILE)));
     }
 
     @Test
@@ -55,7 +56,7 @@ public class ProfileAttachmentControllerApiTest extends ApiTest {
                 delete("/api/profiles/"
                         + feiProfile().getId()
                         + "/attachments/"
-                        + attachment().getId()))
+                        + feiAttachment().getId()))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }
@@ -71,8 +72,8 @@ public class ProfileAttachmentControllerApiTest extends ApiTest {
                         .file(file))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", not(attachment().getId().toString())))
-                .andExpect(jsonPath("$.url", is(attachment().getUrl())))
+                .andExpect(jsonPath("$.id", not(feiAttachment().getId().toString())))
+                .andExpect(jsonPath("$.url", is(NO_FILE)))
                 .andReturn();
 
         this.mockMvc.perform(get("/api/profiles/" + feiProfile().getId().toString())).andDo(print())

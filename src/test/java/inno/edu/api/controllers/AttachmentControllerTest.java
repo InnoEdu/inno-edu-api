@@ -16,7 +16,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.ResponseEntity;
 
-import static inno.edu.api.support.AttachmentFactory.attachment;
+import static inno.edu.api.support.AttachmentFactory.feiProfilePhoto;
 import static inno.edu.api.support.AttachmentFactory.attachments;
 import static inno.edu.api.support.AttachmentFactory.createAttachmentRequest;
 import static inno.edu.api.support.AttachmentFactory.updateAttachmentRequest;
@@ -53,11 +53,11 @@ public class AttachmentControllerTest {
 
     @Test
     public void shouldGetAttachmentById() {
-        when(getAttachmentByIdQuery.run(eq(attachment().getId()))).thenReturn(attachment());
+        when(getAttachmentByIdQuery.run(eq(feiProfilePhoto().getId()))).thenReturn(feiProfilePhoto());
 
-        AttachmentResource attachmentResource = attachmentController.get(attachment().getId());
+        AttachmentResource attachmentResource = attachmentController.get(feiProfilePhoto().getId());
 
-        assertThat(attachmentResource.getAttachment(), is(attachment()));
+        assertThat(attachmentResource.getAttachment(), is(feiProfilePhoto()));
     }
 
     @Test
@@ -73,29 +73,29 @@ public class AttachmentControllerTest {
     public void shouldCreateAttachment() {
         CreateAttachmentRequest request = createAttachmentRequest();
 
-        when(createAttachmentCommand.run(request)).thenReturn(attachment());
+        when(createAttachmentCommand.run(request)).thenReturn(feiProfilePhoto());
 
         AttachmentResource attachmentResource = attachmentController.post(
                 request.getDescription(),
                 request.getFile()
         );
 
-        assertThat(attachmentResource.getAttachment(), is(attachment()));
+        assertThat(attachmentResource.getAttachment(), is(feiProfilePhoto()));
     }
 
     @Test
     public void shouldUpdateAttachment() {
-        when(updateAttachmentCommand.run(attachment().getId(), updateAttachmentRequest())).thenReturn(updatedAttachment());
+        when(updateAttachmentCommand.run(feiProfilePhoto().getId(), updateAttachmentRequest())).thenReturn(updatedAttachment());
 
-        ResponseEntity<Attachment> entity = attachmentController.put(attachment().getId(), updateAttachmentRequest());
+        ResponseEntity<Attachment> entity = attachmentController.put(feiProfilePhoto().getId(), updateAttachmentRequest());
 
         assertThat(entity.getBody(), is(updatedAttachment()));
     }
 
     @Test
     public void shouldDeleteAttachment() {
-        attachmentController.delete(attachment().getId());
+        attachmentController.delete(feiProfilePhoto().getId());
 
-        verify(deleteAttachmentCommand).run(attachment().getId());
+        verify(deleteAttachmentCommand).run(feiProfilePhoto().getId());
     }
 }

@@ -5,9 +5,10 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 
-import static inno.edu.api.support.AttachmentFactory.attachment;
+import static inno.edu.api.infrastructure.configuration.StaticConstants.NO_FILE;
 import static inno.edu.api.support.AttachmentFactory.attachmentToDelete;
 import static inno.edu.api.support.AttachmentFactory.createAttachmentRequest;
+import static inno.edu.api.support.AttachmentFactory.feiAttachment;
 import static inno.edu.api.support.AttachmentFactory.updateAttachmentRequest;
 import static inno.edu.api.support.AttachmentFactory.updatedAttachment;
 import static inno.edu.api.support.Payloads.putAttachmentPayload;
@@ -28,19 +29,19 @@ public class AttachmentControllerApiTest extends ApiTest {
         this.mockMvc.perform(get("/api/attachments"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].id", hasItems(attachment().getId().toString())))
-                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].description", hasItems(attachment().getDescription())))
-                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].url", hasItems(attachment().getUrl())));
+                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].id", hasItems(feiAttachment().getId().toString())))
+                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].description", hasItems(feiAttachment().getDescription())))
+                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].url", hasItems(feiAttachment().getUrl())));
     }
 
     @Test
     public void shouldGetAttachmentById() throws Exception {
-        this.mockMvc.perform(get("/api/attachments/" + attachment().getId().toString()))
+        this.mockMvc.perform(get("/api/attachments/" + feiAttachment().getId().toString()))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(attachment().getId().toString())))
-                .andExpect(jsonPath("$.description", is(attachment().getDescription())))
-                .andExpect(jsonPath("$.url", is(attachment().getUrl())));
+                .andExpect(jsonPath("$.id", is(feiAttachment().getId().toString())))
+                .andExpect(jsonPath("$.description", is(feiAttachment().getDescription())))
+                .andExpect(jsonPath("$.url", is(feiAttachment().getUrl())));
     }
 
     @Test
@@ -53,21 +54,21 @@ public class AttachmentControllerApiTest extends ApiTest {
                         .file(file))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", not(attachment().getId().toString())))
-                .andExpect(jsonPath("$.description", is(attachment().getDescription())))
-                .andExpect(jsonPath("$.url", is(attachment().getUrl())));
+                .andExpect(jsonPath("$.id", not(feiAttachment().getId().toString())))
+                .andExpect(jsonPath("$.description", is(feiAttachment().getDescription())))
+                .andExpect(jsonPath("$.url", is(NO_FILE)));
     }
 
 
     @Test
     public void shouldUpdateAttachment() throws Exception {
         this.mockMvc.perform(
-                put("/api/attachments/" + attachment().getId())
+                put("/api/attachments/" + feiAttachment().getId())
                         .content(putAttachmentPayload(updateAttachmentRequest()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", is(attachment().getId().toString())))
+                .andExpect(jsonPath("$.id", is(feiAttachment().getId().toString())))
                 .andExpect(jsonPath("$.description", is(updatedAttachment().getDescription())))
                 .andExpect(jsonPath("$.url", is(updatedAttachment().getUrl())));
     }

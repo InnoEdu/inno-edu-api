@@ -10,7 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static inno.edu.api.support.AttachmentFactory.attachment;
+import static inno.edu.api.support.AttachmentFactory.feiProfilePhoto;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -30,28 +30,28 @@ public class DeleteAttachmentCommandTest {
 
     @Before
     public void setUp() {
-        when(attachmentRepository.findOne(attachment().getId()))
-                .thenReturn(attachment());
+        when(attachmentRepository.findOne(feiProfilePhoto().getId()))
+                .thenReturn(feiProfilePhoto());
     }
 
     @Test
     public void shouldCallRepositoryToDeleteAttachment() {
-        deleteAttachmentCommand.run(attachment().getId());
+        deleteAttachmentCommand.run(feiProfilePhoto().getId());
 
-        verify(attachmentRepository).delete(attachment().getId());
+        verify(attachmentRepository).delete(feiProfilePhoto().getId());
     }
 
     @Test
     public void shouldCallStorageServiceToDeleteFile() {
-        deleteAttachmentCommand.run(attachment().getId());
+        deleteAttachmentCommand.run(feiProfilePhoto().getId());
 
-        verify(storageService).delete(attachment().getUrl());
+        verify(storageService).delete(feiProfilePhoto().getUrl());
     }
 
     @Test
     public void shouldRunAllAssertions() {
-        deleteAttachmentCommand.run(attachment().getId());
+        deleteAttachmentCommand.run(feiProfilePhoto().getId());
 
-        verify(attachmentExistsAssertion).run(attachment().getId());
+        verify(attachmentExistsAssertion).run(feiProfilePhoto().getId());
     }
 }

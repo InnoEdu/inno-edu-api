@@ -1,5 +1,7 @@
 package inno.edu.api.controllers.appointment;
 
+import inno.edu.api.domain.appointment.root.models.projections.mappers.AppointmentProjectionMapper;
+import inno.edu.api.domain.appointment.root.models.resources.AppointmentProjectionResource;
 import inno.edu.api.domain.appointment.root.models.resources.AppointmentResource;
 import inno.edu.api.infrastructure.web.ResourceBuilder;
 import inno.edu.api.domain.appointment.root.commands.CreateAppointmentCommand;
@@ -24,6 +26,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static inno.edu.api.domain.appointment.root.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.support.AppointmentFactory.appointment;
+import static inno.edu.api.support.AppointmentFactory.appointmentProjection;
 import static inno.edu.api.support.AppointmentFactory.appointments;
 import static inno.edu.api.support.AppointmentFactory.createAppointmentRequest;
 import static inno.edu.api.support.AppointmentFactory.proposedAppointments;
@@ -73,6 +76,9 @@ public class AppointmentControllerTest {
     @Mock
     private UpdateAppointmentStatusCommand updateAppointmentStatusCommand;
 
+    @Mock
+    private AppointmentProjectionMapper appointmentProjectionMapper;
+
     @InjectMocks
     private AppointmentController appointmentController;
 
@@ -83,11 +89,16 @@ public class AppointmentControllerTest {
 
     @Test
     public void shouldGetAppointmentById() {
-        when(getAppointmentByIdQuery.run(eq(appointment().getId()))).thenReturn(appointment());
+        Appointment appointment = appointment();
 
-        AppointmentResource appointmentResource = appointmentController.get(appointment().getId());
+        when(getAppointmentByIdQuery.run(eq(appointment.getId()))).thenReturn(appointment);
 
-        assertThat(appointmentResource.getAppointment(), is(appointment()));
+        when(appointmentProjectionMapper.toAppointmentProjectionResource(appointment))
+                .thenReturn(new AppointmentProjectionResource(appointmentProjection()));
+
+        AppointmentProjectionResource appointmentResource = appointmentController.get(appointment.getId());
+
+        assertThat(appointmentResource.getAppointmentProjection(), is(appointmentProjection()));
     }
 
     @Test

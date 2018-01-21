@@ -12,6 +12,8 @@ import inno.edu.api.domain.appointment.root.models.dtos.CreateAppointmentRequest
 import inno.edu.api.domain.appointment.root.models.dtos.SearchAppointmentsRequest;
 import inno.edu.api.domain.appointment.root.models.dtos.UpdateAppointmentRequest;
 import inno.edu.api.domain.appointment.root.models.dtos.UpdateAppointmentStatusRequest;
+import inno.edu.api.domain.appointment.root.models.projections.mappers.AppointmentProjectionMapper;
+import inno.edu.api.domain.appointment.root.models.resources.AppointmentProjectionResource;
 import inno.edu.api.domain.appointment.root.models.resources.AppointmentResource;
 import inno.edu.api.domain.appointment.root.models.resources.EstimationResource;
 import inno.edu.api.domain.appointment.root.queries.GetAppointmentByIdQuery;
@@ -56,7 +58,9 @@ public class AppointmentController {
     private final GetAppointmentsByMentorProfileIdQuery getAppointmentsByMentorProfileIdQuery;
     private final GetAppointmentsByMenteeProfileIdQuery getAppointmentsByMenteeProfileIdQuery;
 
-    public AppointmentController(ResourceBuilder resourceBuilder, CreateAppointmentCommand createAppointmentCommand, UpdateAppointmentCommand updateAppointmentCommand, DeleteAppointmentCommand deleteAppointmentCommand, GetAppointmentsQuery getAppointmentsQuery, GetAppointmentByIdQuery getAppointmentByIdQuery, GetAppointmentsByMentorProfileIdQuery getAppointmentsByMentorProfileIdQuery, GetAppointmentsByMenteeProfileIdQuery getAppointmentsByMenteeProfileIdQuery, UpdateAppointmentStatusCommand updateAppointmentStatusCommand, CalculateAppointmentFeeCommand calculateAppointmentFeeCommand, SearchAppointmentsQuery searchAppointmentsQuery) {
+    private final AppointmentProjectionMapper appointmentProjectionMapper;
+
+    public AppointmentController(ResourceBuilder resourceBuilder, CreateAppointmentCommand createAppointmentCommand, UpdateAppointmentCommand updateAppointmentCommand, DeleteAppointmentCommand deleteAppointmentCommand, GetAppointmentsQuery getAppointmentsQuery, GetAppointmentByIdQuery getAppointmentByIdQuery, GetAppointmentsByMentorProfileIdQuery getAppointmentsByMentorProfileIdQuery, GetAppointmentsByMenteeProfileIdQuery getAppointmentsByMenteeProfileIdQuery, UpdateAppointmentStatusCommand updateAppointmentStatusCommand, CalculateAppointmentFeeCommand calculateAppointmentFeeCommand, SearchAppointmentsQuery searchAppointmentsQuery, AppointmentProjectionMapper appointmentProjectionMapper) {
         this.resourceBuilder = resourceBuilder;
         this.createAppointmentCommand = createAppointmentCommand;
         this.updateAppointmentCommand = updateAppointmentCommand;
@@ -68,6 +72,7 @@ public class AppointmentController {
         this.updateAppointmentStatusCommand = updateAppointmentStatusCommand;
         this.calculateAppointmentFeeCommand = calculateAppointmentFeeCommand;
         this.searchAppointmentsQuery = searchAppointmentsQuery;
+        this.appointmentProjectionMapper = appointmentProjectionMapper;
     }
 
     @GetMapping
@@ -91,8 +96,8 @@ public class AppointmentController {
     }
 
     @GetMapping("/{id}")
-    public AppointmentResource get(@PathVariable UUID id) {
-        return new AppointmentResource(getAppointmentByIdQuery.run(id));
+    public AppointmentProjectionResource get(@PathVariable UUID id) {
+        return appointmentProjectionMapper.toAppointmentProjectionResource(getAppointmentByIdQuery.run(id));
     }
 
     @GetMapping("/search")

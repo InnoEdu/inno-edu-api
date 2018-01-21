@@ -16,7 +16,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockMultipartFile;
 
 import static inno.edu.api.domain.school.attachment.commands.UploadSchoolPhotoCommand.DESCRIPTION;
-import static inno.edu.api.support.AttachmentFactory.attachment;
+import static inno.edu.api.support.AttachmentFactory.feiProfilePhoto;
 import static inno.edu.api.support.AttachmentFactory.createAttachmentRequestForFile;
 import static inno.edu.api.support.SchoolFactory.stanford;
 import static org.hamcrest.CoreMatchers.is;
@@ -52,7 +52,7 @@ public class UploadSchoolPhotoCommandTest {
         when(getSchoolByIdQuery.run(stanford().getId())).thenReturn(stanford());
 
         when(createAttachmentCommand.run(createAttachmentRequestForFile(DESCRIPTION, multipartFile)))
-                .thenReturn(attachment());
+                .thenReturn(feiProfilePhoto());
     }
 
     @Test
@@ -61,7 +61,7 @@ public class UploadSchoolPhotoCommandTest {
 
         verify(deleteAttachmentCommand, never()).run(any());
 
-        assertThat(attachment, is(attachment()));
+        assertThat(attachment, is(feiProfilePhoto()));
     }
 
     @Test
@@ -72,19 +72,19 @@ public class UploadSchoolPhotoCommandTest {
 
         verify(schoolRepository).save(schoolArgumentCaptor.capture());
 
-        assertThat(schoolArgumentCaptor.getValue().getPhotoId(), is(attachment().getId()));
+        assertThat(schoolArgumentCaptor.getValue().getPhotoId(), is(feiProfilePhoto().getId()));
     }
 
     @Test
     public void shouldDeleteOldAttachmentIfItExists() {
         School schoolWithPhoto = stanford().toBuilder()
-                .photoId(attachment().getId())
+                .photoId(feiProfilePhoto().getId())
                 .build();
 
         when(getSchoolByIdQuery.run(stanford().getId())).thenReturn(schoolWithPhoto);
 
         uploadPhotoAttachmentCommand.run(stanford().getId(), multipartFile);
 
-        verify(deleteAttachmentCommand).run(attachment().getId());
+        verify(deleteAttachmentCommand).run(feiProfilePhoto().getId());
     }
 }

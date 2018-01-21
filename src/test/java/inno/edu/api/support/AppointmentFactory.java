@@ -3,12 +3,13 @@ package inno.edu.api.support;
 import inno.edu.api.domain.appointment.feedback.commands.dtos.CreateFeedbackRequest;
 import inno.edu.api.domain.appointment.feedback.models.Feedback;
 import inno.edu.api.domain.appointment.feedback.models.FeedbackSource;
+import inno.edu.api.domain.appointment.root.models.Appointment;
 import inno.edu.api.domain.appointment.root.models.dtos.CalculateAppointmentFeeRequest;
 import inno.edu.api.domain.appointment.root.models.dtos.CreateAppointmentRequest;
+import inno.edu.api.domain.appointment.root.models.dtos.SearchAppointmentsRequest;
 import inno.edu.api.domain.appointment.root.models.dtos.UpdateAppointmentRequest;
 import inno.edu.api.domain.appointment.root.models.dtos.UpdateAppointmentStatusRequest;
-import inno.edu.api.domain.appointment.root.models.Appointment;
-import inno.edu.api.domain.appointment.root.models.dtos.SearchAppointmentsRequest;
+import inno.edu.api.domain.appointment.root.models.projections.AppointmentProjection;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -18,8 +19,12 @@ import static com.google.common.collect.Lists.newArrayList;
 import static inno.edu.api.domain.appointment.root.models.AppointmentStatus.ACCEPTED;
 import static inno.edu.api.domain.appointment.root.models.AppointmentStatus.CANCELED;
 import static inno.edu.api.domain.appointment.root.models.AppointmentStatus.PROPOSED;
+import static inno.edu.api.support.AttachmentFactory.feiProfilePhoto;
+import static inno.edu.api.support.AttachmentFactory.alanProfilePhoto;
 import static inno.edu.api.support.ProfileFactory.alanProfile;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
+import static inno.edu.api.support.UserFactory.alan;
+import static inno.edu.api.support.UserFactory.fei;
 import static java.time.LocalDateTime.of;
 import static java.util.Collections.singletonList;
 import static java.util.UUID.fromString;
@@ -35,6 +40,25 @@ public class AppointmentFactory {
                 .description("My great first appointment.")
                 .fee(new BigDecimal(10.5))
                 .status(PROPOSED)
+                .build();
+    }
+
+    public static AppointmentProjection appointmentProjection() {
+        return AppointmentProjection.builder()
+                .id(fromString("f192270f-2dad-4bcd-96c3-c3765df77ce8"))
+                .mentorProfileId(feiProfile().getId())
+                .menteeProfileId(alanProfile().getId())
+                .fromDateTime(of(2017, 11, 10, 9, 0, 1))
+                .toDateTime(of(2017, 11, 10, 10, 0, 1))
+                .description("My great first appointment.")
+                .fee(new BigDecimal(10.5))
+                .status(PROPOSED)
+                .mentorFirstName(fei().getFirstName())
+                .mentorLastName(fei().getLastName())
+                .menteeFirstName(alan().getFirstName())
+                .menteeLastName(alan().getLastName())
+                .mentorPhotoUrl(feiProfilePhoto().getUrl())
+                .menteePhotoUrl(alanProfilePhoto().getUrl())
                 .build();
     }
 

@@ -5,9 +5,8 @@ import org.junit.Test;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MvcResult;
 
-import static inno.edu.api.support.AttachmentFactory.attachment;
-import static inno.edu.api.support.AttachmentFactory.createAttachmentRequest;
-import static inno.edu.api.support.AttachmentFactory.otherAttachment;
+import static inno.edu.api.infrastructure.configuration.StaticConstants.NO_FILE;
+import static inno.edu.api.support.AttachmentFactory.stanfordAttachment;
 import static inno.edu.api.support.MockMvcUtils.getIdentity;
 import static inno.edu.api.support.SchoolFactory.stanford;
 import static org.hamcrest.CoreMatchers.not;
@@ -28,9 +27,9 @@ public class SchoolAttachmentControllerApiTest extends ApiTest {
                 + "/attachments"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].id", containsInAnyOrder(otherAttachment().getId().toString())))
-                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].description", containsInAnyOrder(otherAttachment().getDescription())))
-                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].url", containsInAnyOrder(otherAttachment().getUrl())));
+                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].id", containsInAnyOrder(stanfordAttachment().getId().toString())))
+                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].description", containsInAnyOrder(stanfordAttachment().getDescription())))
+                .andExpect(jsonPath("$._embedded.attachmentResourceList[*].url", containsInAnyOrder(stanfordAttachment().getUrl())));
     }
 
     @Test
@@ -41,15 +40,14 @@ public class SchoolAttachmentControllerApiTest extends ApiTest {
                 fileUpload("/api/schools/"
                         + stanford().getId()
                         + "/attachments?description="
-                        + createAttachmentRequest().getDescription())
+                        + stanfordAttachment().getDescription())
                         .file(file))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", not(attachment().getId().toString())))
-                .andExpect(jsonPath("$.description", is(attachment().getDescription())))
-                .andExpect(jsonPath("$.url", is(attachment().getUrl())));
+                .andExpect(jsonPath("$.id", not(stanfordAttachment().getId().toString())))
+                .andExpect(jsonPath("$.description", is(stanfordAttachment().getDescription())))
+                .andExpect(jsonPath("$.url", is(NO_FILE)));
     }
-
 
     @Test
     public void shouldDeleteAttachment() throws Exception {
@@ -57,7 +55,7 @@ public class SchoolAttachmentControllerApiTest extends ApiTest {
                 delete("/api/schools/"
                         + stanford().getId()
                         + "/attachments/"
-                        + otherAttachment().getId()))
+                        + stanfordAttachment().getId()))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }
@@ -73,8 +71,8 @@ public class SchoolAttachmentControllerApiTest extends ApiTest {
                         .file(file))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", not(attachment().getId().toString())))
-                .andExpect(jsonPath("$.url", is(attachment().getUrl())))
+                .andExpect(jsonPath("$.id", not(stanfordAttachment().getId().toString())))
+                .andExpect(jsonPath("$.url", is(NO_FILE)))
                 .andReturn();
 
         this.mockMvc.perform(get("/api/schools/" + stanford().getId().toString())).andDo(print())

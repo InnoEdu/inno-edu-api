@@ -13,7 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static inno.edu.api.support.AttachmentFactory.attachment;
+import static inno.edu.api.support.AttachmentFactory.feiProfilePhoto;
 import static inno.edu.api.support.AttachmentFactory.createAttachmentRequest;
 import static inno.edu.api.support.SchoolFactory.stanford;
 import static org.hamcrest.Matchers.is;
@@ -38,7 +38,7 @@ public class CreateSchoolAttachmentCommandTest {
 
     @Before
     public void setUp() {
-        when(createAttachmentCommand.run(any())).thenReturn(attachment());
+        when(createAttachmentCommand.run(any())).thenReturn(feiProfilePhoto());
     }
 
     @Test
@@ -61,7 +61,7 @@ public class CreateSchoolAttachmentCommandTest {
         verify(schoolAttachmentRepository).save(captor.capture());
 
         assertThat(captor.getValue().getSchoolId(), is(stanford().getId()));
-        assertThat(captor.getValue().getAttachmentId(), is(attachment().getId()));
+        assertThat(captor.getValue().getAttachmentId(), is(feiProfilePhoto().getId()));
     }
 
     @Test
