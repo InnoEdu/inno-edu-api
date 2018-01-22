@@ -2339,6 +2339,9 @@ definitions:
       confirmPassword:
         type: string
         maxLength: 30
+      deviceId:
+        type: string
+        maxLength: 255
     required:
       - firstName
       - lastName
@@ -2356,6 +2359,9 @@ definitions:
         type: string
         maxLength: 50
       email:
+        type: string
+        maxLength: 255
+      deviceId:
         type: string
         maxLength: 255
     required:
@@ -2378,6 +2384,9 @@ definitions:
         type: string
         maxLength: 30
       email:
+        type: string
+        maxLength: 255
+      deviceId:
         type: string
         maxLength: 255
   UserResource:
