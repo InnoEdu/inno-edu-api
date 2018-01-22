@@ -13,14 +13,14 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 @Getter
 public class ProfileProjectionResource extends ResourceSupport {
     @JsonUnwrapped
-    private final ProfileProjection profileProjection;
+    private final ProfileProjection profile;
 
     public ProfileProjectionResource() {
-        profileProjection = null;
+        profile = null;
     }
 
     public ProfileProjectionResource(ProfileProjection profileProjection) {
-        this.profileProjection = profileProjection;
+        this.profile = profileProjection;
 
         add(linkTo(methodOn(ProfileController.class).get(profileProjection.getId())).withSelfRel());
         add(linkTo(methodOn(UserController.class).get(profileProjection.getUser().getId())).withRel("user"));

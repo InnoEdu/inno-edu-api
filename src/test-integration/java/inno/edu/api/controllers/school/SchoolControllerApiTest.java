@@ -38,11 +38,12 @@ public class SchoolControllerApiTest extends ApiTest {
     public void shouldListSchoolMentorsProfile() throws Exception {
         this.mockMvc.perform(get("/api/schools/" + stanford().getId() + "/mentors")).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.profileResourceList[*].id", hasItems(gustavoProfile().getId().toString())))
-                .andExpect(jsonPath("$._embedded.profileResourceList[*].userId", hasItems(gustavoProfile().getUserId().toString())))
-                .andExpect(jsonPath("$._embedded.profileResourceList[*].schoolId", hasItems(gustavoProfile().getSchoolId().toString())))
-                .andExpect(jsonPath("$._embedded.profileResourceList[*].description", hasItems(gustavoProfile().getDescription())))
-                .andExpect(jsonPath("$._embedded.profileResourceList[*].rate", hasItems(gustavoProfile().getRate().doubleValue())));
+                .andExpect(jsonPath("$._embedded.profileProjectionResourceList[*].id", hasItems(gustavoProfile().getId().toString())))
+                .andExpect(jsonPath("$._embedded.profileProjectionResourceList[*].description", hasItems(gustavoProfile().getDescription())))
+                .andExpect(jsonPath("$._embedded.profileProjectionResourceList[*].location", hasItems(gustavoProfile().getLocation())))
+                .andExpect(jsonPath("$._embedded.profileProjectionResourceList[*].company", hasItems(gustavoProfile().getCompany())))
+                .andExpect(jsonPath("$._embedded.profileProjectionResourceList[*].rate", hasItems(gustavoProfile().getRate().doubleValue())))
+                .andExpect(jsonPath("$._embedded.profileProjectionResourceList[*].mentor", hasItems(true)));
     }
 
     @Test

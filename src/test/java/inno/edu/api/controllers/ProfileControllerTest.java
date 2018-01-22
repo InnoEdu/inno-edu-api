@@ -83,7 +83,7 @@ public class ProfileControllerTest {
 
         ProfileProjectionResource profileResource = profileController.get(alanProfile().getId());
 
-        assertThat(profileResource.getProfileProjection(), is(alanProfileProjection()));
+        assertThat(profileResource.getProfile(), is(alanProfileProjection()));
     }
 
     @Test

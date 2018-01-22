@@ -7,10 +7,14 @@ import inno.edu.api.domain.profile.root.models.resources.ProfileProjectionResour
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 @Mapper
 @DecoratedWith(ProfileProjectionMapperDecorator.class)
 public interface ProfileProjectionMapper {
     ProfileProjection toProfileProjection(Profile profile);
+
+    List<ProfileProjection> toProfileProjections(List<Profile> profiles);
 
     ProfileProjectionResource toProfileProjectionResource(Profile profile);
 }

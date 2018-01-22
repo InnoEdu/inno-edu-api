@@ -1,15 +1,16 @@
 package inno.edu.api.controllers.school;
 
-import inno.edu.api.domain.profile.root.models.resources.ProfileResource;
-import inno.edu.api.infrastructure.web.ResourceBuilder;
-import inno.edu.api.domain.school.root.models.resources.SchoolResource;
+import inno.edu.api.domain.profile.root.models.projections.mappers.ProfileProjectionMapper;
+import inno.edu.api.domain.profile.root.models.resources.ProfileProjectionResource;
 import inno.edu.api.domain.profile.root.queries.GetProfilesBySchoolIdQuery;
 import inno.edu.api.domain.school.root.commands.CreateSchoolCommand;
 import inno.edu.api.domain.school.root.commands.DeleteSchoolCommand;
 import inno.edu.api.domain.school.root.commands.UpdateSchoolCommand;
 import inno.edu.api.domain.school.root.models.School;
+import inno.edu.api.domain.school.root.models.resources.SchoolResource;
 import inno.edu.api.domain.school.root.queries.GetSchoolByIdQuery;
 import inno.edu.api.domain.school.root.queries.GetSchoolsQuery;
+import inno.edu.api.infrastructure.web.ResourceBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import static inno.edu.api.support.ProfileFactory.profileProjections;
 import static inno.edu.api.support.ProfileFactory.profiles;
 import static inno.edu.api.support.SchoolFactory.createStanfordRequest;
 import static inno.edu.api.support.SchoolFactory.schools;
@@ -57,6 +59,9 @@ public class SchoolControllerTest {
     @Mock
     private GetSchoolByIdQuery getSchoolByIdQuery;
 
+    @Mock
+    private ProfileProjectionMapper profileProjectionMapper;
+
     @InjectMocks
     private SchoolController schoolController;
 
@@ -86,10 +91,11 @@ public class SchoolControllerTest {
     @Test
     public void shouldListMentorsBySchool() {
         when(getProfilesBySchoolIdQuery.run(stanford().getId())).thenReturn(profiles());
+        when(profileProjectionMapper.toProfileProjections(profiles())).thenReturn(profileProjections());
 
         schoolController.allMentorsProfile(stanford().getId());
 
-        verify(resourceBuilder).wrappedFrom(eq(profiles()), any(), eq(ProfileResource.class));
+        verify(resourceBuilder).wrappedFrom(eq(profileProjections()), any(), eq(ProfileProjectionResource.class));
     }
 
     @Test

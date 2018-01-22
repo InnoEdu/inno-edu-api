@@ -7,6 +7,9 @@ import inno.edu.api.domain.profile.root.models.resources.ProfileProjectionResour
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public abstract class ProfileProjectionMapperDecorator implements ProfileProjectionMapper {
 
     @Autowired
@@ -18,6 +21,17 @@ public abstract class ProfileProjectionMapperDecorator implements ProfileProject
         ProfileProjection projection = delegate.toProfileProjection(profile);
         projection.setMentor(profile.getSchoolId() != null);
         return projection;
+    }
+
+    @Override
+    public List<ProfileProjection> toProfileProjections(List<Profile> profiles) {
+        if (profiles == null) {
+            return null;
+        }
+
+        return profiles.stream()
+                .map(this::toProfileProjection)
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -1,17 +1,19 @@
 package inno.edu.api.controllers.school;
 
-import inno.edu.api.domain.profile.root.models.resources.ProfileResource;
-import inno.edu.api.infrastructure.web.ResourceBuilder;
-import inno.edu.api.domain.school.root.models.resources.SchoolResource;
+import inno.edu.api.domain.profile.root.models.projections.ProfileProjection;
+import inno.edu.api.domain.profile.root.models.projections.mappers.ProfileProjectionMapper;
+import inno.edu.api.domain.profile.root.models.resources.ProfileProjectionResource;
 import inno.edu.api.domain.profile.root.queries.GetProfilesBySchoolIdQuery;
 import inno.edu.api.domain.school.root.commands.CreateSchoolCommand;
 import inno.edu.api.domain.school.root.commands.DeleteSchoolCommand;
 import inno.edu.api.domain.school.root.commands.UpdateSchoolCommand;
+import inno.edu.api.domain.school.root.models.School;
 import inno.edu.api.domain.school.root.models.dtos.CreateSchoolRequest;
 import inno.edu.api.domain.school.root.models.dtos.UpdateSchoolRequest;
-import inno.edu.api.domain.school.root.models.School;
+import inno.edu.api.domain.school.root.models.resources.SchoolResource;
 import inno.edu.api.domain.school.root.queries.GetSchoolByIdQuery;
 import inno.edu.api.domain.school.root.queries.GetSchoolsQuery;
+import inno.edu.api.infrastructure.web.ResourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
@@ -43,8 +45,10 @@ public class SchoolController {
     private final GetSchoolByIdQuery getSchoolByIdQuery;
     private final GetProfilesBySchoolIdQuery getProfilesBySchoolIdQuery;
 
+    private final ProfileProjectionMapper profileProjectionMapper;
+
     @Autowired
-    public SchoolController(CreateSchoolCommand createSchoolCommand, UpdateSchoolCommand updateSchoolCommand, DeleteSchoolCommand deleteSchoolCommand, GetSchoolsQuery getSchoolsQuery, GetSchoolByIdQuery getSchoolByIdQuery, GetProfilesBySchoolIdQuery getProfilesBySchoolIdQuery, ResourceBuilder resourceBuilder) {
+    public SchoolController(CreateSchoolCommand createSchoolCommand, UpdateSchoolCommand updateSchoolCommand, DeleteSchoolCommand deleteSchoolCommand, GetSchoolsQuery getSchoolsQuery, GetSchoolByIdQuery getSchoolByIdQuery, GetProfilesBySchoolIdQuery getProfilesBySchoolIdQuery, ResourceBuilder resourceBuilder, ProfileProjectionMapper profileProjectionMapper) {
         this.getSchoolsQuery = getSchoolsQuery;
         this.createSchoolCommand = createSchoolCommand;
         this.updateSchoolCommand = updateSchoolCommand;
@@ -52,6 +56,7 @@ public class SchoolController {
         this.getSchoolByIdQuery = getSchoolByIdQuery;
         this.getProfilesBySchoolIdQuery = getProfilesBySchoolIdQuery;
         this.resourceBuilder = resourceBuilder;
+        this.profileProjectionMapper = profileProjectionMapper;
     }
 
     @GetMapping
@@ -67,7 +72,8 @@ public class SchoolController {
 
     @GetMapping("/{id}/mentors")
     public Resources<Object> allMentorsProfile(@PathVariable UUID id) {
-        return resourceBuilder.wrappedFrom(getProfilesBySchoolIdQuery.run(id), ProfileResource::new, ProfileResource.class);
+        List<ProfileProjection> projections = profileProjectionMapper.toProfileProjections(getProfilesBySchoolIdQuery.run(id));
+        return resourceBuilder.wrappedFrom(projections, ProfileProjectionResource::new, ProfileProjectionResource.class);
     }
 
     @PostMapping

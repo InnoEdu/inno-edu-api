@@ -139,6 +139,10 @@ public class ProfileFactory {
         return singletonList(alanProfile());
     }
 
+    public static List<ProfileProjection> profileProjections() {
+        return singletonList(alanProfileProjection());
+    }
+
     public static CreateProfileRequest createAlanProfileRequest() {
         return CreateProfileRequest.builder()
                 .userId(alan().getId())
