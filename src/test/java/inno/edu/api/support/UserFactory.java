@@ -22,6 +22,7 @@ public class UserFactory {
                 .username("gustavodomenico")
                 .email("gustavo@inno.edu")
                 .password("password")
+                .deviceId("gustavoDeviceId")
                 .build();
     }
 
@@ -33,6 +34,7 @@ public class UserFactory {
                 .username("feixiu")
                 .email("feixiu@inno.edu")
                 .password("password")
+                .deviceId("myDeviceId")
                 .build();
     }
 
@@ -53,6 +55,7 @@ public class UserFactory {
                 .firstName(updatedFei().getFirstName())
                 .lastName(updatedFei().getLastName())
                 .email(updatedFei().getEmail())
+                .deviceId(updatedFei().getDeviceId())
                 .build();
     }
 
@@ -69,12 +72,13 @@ public class UserFactory {
 
     public static CreateUserRequest createGustavoRequest() {
         return CreateUserRequest.builder()
-                .firstName("Gustavo")
-                .lastName("Domenico")
-                .username("gustavodomenico")
-                .email("gustavo@inno.edu")
-                .password("password")
-                .confirmPassword("password")
+                .firstName(gustavo().getFirstName())
+                .lastName(gustavo().getLastName())
+                .username(gustavo().getUsername())
+                .email(gustavo().getEmail())
+                .password(gustavo().getPassword())
+                .confirmPassword(gustavo().getPassword())
+                .deviceId(gustavo().getDeviceId())
                 .build();
     }
 
@@ -113,6 +117,7 @@ public class UserFactory {
                 .firstName("UpdatedFei")
                 .lastName("UpdatedXiu")
                 .email("UpdatedEmail@email.com")
+                .deviceId("UpdatedDeviceId")
                 .build();
     }
 

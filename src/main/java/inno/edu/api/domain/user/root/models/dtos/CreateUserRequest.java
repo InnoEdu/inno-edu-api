@@ -38,4 +38,7 @@ public class CreateUserRequest {
     @NotNull
     @Size(max = 30)
     private String confirmPassword;
+
+    @Size(max = 255)
+    private String deviceId;
 }

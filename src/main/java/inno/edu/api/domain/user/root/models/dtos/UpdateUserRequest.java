@@ -26,4 +26,7 @@ public class UpdateUserRequest {
     @Size(max = 255)
     @Email
     private String email;
+
+    @Size(max = 255)
+    private String deviceId;
 }

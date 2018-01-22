@@ -47,6 +47,7 @@ public class UserControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.firstName", is(fei().getFirstName())))
                 .andExpect(jsonPath("$.lastName", is(fei().getLastName())))
                 .andExpect(jsonPath("$.username", is(fei().getUsername())))
+                .andExpect(jsonPath("$.deviceId", is(fei().getDeviceId())))
                 .andExpect(jsonPath("$.email", is(fei().getEmail())));
     }
 
@@ -71,6 +72,7 @@ public class UserControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.user.firstName", is(gustavo().getFirstName())))
                 .andExpect(jsonPath("$.user.lastName", is(gustavo().getLastName())))
                 .andExpect(jsonPath("$.user.username", is(gustavo().getUsername())))
+                .andExpect(jsonPath("$.user.deviceId", is(gustavo().getDeviceId())))
                 .andExpect(jsonPath("$.user.email", is(gustavo().getEmail())));
     }
 
@@ -92,10 +94,11 @@ public class UserControllerApiTest extends ApiTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", is(fei().getId().toString())))
+                .andExpect(jsonPath("$.id", is(updatedFei().getId().toString())))
                 .andExpect(jsonPath("$.firstName", is(updatedFei().getFirstName())))
                 .andExpect(jsonPath("$.lastName", is(updatedFei().getLastName())))
-                .andExpect(jsonPath("$.username", is(fei().getUsername())))
+                .andExpect(jsonPath("$.username", is(updatedFei().getUsername())))
+                .andExpect(jsonPath("$.deviceId", is(updatedFei().getDeviceId())))
                 .andExpect(jsonPath("$.email", is(updatedFei().getEmail())));
     }
 

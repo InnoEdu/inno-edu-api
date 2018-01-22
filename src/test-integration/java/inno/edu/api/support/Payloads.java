@@ -52,11 +52,11 @@ public class Payloads {
     }
 
     public static String postUserPayload(CreateUserRequest createUserRequest) {
-        return format(loadPayload("payloads/user/post-user.json"), createUserRequest.getFirstName(), createUserRequest.getLastName(), createUserRequest.getUsername(), createUserRequest.getEmail(), createUserRequest.getPassword(), createUserRequest.getConfirmPassword());
+        return format(loadPayload("payloads/user/post-user.json"), createUserRequest.getFirstName(), createUserRequest.getLastName(), createUserRequest.getUsername(), createUserRequest.getEmail(), createUserRequest.getPassword(), createUserRequest.getConfirmPassword(), createUserRequest.getDeviceId());
     }
 
     public static String putUserPayload(UpdateUserRequest updateUserRequest) {
-        return format(loadPayload("payloads/user/put-user.json"), updateUserRequest.getFirstName(), updateUserRequest.getLastName(), updateUserRequest.getEmail());
+        return format(loadPayload("payloads/user/put-user.json"), updateUserRequest.getFirstName(), updateUserRequest.getLastName(), updateUserRequest.getEmail(), updateUserRequest.getDeviceId());
     }
 
     public static String postProfilePayload(CreateProfileRequest createProfileRequest) {

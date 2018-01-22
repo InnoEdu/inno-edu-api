@@ -4,5 +4,6 @@
   "username": "%s",
   "email": "%s",
   "password": "%s",
-  "confirmPassword": "%s"
+  "confirmPassword": "%s",
+  "deviceId": "%s"
 }

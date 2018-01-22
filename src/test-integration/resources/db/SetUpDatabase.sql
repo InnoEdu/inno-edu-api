@@ -15,8 +15,8 @@ DELETE FROM Attachment;
 DELETE FROM User;
 DELETE FROM Skill;
 
-INSERT INTO User (id, first_name, last_name, username, email, password)
-VALUES ('ba7c650519fd47c387a6c6af6e5322b7', 'Fei', 'Xiu', 'feixiu', 'feixiu@inno.edu', 'password');
+INSERT INTO User (id, first_name, last_name, username, email, password, device_id)
+VALUES ('ba7c650519fd47c387a6c6af6e5322b7', 'Fei', 'Xiu', 'feixiu', 'feixiu@inno.edu', 'password', 'myDeviceId');
 
 INSERT INTO User (id, first_name, last_name, username, email, password)
 VALUES ('e79b6b2ecc084e37b22751cd64f5aa2e', 'Fei to delete', 'Xiu', 'feixiu2', 'feixiu@inno.edu', 'password');
