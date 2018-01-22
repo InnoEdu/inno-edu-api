@@ -378,7 +378,7 @@ paths:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/EmbeddedProfileResourceList'
+            $ref: '#/definitions/EmbeddedProfileProjectionResourceList'
         '404':
           description: School not found
           schema:
@@ -2604,6 +2604,20 @@ definitions:
     properties:
       _embedded:
         $ref: '#/definitions/ProfileResourceList'
+      _links:
+        type: object
+  ProfileProjectionResourceList:
+    type: object
+    properties:
+      profileProjectionResourceList:
+        type: array
+        items:
+          $ref: '#/definitions/ProfileProjectionResource'
+  EmbeddedProfileProjectionResourceList:
+    type: object
+    properties:
+      _embedded:
+        $ref: '#/definitions/ProfileProjectionResourceList'
       _links:
         type: object
   CreateAvailabilityRequest:
