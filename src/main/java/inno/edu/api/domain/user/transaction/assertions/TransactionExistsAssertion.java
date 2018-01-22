@@ -1,4 +1,4 @@
-package inno.edu.api.domain.transaction.transaction.assertions;
+package inno.edu.api.domain.user.transaction.assertions;
 
 import inno.edu.api.domain.common.assertions.EntityExistsAssertion;
 import inno.edu.api.domain.user.transaction.exceptions.TransactionNotFoundException;
