@@ -1877,8 +1877,6 @@ paths:
           description: Mentor not found
           schema:
             $ref: '#/definitions/VndErrors'
-        '403':
-          $ref: '#/responses/403'
   /appointments/mentee/{profileId}:
     get:
       tags:
