@@ -1872,7 +1872,7 @@ paths:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/EmbeddedAppointmentResourceList'
+            $ref: '#/definitions/EmbeddedAppointmentProjectionResourceList'
         '404':
           description: Mentor not found
           schema:
@@ -1901,7 +1901,7 @@ paths:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/EmbeddedAppointmentResourceList'
+            $ref: '#/definitions/EmbeddedAppointmentProjectionResourceList'
         '404':
           description: Mentor not found
           schema:
@@ -2803,6 +2803,20 @@ definitions:
           properties:
             _links:
               type: object
+  AppointmentProjectionResourceList:
+    type: object
+    properties:
+      appointmentProjectionResourceList:
+        type: array
+        items:
+          $ref: '#/definitions/AppointmentProjectionResource'
+  EmbeddedAppointmentProjectionResourceList:
+    type: object
+    properties:
+      _embedded:
+        $ref: '#/definitions/AppointmentProjectionResourceList'
+      _links:
+        type: object
   AppointmentResource:
     allOf:
         - $ref: '#/definitions/Appointment'
