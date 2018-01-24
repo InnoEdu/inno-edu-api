@@ -27,6 +27,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import static inno.edu.api.domain.appointment.root.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.support.AppointmentFactory.appointment;
 import static inno.edu.api.support.AppointmentFactory.appointmentProjection;
+import static inno.edu.api.support.AppointmentFactory.appointmentProjections;
 import static inno.edu.api.support.AppointmentFactory.appointments;
 import static inno.edu.api.support.AppointmentFactory.createAppointmentRequest;
 import static inno.edu.api.support.AppointmentFactory.proposedAppointments;
@@ -113,37 +114,41 @@ public class AppointmentControllerTest {
     @Test
     public void shouldListAppointmentsByMentor() {
         when(getAppointmentsByMentorProfileIdQuery.run(fei().getId(), null)).thenReturn(appointments());
+        when(appointmentProjectionMapper.toAppointmentProjections(appointments())).thenReturn(appointmentProjections());
 
         appointmentController.allByMentor(fei().getId(), null);
 
-        verify(resourceBuilder).wrappedFrom(eq(appointments()), any(), eq(AppointmentResource.class));
+        verify(resourceBuilder).wrappedFrom(eq(appointmentProjections()), any(), eq(AppointmentProjectionResource.class));
     }
 
     @Test
     public void shouldListAppointmentsByMentorAndStatus() {
         when(getAppointmentsByMentorProfileIdQuery.run(fei().getId(), PROPOSED)).thenReturn(proposedAppointments());
+        when(appointmentProjectionMapper.toAppointmentProjections(proposedAppointments())).thenReturn(appointmentProjections());
 
         appointmentController.allByMentor(fei().getId(), PROPOSED);
 
-        verify(resourceBuilder).wrappedFrom(eq(proposedAppointments()), any(), eq(AppointmentResource.class));
+        verify(resourceBuilder).wrappedFrom(eq(appointmentProjections()), any(), eq(AppointmentProjectionResource.class));
     }
 
     @Test
     public void shouldListAppointmentsByMentee() {
         when(getAppointmentsByMenteeProfileIdQuery.run(alan().getId(), null)).thenReturn(appointments());
+        when(appointmentProjectionMapper.toAppointmentProjections(appointments())).thenReturn(appointmentProjections());
 
         appointmentController.allByMentee(alan().getId(), null);
 
-        verify(resourceBuilder).wrappedFrom(eq(appointments()), any(), eq(AppointmentResource.class));
+        verify(resourceBuilder).wrappedFrom(eq(appointmentProjections()), any(), eq(AppointmentProjectionResource.class));
     }
 
     @Test
     public void shouldListAppointmentsByMenteeAndStatus() {
         when(getAppointmentsByMenteeProfileIdQuery.run(alan().getId(), PROPOSED)).thenReturn(proposedAppointments());
+        when(appointmentProjectionMapper.toAppointmentProjections(proposedAppointments())).thenReturn(appointmentProjections());
 
         appointmentController.allByMentee(alan().getId(), PROPOSED);
 
-        verify(resourceBuilder).wrappedFrom(eq(proposedAppointments()), any(), eq(AppointmentResource.class));
+        verify(resourceBuilder).wrappedFrom(eq(appointmentProjections()), any(), eq(AppointmentProjectionResource.class));
     }
 
     @Test

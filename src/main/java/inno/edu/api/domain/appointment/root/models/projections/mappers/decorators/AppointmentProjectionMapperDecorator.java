@@ -1,10 +1,10 @@
 package inno.edu.api.domain.appointment.root.models.projections.mappers.decorators;
 
 import inno.edu.api.domain.appointment.root.models.Appointment;
-import inno.edu.api.domain.appointment.root.models.resources.AppointmentProjectionResource;
-import inno.edu.api.domain.appointment.root.models.projections.mappers.AppointmentProjectionMapper;
-import inno.edu.api.domain.appointment.root.models.resources.FeedbackResource;
 import inno.edu.api.domain.appointment.root.models.projections.AppointmentProjection;
+import inno.edu.api.domain.appointment.root.models.projections.mappers.AppointmentProjectionMapper;
+import inno.edu.api.domain.appointment.root.models.resources.AppointmentProjectionResource;
+import inno.edu.api.domain.appointment.root.models.resources.FeedbackResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -38,5 +38,15 @@ public abstract class AppointmentProjectionMapperDecorator implements Appointmen
     @Override
     public AppointmentProjectionResource toAppointmentProjectionResource(Appointment appointment) {
         return new AppointmentProjectionResource(toAppointmentProjection(appointment));
+    }
+
+    @Override
+    public List<AppointmentProjection> toAppointmentProjections(List<Appointment> appointments) {
+        if (appointments == null) {
+            return null;
+        }
+        return appointments.stream()
+                .map(this::toAppointmentProjection)
+                .collect(toList());
     }
 }

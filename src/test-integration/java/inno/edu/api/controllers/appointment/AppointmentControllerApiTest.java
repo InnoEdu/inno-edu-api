@@ -9,11 +9,11 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.List;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static inno.edu.api.domain.appointment.root.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.domain.appointment.root.models.AppointmentStatus.UNAVAILABLE;
 import static inno.edu.api.support.AppointmentFactory.appointment;
 import static inno.edu.api.support.AppointmentFactory.appointmentProjection;
+import static inno.edu.api.support.AppointmentFactory.appointmentProjections;
 import static inno.edu.api.support.AppointmentFactory.appointmentToDelete;
 import static inno.edu.api.support.AppointmentFactory.appointments;
 import static inno.edu.api.support.AppointmentFactory.conflictAppointment;
@@ -54,7 +54,7 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        assertAppointmentList(resultActions, newArrayList(appointment()));
+        assertAppointmentProjectionList(resultActions, appointmentProjections());
     }
 
     @Test
@@ -64,7 +64,7 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        assertAppointmentList(resultActions, newArrayList(appointment()));
+        assertAppointmentProjectionList(resultActions, appointmentProjections());
     }
 
     @Test
@@ -203,4 +203,28 @@ public class AppointmentControllerApiTest extends ApiTest {
                 .andExpect(jsonPath("$.mentorPhotoUrl", is(appointmentProjection.getMentorPhotoUrl())))
                 .andExpect(jsonPath("$.menteePhotoUrl", is(appointmentProjection.getMenteePhotoUrl())));
     }
+
+    private void assertAppointmentProjectionList(ResultActions resultActions, List<AppointmentProjection> appointmentProjections) throws Exception {
+        appointmentProjections.forEach(appointmentProjection -> {
+            try {
+                resultActions
+                        .andExpect(jsonPath("$._embedded.appointmentProjectionResourceList[*].id", hasItems(appointmentProjection.getId().toString())))
+                        .andExpect(jsonPath("$._embedded.appointmentProjectionResourceList[*].mentorProfileId", hasItems(appointmentProjection.getMentorProfileId().toString())))
+                        .andExpect(jsonPath("$._embedded.appointmentProjectionResourceList[*].menteeProfileId", hasItems(appointmentProjection.getMenteeProfileId().toString())))
+                        .andExpect(jsonPath("$._embedded.appointmentProjectionResourceList[*].fromDateTime", hasItems(appointmentProjection.getFromDateTime().toString())))
+                        .andExpect(jsonPath("$._embedded.appointmentProjectionResourceList[*].toDateTime", hasItems(appointmentProjection.getToDateTime().toString())))
+                        .andExpect(jsonPath("$._embedded.appointmentProjectionResourceList[*].description", hasItems(appointmentProjection.getDescription())))
+                        .andExpect(jsonPath("$._embedded.appointmentProjectionResourceList[*].fee", hasItems(appointmentProjection.getFee().doubleValue())))
+                        .andExpect(jsonPath("$._embedded.appointmentProjectionResourceList[*].status", hasItems(appointmentProjection.getStatus().toString())))
+                        .andExpect(jsonPath("$._embedded.appointmentProjectionResourceList[*].mentorFirstName", hasItems(appointmentProjection.getMentorFirstName())))
+                        .andExpect(jsonPath("$._embedded.appointmentProjectionResourceList[*].mentorLastName", hasItems(appointmentProjection.getMentorLastName())))
+                        .andExpect(jsonPath("$._embedded.appointmentProjectionResourceList[*].menteeFirstName", hasItems(appointmentProjection.getMenteeFirstName())))
+                        .andExpect(jsonPath("$._embedded.appointmentProjectionResourceList[*].menteeLastName", hasItems(appointmentProjection.getMenteeLastName())))
+                        .andExpect(jsonPath("$._embedded.appointmentProjectionResourceList[*].mentorPhotoUrl", hasItems(appointmentProjection.getMentorPhotoUrl())))
+                        .andExpect(jsonPath("$._embedded.appointmentProjectionResourceList[*].menteePhotoUrl", hasItems(appointmentProjection.getMenteePhotoUrl())));
+            } catch (Exception ignored) {
+            }
+        });
+    }
+
 }

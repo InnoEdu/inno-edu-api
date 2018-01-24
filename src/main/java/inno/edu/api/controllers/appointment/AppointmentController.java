@@ -12,6 +12,7 @@ import inno.edu.api.domain.appointment.root.models.dtos.CreateAppointmentRequest
 import inno.edu.api.domain.appointment.root.models.dtos.SearchAppointmentsRequest;
 import inno.edu.api.domain.appointment.root.models.dtos.UpdateAppointmentRequest;
 import inno.edu.api.domain.appointment.root.models.dtos.UpdateAppointmentStatusRequest;
+import inno.edu.api.domain.appointment.root.models.projections.AppointmentProjection;
 import inno.edu.api.domain.appointment.root.models.projections.mappers.AppointmentProjectionMapper;
 import inno.edu.api.domain.appointment.root.models.resources.AppointmentProjectionResource;
 import inno.edu.api.domain.appointment.root.models.resources.AppointmentResource;
@@ -84,15 +85,15 @@ public class AppointmentController {
     @GetMapping("/mentor/{profileId}")
     public Resources<Object> allByMentor(@PathVariable UUID profileId,
                                          @RequestParam(required = false) AppointmentStatus status) {
-        List<Appointment> appointments = getAppointmentsByMentorProfileIdQuery.run(profileId, status);
-        return resourceBuilder.wrappedFrom(appointments, AppointmentResource::new, AppointmentResource.class);
+        List<AppointmentProjection> appointments = appointmentProjectionMapper.toAppointmentProjections(getAppointmentsByMentorProfileIdQuery.run(profileId, status));
+        return resourceBuilder.wrappedFrom(appointments, AppointmentProjectionResource::new, AppointmentProjectionResource.class);
     }
 
     @GetMapping("/mentee/{profileId}")
     public Resources<Object> allByMentee(@PathVariable UUID profileId,
                                          @RequestParam(required = false) AppointmentStatus status) {
-        List<Appointment> appointments = getAppointmentsByMenteeProfileIdQuery.run(profileId, status);
-        return resourceBuilder.wrappedFrom(appointments, AppointmentResource::new, AppointmentResource.class);
+        List<AppointmentProjection> appointments = appointmentProjectionMapper.toAppointmentProjections(getAppointmentsByMenteeProfileIdQuery.run(profileId, status));
+        return resourceBuilder.wrappedFrom(appointments, AppointmentProjectionResource::new, AppointmentProjectionResource.class);
     }
 
     @GetMapping("/{id}")

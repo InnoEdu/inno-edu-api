@@ -175,6 +175,10 @@ public class AppointmentFactory {
         return newArrayList(appointment(), otherAppointment());
     }
 
+    public static List<AppointmentProjection> appointmentProjections() {
+        return singletonList(appointmentProjection());
+    }
+
     public static List<Appointment> proposedAppointments() {
         return newArrayList(appointment());
     }
