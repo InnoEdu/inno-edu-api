@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
@@ -18,4 +19,8 @@ public class Transaction {
     @Id
     private UUID id;
     private UUID userId;
+    private UUID appointmentId;
+
+    private BigDecimal value;
+    private TransactionType type;
 }

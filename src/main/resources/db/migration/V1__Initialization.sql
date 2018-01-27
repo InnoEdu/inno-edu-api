@@ -194,11 +194,17 @@ CREATE TABLE Profile_Skill (
 );
 
 CREATE TABLE Transaction (
-  id      BINARY(16) PRIMARY KEY,
-  user_id BINARY(16) NOT NULL,
+  id             BINARY(16) PRIMARY KEY,
+  user_id        BINARY(16)     NOT NULL,
+  appointment_id BINARY(16)     NULL,
+  type           SMALLINT       NOT NULL,
+  value          DECIMAL(15, 2) NOT NULL,
 
   FOREIGN KEY (user_id)
-  REFERENCES User (id)
+  REFERENCES User (id),
+
+  FOREIGN KEY (appointment_id)
+  REFERENCES Appointment (id)
 );
 
 -- Stub data
