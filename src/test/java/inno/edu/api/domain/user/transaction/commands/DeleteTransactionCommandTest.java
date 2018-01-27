@@ -35,5 +35,4 @@ public class DeleteTransactionCommandTest {
 
         verify(transactionExistsAssertion).run(feiTransaction().getId());
     }
-
 }

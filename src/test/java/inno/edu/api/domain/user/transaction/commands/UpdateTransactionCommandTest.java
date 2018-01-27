@@ -1,8 +1,8 @@
 package inno.edu.api.domain.user.transaction.commands;
 
-import inno.edu.api.domain.user.transaction.assertions.TransactionExistsAssertion;
 import inno.edu.api.domain.user.transaction.models.Transaction;
 import inno.edu.api.domain.user.transaction.models.dtos.mappers.UpdateTransactionRequestMapper;
+import inno.edu.api.domain.user.transaction.queries.GetTransactionByIdQuery;
 import inno.edu.api.domain.user.transaction.repositories.TransactionRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class UpdateTransactionCommandTest {
     @Mock
-    private  TransactionExistsAssertion transactionExistsAssertion;
+    private GetTransactionByIdQuery getTransactionByIdQuery;
 
     @Mock
     private  TransactionRepository transactionRepository;
@@ -34,7 +34,7 @@ public class UpdateTransactionCommandTest {
 
     @Test
     public void shouldReturnUpdatedTransaction() {
-        when(transactionRepository.findOne(feiTransaction().getId())).thenReturn(feiTransaction());
+        when(getTransactionByIdQuery.run(feiTransaction().getId())).thenReturn(feiTransaction());
         when(transactionRepository.save(feiTransaction())).thenReturn(updatedFeiTransaction());
 
         Transaction transaction = updateTransactionCommand.run(feiTransaction().getId(), updateFeiTransactionRequest());
@@ -42,12 +42,5 @@ public class UpdateTransactionCommandTest {
         verify(updateTransactionRequestMapper).setTransaction(updateFeiTransactionRequest(), feiTransaction());
 
         assertThat(transaction, is(updatedFeiTransaction()));
-    }
-
-    @Test
-    public void shouldRunAssertions() {
-        updateTransactionCommand.run(feiTransaction().getId(), updateFeiTransactionRequest());
-
-        verify(transactionExistsAssertion).run(feiTransaction().getId());
     }
 }
