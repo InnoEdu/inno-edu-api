@@ -9,6 +9,7 @@ import inno.edu.api.domain.user.transaction.models.Transaction;
 import inno.edu.api.domain.user.transaction.models.dtos.CreateTransactionRequest;
 import inno.edu.api.domain.user.transaction.models.dtos.UpdateTransactionRequest;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,6 +19,7 @@ import static inno.edu.api.domain.user.transaction.models.TransactionType.DEBIT;
 import static inno.edu.api.infrastructure.security.SecurityConstants.TOKEN_PREFIX;
 import static inno.edu.api.support.AppointmentFactory.appointment;
 import static java.math.BigDecimal.TEN;
+import static java.util.Collections.singletonList;
 import static java.util.UUID.fromString;
 
 public class UserFactory {
@@ -173,6 +175,10 @@ public class UserFactory {
                 .value(appointment().getFee())
                 .type(CREDIT)
                 .build();
+    }
+
+    public static List<Transaction> feiTransactions() {
+        return singletonList(feiTransaction());
     }
 
 }
