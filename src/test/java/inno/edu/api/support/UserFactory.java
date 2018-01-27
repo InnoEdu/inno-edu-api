@@ -1,16 +1,20 @@
 package inno.edu.api.support;
 
+import inno.edu.api.domain.user.root.models.ApplicationUser;
 import inno.edu.api.domain.user.root.models.dtos.CreateUserRequest;
 import inno.edu.api.domain.user.root.models.dtos.LoginRequest;
 import inno.edu.api.domain.user.root.models.dtos.LoginResponse;
 import inno.edu.api.domain.user.root.models.dtos.UpdateUserRequest;
-import inno.edu.api.domain.user.root.models.ApplicationUser;
+import inno.edu.api.domain.user.transaction.models.Transaction;
+import inno.edu.api.domain.user.transaction.models.dtos.CreateTransactionRequest;
 
 import java.util.List;
 import java.util.UUID;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static inno.edu.api.domain.user.transaction.models.TransactionType.CREDIT;
 import static inno.edu.api.infrastructure.security.SecurityConstants.TOKEN_PREFIX;
+import static inno.edu.api.support.AppointmentFactory.appointment;
 import static java.util.UUID.fromString;
 
 public class UserFactory {
@@ -124,4 +128,34 @@ public class UserFactory {
     public static List<ApplicationUser> users() {
         return newArrayList(fei(), alan());
     }
+
+    public static Transaction feiTransaction() {
+        return Transaction.builder()
+                .id(fromString("4591f32e-e815-4fe3-8704-5514e555db90"))
+                .userId(fei().getId())
+                .appointmentId(appointment().getId())
+                .value(appointment().getFee())
+                .type(CREDIT)
+                .build();
+    }
+
+    public static CreateTransactionRequest createFeiTransactionRequest() {
+        return CreateTransactionRequest.builder()
+                .userId(fei().getId())
+                .appointmentId(appointment().getId())
+                .value(appointment().getFee())
+                .type(CREDIT)
+                .build();
+    }
+
+    public static Transaction newFeiTransaction(UUID id) {
+        return Transaction.builder()
+                .id(id)
+                .userId(fei().getId())
+                .appointmentId(appointment().getId())
+                .value(appointment().getFee())
+                .type(CREDIT)
+                .build();
+    }
+
 }
