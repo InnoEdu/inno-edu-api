@@ -1,4 +1,4 @@
-package inno.edu.api.controllers.appointment.advices;
+package inno.edu.api.controllers.appointment.advice;
 
 import inno.edu.api.domain.appointment.feedback.exceptions.InvalidRatingRangeException;
 import inno.edu.api.domain.appointment.root.exceptions.AppointmentNotFoundException;

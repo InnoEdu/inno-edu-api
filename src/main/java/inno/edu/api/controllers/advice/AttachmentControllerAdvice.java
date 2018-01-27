@@ -1,4 +1,4 @@
-package inno.edu.api.controllers.advices;
+package inno.edu.api.controllers.advice;
 
 import inno.edu.api.domain.attachment.exceptions.AttachmentNotFoundException;
 import org.springframework.core.annotation.Order;

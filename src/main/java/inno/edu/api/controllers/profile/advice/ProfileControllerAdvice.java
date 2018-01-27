@@ -1,4 +1,4 @@
-package inno.edu.api.controllers.profile.advices;
+package inno.edu.api.controllers.profile.advice;
 
 import inno.edu.api.domain.attachment.exceptions.AttachmentNotFoundException;
 import inno.edu.api.domain.profile.accomplishment.exceptions.AccomplishmentNotFoundException;

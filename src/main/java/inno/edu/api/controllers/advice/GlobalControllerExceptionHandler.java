@@ -1,4 +1,4 @@
-package inno.edu.api.controllers.advices;
+package inno.edu.api.controllers.advice;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import inno.edu.api.infrastructure.storage.exceptions.S3StorageException;
