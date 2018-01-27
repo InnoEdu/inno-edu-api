@@ -1,7 +1,7 @@
 package inno.edu.api.domain.user.root.models.resources;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import inno.edu.api.controllers.UserController;
+import inno.edu.api.controllers.user.UserController;
 import inno.edu.api.domain.user.root.models.ApplicationUser;
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;

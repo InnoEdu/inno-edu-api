@@ -1,4 +1,4 @@
-package inno.edu.api.controllers;
+package inno.edu.api.controllers.user;
 
 import inno.edu.api.domain.profile.root.models.resources.ProfileResource;
 import inno.edu.api.infrastructure.web.ResourceBuilder;

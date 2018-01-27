@@ -1,7 +1,7 @@
 package inno.edu.api.infrastructure;
 
 import inno.edu.api.ApiTest;
-import inno.edu.api.controllers.UserController;
+import inno.edu.api.controllers.user.UserController;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

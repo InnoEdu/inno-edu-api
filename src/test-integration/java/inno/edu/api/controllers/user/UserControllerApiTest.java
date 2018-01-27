@@ -1,4 +1,4 @@
-package inno.edu.api.controllers;
+package inno.edu.api.controllers.user;
 
 import inno.edu.api.ApiTest;
 import org.junit.Test;

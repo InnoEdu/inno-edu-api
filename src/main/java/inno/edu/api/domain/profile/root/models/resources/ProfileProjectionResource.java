@@ -1,7 +1,7 @@
 package inno.edu.api.domain.profile.root.models.resources;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import inno.edu.api.controllers.UserController;
+import inno.edu.api.controllers.user.UserController;
 import inno.edu.api.controllers.profile.ProfileController;
 import inno.edu.api.domain.profile.root.models.projections.ProfileProjection;
 import lombok.Getter;

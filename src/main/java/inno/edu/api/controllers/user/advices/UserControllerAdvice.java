@@ -1,4 +1,4 @@
-package inno.edu.api.controllers.advices;
+package inno.edu.api.controllers.user.advices;
 
 import inno.edu.api.domain.profile.root.exceptions.UserProfileNotFoundException;
 import inno.edu.api.domain.user.root.exceptions.InvalidUsernameOrPasswordException;
