@@ -9,6 +9,8 @@ import inno.edu.api.domain.user.transaction.repositories.TransactionRepository;
 import inno.edu.api.infrastructure.annotations.Command;
 import inno.edu.api.infrastructure.services.UUIDGeneratorService;
 
+import java.util.UUID;
+
 @Command
 public class CreateTransactionCommand {
     private final UserExistsAssertion userExistsAssertion;
@@ -26,17 +28,18 @@ public class CreateTransactionCommand {
         this.createTransactionRequestMapper = createTransactionRequestMapper;
     }
 
-    public Transaction run(CreateTransactionRequest request) {
-        runAssertions(request);
+    public Transaction run(UUID userId, CreateTransactionRequest request) {
+        runAssertions(userId, request);
 
         Transaction transaction = createTransactionRequestMapper.toTransaction(request);
         transaction.setId(uuidGeneratorService.generate());
+        transaction.setUserId(userId);
 
         return transactionRepository.save(transaction);
     }
 
-    private void runAssertions(CreateTransactionRequest request) {
-        userExistsAssertion.run(request.getUserId());
+    private void runAssertions(UUID userId, CreateTransactionRequest request) {
+        userExistsAssertion.run(userId);
 
         if (request.getAppointmentId() != null) {
             appointmentExistsAssertion.run(request.getAppointmentId());

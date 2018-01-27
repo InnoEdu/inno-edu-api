@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static inno.edu.api.support.UserFactory.createFeiTransactionRequest;
+import static inno.edu.api.support.UserFactory.feiTransaction;
 import static inno.edu.api.support.UserFactory.newFeiTransaction;
 import static java.util.UUID.randomUUID;
 import static org.hamcrest.Matchers.is;
@@ -53,16 +54,16 @@ public class CreateTransactionCommandTest {
 
         when(transactionRepository.save(newTransaction)).thenReturn(newTransaction);
 
-        Transaction savedTransaction = createTransactionCommand.run(createFeiTransactionRequest());
+        Transaction savedTransaction = createTransactionCommand.run(feiTransaction().getUserId(), createFeiTransactionRequest());
         assertThat(savedTransaction, is(newTransaction));
     }
 
 
     @Test
     public void shouldRunAssertions() {
-        createTransactionCommand.run(createFeiTransactionRequest());
+        createTransactionCommand.run(feiTransaction().getUserId(), createFeiTransactionRequest());
 
-        verify(userExistsAssertion).run(createFeiTransactionRequest().getUserId());
+        verify(userExistsAssertion).run(feiTransaction().getUserId());
         verify(appointmentExistsAssertion).run(createFeiTransactionRequest().getAppointmentId());
     }
 }

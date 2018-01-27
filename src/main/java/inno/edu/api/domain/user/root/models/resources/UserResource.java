@@ -5,7 +5,6 @@ import inno.edu.api.controllers.user.UserController;
 import inno.edu.api.domain.user.root.models.ApplicationUser;
 import lombok.Getter;
 import org.springframework.hateoas.ResourceSupport;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
 
 import java.net.URI;
@@ -24,7 +23,7 @@ public class UserResource extends ResourceSupport {
     public UserResource(ApplicationUser user) {
         this.user = user;
 
-        add(ControllerLinkBuilder.linkTo(methodOn(UserController.class).get(user.getId())).withSelfRel());
+        add(linkTo(methodOn(UserController.class).get(user.getId())).withSelfRel());
         add(linkTo(methodOn(UserController.class).getProfile(user.getId())).withRel("profile"));
     }
 

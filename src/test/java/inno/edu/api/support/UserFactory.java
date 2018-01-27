@@ -9,7 +9,6 @@ import inno.edu.api.domain.user.transaction.models.Transaction;
 import inno.edu.api.domain.user.transaction.models.dtos.CreateTransactionRequest;
 import inno.edu.api.domain.user.transaction.models.dtos.UpdateTransactionRequest;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -153,7 +152,6 @@ public class UserFactory {
 
     public static CreateTransactionRequest createFeiTransactionRequest() {
         return CreateTransactionRequest.builder()
-                .userId(fei().getId())
                 .appointmentId(appointment().getId())
                 .value(appointment().getFee())
                 .type(CREDIT)

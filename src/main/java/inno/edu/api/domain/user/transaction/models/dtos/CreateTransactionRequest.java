@@ -15,9 +15,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateTransactionRequest {
-    @NotNull
-    private UUID userId;
-
     private UUID appointmentId;
 
     @NotNull
