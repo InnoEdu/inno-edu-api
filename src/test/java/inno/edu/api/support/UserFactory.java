@@ -7,14 +7,17 @@ import inno.edu.api.domain.user.root.models.dtos.LoginResponse;
 import inno.edu.api.domain.user.root.models.dtos.UpdateUserRequest;
 import inno.edu.api.domain.user.transaction.models.Transaction;
 import inno.edu.api.domain.user.transaction.models.dtos.CreateTransactionRequest;
+import inno.edu.api.domain.user.transaction.models.dtos.UpdateTransactionRequest;
 
 import java.util.List;
 import java.util.UUID;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static inno.edu.api.domain.user.transaction.models.TransactionType.CREDIT;
+import static inno.edu.api.domain.user.transaction.models.TransactionType.DEBIT;
 import static inno.edu.api.infrastructure.security.SecurityConstants.TOKEN_PREFIX;
 import static inno.edu.api.support.AppointmentFactory.appointment;
+import static java.math.BigDecimal.TEN;
 import static java.util.UUID.fromString;
 
 public class UserFactory {
@@ -139,12 +142,26 @@ public class UserFactory {
                 .build();
     }
 
+    public static Transaction updatedFeiTransaction() {
+        return Transaction.builder()
+                .value(TEN)
+                .type(DEBIT)
+                .build();
+    }
+
     public static CreateTransactionRequest createFeiTransactionRequest() {
         return CreateTransactionRequest.builder()
                 .userId(fei().getId())
                 .appointmentId(appointment().getId())
                 .value(appointment().getFee())
                 .type(CREDIT)
+                .build();
+    }
+
+    public static UpdateTransactionRequest updateFeiTransactionRequest() {
+        return UpdateTransactionRequest.builder()
+                .value(updatedFeiTransaction().getValue())
+                .type(updatedFeiTransaction().getType())
                 .build();
     }
 

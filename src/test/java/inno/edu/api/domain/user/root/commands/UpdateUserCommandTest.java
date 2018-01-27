@@ -1,7 +1,7 @@
 package inno.edu.api.domain.user.root.commands;
 
-import inno.edu.api.domain.user.root.models.dtos.mappers.UpdateUserRequestMapper;
 import inno.edu.api.domain.user.root.models.ApplicationUser;
+import inno.edu.api.domain.user.root.models.dtos.mappers.UpdateUserRequestMapper;
 import inno.edu.api.domain.user.root.queries.GetUserByIdQuery;
 import inno.edu.api.domain.user.root.repositories.UserRepository;
 import org.junit.Test;
