@@ -5,6 +5,7 @@ import inno.edu.api.domain.user.root.exceptions.InvalidUsernameOrPasswordExcepti
 import inno.edu.api.domain.user.root.exceptions.UserIsNotMentorException;
 import inno.edu.api.domain.user.root.exceptions.UserNotFoundException;
 import inno.edu.api.domain.user.root.exceptions.UsernameAlreadyExistsException;
+import inno.edu.api.domain.user.transaction.exceptions.TransactionNotFoundException;
 import org.springframework.core.annotation.Order;
 import org.springframework.hateoas.VndErrors;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -26,6 +27,13 @@ public class UserControllerAdvice {
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(NOT_FOUND)
     VndErrors userNotFoundExceptionHandler(UserNotFoundException ex) {
+        return new VndErrors(ERROR, ex.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(TransactionNotFoundException.class)
+    @ResponseStatus(NOT_FOUND)
+    VndErrors transactionNotFoundExceptionHandler(TransactionNotFoundException ex) {
         return new VndErrors(ERROR, ex.getMessage());
     }
 

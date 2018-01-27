@@ -9,6 +9,7 @@ import inno.edu.api.domain.user.transaction.models.Transaction;
 import inno.edu.api.domain.user.transaction.models.dtos.CreateTransactionRequest;
 import inno.edu.api.domain.user.transaction.models.dtos.UpdateTransactionRequest;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,7 +18,6 @@ import static inno.edu.api.domain.user.transaction.models.TransactionType.CREDIT
 import static inno.edu.api.domain.user.transaction.models.TransactionType.DEBIT;
 import static inno.edu.api.infrastructure.security.SecurityConstants.TOKEN_PREFIX;
 import static inno.edu.api.support.AppointmentFactory.appointment;
-import static java.math.BigDecimal.TEN;
 import static java.util.Collections.singletonList;
 import static java.util.UUID.fromString;
 
@@ -145,7 +145,9 @@ public class UserFactory {
 
     public static Transaction updatedFeiTransaction() {
         return Transaction.builder()
-                .value(TEN)
+                .appointmentId(feiTransaction().getAppointmentId())
+                .userId(feiTransaction().getUserId())
+                .value(new BigDecimal(15.5))
                 .type(DEBIT)
                 .build();
     }

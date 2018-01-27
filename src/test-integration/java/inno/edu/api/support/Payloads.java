@@ -28,6 +28,8 @@ import inno.edu.api.domain.skill.models.dtos.UpdateSkillRequest;
 import inno.edu.api.domain.user.root.models.dtos.CreateUserRequest;
 import inno.edu.api.domain.user.root.models.dtos.LoginRequest;
 import inno.edu.api.domain.user.root.models.dtos.UpdateUserRequest;
+import inno.edu.api.domain.user.transaction.models.dtos.CreateTransactionRequest;
+import inno.edu.api.domain.user.transaction.models.dtos.UpdateTransactionRequest;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -57,6 +59,14 @@ public class Payloads {
 
     public static String putUserPayload(UpdateUserRequest updateUserRequest) {
         return format(loadPayload("payloads/user/put-user.json"), updateUserRequest.getFirstName(), updateUserRequest.getLastName(), updateUserRequest.getEmail(), updateUserRequest.getDeviceId());
+    }
+
+    public static String postTransactionPayload(CreateTransactionRequest createTransactionRequest) {
+        return format(loadPayload("payloads/user/transaction/post-transaction.json"), createTransactionRequest.getAppointmentId(), createTransactionRequest.getValue(), createTransactionRequest.getType());
+    }
+
+    public static String putTransactionPayload(UpdateTransactionRequest updateTransactionRequest) {
+        return format(loadPayload("payloads/user/transaction/put-transaction.json"), updateTransactionRequest.getValue(), updateTransactionRequest.getType());
     }
 
     public static String postProfilePayload(CreateProfileRequest createProfileRequest) {
