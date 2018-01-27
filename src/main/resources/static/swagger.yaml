@@ -12,6 +12,8 @@ tags:
     description: Login management
   - name: users
     description: User management
+  - name: user-transactions
+    description: User transactions management
   - name: schools
     description: School management
   - name: school-attachments
@@ -235,6 +237,144 @@ paths:
             $ref: '#/definitions/VndErrors'
         '400':
           description: Profile not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
+  /users/{id}/transactions:
+    get:
+      tags:
+        - user-transactions
+      summary: Get transactions by user
+      parameters:
+        - in: path
+          name: id
+          description: User id
+          required: true
+          type: string
+          format: uuid
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/TransactionResourceList'
+        '404':
+          description: User not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
+    post:
+      tags:
+        - user-transactions
+      summary: Add a new transaction for user
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: id
+          description: User id
+          required: true
+          type: string
+          format: uuid
+        - in: body
+          name: request
+          description: Request object with the transaction information to be created
+          required: true
+          schema:
+            $ref: '#/definitions/CreateTransactionRequest'
+      responses:
+        '201':
+          description: New transaction successfully created
+          schema:
+            $ref: '#/definitions/Transaction'
+          headers:
+            Location:
+              type: string
+              description: Link to the new resource created
+        '400':
+          $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
+  /users/transactions/{id}:
+    get:
+      tags:
+        - user-transactions
+      summary: Get transaction by id
+      parameters:
+        - in: path
+          name: id
+          description: User id
+          required: true
+          type: string
+          format: uuid
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/TransactionResource'
+        '404':
+          description: Transaction not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
+    put:
+      tags:
+        - user-transactions
+      summary: Update transaction for user
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: id
+          description: Transaction id
+          required: true
+          type: string
+          format: uuid
+        - in: body
+          name: request
+          description: Request object with the transaction information to be updated
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateTransactionRequest'
+      responses:
+        '201':
+          description: Transaction successfully updated
+          schema:
+            $ref: '#/definitions/Transaction'
+          headers:
+            Location:
+              type: string
+              description: Link to the new resource created
+        '400':
+          $ref: '#/responses/400'
+        '403':
+          $ref: '#/responses/403'
+    delete:
+      tags:
+        - user-transactions
+      summary: Delete transaction by id
+      parameters:
+        - in: path
+          name: id
+          description: Transaction id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: Transaction successfully removed
+        '404':
+          description: Transaction not found
           schema:
             $ref: '#/definitions/VndErrors'
         '403':
@@ -3344,3 +3484,59 @@ definitions:
         format: uuid
       attachment:
         $ref: '#/definitions/Attachment'
+  CreateTransactionRequest:
+    type: object
+    properties:
+      appointmentId:
+        type: string
+        format: uuid
+      value:
+        type: number
+      type:
+        type: string
+        enum: [CREDIT, DEBIT]
+    required:
+      - value
+      - type
+  UpdateTransactionRequest:
+    type: object
+    properties:
+      value:
+        type: number
+      type:
+        type: string
+        enum: [CREDIT, DEBIT]
+    required:
+      - value
+      - type
+  Transaction:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      userId:
+        type: string
+        format: uuid
+      appointmentId:
+        type: string
+        format: uuid
+      value:
+        type: number
+      type:
+        type: string
+        enum: [CREDIT, DEBIT]
+  TransactionResource:
+    allOf:
+        - $ref: '#/definitions/Transaction'
+        - type: object
+          properties:
+            _links:
+              type: object
+  TransactionResourceList:
+    type: object
+    properties:
+      interestResourceList:
+        type: array
+        items:
+          $ref: '#/definitions/TransactionResource'
