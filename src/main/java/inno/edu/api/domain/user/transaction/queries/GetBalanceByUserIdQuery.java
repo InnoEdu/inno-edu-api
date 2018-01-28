@@ -12,6 +12,8 @@ import java.util.UUID;
 import static inno.edu.api.domain.user.transaction.models.QTransaction.transaction;
 import static inno.edu.api.domain.user.transaction.models.TransactionType.DEBIT;
 import static java.math.BigDecimal.ONE;
+import static java.math.BigDecimal.ZERO;
+import static java.util.Optional.ofNullable;
 
 @Query
 public class GetBalanceByUserIdQuery {
@@ -38,10 +40,12 @@ public class GetBalanceByUserIdQuery {
                 .multiply(transaction.value)
                 .sum();
 
-        return query
+        BigDecimal sum = query
                 .from(transaction)
                 .select(balance)
                 .where(transaction.userId.eq(userId))
                 .fetchOne();
+
+        return ofNullable(sum).orElse(ZERO);
     }
 }
