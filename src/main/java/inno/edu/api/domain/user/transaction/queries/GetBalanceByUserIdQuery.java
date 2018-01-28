@@ -2,6 +2,7 @@ package inno.edu.api.domain.user.transaction.queries;
 
 import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQuery;
+import inno.edu.api.domain.user.root.assertions.UserExistsAssertion;
 import inno.edu.api.domain.user.transaction.models.Balance;
 import inno.edu.api.infrastructure.annotations.Query;
 
@@ -17,13 +18,17 @@ import static java.util.Optional.ofNullable;
 
 @Query
 public class GetBalanceByUserIdQuery {
+    private final UserExistsAssertion userExistsAssertion;
     private final EntityManager entityManager;
 
-    public GetBalanceByUserIdQuery(EntityManager entityManager) {
+    public GetBalanceByUserIdQuery(UserExistsAssertion userExistsAssertion, EntityManager entityManager) {
+        this.userExistsAssertion = userExistsAssertion;
         this.entityManager = entityManager;
     }
 
     public Balance run(UUID userId) {
+        userExistsAssertion.run(userId);
+
         return Balance.builder()
                 .userId(userId)
                 .value(getTransactionSum(userId))
