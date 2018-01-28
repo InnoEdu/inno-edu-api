@@ -440,3 +440,19 @@ VALUES (${map}('0e9e40c0b44b438792a99d75d10e3d42'), ${map}('094dad9244884b369c27
 INSERT INTO Profile_Skill (profile_id, skill_id)
 VALUES (${map}('0e9e40c0b44b438792a99d75d10e3d42'), ${map}('52c048db062f42a6918de9aeea8d3a0d'));
 
+-- Transactions
+
+INSERT INTO Transaction (id, user_id, appointment_id, value, type)
+VALUES (${map}('4591f32ee8154fe387045514e555db90'), ${map}('ba7c650519fd47c387a6c6af6e5322b7'), ${map}('f192270f2dad4bcd96c3c3765df77ce1'), 10.5, 0);
+
+INSERT INTO Transaction (id, user_id, appointment_id, value, type)
+VALUES (${map}('71b4b043b57c4e7081945d8274c9fd53'), ${map}('ba7c650519fd47c387a6c6af6e5322b7'), ${map}('f192270f2dad4bcd96c3c3765df77ce1'), 5, 1);
+
+INSERT INTO Transaction (id, user_id, appointment_id, value, type)
+VALUES (${map}('b992e627808348d3b1542a6f18d207d9'), ${map}('ba7c650519fd47c387a6c6af6e5322b7'), ${map}('f192270f2dad4bcd96c3c3765df77ce1'), 5.5, 1);
+
+INSERT INTO Transaction (id, user_id, appointment_id, value, type)
+VALUES (${map}('ad67a17594f34cd6805533e30a0c98da'), ${map}('ba7c650519fd47c387a6c6af6e5322b7'), ${map}('f192270f2dad4bcd96c3c3765df77ce1'), 2, 0);
+
+INSERT INTO Transaction (id, user_id, appointment_id, value, type)
+VALUES (${map}('d9ed13e07add467d845e3bfbfc80011b'), ${map}('8d6153fc83e54b3a90acd081ff789cef'), ${map}('f192270f2dad4bcd96c3c3765df77ce1'), 8, 0);

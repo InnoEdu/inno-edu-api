@@ -6,7 +6,9 @@ import inno.edu.api.domain.user.transaction.commands.UpdateTransactionCommand;
 import inno.edu.api.domain.user.transaction.models.Transaction;
 import inno.edu.api.domain.user.transaction.models.dtos.CreateTransactionRequest;
 import inno.edu.api.domain.user.transaction.models.dtos.UpdateTransactionRequest;
+import inno.edu.api.domain.user.transaction.models.resources.BalanceResource;
 import inno.edu.api.domain.user.transaction.models.resources.TransactionResource;
+import inno.edu.api.domain.user.transaction.queries.GetBalanceByUserIdQuery;
 import inno.edu.api.domain.user.transaction.queries.GetTransactionByIdQuery;
 import inno.edu.api.domain.user.transaction.queries.GetTransactionsByUserIdQuery;
 import inno.edu.api.infrastructure.web.ResourceBuilder;
@@ -39,20 +41,22 @@ public class TransactionController {
     private final UpdateTransactionCommand updateTransactionCommand;
     private final DeleteTransactionCommand deleteTransactionCommand;
 
+    private final GetBalanceByUserIdQuery getBalanceByUserIdQuery;
+
     @Autowired
-    public TransactionController(ResourceBuilder resourceBuilder, GetTransactionByIdQuery getTransactionByIdQuery, GetTransactionsByUserIdQuery getTransactionsByUserIdQuery, CreateTransactionCommand createTransactionCommand, UpdateTransactionCommand updateTransactionCommand, DeleteTransactionCommand deleteTransactionCommand) {
+    public TransactionController(ResourceBuilder resourceBuilder, GetTransactionByIdQuery getTransactionByIdQuery, GetTransactionsByUserIdQuery getTransactionsByUserIdQuery, CreateTransactionCommand createTransactionCommand, UpdateTransactionCommand updateTransactionCommand, DeleteTransactionCommand deleteTransactionCommand, GetBalanceByUserIdQuery getBalanceByUserIdQuery) {
         this.resourceBuilder = resourceBuilder;
         this.getTransactionByIdQuery = getTransactionByIdQuery;
         this.getTransactionsByUserIdQuery = getTransactionsByUserIdQuery;
         this.createTransactionCommand = createTransactionCommand;
         this.updateTransactionCommand = updateTransactionCommand;
         this.deleteTransactionCommand = deleteTransactionCommand;
+        this.getBalanceByUserIdQuery = getBalanceByUserIdQuery;
     }
 
     @GetMapping("/{id}/balance")
-    public Resources<Object> balance(@PathVariable UUID id) {
-        Iterable<Transaction> transactions = getTransactionsByUserIdQuery.run(id);
-        return resourceBuilder.wrappedFrom(transactions, TransactionResource::new, TransactionResource.class);
+    public BalanceResource balance(@PathVariable UUID id) {
+        return new BalanceResource(getBalanceByUserIdQuery.run(id));
     }
 
     @GetMapping("/{id}/transactions")

@@ -5,6 +5,7 @@ import inno.edu.api.domain.user.root.models.dtos.CreateUserRequest;
 import inno.edu.api.domain.user.root.models.dtos.LoginRequest;
 import inno.edu.api.domain.user.root.models.dtos.LoginResponse;
 import inno.edu.api.domain.user.root.models.dtos.UpdateUserRequest;
+import inno.edu.api.domain.user.transaction.models.Balance;
 import inno.edu.api.domain.user.transaction.models.Transaction;
 import inno.edu.api.domain.user.transaction.models.dtos.CreateTransactionRequest;
 import inno.edu.api.domain.user.transaction.models.dtos.UpdateTransactionRequest;
@@ -181,4 +182,10 @@ public class UserFactory {
         return singletonList(feiTransaction());
     }
 
+    public static Balance feiBalance() {
+        return Balance.builder()
+                .userId(fei().getId())
+                .value(feiTransaction().getValue())
+                .build();
+    }
 }

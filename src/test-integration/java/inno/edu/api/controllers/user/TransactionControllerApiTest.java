@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import static inno.edu.api.support.Payloads.postTransactionPayload;
 import static inno.edu.api.support.Payloads.putTransactionPayload;
 import static inno.edu.api.support.UserFactory.createFeiTransactionRequest;
+import static inno.edu.api.support.UserFactory.feiBalance;
 import static inno.edu.api.support.UserFactory.feiTransaction;
 import static inno.edu.api.support.UserFactory.fei;
 import static inno.edu.api.support.UserFactory.updateFeiTransactionRequest;
@@ -81,5 +82,14 @@ public class TransactionControllerApiTest extends ApiTest {
                 delete("/api/users/transactions/" + feiTransaction().getId()))
                 .andDo(print())
                 .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void shouldGetBalanceByUserId() throws Exception {
+        this.mockMvc.perform(get("/api/users/" + fei().getId().toString() + "/balance"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.userId", is(feiBalance().getUserId().toString())))
+                .andExpect(jsonPath("$.value", is(feiBalance().getValue().doubleValue())));
     }
 }
