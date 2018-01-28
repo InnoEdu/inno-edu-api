@@ -241,6 +241,31 @@ paths:
             $ref: '#/definitions/VndErrors'
         '403':
           $ref: '#/responses/403'
+  /users/{id}/balance:
+    get:
+      tags:
+        - user-transactions
+      summary: Get user balance
+      parameters:
+        - in: path
+          name: id
+          description: User id
+          required: true
+          type: string
+          format: uuid
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/BalanceResource'
+        '404':
+          description: User not found
+          schema:
+            $ref: '#/definitions/VndErrors'
+        '403':
+          $ref: '#/responses/403'
   /users/{id}/transactions:
     get:
       tags:
@@ -3540,3 +3565,18 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/TransactionResource'
+  Balance:
+    type: object
+    properties:
+      userId:
+        type: string
+        format: uuid
+      value:
+        type: number
+  BalanceResource:
+    allOf:
+        - $ref: '#/definitions/Balance'
+        - type: object
+          properties:
+            _links:
+              type: object
