@@ -4,6 +4,7 @@ import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import inno.edu.api.domain.user.root.assertions.UserExistsAssertion;
 import inno.edu.api.domain.user.transaction.models.Balance;
+import inno.edu.api.domain.user.transaction.models.TransactionType;
 import inno.edu.api.infrastructure.annotations.Query;
 
 import javax.persistence.EntityManager;
@@ -11,7 +12,6 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 import static inno.edu.api.domain.user.transaction.models.QTransaction.transaction;
-import static inno.edu.api.domain.user.transaction.models.TransactionType.DEBIT;
 import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.ZERO;
 import static java.util.Optional.ofNullable;
@@ -40,7 +40,7 @@ public class GetBalanceByUserIdQuery {
 
         NumberExpression<BigDecimal> balance = transaction
                 .type
-                .when(DEBIT).then(new BigDecimal(-1))
+                .when(TransactionType.DEBIT).then(new BigDecimal(-1))
                 .otherwise(ONE)
                 .multiply(transaction.value)
                 .sum();
