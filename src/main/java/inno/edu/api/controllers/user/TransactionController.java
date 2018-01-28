@@ -49,6 +49,12 @@ public class TransactionController {
         this.deleteTransactionCommand = deleteTransactionCommand;
     }
 
+    @GetMapping("/{id}/balance")
+    public Resources<Object> balance(@PathVariable UUID id) {
+        Iterable<Transaction> transactions = getTransactionsByUserIdQuery.run(id);
+        return resourceBuilder.wrappedFrom(transactions, TransactionResource::new, TransactionResource.class);
+    }
+
     @GetMapping("/{id}/transactions")
     public Resources<Object> all(@PathVariable UUID id) {
         Iterable<Transaction> transactions = getTransactionsByUserIdQuery.run(id);
