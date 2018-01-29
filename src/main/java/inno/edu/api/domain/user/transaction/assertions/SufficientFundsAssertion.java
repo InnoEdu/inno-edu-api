@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 @Assertion
-public class SufficientFundsAssertion extends RuntimeException {
+public class SufficientFundsAssertion  {
     private final UserExistsAssertion userExistsAssertion;
     private final GetBalanceByUserIdQuery getBalanceByUserIdQuery;
 
