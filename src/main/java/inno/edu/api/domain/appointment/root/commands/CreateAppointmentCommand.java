@@ -7,6 +7,7 @@ import inno.edu.api.domain.appointment.root.models.dtos.mappers.CreateAppointmen
 import inno.edu.api.domain.appointment.root.models.Appointment;
 import inno.edu.api.domain.appointment.root.repositories.AppointmentRepository;
 import inno.edu.api.domain.profile.root.assertions.ProfileExistsAssertion;
+import inno.edu.api.domain.user.transaction.commands.CreateTransactionForAppointmentCommand;
 import inno.edu.api.infrastructure.annotations.Command;
 import inno.edu.api.infrastructure.services.UUIDGeneratorService;
 
@@ -26,14 +27,16 @@ public class CreateAppointmentCommand {
     private final ProfileExistsAssertion profileExistsAssertion;
 
     private final CalculateAppointmentFeeCommand calculateAppointmentFeeCommand;
+    private final CreateTransactionForAppointmentCommand createTransactionForAppointmentCommand;
 
-    public CreateAppointmentCommand(UUIDGeneratorService uuidGeneratorService, CreateAppointmentRequestMapper createAppointmentRequestMapper, CalculateAppointmentFeeRequestMapper calculateAppointmentFeeRequestMapper, AppointmentRepository appointmentRepository, ProfileExistsAssertion profileExistsAssertion, CalculateAppointmentFeeCommand calculateAppointmentFeeCommand) {
+    public CreateAppointmentCommand(UUIDGeneratorService uuidGeneratorService, CreateAppointmentRequestMapper createAppointmentRequestMapper, CalculateAppointmentFeeRequestMapper calculateAppointmentFeeRequestMapper, AppointmentRepository appointmentRepository, ProfileExistsAssertion profileExistsAssertion, CalculateAppointmentFeeCommand calculateAppointmentFeeCommand, CreateTransactionForAppointmentCommand createTransactionForAppointmentCommand) {
         this.uuidGeneratorService = uuidGeneratorService;
         this.createAppointmentRequestMapper = createAppointmentRequestMapper;
         this.calculateAppointmentFeeRequestMapper = calculateAppointmentFeeRequestMapper;
         this.appointmentRepository = appointmentRepository;
         this.profileExistsAssertion = profileExistsAssertion;
         this.calculateAppointmentFeeCommand = calculateAppointmentFeeCommand;
+        this.createTransactionForAppointmentCommand = createTransactionForAppointmentCommand;
     }
 
     public Appointment run(CreateAppointmentRequest createAppointmentRequest) {
@@ -46,7 +49,9 @@ public class CreateAppointmentCommand {
         appointment.setStatus(PROPOSED);
         appointment.setFee(getAppointmentFee(appointment));
 
-        return appointmentRepository.save(appointment);
+        Appointment savedAppointment = appointmentRepository.save(appointment);
+        createTransactionForAppointmentCommand.run(savedAppointment.getId());
+        return savedAppointment;
     }
 
     private BigDecimal getAppointmentFee(Appointment appointment) {
