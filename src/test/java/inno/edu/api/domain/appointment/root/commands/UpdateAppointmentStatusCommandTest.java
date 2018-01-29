@@ -4,6 +4,7 @@ import inno.edu.api.domain.appointment.root.assertions.AppointmentExistsAssertio
 import inno.edu.api.domain.appointment.root.models.dtos.mappers.UpdateAppointmentStatusRequestMapper;
 import inno.edu.api.domain.appointment.root.queries.GetAppointmentByIdQuery;
 import inno.edu.api.domain.appointment.root.repositories.AppointmentRepository;
+import inno.edu.api.domain.user.transaction.commands.CreateTransactionForAppointmentCommand;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,6 +34,9 @@ public class UpdateAppointmentStatusCommandTest {
     @Mock
     private UpdateConflictingAppointmentsCommand updateConflictingAppointmentsCommand;
 
+    @Mock
+    private CreateTransactionForAppointmentCommand createTransactionForAppointmentCommand;
+
     @InjectMocks
     private UpdateAppointmentStatusCommand updateAppointmentStatusCommand;
 
@@ -53,6 +57,13 @@ public class UpdateAppointmentStatusCommandTest {
         updateAppointmentStatusCommand.run(appointment().getId(), updateAppointmentStatusRequest());
 
         verify(updateConflictingAppointmentsCommand).run(appointment());
+    }
+
+    @Test
+    public void shouldCallCommandToCreateTransaction() {
+        updateAppointmentStatusCommand.run(appointment().getId(), updateAppointmentStatusRequest());
+
+        verify(createTransactionForAppointmentCommand).run(appointment().getId());
     }
 
     @Test

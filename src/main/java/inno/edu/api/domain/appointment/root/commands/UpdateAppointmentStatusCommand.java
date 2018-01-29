@@ -6,6 +6,7 @@ import inno.edu.api.domain.appointment.root.models.dtos.mappers.UpdateAppointmen
 import inno.edu.api.domain.appointment.root.models.Appointment;
 import inno.edu.api.domain.appointment.root.queries.GetAppointmentByIdQuery;
 import inno.edu.api.domain.appointment.root.repositories.AppointmentRepository;
+import inno.edu.api.domain.user.transaction.commands.CreateTransactionForAppointmentCommand;
 import inno.edu.api.infrastructure.annotations.Command;
 
 import java.util.UUID;
@@ -19,13 +20,15 @@ public class UpdateAppointmentStatusCommand {
     private final AppointmentRepository appointmentRepository;
     private final UpdateAppointmentStatusRequestMapper updateAppointmentStatusRequestMapper;
     private final UpdateConflictingAppointmentsCommand updateConflictingAppointmentsCommand;
+    private final CreateTransactionForAppointmentCommand createTransactionForAppointmentCommand;
 
-    public UpdateAppointmentStatusCommand(AppointmentExistsAssertion appointmentExistsAssertion, GetAppointmentByIdQuery getAppointmentByIdQuery, AppointmentRepository appointmentRepository, UpdateAppointmentStatusRequestMapper updateAppointmentStatusRequestMapper, UpdateConflictingAppointmentsCommand updateConflictingAppointmentsCommand) {
+    public UpdateAppointmentStatusCommand(AppointmentExistsAssertion appointmentExistsAssertion, GetAppointmentByIdQuery getAppointmentByIdQuery, AppointmentRepository appointmentRepository, UpdateAppointmentStatusRequestMapper updateAppointmentStatusRequestMapper, UpdateConflictingAppointmentsCommand updateConflictingAppointmentsCommand, CreateTransactionForAppointmentCommand createTransactionForAppointmentCommand) {
         this.appointmentExistsAssertion = appointmentExistsAssertion;
         this.getAppointmentByIdQuery = getAppointmentByIdQuery;
         this.appointmentRepository = appointmentRepository;
         this.updateAppointmentStatusRequestMapper = updateAppointmentStatusRequestMapper;
         this.updateConflictingAppointmentsCommand = updateConflictingAppointmentsCommand;
+        this.createTransactionForAppointmentCommand = createTransactionForAppointmentCommand;
     }
 
     public void run(UUID id, UpdateAppointmentStatusRequest updateAppointmentStatusRequest) {
@@ -38,5 +41,7 @@ public class UpdateAppointmentStatusCommand {
         if (updateAppointmentStatusRequest.getStatus() == ACCEPTED) {
             updateConflictingAppointmentsCommand.run(appointment);
         }
+
+        createTransactionForAppointmentCommand.run(id);
     }
 }
