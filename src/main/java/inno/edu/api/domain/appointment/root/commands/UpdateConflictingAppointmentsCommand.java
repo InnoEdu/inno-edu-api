@@ -3,6 +3,7 @@ package inno.edu.api.domain.appointment.root.commands;
 import inno.edu.api.domain.appointment.root.models.Appointment;
 import inno.edu.api.domain.appointment.root.queries.GetAppointmentsByMentorProfileIdQuery;
 import inno.edu.api.domain.appointment.root.repositories.AppointmentRepository;
+import inno.edu.api.domain.user.transaction.commands.CreateTransactionForAppointmentCommand;
 import inno.edu.api.infrastructure.annotations.Command;
 
 import java.util.List;
@@ -18,10 +19,12 @@ import static java.util.stream.Collectors.toList;
 public class UpdateConflictingAppointmentsCommand {
     private final AppointmentRepository appointmentRepository;
     private final GetAppointmentsByMentorProfileIdQuery getAppointmentsByMentorProfileIdQuery;
+    private final CreateTransactionForAppointmentCommand createTransactionForAppointmentCommand;
 
-    public UpdateConflictingAppointmentsCommand(AppointmentRepository appointmentRepository, GetAppointmentsByMentorProfileIdQuery getAppointmentsByMentorProfileIdQuery) {
+    public UpdateConflictingAppointmentsCommand(AppointmentRepository appointmentRepository, GetAppointmentsByMentorProfileIdQuery getAppointmentsByMentorProfileIdQuery, CreateTransactionForAppointmentCommand createTransactionForAppointmentCommand) {
         this.appointmentRepository = appointmentRepository;
         this.getAppointmentsByMentorProfileIdQuery = getAppointmentsByMentorProfileIdQuery;
+        this.createTransactionForAppointmentCommand = createTransactionForAppointmentCommand;
     }
 
     public List<Appointment> run(Appointment driverAppointment) {
@@ -37,7 +40,13 @@ public class UpdateConflictingAppointmentsCommand {
 
         return stream(appointmentRepository
                 .save(otherAppointments))
+                .map(this::createTransactionForConflictingAppointment)
                 .collect(Collectors.toList());
+    }
+
+    private Appointment createTransactionForConflictingAppointment(Appointment appointment) {
+        createTransactionForAppointmentCommand.run(appointment.getId());
+        return appointment;
     }
 
     private Predicate<Appointment> isConflicting(Appointment driverAppointment) {

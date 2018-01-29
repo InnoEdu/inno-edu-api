@@ -4,6 +4,7 @@ import inno.edu.api.domain.appointment.root.models.Appointment;
 import inno.edu.api.domain.appointment.root.models.AppointmentStatus;
 import inno.edu.api.domain.appointment.root.queries.GetAppointmentsByMentorProfileIdQuery;
 import inno.edu.api.domain.appointment.root.repositories.AppointmentRepository;
+import inno.edu.api.domain.user.transaction.commands.CreateTransactionForAppointmentCommand;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +23,7 @@ import static java.util.UUID.fromString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.anyCollectionOf;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -31,6 +33,9 @@ public class UpdateConflictingAppointmentsCommandTest {
 
     @Mock
     private GetAppointmentsByMentorProfileIdQuery getAppointmentsByMentorProfileIdQuery;
+
+    @Mock
+    private CreateTransactionForAppointmentCommand createTransactionForAppointmentCommand;
 
     @InjectMocks
     private UpdateConflictingAppointmentsCommand updateConflictingAppointmentsCommand;
@@ -45,9 +50,16 @@ public class UpdateConflictingAppointmentsCommandTest {
     }
 
     @Test
-    public void shouldReturnOtherProposedAppointmentsForMentor() {
+    public void shouldReturnOtherProposedAppointments() {
         List<Appointment> appointments = updateConflictingAppointmentsCommand.run(appointment());
         assertThat(appointments, is(conflictedAppointments(UNAVAILABLE)));
+    }
+
+    @Test
+    public void shouldCreateTransactionsForOtherProposedAppointments() {
+        List<Appointment> appointments = updateConflictingAppointmentsCommand.run(appointment());
+
+        appointments.forEach((appointment -> verify(createTransactionForAppointmentCommand).run(appointment.getId())));
     }
 
     private List<Appointment> conflictedAppointments(AppointmentStatus status) {
