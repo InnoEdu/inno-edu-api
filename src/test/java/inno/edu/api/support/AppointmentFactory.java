@@ -40,6 +40,8 @@ public class AppointmentFactory {
                 .description("My great first appointment.")
                 .fee(new BigDecimal(10.5))
                 .status(PROPOSED)
+                .mentorProfile(feiProfile())
+                .menteeProfile(alanProfile())
                 .build();
     }
 
