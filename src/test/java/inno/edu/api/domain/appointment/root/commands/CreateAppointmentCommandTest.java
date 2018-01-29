@@ -1,5 +1,6 @@
 package inno.edu.api.domain.appointment.root.commands;
 
+import inno.edu.api.domain.appointment.root.assertions.MenteeHasFundsForAppointmentAssertion;
 import inno.edu.api.domain.appointment.root.models.Appointment;
 import inno.edu.api.domain.appointment.root.models.dtos.mappers.CalculateAppointmentFeeRequestMapper;
 import inno.edu.api.domain.appointment.root.models.dtos.mappers.CreateAppointmentRequestMapper;
@@ -14,11 +15,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static inno.edu.api.domain.appointment.root.models.AppointmentStatus.PROPOSED;
 import static inno.edu.api.support.AppointmentFactory.appointment;
 import static inno.edu.api.support.AppointmentFactory.calculateAppointmentFeeRequest;
 import static inno.edu.api.support.AppointmentFactory.createAppointmentRequest;
 import static inno.edu.api.support.AppointmentFactory.newAppointment;
+import static inno.edu.api.support.AppointmentFactory.newAppointmentWithFee;
 import static java.math.BigDecimal.TEN;
 import static java.util.UUID.randomUUID;
 import static org.hamcrest.CoreMatchers.is;
@@ -45,6 +46,9 @@ public class CreateAppointmentCommandTest {
     private ProfileExistsAssertion profileExistsAssertion;
 
     @Mock
+    private MenteeHasFundsForAppointmentAssertion menteeHasFundsForAppointmentAssertion;
+
+    @Mock
     private CalculateAppointmentFeeCommand calculateAppointmentFeeCommand;
 
     @Mock
@@ -58,17 +62,14 @@ public class CreateAppointmentCommandTest {
         when(uuidGeneratorService.generate()).thenReturn(randomUUID());
 
         when(createAppointmentRequestMapper.toAppointment(createAppointmentRequest()))
-                .thenReturn(newAppointment());
+                .thenReturn(newAppointment(randomUUID()));
 
         when(appointmentRepository.save(any(Appointment.class))).thenReturn(appointment());
     }
 
     @Test
     public void shouldSaveNewAppointment() {
-        Appointment newAppointmentWithoutFee = newAppointment().toBuilder()
-                .id(uuidGeneratorService.generate())
-                .status(PROPOSED)
-                .build();
+        Appointment newAppointmentWithoutFee = newAppointment(uuidGeneratorService.generate());
 
         when(calculateAppointmentFeeRequestMapper.toAppointmentFeeRequest(newAppointmentWithoutFee))
                 .thenReturn(calculateAppointmentFeeRequest());
@@ -76,7 +77,7 @@ public class CreateAppointmentCommandTest {
         when(calculateAppointmentFeeCommand.run(calculateAppointmentFeeRequest()))
                 .thenReturn(TEN);
 
-        Appointment newAppointment = newAppointmentWithoutFee.toBuilder().fee(TEN).build();
+        Appointment newAppointment = newAppointmentWithFee(uuidGeneratorService.generate());
         when(appointmentRepository.save(newAppointment)).thenReturn(newAppointment);
 
         Appointment savedAppointment = createAppointmentCommand.run(createAppointmentRequest());
@@ -96,5 +97,6 @@ public class CreateAppointmentCommandTest {
 
         verify(profileExistsAssertion).run(appointment().getMenteeProfileId());
         verify(profileExistsAssertion).run(appointment().getMentorProfileId());
+        verify(menteeHasFundsForAppointmentAssertion).run(newAppointment(uuidGeneratorService.generate()));
     }
 }

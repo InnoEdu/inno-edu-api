@@ -29,7 +29,7 @@ public class UserHasFundsForAppointmentAssertionTest {
     private ApplicationConfiguration applicationConfiguration;
 
     @InjectMocks
-    private UserHasFundsForAppointmentAssertion userHasFundsForAppointmentAssertion;
+    private MenteeHasFundsForAppointmentAssertion userHasFundsForAppointmentAssertion;
 
     @Test
     public void shouldIgnoreIfFeatureToggleIsDisabled() {

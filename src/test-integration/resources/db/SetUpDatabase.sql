@@ -143,4 +143,7 @@ VALUES ('0e9e40c0b44b438792a99d75d10e3d42', '52c048db062f42a6918de9aeea8d3a0d');
 -- Transactions
 
 INSERT INTO Transaction (id, user_id, appointment_id, value, type)
+VALUES ('7f875a5785394d5f882489eea2087474', '8d6153fc83e54b3a90acd081ff789cef', null, 100, 0);
+
+INSERT INTO Transaction (id, user_id, appointment_id, value, type)
 VALUES ('4591f32ee8154fe387045514e555db90', 'ba7c650519fd47c387a6c6af6e5322b7', 'f192270f2dad4bcd96c3c3765df77ce8', 10.5, 0);

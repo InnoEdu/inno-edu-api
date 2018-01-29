@@ -1,5 +1,6 @@
 package inno.edu.api.domain.appointment.root.commands;
 
+import inno.edu.api.domain.appointment.root.assertions.MenteeHasFundsForAppointmentAssertion;
 import inno.edu.api.domain.appointment.root.models.dtos.CalculateAppointmentFeeRequest;
 import inno.edu.api.domain.appointment.root.models.dtos.CreateAppointmentRequest;
 import inno.edu.api.domain.appointment.root.models.dtos.mappers.CalculateAppointmentFeeRequestMapper;
@@ -25,16 +26,18 @@ public class CreateAppointmentCommand {
     private final AppointmentRepository appointmentRepository;
 
     private final ProfileExistsAssertion profileExistsAssertion;
+    private final MenteeHasFundsForAppointmentAssertion menteeHasFundsForAppointmentAssertion;
 
     private final CalculateAppointmentFeeCommand calculateAppointmentFeeCommand;
     private final CreateTransactionForAppointmentCommand createTransactionForAppointmentCommand;
 
-    public CreateAppointmentCommand(UUIDGeneratorService uuidGeneratorService, CreateAppointmentRequestMapper createAppointmentRequestMapper, CalculateAppointmentFeeRequestMapper calculateAppointmentFeeRequestMapper, AppointmentRepository appointmentRepository, ProfileExistsAssertion profileExistsAssertion, CalculateAppointmentFeeCommand calculateAppointmentFeeCommand, CreateTransactionForAppointmentCommand createTransactionForAppointmentCommand) {
+    public CreateAppointmentCommand(UUIDGeneratorService uuidGeneratorService, CreateAppointmentRequestMapper createAppointmentRequestMapper, CalculateAppointmentFeeRequestMapper calculateAppointmentFeeRequestMapper, AppointmentRepository appointmentRepository, ProfileExistsAssertion profileExistsAssertion, MenteeHasFundsForAppointmentAssertion menteeHasFundsForAppointmentAssertion, CalculateAppointmentFeeCommand calculateAppointmentFeeCommand, CreateTransactionForAppointmentCommand createTransactionForAppointmentCommand) {
         this.uuidGeneratorService = uuidGeneratorService;
         this.createAppointmentRequestMapper = createAppointmentRequestMapper;
         this.calculateAppointmentFeeRequestMapper = calculateAppointmentFeeRequestMapper;
         this.appointmentRepository = appointmentRepository;
         this.profileExistsAssertion = profileExistsAssertion;
+        this.menteeHasFundsForAppointmentAssertion = menteeHasFundsForAppointmentAssertion;
         this.calculateAppointmentFeeCommand = calculateAppointmentFeeCommand;
         this.createTransactionForAppointmentCommand = createTransactionForAppointmentCommand;
     }
@@ -48,6 +51,8 @@ public class CreateAppointmentCommand {
         appointment.setId(uuidGeneratorService.generate());
         appointment.setStatus(PROPOSED);
         appointment.setFee(getAppointmentFee(appointment));
+
+        menteeHasFundsForAppointmentAssertion.run(appointment);
 
         Appointment savedAppointment = appointmentRepository.save(appointment);
         createTransactionForAppointmentCommand.run(savedAppointment.getId());

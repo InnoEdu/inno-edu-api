@@ -9,12 +9,12 @@ import inno.edu.api.infrastructure.configuration.properties.ApplicationConfigura
 import java.util.UUID;
 
 @Assertion
-public class UserHasFundsForAppointmentAssertion  {
+public class MenteeHasFundsForAppointmentAssertion {
     private final GetProfileByIdQuery getProfileByIdQuery;
     private final SufficientFundsAssertion sufficientFundsAssertion;
     private final ApplicationConfiguration applicationConfiguration;
 
-    public UserHasFundsForAppointmentAssertion(GetProfileByIdQuery getProfileByIdQuery, SufficientFundsAssertion sufficientFundsAssertion, ApplicationConfiguration applicationConfiguration) {
+    public MenteeHasFundsForAppointmentAssertion(GetProfileByIdQuery getProfileByIdQuery, SufficientFundsAssertion sufficientFundsAssertion, ApplicationConfiguration applicationConfiguration) {
         this.getProfileByIdQuery = getProfileByIdQuery;
         this.sufficientFundsAssertion = sufficientFundsAssertion;
         this.applicationConfiguration = applicationConfiguration;

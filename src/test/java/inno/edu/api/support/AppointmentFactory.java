@@ -25,6 +25,7 @@ import static inno.edu.api.support.ProfileFactory.alanProfile;
 import static inno.edu.api.support.ProfileFactory.feiProfile;
 import static inno.edu.api.support.UserFactory.alan;
 import static inno.edu.api.support.UserFactory.fei;
+import static java.math.BigDecimal.TEN;
 import static java.time.LocalDateTime.of;
 import static java.util.Collections.singletonList;
 import static java.util.UUID.fromString;
@@ -114,13 +115,21 @@ public class AppointmentFactory {
                 .build();
     }
 
-    public static Appointment newAppointment() {
+    public static Appointment newAppointment(UUID id) {
         return Appointment.builder()
+                .id(id)
                 .mentorProfileId(feiProfile().getId())
                 .menteeProfileId(alanProfile().getId())
                 .fromDateTime(of(2017, 11, 10, 10, 0, 1))
                 .toDateTime(of(2017, 11, 10, 11, 0, 1))
                 .description("My new appointment.")
+                .status(PROPOSED)
+                .build();
+    }
+
+    public static Appointment newAppointmentWithFee(UUID id) {
+        return newAppointment(id).toBuilder()
+                .fee(TEN)
                 .build();
     }
 
