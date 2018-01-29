@@ -8,7 +8,6 @@ import java.util.List;
 
 @Data
 public class SecurityConfiguration {
-
     private List<EndpointConfiguration> unsecured = new ArrayList<>();
 
     @Data

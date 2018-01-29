@@ -31,8 +31,7 @@ public class CalculateAppointmentFeeCommand {
 
         Profile mentorProfile = getProfileByIdQuery.run(request.getMentorProfileId());
 
-        BigDecimal minutes =
-                new BigDecimal(request.getFromDateTime().until(request.getToDateTime(), MINUTES));
+        BigDecimal minutes = new BigDecimal(request.getFromDateTime().until(request.getToDateTime(), MINUTES));
 
         BigDecimal divide = mentorProfile.getRate().divide(MINUTES_IN_HOUR, SCALE, CEILING);
         BigDecimal multiply = divide.multiply(minutes);

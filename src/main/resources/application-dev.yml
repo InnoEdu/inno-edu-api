@@ -14,6 +14,8 @@ endpoints:
   sensitive: false
 
 application:
+  features:
+    userBalanceValidation: true
   storage:
     mode: s3
     accessKey: AKIAJJ6UXMUOZ7LNG6BA
