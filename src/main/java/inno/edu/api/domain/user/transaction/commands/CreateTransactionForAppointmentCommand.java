@@ -10,8 +10,10 @@ import inno.edu.api.infrastructure.annotations.Command;
 
 import java.util.UUID;
 
+import static inno.edu.api.domain.appointment.root.models.AppointmentStatus.ACCEPTED;
 import static inno.edu.api.domain.appointment.root.models.AppointmentStatus.COMPLETED;
 import static inno.edu.api.domain.appointment.root.models.AppointmentStatus.PROPOSED;
+import static inno.edu.api.domain.appointment.root.models.AppointmentStatus.STARTED;
 import static inno.edu.api.domain.user.transaction.models.TransactionType.CREDIT;
 import static inno.edu.api.domain.user.transaction.models.TransactionType.DEBIT;
 
@@ -30,6 +32,10 @@ public class CreateTransactionForAppointmentCommand {
     public Transaction run(UUID appointmentId) {
         Appointment appointment = getAppointmentByIdQuery.run(appointmentId);
 
+        if (isStatusIgnored(appointment)) {
+            return null;
+        }
+
         TransactionType transactionType = appointment.getStatus() == PROPOSED
                 ? DEBIT
                 : CREDIT;
@@ -45,5 +51,9 @@ public class CreateTransactionForAppointmentCommand {
                 .build();
 
         return createTransactionCommand.run(userId, transactionRequest);
+    }
+
+    private boolean isStatusIgnored(Appointment appointment) {
+        return appointment.getStatus() == ACCEPTED || appointment.getStatus() == STARTED;
     }
 }
