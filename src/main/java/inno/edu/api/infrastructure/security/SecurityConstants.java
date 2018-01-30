@@ -7,4 +7,12 @@ public class SecurityConstants {
     public static final String HEADER_STRING = "Authorization";
     public static final String SCOPE_ACCESS = "scopes";
     public static final String AUTH_URL = "/api/auth/login";
+
+    public static final String EXPIRED_TOKEN_JSON = "[\n" +
+            "    {\n" +
+            "        \"logref\": \"error\",\n" +
+            "        \"message\": \"%s\",\n" +
+            "        \"links\": []\n" +
+            "    }\n" +
+            "]";
 }
