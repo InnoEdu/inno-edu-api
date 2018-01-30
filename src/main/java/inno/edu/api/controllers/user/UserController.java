@@ -32,11 +32,12 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
+import static inno.edu.api.infrastructure.configuration.StaticConstants.APPLICATION_HAL_JSON;
 import static org.springframework.http.ResponseEntity.noContent;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping(value = "/api/users", produces = "application/hal+json")
+@RequestMapping(value = "/api/users", produces = APPLICATION_HAL_JSON)
 public class UserController {
     private final GetUsersQuery getUsersQuery;
     private final GetProfileByUserIdQuery getProfileByUserIdQuery;
