@@ -1,4 +1,4 @@
-package inno.edu.api.controllers;
+package inno.edu.api.controllers.advice;
 
 import inno.edu.api.domain.skill.exceptions.SkillNotFoundException;
 import org.springframework.core.annotation.Order;
