@@ -26,10 +26,11 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
+import static inno.edu.api.infrastructure.configuration.StaticConstants.APPLICATION_HAL_JSON;
 import static org.springframework.http.ResponseEntity.noContent;
 
 @RestController
-@RequestMapping(value = "/api/skills", produces = "application/hal+json")
+@RequestMapping(value = "/api/skills", produces = APPLICATION_HAL_JSON)
 public class SkillController {
     private final ResourceBuilder resourceBuilder;
 

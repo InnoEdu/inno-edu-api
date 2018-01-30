@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static inno.edu.api.infrastructure.configuration.StaticConstants.APPLICATION_HAL_JSON;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping(value = "/api/auth", produces = "application/hal+json")
+@RequestMapping(value = "/api/auth", produces = APPLICATION_HAL_JSON)
 public class AuthenticationController {
     private final LoginCommand loginCommand;
 
