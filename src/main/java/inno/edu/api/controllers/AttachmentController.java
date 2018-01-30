@@ -27,10 +27,11 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
+import static inno.edu.api.infrastructure.configuration.StaticConstants.APPLICATION_HAL_JSON;
 import static org.springframework.http.ResponseEntity.noContent;
 
 @RestController
-@RequestMapping(value = "/api/attachments", produces = "application/hal+json")
+@RequestMapping(value = "/api/attachments", produces = APPLICATION_HAL_JSON)
 public class AttachmentController {
     private final ResourceBuilder resourceBuilder;
 

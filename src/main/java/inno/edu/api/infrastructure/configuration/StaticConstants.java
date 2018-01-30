@@ -5,4 +5,5 @@ public class StaticConstants {
     public static final String ERROR = "error";
     public static final String APPLICATION_JSON = "application/json";
     public static final String UTF8 = "application/json";
+    public static final String APPLICATION_HAL_JSON = "application/hal+json";
 }
