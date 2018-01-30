@@ -19,10 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+import static inno.edu.api.infrastructure.configuration.StaticConstants.APPLICATION_HAL_JSON;
 import static org.springframework.http.ResponseEntity.noContent;
 
 @RestController
-@RequestMapping(value = "/api/profiles", produces = "application/hal+json")
+@RequestMapping(value = "/api/profiles", produces = APPLICATION_HAL_JSON)
 public class ProfileSkillController {
     private final ResourceBuilder resourceBuilder;
     private final GetProfileSkillsByProfileIdQuery getProfileSkillsByProfileIdQuery;

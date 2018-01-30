@@ -22,10 +22,11 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.UUID;
 
+import static inno.edu.api.infrastructure.configuration.StaticConstants.APPLICATION_HAL_JSON;
 import static org.springframework.http.ResponseEntity.noContent;
 
 @RestController
-@RequestMapping(value = "/api/profiles", produces = "application/hal+json")
+@RequestMapping(value = "/api/profiles", produces = APPLICATION_HAL_JSON)
 public class ProfileAttachmentController {
     private final ResourceBuilder resourceBuilder;
     private final GetProfileAttachmentsByProfileIdQuery getProfileAttachmentsByProfileIdQuery;

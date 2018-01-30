@@ -25,10 +25,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.UUID;
 
+import static inno.edu.api.infrastructure.configuration.StaticConstants.APPLICATION_HAL_JSON;
 import static org.springframework.http.ResponseEntity.noContent;
 
 @RestController
-@RequestMapping(value = "/api/profiles", produces = "application/hal+json")
+@RequestMapping(value = "/api/profiles", produces = APPLICATION_HAL_JSON)
 public class AccomplishmentController {
     private final ResourceBuilder resourceBuilder;
 
