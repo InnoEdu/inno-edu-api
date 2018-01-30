@@ -5,6 +5,7 @@ import inno.edu.api.infrastructure.storage.exceptions.S3StorageException;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.hateoas.VndErrors;
 import org.springframework.hateoas.VndErrors.VndError;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -94,6 +95,13 @@ public class GlobalControllerExceptionHandler {
         }
 
         return new VndErrors("errors", errors);
+    }
+
+    @ResponseBody
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    @ResponseStatus(BAD_REQUEST)
+    VndErrors dataIntegrityViolationExceptionHandler(DataIntegrityViolationException ex) {
+        return new VndErrors("errors", ex.getMessage());
     }
 }
 
