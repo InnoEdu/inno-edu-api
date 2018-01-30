@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
+import static inno.edu.api.infrastructure.configuration.StaticConstants.APPLICATION_JSON;
+import static inno.edu.api.infrastructure.configuration.StaticConstants.UTF8;
 import static inno.edu.api.infrastructure.security.SecurityConstants.EXPIRED_TOKEN_JSON;
 import static inno.edu.api.infrastructure.security.SecurityConstants.HEADER_STRING;
 import static inno.edu.api.infrastructure.security.SecurityConstants.SCOPE_ACCESS;
@@ -48,13 +50,15 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             filterChain.doFilter(httpServletRequest, httpServletResponse);
         } catch (ExpiredJwtException expiredJwtException) {
-
-            httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            httpServletResponse.setContentType("application/json");
-            httpServletResponse.setCharacterEncoding("UTF-8");
-            httpServletResponse.getWriter().write(format(EXPIRED_TOKEN_JSON, expiredJwtException.getMessage()));
-
+            sendHttpError(expiredJwtException, httpServletResponse);
         }
+    }
+
+    private void sendHttpError(ExpiredJwtException expiredJwtException, HttpServletResponse httpServletResponse) throws IOException {
+        httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        httpServletResponse.setContentType(APPLICATION_JSON);
+        httpServletResponse.setCharacterEncoding(UTF8);
+        httpServletResponse.getWriter().write(format(EXPIRED_TOKEN_JSON, expiredJwtException.getMessage()));
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest httpServletRequest) {
