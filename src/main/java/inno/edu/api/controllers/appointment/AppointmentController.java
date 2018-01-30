@@ -40,10 +40,11 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
+import static inno.edu.api.infrastructure.configuration.StaticConstants.APPLICATION_HAL_JSON;
 import static org.springframework.http.ResponseEntity.noContent;
 
 @RestController
-@RequestMapping(value = "/api/appointments", produces = "application/hal+json")
+@RequestMapping(value = "/api/appointments", produces = APPLICATION_HAL_JSON)
 public class AppointmentController {
     private final ResourceBuilder resourceBuilder;
 
