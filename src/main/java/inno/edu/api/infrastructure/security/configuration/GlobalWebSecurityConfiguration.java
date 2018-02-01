@@ -16,7 +16,6 @@ public class GlobalWebSecurityConfiguration extends GlobalMethodSecurityConfigur
     protected MethodSecurityExpressionHandler createExpressionHandler() {
         DefaultMethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
         expressionHandler.setApplicationContext(applicationContext);
-
         return expressionHandler;
     }
 }
